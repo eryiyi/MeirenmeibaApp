@@ -48,9 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         res = getResources();
         fm = getSupportFragmentManager();
         initView();
-
         switchFragment(R.id.foot_liner_one);
-
     }
 
     private void initView() {
@@ -68,7 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         foot_three_text = (TextView) this.findViewById(R.id.foot_three_text);
         foot_four_text = (TextView) this.findViewById(R.id.foot_four_text);
     }
-
 
     public void switchFragment(int id) {
         fragmentTransaction = fm.beginTransaction();
