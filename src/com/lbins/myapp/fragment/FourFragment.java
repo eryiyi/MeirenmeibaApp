@@ -14,6 +14,7 @@ import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseFragment;
+import com.lbins.myapp.ui.MineFensiActivity;
 import com.lbins.myapp.ui.MinePackageActivity;
 import com.lbins.myapp.ui.SetActivity;
 import org.json.JSONObject;
@@ -146,6 +147,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
             case R.id.liner_profile_fensi:
             {
                 //粉丝
+                Intent intent = new Intent(getActivity(),   MineFensiActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_count:

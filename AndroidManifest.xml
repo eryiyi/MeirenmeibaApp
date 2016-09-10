@@ -85,6 +85,7 @@
         <activity android:name=".ui.BankCardDoneActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.BankCardCztxActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.BankCardsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineFensiActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
     </application>

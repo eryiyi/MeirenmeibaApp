@@ -9,21 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.ui.LoginActivity;
+import com.lbins.myapp.widget.ContentListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhl on 2016/7/1.
  */
-public class FirstFragment extends BaseFragment implements View.OnClickListener {
+public class FirstFragment extends BaseFragment implements View.OnClickListener,ContentListView.OnRefreshListener,ContentListView.OnLoadListener {
     private View view;
     private Resources res;
 
-    private TextView title;
-    private ImageView right_img;
-    private TextView back;
+    private TextView location;
+    private ImageView btn_scan;
+    private TextView keywords;
 
-
+    private ContentListView lstv;
+    private ItemIndexGoodsAdapter adapter;
+    List<String> listsgoods = new ArrayList<String>();
+    private View headerLine;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +46,20 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initView() {
-        title = (TextView) view.findViewById(R.id.title);
-        right_img = (ImageView) view.findViewById(R.id.right_img);
-        back = (TextView) view.findViewById(R.id.back);
-        back.setVisibility(View.GONE);
-        right_img.setOnClickListener(this);
-        right_img.setVisibility(View.VISIBLE);
-        title.setText("首页");
-
+        location = (TextView) view.findViewById(R.id.location);
+        btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
+        keywords = (TextView) view.findViewById(R.id.keywords);
+        lstv = (ContentListView) view.findViewById(R.id.lstv);
+//        headerLine =
+        listsgoods.add("");
+        listsgoods.add("");
+        listsgoods.add("");
+        listsgoods.add("");
+        listsgoods.add("");
+        listsgoods.add("");
+        listsgoods.add("");
+        adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
+        lstv.setAdapter(adapter);
     }
 
     @Override
@@ -59,5 +73,15 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
             }
                 break;
         }
+    }
+
+    @Override
+    public void onLoad() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:padding="15dp"
+              android:background="@drawable/btn_white_shape"
+              android:layout_width="match_parent"
+              android:layout_height="120dp">
+
+    <ImageView
+            android:id="@+id/cover"
+            android:scaleType="centerCrop"
+            android:src="@drawable/tuijian_one"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"/>
+
+    <TextView android:layout_width="wrap_content"
+             android:text="韩俊熙家泡菜"
+             android:layout_marginLeft="8dp"
+             android:layout_marginTop="8dp"
+             android:layout_toRightOf="@+id/cover"
+             android:textColor="@color/text_color"
+             android:textSize="16sp"
+             android:id="@+id/name"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              android:textColor="@color/index_two"
+              android:textSize="18sp"
+              android:text="$120.00"
+              android:layout_toRightOf="@+id/cover"
+              android:layout_marginLeft="8dp"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/money_one"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              android:textColor="@color/text_color_two"
+              android:textSize="16sp"
+              android:text="$140.00"
+              android:layout_toRightOf="@+id/money_one"
+              android:layout_marginLeft="8dp"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/money_two"
+              android:layout_height="wrap_content"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:textColor="@color/text_color_two"
+              android:textSize="16sp"
+              android:text="已售：1000"
+              android:layout_alignParentRight="true"
+              android:layout_marginLeft="8dp"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/sale_num"
+              android:layout_height="wrap_content"/>
+</RelativeLayout>

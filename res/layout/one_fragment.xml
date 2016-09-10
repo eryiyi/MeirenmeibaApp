@@ -4,10 +4,53 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <include
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content"
-            layout="@layout/top_liner"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/red"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:drawablePadding="5dp"
+                  android:textSize="16sp"
+                  android:gravity="center_vertical"
+                  android:padding="6dp"
+                  android:id="@+id/location"
+                  android:drawableLeft="@drawable/sm_location"
+                  android:text="美人美吧"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="40dp"/>
 
+        <EditText android:layout_width="match_parent"
+                  android:layout_toLeftOf="@+id/btn_scan"
+                  android:layout_marginTop="8dp"
+                  android:layout_toRightOf="@+id/location"
+                  android:singleLine="true"
+                  android:id="@+id/keywords"
+                  android:hint="搜索你喜欢的产品"
+                  android:paddingLeft="8dp"
+                  android:background="@drawable/et_bule_bg"
+                  android:textSize="15sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:drawableRight="@drawable/search_mine"
+                  android:paddingRight="12dp"
+                  android:textColor="@color/text_color_two"
+                  android:layout_height="match_parent"/>
+
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/scan_mine"
+                   android:padding="12dp"
+                   android:id="@+id/btn_scan"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <com.lbins.myapp.widget.ContentListView
+            android:id="@+id/lstv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </com.lbins.myapp.widget.ContentListView>
 </LinearLayout>
