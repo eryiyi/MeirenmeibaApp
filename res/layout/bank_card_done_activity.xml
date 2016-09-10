@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="0.1dp"></View>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="15dp"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:layout_height="50dp">
+
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="绑定"
+                  android:id="@+id/btn_one"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/red"
+                  android:layout_height="50dp"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="解绑"
+                  android:id="@+id/btn_two"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+    </LinearLayout>
+
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="0.1dp"></View>
+
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#000000"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"/>
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="0.1dp"></View>
+    <Button android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:onClick="sureBankCardAction"
+            android:text="确定"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_shape"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+    <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:padding="15dp"
+                          android:paddingTop="15dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/btn_white_shape"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="手机验证"
+                          android:textSize="18sp"
+                          android:layout_gravity="center"
+                          android:gravity="center|left"
+                          android:layout_weight="1"
+                          android:textColor="@color/text_color"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+           <TextView android:layout_width="wrap_content"
+                     android:text="绑定手机号需通过短信验证"
+                     android:padding="8dp"
+                     android:textColor="@color/text_color"
+                     android:textSize="14sp"
+                     android:layout_height="wrap_content"/>
+            <View android:layout_width="match_parent"
+                  android:background="@color/gray"
+                  android:layout_height="0.1dp"></View>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:padding="8dp"
+                          android:background="@color/white"
+                          android:layout_height="wrap_content">
+                <RelativeLayout android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="center_vertical"
+                                android:layout_height="50dp">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="手机号:"
+                              android:layout_centerVertical="true"
+                              android:id="@+id/mobile_msg"
+                              android:textSize="16sp"
+                              android:textColor="@color/text_color"
+                              android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="match_parent"
+                              android:hint="请输入手机号"
+                              android:textSize="15sp"
+                              android:singleLine="true"
+                              android:layout_marginRight="80dp"
+                              android:layout_marginLeft="8dp"
+                              android:id="@+id/mobile"
+                              android:numeric="integer"
+                              android:background="@null"
+                              android:layout_toRightOf="@+id/mobile_msg"
+                              android:layout_height="match_parent"/>
+                    <Button android:layout_width="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/white"
+                            android:padding="8dp"
+                            android:id="@+id/btn_card"
+                            android:textSize="14sp"
+                            android:layout_centerVertical="true"
+                            android:text="获取验证码"
+                            android:background="@drawable/btn_red_shape"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:layout_height="0.1dp"></View>
+                <LinearLayout android:layout_width="match_parent"
+                              android:gravity="center_vertical"
+                              android:layout_gravity="center_vertical"
+                              android:orientation="horizontal"
+                              android:layout_height="50dp">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="验证码:"
+                              android:layout_centerVertical="true"
+                              android:textSize="16sp"
+                              android:textColor="@color/text_color"
+                              android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="match_parent"
+                              android:hint="请输入短信验证码"
+                              android:layout_marginLeft="8dp"
+                              android:id="@+id/card"
+                              android:textSize="15sp"
+                              android:singleLine="true"
+                              android:numeric="integer"
+                              android:background="@null"
+                              android:layout_toRightOf="@+id/mobile_msg"
+                              android:layout_height="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                  android:background="@color/gray"
+                  android:layout_height="0.1dp"></View>
+            <Button android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="15dp"
+                    android:onClick="updateMobileAction"
+                    android:text="确  定"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="35dp"
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_red_shape"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </com.lbins.myapp.widget.ReboundScrollView>
+
+</LinearLayout>

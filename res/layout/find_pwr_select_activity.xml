@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:padding="8dp"
+                  android:background="@color/white"
+                  android:layout_marginTop="25dp"
+                  android:orientation="vertical"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_weight="1"
+                      android:padding="8dp"
+                      android:id="@+id/liner_door"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+
+            <TextView android:layout_width="match_parent"
+                      android:text="通过门店找回"
+                      android:drawableRight="@drawable/in"
+                      android:textSize="18sp"
+                      android:textColor="@color/text_color"
+                      android:gravity="center"
+                      android:layout_gravity="center"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent"
+              android:background="@color/gray"
+              android:layout_height="0.1dp"></View>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_weight="1"
+                      android:padding="8dp"
+                      android:id="@+id/liner_mobile"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+
+            <TextView android:layout_width="match_parent"
+                      android:text="通过手机号找回"
+                      android:drawableRight="@drawable/in"
+                      android:textSize="18sp"
+                      android:textColor="@color/text_color"
+                      android:gravity="center"
+                      android:layout_gravity="center"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+        </LinearLayout>
+</LinearLayout>
