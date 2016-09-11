@@ -20,10 +20,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshGridView;
 import com.lbins.myapp.library.PullToRefreshListView;
@@ -68,8 +71,9 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     //分类
     private IndexTypeAdapter adaptertype;
     ClassifyGridview gridv_one;//商品分类
-    private List<String> goodstypeList = new ArrayList<String>();
 
+    //商品分类
+    public static List<GoodsType> listGoodsType = new ArrayList<GoodsType>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,21 +90,17 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 
         //轮播广告
         initViewPager();
+
+        //查询商品分类
+        getGoodsType();
         return view;
     }
 
     //商城分类
     private void initViewType() {
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
-        goodstypeList.add("");
+
         gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
-        adaptertype = new IndexTypeAdapter(goodstypeList,getActivity());
+        adaptertype = new IndexTypeAdapter(listGoodsType, getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -372,5 +372,63 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
 
+    }
+
+    private void getGoodsType() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_GOODS_TYPE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                int code1 = jo.getInt("code");
+                                if (code1 == 200) {
+                                    GoodsTypeData data = getGson().fromJson(s, GoodsTypeData.class);
+                                    listGoodsType.clear();
+                                    listGoodsType.addAll(data.getData());
+                                    adaptertype.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 }

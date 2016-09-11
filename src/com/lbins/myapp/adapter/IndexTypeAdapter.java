@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.GoodsType;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -19,9 +21,8 @@ import java.util.List;
  */
 public class IndexTypeAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> goodstypes;
+    private List<GoodsType> goodstypes;
     private Context mContext;
-
 
     private OnClickContentItemListener onClickContentItemListener;
 
@@ -29,14 +30,12 @@ public class IndexTypeAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
 
-    public IndexTypeAdapter(List<String> goodstypes, Context mContext) {
+    public IndexTypeAdapter(List<GoodsType> goodstypes, Context mContext) {
         this.goodstypes = goodstypes;
         this.mContext = mContext;
-
     }
 
     @Override
@@ -65,10 +64,10 @@ public class IndexTypeAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final String cell = goodstypes.get(position);//获得元素
+        final GoodsType cell = goodstypes.get(position);//获得元素
         if (cell != null) {
-//            imageLoader.displayImage(cell.getTypeCover(), holder.goodstype_item_cover, UniversityApplication.txOptions, animateFirstListener);
-//            holder.goodstype_item_title.setText(cell.getTypeName());
+            imageLoader.displayImage(cell.getTypeCover(), holder.goodstype_item_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            holder.goodstype_item_title.setText(cell.getTypeName());
         }
         return convertView;
     }

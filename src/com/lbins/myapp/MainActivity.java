@@ -1,5 +1,6 @@
 package com.lbins.myapp;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +9,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.fragment.FirstFragment;
 import com.lbins.myapp.fragment.FourFragment;
 import com.lbins.myapp.fragment.SecondFragment;
 import com.lbins.myapp.fragment.ThreeFragment;
 import com.lbins.myapp.util.HttpUtils;
+import com.lbins.myapp.util.StringUtil;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     /**
@@ -23,8 +39,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
-    private FirstFragment oneFragment;
-    private SecondFragment twoFragment;
+    private SecondFragment oneFragment;
+    private FirstFragment twoFragment;
     private ThreeFragment threeFragment;
     private FourFragment fourFragment;
 
@@ -48,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         res = getResources();
         fm = getSupportFragmentManager();
         initView();
+
         switchFragment(R.id.foot_liner_one);
     }
 
@@ -73,13 +90,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (id) {
             case R.id.foot_liner_one:
                 if (oneFragment == null) {
-                    oneFragment = new FirstFragment();
+                    oneFragment = new SecondFragment();
                     fragmentTransaction.add(R.id.content_frame, oneFragment);
                 } else {
                     fragmentTransaction.show(oneFragment);
                 }
-                foot_one.setImageResource(R.drawable.main_home_p);
-                foot_two.setImageResource(R.drawable.main_good);
+                foot_one.setImageResource(R.drawable.main_good_p);
+                foot_two.setImageResource(R.drawable.main_home);
                 foot_three.setImageResource(R.drawable.main_near);
                 foot_four.setImageResource(R.drawable.main_mine);
 
@@ -91,13 +108,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.foot_liner_two:
                 if (twoFragment == null) {
-                    twoFragment = new SecondFragment();
+                    twoFragment = new FirstFragment();
                     fragmentTransaction.add(R.id.content_frame, twoFragment);
                 } else {
                     fragmentTransaction.show(twoFragment);
                 }
-                foot_one.setImageResource(R.drawable.main_home);
-                foot_two.setImageResource(R.drawable.main_good_p);
+                foot_one.setImageResource(R.drawable.main_good);
+                foot_two.setImageResource(R.drawable.main_home_p);
                 foot_three.setImageResource(R.drawable.main_near);
                 foot_four.setImageResource(R.drawable.main_mine);
 
@@ -113,8 +130,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(threeFragment);
                 }
-                foot_one.setImageResource(R.drawable.main_home);
-                foot_two.setImageResource(R.drawable.main_good);
+                foot_one.setImageResource(R.drawable.main_good);
+                foot_two.setImageResource(R.drawable.main_home);
                 foot_three.setImageResource(R.drawable.main_near_p);
                 foot_four.setImageResource(R.drawable.main_mine);
 
@@ -130,8 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(fourFragment);
                 }
-                foot_one.setImageResource(R.drawable.main_home);
-                foot_two.setImageResource(R.drawable.main_good);
+                foot_one.setImageResource(R.drawable.main_good);
+                foot_two.setImageResource(R.drawable.main_home);
                 foot_three.setImageResource(R.drawable.main_near);
                 foot_four.setImageResource(R.drawable.main_mine_p);
 
@@ -176,4 +193,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
         switchFragment(v.getId());
     }
+
 }
