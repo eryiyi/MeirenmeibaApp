@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:background="@drawable/btn_white_shape"
+              android:layout_width="match_parent"
+              android:layout_height="100dp">
+
+    <ImageView
+            android:id="@+id/cover"
+            android:scaleType="centerCrop"
+            android:src="@drawable/tuijian_one"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"/>
+
+    <TextView android:layout_width="wrap_content"
+             android:text="温暖女子养生会所"
+             android:layout_marginLeft="8dp"
+             android:layout_marginTop="8dp"
+             android:layout_toRightOf="@+id/cover"
+             android:textColor="@color/text_color"
+             android:textSize="16sp"
+             android:id="@+id/name"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+               android:src="@drawable/icon_meiba"
+               android:id="@+id/icon_type"
+               android:text="美吧"
+               android:paddingRight="3dp"
+               android:paddingLeft="3dp"
+               android:paddingTop="1dp"
+               android:paddingBottom="1dp"
+               android:textColor="@color/red"
+               android:textSize="10sp"
+               android:background="@drawable/img_red_icon"
+               android:layout_marginTop="12dp"
+               android:layout_alignParentRight="true"
+               android:layout_height="wrap_content"/>
+
+    <ImageView android:layout_width="wrap_content"
+               android:src="@drawable/star_five"
+               android:id="@+id/icon_star"
+               android:layout_below="@+id/name"
+               android:layout_toRightOf="@+id/cover"
+               android:layout_marginLeft="8dp"
+               android:layout_marginTop="5dp"
+               android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              android:id="@+id/txt_count"
+              android:layout_toRightOf="@+id/icon_star"
+              android:layout_below="@+id/name"
+              android:layout_marginTop="5dp"
+              android:layout_marginLeft="5dp"
+              android:text="4.9分"
+              android:textSize="12sp"
+              android:textColor="@color/red"
+              android:layout_height="wrap_content"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:textColor="@color/text_color"
+              android:textSize="14sp"
+              android:text="养生"
+              android:singleLine="true"
+              android:layout_toRightOf="@+id/cover"
+              android:layout_marginLeft="8dp"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/typename"
+              android:layout_height="wrap_content"/>
+
+
+    <TextView android:layout_width="wrap_content"
+              android:textColor="@color/text_color_two"
+              android:textSize="13sp"
+              android:text="3.5Km"
+              android:layout_alignParentRight="true"
+              android:layout_marginLeft="8dp"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/distance_km"
+              android:layout_height="wrap_content"/>
+</RelativeLayout>

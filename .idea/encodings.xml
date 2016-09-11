@@ -40,6 +40,8 @@
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_progress_bar.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/et_bule_bg.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/et_bule_radio_bg.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/img_red_icon.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/pull_to_refresh_arrow.png" charset="UTF-8" />
@@ -66,6 +68,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBankCardAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemFensiAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemTuijianDianpusAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/OnClickContentItemListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/ActivityTack.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/BaseActivity.java" charset="UTF-8" />

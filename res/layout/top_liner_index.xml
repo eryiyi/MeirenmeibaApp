@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/red"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:maxWidth="80dp"
+                  android:drawablePadding="5dp"
+                  android:textSize="13sp"
+                  android:gravity="center_vertical"
+                  android:padding="6dp"
+                  android:singleLine="true"
+                  android:id="@+id/location"
+                  android:drawableLeft="@drawable/sm_location"
+                  android:text="郑州"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="40dp"/>
+
+        <EditText android:layout_width="match_parent"
+                  android:layout_toLeftOf="@+id/btn_scan"
+                  android:layout_marginTop="8dp"
+                  android:layout_toRightOf="@+id/location"
+                  android:singleLine="true"
+                  android:id="@+id/keywords"
+                  android:hint="搜索你喜欢的产品"
+                  android:paddingLeft="8dp"
+                  android:background="@drawable/et_bule_radio_bg"
+                  android:textSize="15sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:drawableRight="@drawable/search_mine"
+                  android:paddingRight="12dp"
+                  android:textColor="@color/text_color_two"
+                  android:layout_height="match_parent"/>
+
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/scan_mine"
+                   android:padding="12dp"
+                   android:id="@+id/btn_scan"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/red"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:drawablePadding="5dp"
+                  android:textSize="16sp"
+                  android:gravity="center_vertical"
+                  android:padding="6dp"
+                  android:id="@+id/back"
+                  android:drawableLeft="@drawable/back_white"
+                  android:text="@string/back"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="40dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="标题"
+                  android:layout_marginLeft="80dp"
+                  android:layout_marginRight="60dp"
+                  android:singleLine="true"
+                  android:id="@+id/title"
+                  android:textSize="18sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/white"
+                  android:layout_height="wrap_content"/>
+
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/top_star"
+                   android:id="@+id/btn_favour"
+                   android:padding="12dp"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"/>
+
+        <ImageView android:layout_width="wrap_content"
+                   android:id="@+id/btn_share"
+                   android:padding="12dp"
+                   android:layout_centerVertical="true"
+                   android:layout_toLeftOf="@+id/btn_favour"
+                   android:src="@drawable/top_share"
+                   android:textColor="@color/white"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ad"
+                    android:layout_height="150dp">
+                <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                </android.support.v4.view.ViewPager>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp">
+                    <LinearLayout
+                            android:id="@+id/viewGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:orientation="horizontal"
+                            android:paddingBottom="1dp"
+                            android:paddingTop="1dp">
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+            <TextView android:layout_width="match_parent"
+                      android:text="到点抽奖可赢扫地机器人"
+                      android:textSize="14sp"
+                      android:id="@+id/title_one"
+                      android:drawablePadding="8dp"
+                      android:layout_marginLeft="8dp"
+                      android:drawableLeft="@drawable/sm_gift"
+                      android:textColor="@color/text_color"
+                      android:padding="8dp"
+                      android:layout_height="wrap_content"/>
+            <View android:layout_width="match_parent"
+                  android:background="@color/gray"
+                  android:layout_marginLeft="15dp"
+                  android:layout_marginRight="15dp"
+                  android:layout_height="0.1dp"></View>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:padding="8dp"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="随时退"
+                              android:id="@+id/btn_sst"
+                              android:drawablePadding="8dp"
+                              android:layout_marginLeft="8dp"
+                              android:textColor="@color/text_color"
+                              android:drawableLeft="@drawable/sm_correct_red"
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text="过期退"
+                              android:id="@+id/btn_gqt"
+                              android:drawablePadding="8dp"
+                              android:layout_marginLeft="8dp"
+                              android:textColor="@color/text_color"
+                              android:drawableLeft="@drawable/sm_correct_red"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content"
+                          android:drawableLeft="@drawable/sm_correct_gray"
+                          android:text="已售618"
+                          android:id="@+id/sale_num"
+                          android:layout_marginRight="8dp"
+                          android:padding="8dp"
+                          android:drawablePadding="8dp"
+                          android:textColor="@color/text_color"
+                          android:layout_alignParentRight="true"
+                          android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_marginTop="8dp"
+                  android:layout_height="0.1dp"></View>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:padding="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/white"
+                            android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="好评度"
+                          android:id="@+id/txt_one"
+                          android:layout_marginLeft="8dp"
+                          android:textSize="14sp"
+                          android:textColor="@color/text_color"
+                          android:drawableLeft="@drawable/sm_good"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:text="100%"
+                          android:id="@+id/rate_comment"
+                          android:textColor="@color/red"
+                          android:textSize="14sp"
+                          android:layout_toRightOf="@+id/txt_one"
+                          android:layout_marginLeft="3dp"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:text="共3个消费评价"
+                          android:textColor="@color/text_color_two"
+                          android:textSize="14sp"
+                          android:id="@+id/comment_count"
+                          android:drawablePadding="8dp"
+                          android:drawableRight="@drawable/in"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="8dp"
+                          android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+            <View android:layout_width="match_parent"
+                  android:layout_marginTop="8dp"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:padding="15dp"
+                            android:background="@color/white"
+                            android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="商户信息"
+                          android:id="@+id/txt_two"
+                          android:textSize="16sp"
+                          android:textColor="@color/text_color"
+                          android:layout_height="wrap_content"/>
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:id="@+id/liner_one"
+                      android:layout_marginTop="8dp"
+                      android:layout_marginBottom="12dp"
+                      android:layout_below="@+id/txt_two"
+                      android:layout_height="0.1dp"></View>
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_below="@+id/liner_one"
+                                android:id="@+id/relate_one"
+                                android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="温暖如初女子养生会所"
+                              android:textColor="@color/text_color"
+                              android:textSize="16sp"
+                              android:id="@+id/dp_title"
+                              android:layout_height="wrap_content"/>
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_below="@+id/dp_title"
+                               android:id="@+id/dp_star"
+                               android:layout_marginTop="5dp"
+                               android:layout_marginLeft="3dp"
+                               android:src="@drawable/star_five"
+                               android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text="4.9分"
+                              android:layout_below="@+id/dp_title"
+                              android:layout_marginTop="3dp"
+                              android:layout_marginLeft="3dp"
+                              android:layout_toRightOf="@+id/dp_star"
+                              android:id="@+id/dp_count"
+                              android:textSize="13sp"
+                              android:textColor="@color/red"
+                              android:layout_height="wrap_content"/>
+                    <ImageView android:layout_width="wrap_content"
+                               android:src="@drawable/sm_phone"
+                               android:padding="12dp"
+                               android:id="@+id/dp_tel"
+                               android:layout_alignParentRight="true"
+                               android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text="离你距离：60KM"
+                              android:textSize="12sp"
+                              android:id="@+id/dp_distance"
+                              android:layout_marginTop="5dp"
+                              android:layout_below="@+id/dp_title"
+                              android:layout_toLeftOf="@+id/dp_tel"
+                              android:textColor="@color/text_color"
+                              android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:id="@+id/liner_two"
+                      android:layout_marginTop="8dp"
+                      android:layout_below="@+id/relate_one"
+                      android:layout_height="0.1dp"></View>
+                <TextView android:layout_width="match_parent"
+                          android:id="@+id/dp_address"
+                          android:text="郑州东路"
+                          android:layout_marginTop="8dp"
+                          android:layout_below="@+id/liner_two"
+                          android:textColor="@color/text_color"
+                          android:textSize="14sp"
+                          android:drawableRight="@drawable/in"
+                          android:drawablePadding="8dp"
+                          android:drawableLeft="@drawable/location_red_mine"
+                          android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+            <View android:layout_width="match_parent"
+                  android:layout_marginTop="8dp"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+            <LinearLayout android:layout_width="match_parent"
+                          android:background="@color/white"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <RelativeLayout android:layout_width="match_parent"
+                                android:padding="12dp"
+                                android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="@color/text_color"
+                              android:textSize="14sp"
+                              android:text="美购（6）"
+                              android:id="@+id/meigou_num"
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text="更多"
+                              android:id="@+id/btn_more"
+                              android:textSize="14sp"
+                              android:textColor="@color/red"
+                              android:layout_alignParentRight="true"
+                              android:layout_height="wrap_content"/>
+                </RelativeLayout>
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:layout_marginTop="3dp"
+                      android:layout_marginBottom="3dp"
+                      android:layout_height="0.1dp"></View>
+                <com.lbins.myapp.widget.ClassifyGridview
+                        android:id="@+id/gridv_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:horizontalSpacing="0dip"
+                        android:numColumns="1"
+                        android:verticalSpacing="0dip"
+                       />
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_marginTop="8dp"
+                  android:layout_height="0.1dp"></View>
+            <LinearLayout android:layout_width="match_parent"
+                          android:background="@color/white"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <RelativeLayout android:layout_width="match_parent"
+                                android:padding="12dp"
+                                android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="@color/text_color"
+                              android:textSize="14sp"
+                              android:text="更多商家"
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text="推广"
+                              android:textSize="14sp"
+                              android:textColor="@color/text_color"
+                              android:layout_alignParentRight="true"
+                              android:layout_height="wrap_content"/>
+                </RelativeLayout>
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:layout_marginTop="3dp"
+                      android:layout_marginBottom="3dp"
+                      android:layout_height="0.1dp"></View>
+                <com.lbins.myapp.widget.ClassifyGridview
+                        android:id="@+id/gridv_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:horizontalSpacing="0dip"
+                        android:numColumns="1"
+                        android:verticalSpacing="0dip"
+                       />
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                  android:background="@color/red"
+                  android:layout_height="0.1dp"></View>
+
+        </LinearLayout>
+    </com.lbins.myapp.widget.ReboundScrollView>
+
+
+</LinearLayout>

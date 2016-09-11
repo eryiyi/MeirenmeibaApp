@@ -5,15 +5,23 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include
+            android:id="@+id/home_item_photo"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
-            layout="@layout/top_liner"/>
+            layout="@layout/top_liner_index"/>
 
-    <View android:layout_width="match_parent"
-          android:layout_marginTop="15dp"
-          android:background="@color/gray"
-          android:layout_height="0.1dp"></View>
-
-
+    <com.lbins.myapp.library.PullToRefreshListView
+            android:id="@+id/lstv"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/main_bg"
+            android:dividerHeight="1.5dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </com.lbins.myapp.library.PullToRefreshListView>>
 </LinearLayout>

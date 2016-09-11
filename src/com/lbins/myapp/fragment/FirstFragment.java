@@ -70,14 +70,6 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     ClassifyGridview gridv_one;//商品分类
     private List<String> goodstypeList = new ArrayList<String>();
 
-    //广告二
-    private AdOneAdapter adapterAdTwo;
-    ClassifyGridview gridv_two;
-    private List<String> listsAdsTwo = new ArrayList<String>();
-    //广告三
-    private AdOneAdapter adapterAdThree;
-    ClassifyGridview gridv_three;
-    private List<String> listsAdsThree = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,49 +83,12 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         initView();
         //商城分类
         initViewType();
-        //广告一
-        initViewAdOne();
-        //广告二
-        initViewAdTwo();
+
         //轮播广告
         initViewPager();
         return view;
     }
 
-    //广告一
-    private void initViewAdOne() {
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
-        gridv_two = (ClassifyGridview) headLiner.findViewById(R.id.gridv_two);
-        adapterAdTwo = new AdOneAdapter(listsAdsTwo,getActivity());
-        gridv_two.setAdapter(adapterAdTwo);
-        gridv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        });
-        gridv_two.setSelector(new ColorDrawable(Color.TRANSPARENT));
-    }
-    //广告二
-    private void initViewAdTwo() {
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        gridv_three = (ClassifyGridview) headLiner.findViewById(R.id.gridv_three);
-        adapterAdThree = new AdOneAdapter(listsAdsThree,getActivity());
-        gridv_three.setAdapter(adapterAdThree);
-        gridv_three.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        });
-        gridv_three.setSelector(new ColorDrawable(Color.TRANSPARENT));
-    }
     //商城分类
     private void initViewType() {
         goodstypeList.add("");
