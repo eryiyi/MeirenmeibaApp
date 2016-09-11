@@ -78,10 +78,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(oneFragment);
                 }
-                foot_one.setImageResource(R.drawable.foot_index);
-                foot_two.setImageResource(R.drawable.foot_goods);
-                foot_three.setImageResource(R.drawable.foot_nearby);
-                foot_four.setImageResource(R.drawable.foot_profile);
+                foot_one.setImageResource(R.drawable.main_home_p);
+                foot_two.setImageResource(R.drawable.main_good);
+                foot_three.setImageResource(R.drawable.main_near);
+                foot_four.setImageResource(R.drawable.main_mine);
 
                 foot_one_text.setTextColor(res.getColor(R.color.red));
                 foot_two_text.setTextColor(res.getColor(R.color.text_color));
@@ -96,10 +96,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(twoFragment);
                 }
-                foot_one.setImageResource(R.drawable.foot_index);
-                foot_two.setImageResource(R.drawable.foot_goods);
-                foot_three.setImageResource(R.drawable.foot_nearby);
-                foot_four.setImageResource(R.drawable.foot_profile);
+                foot_one.setImageResource(R.drawable.main_home);
+                foot_two.setImageResource(R.drawable.main_good_p);
+                foot_three.setImageResource(R.drawable.main_near);
+                foot_four.setImageResource(R.drawable.main_mine);
 
                 foot_one_text.setTextColor(res.getColor(R.color.text_color));
                 foot_two_text.setTextColor(res.getColor(R.color.red));
@@ -113,10 +113,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(threeFragment);
                 }
-                foot_one.setImageResource(R.drawable.foot_index);
-                foot_two.setImageResource(R.drawable.foot_goods);
-                foot_three.setImageResource(R.drawable.foot_nearby);
-                foot_four.setImageResource(R.drawable.foot_profile);
+                foot_one.setImageResource(R.drawable.main_home);
+                foot_two.setImageResource(R.drawable.main_good);
+                foot_three.setImageResource(R.drawable.main_near_p);
+                foot_four.setImageResource(R.drawable.main_mine);
 
                 foot_one_text.setTextColor(res.getColor(R.color.text_color));
                 foot_two_text.setTextColor(res.getColor(R.color.text_color));
@@ -130,10 +130,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     fragmentTransaction.show(fourFragment);
                 }
-                foot_one.setImageResource(R.drawable.foot_index);
-                foot_two.setImageResource(R.drawable.foot_goods);
-                foot_three.setImageResource(R.drawable.foot_nearby);
-                foot_four.setImageResource(R.drawable.foot_profile);
+                foot_one.setImageResource(R.drawable.main_home);
+                foot_two.setImageResource(R.drawable.main_good);
+                foot_three.setImageResource(R.drawable.main_near);
+                foot_four.setImageResource(R.drawable.main_mine_p);
 
                 foot_one_text.setTextColor(res.getColor(R.color.text_color));
                 foot_two_text.setTextColor(res.getColor(R.color.text_color));
