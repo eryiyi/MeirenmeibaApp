@@ -16,9 +16,9 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/5/27.
- * 推荐下方的推荐商品套餐
+ * 首页下方的推荐商品套餐
  */
-public class ItemIndexGoodsAdapter extends BaseAdapter {
+public class ItemIndexGoodsGridviewAdapter extends BaseAdapter {
     private ViewHolder holder;
     private List<String> lists;
     private Context mContect;
@@ -34,7 +34,7 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
     }
 
 
-    public ItemIndexGoodsAdapter(List<String> lists, Context mContect) {
+    public ItemIndexGoodsGridviewAdapter(List<String> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -59,12 +59,11 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
         res = mContect.getResources();
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_index_goods, null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_index_gridv_goods, null);
             holder.cover = (ImageView) convertView.findViewById(R.id.cover);
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.money_one = (TextView) convertView.findViewById(R.id.money_one);
-            holder.money_two = (TextView) convertView.findViewById(R.id.money_two);
-            holder.sale_num = (TextView) convertView.findViewById(R.id.sale_num);
+            holder.icon_baoyou = (TextView) convertView.findViewById(R.id.icon_baoyou);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -80,7 +79,6 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
         ImageView cover;
         TextView name;
         TextView money_one;
-        TextView money_two;
-        TextView sale_num;
+        TextView icon_baoyou;
     }
 }

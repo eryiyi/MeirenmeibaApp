@@ -25,6 +25,7 @@ import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.library.PullToRefreshBase;
+import com.lbins.myapp.library.PullToRefreshGridView;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.StringUtil;
@@ -49,13 +50,12 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     private ImageView btn_scan;
     private TextView keywords;
 
-    private PullToRefreshListView lstv;
-    private ItemIndexGoodsAdapter adapter;
+    private ClassifyGridview lstv;
+    private ItemIndexGoodsGridviewAdapter adapter;
     List<String> listsgoods = new ArrayList<String>();
-    private int pageIndex = 1;
-    private static boolean IS_REFRESH = true;
+//    private int pageIndex = 1;
+//    private static boolean IS_REFRESH = true;
 
-    private LinearLayout headLiner;
     //轮播广告
     private ViewPager viewpager;
     private AdViewPagerAdapter adapterAd;
@@ -99,7 +99,7 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         goodstypeList.add("");
         goodstypeList.add("");
         goodstypeList.add("");
-        gridv_one = (ClassifyGridview) headLiner.findViewById(R.id.gridv_one);
+        gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
         adaptertype = new IndexTypeAdapter(goodstypeList,getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,8 +114,9 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         location = (TextView) view.findViewById(R.id.location);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
-        lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
-        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.one_header, null);
+        lstv = (ClassifyGridview) view.findViewById(R.id.lstv);
+        listsgoods.add("");
+        listsgoods.add("");
         listsgoods.add("");
         listsgoods.add("");
         listsgoods.add("");
@@ -128,36 +129,11 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         listsAd.add("");
         listsAd.add("");
         listsAd.add("");
-        adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
-
-        ListView listView = lstv.getRefreshableView();
-        listView.addHeaderView(headLiner);
-        lstv.setMode(PullToRefreshBase.Mode.BOTH);
+        listsAd.add("");
+        listsAd.add("");
+        adapter = new ItemIndexGoodsGridviewAdapter(listsgoods, getActivity());
+        lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
         lstv.setAdapter(adapter);
-        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = true;
-                pageIndex = 1;
-//                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
-                    initData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = false;
-                pageIndex++;
-                    initData();
-            }
-        });
 
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -175,7 +151,6 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 
 
     void initData() {
-        lstv.onRefreshComplete();
 //        StringRequest request = new StringRequest(
 //                Request.Method.POST,
 //                InternetURL.GET_RECORD_LIST_URL,
@@ -275,7 +250,7 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         adapterAd = new AdViewPagerAdapter(getActivity());
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
-        viewpager = (ViewPager) headLiner.findViewById(R.id.viewpager);
+        viewpager = (ViewPager) view.findViewById(R.id.viewpager);
         viewpager.setAdapter(adapterAd);
         viewpager.setOnPageChangeListener(myOnPageChangeListener);
         initDot();
@@ -295,7 +270,7 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 
     // 初始化dot视图
     private void initDot() {
-        viewGroup = (LinearLayout) headLiner.findViewById(R.id.viewGroup);
+        viewGroup = (LinearLayout) view.findViewById(R.id.viewGroup);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 20, 20);

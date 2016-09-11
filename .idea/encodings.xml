@@ -45,7 +45,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/pull_to_refresh_arrow.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/zhuye_item_select.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/custom_progress_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />
@@ -68,6 +67,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBankCardAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemFensiAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsGridviewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemTuijianDianpusAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/OnClickContentItemListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/ActivityTack.java" charset="UTF-8" />

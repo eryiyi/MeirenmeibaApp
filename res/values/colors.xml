@@ -20,6 +20,7 @@
     <color name="red_p">#f45656</color>
     <color name="blue">#2ea7e0</color>
     <color name="light_gray">#FFA0A0A0</color>
-    <color name="red">#fd9393</color>
+    <color name="red">#ff99cb</color>
+    <color name="red_one">#ff99cb</color>
 
 </resources>
