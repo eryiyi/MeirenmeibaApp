@@ -22,6 +22,7 @@ import com.lbins.myapp.fragment.FirstFragment;
 import com.lbins.myapp.fragment.FourFragment;
 import com.lbins.myapp.fragment.SecondFragment;
 import com.lbins.myapp.fragment.ThreeFragment;
+import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONObject;
@@ -32,10 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
-    /**
-     * Called when the activity is first created.
-     */
-
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
@@ -191,7 +188,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        switchFragment(v.getId());
+        if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+            //未登录
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            switchFragment(v.getId());
+        }
     }
 
 }

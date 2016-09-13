@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/libs/MobCommons.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libsmssdk.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
@@ -29,6 +33,9 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_5.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_6.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_7.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_one.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_three.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_two.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_press_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_shape.xml" charset="UTF-8" />
@@ -45,6 +52,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/pull_to_refresh_arrow.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/activity_viewpage.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/custom_progress_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />
@@ -54,12 +62,14 @@
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/viewpage_itemview.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/colors.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/dimens.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/ids.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/pull_refresh_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/styles.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdOneAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AnimateFirstDisplayListener.java" charset="UTF-8" />
@@ -90,6 +100,8 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/RotateLoadingLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/Utils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/ViewCompat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/receiver/SMSBroadcastReceiver.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/AboutActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/CommonUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/MultiPartRequest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/MultiPartStack.java" charset="UTF-8" />
@@ -110,5 +122,6 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/NoScrollGridView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/PictureGridview.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ReboundScrollView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ViewPageItemView.java" charset="UTF-8" />
   </component>
 </project>

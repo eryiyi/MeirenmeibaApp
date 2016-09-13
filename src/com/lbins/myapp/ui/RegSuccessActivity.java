@@ -11,11 +11,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONException;
@@ -26,27 +24,28 @@ import java.util.Map;
 
 /**
  * Created by zhl on 2016/8/30.
+ * 注册成功
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class RegSuccessActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
-    private EditText mobile;
-    private EditText pwr;
+    private TextView zhanghao;//成功账号
+    private EditText pwr_one;
+    private EditText pwr_two;
+    private Member member;//用户 注册的新用户
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
-
+        setContentView(R.layout.reg_success_activity);
+        member = (Member) getIntent().getExtras().get("member");
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("登录");
-        mobile = (EditText) this.findViewById(R.id.mobile);
-        pwr = (EditText) this.findViewById(R.id.pwr);
-
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
-                !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))){
-            mobile.setText(getGson().fromJson(getSp().getString("empMobile", ""), String.class));
-            pwr.setText(getGson().fromJson(getSp().getString("empPass", ""), String.class));
+        title.setText("注册");
+        zhanghao = (TextView) this.findViewById(R.id.zhanghao);
+        pwr_one = (EditText) this.findViewById(R.id.pwr_one);
+        pwr_two = (EditText) this.findViewById(R.id.pwr_two);
+        if(member != null){
+            zhanghao.setText(member.getEmp_number());
         }
     }
 
@@ -56,32 +55,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.back:
                 finish();
                 break;
-
         }
     }
-    public void regAction(View view){
-        Intent intent = new Intent(LoginActivity.this, RegOneActivity.class);
-        startActivity(intent);
-    }
 
-    public void loginAction(View view){
-        //登录
-        if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入手机号");
+    public void pwrAction(View view){
+        if(StringUtil.isNullOrEmpty(pwr_one.getText().toString())){
+            showMsg(RegSuccessActivity.this, "请输入6到18位密码");
             return;
         }
-        if(StringUtil.isNullOrEmpty(pwr.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入密码");
+        if(pwr_one.getText().toString().length() > 18 || pwr_one.getText().toString().length() < 6){
+            showMsg(RegSuccessActivity.this, "请输入6到18位密码");
+            return;
+        }
+        if(StringUtil.isNullOrEmpty(pwr_two.getText().toString())){
+            showMsg(RegSuccessActivity.this, "请输入确认密码");
+            return;
+        }
+        if(!pwr_one.getText().toString().equals(pwr_two.getText().toString())){
+            showMsg(RegSuccessActivity.this, "两次输入密码不一致");
             return;
         }
 
-        login();
+        updatePwr();
     }
 
-    private void login() {
+    private void updatePwr() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.LOGIN__URL,
+                InternetURL.UPDATE_PWR__URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -90,19 +91,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
-                                    MemberData data = getGson().fromJson(s, MemberData.class);
-                                    Member member = data.getData();
-                                    saveMember(member);
-
+                                    Intent intent = new Intent(RegSuccessActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }else {
-                                    showMsg(LoginActivity.this, jo.getString("message"));
+                                    showMsg(RegSuccessActivity.this, jo.getString("message"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
                         } else {
-                            Toast.makeText(LoginActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegSuccessActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
                         }
                         if(progressDialog != null){
                             progressDialog.dismiss();
@@ -115,15 +115,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if(progressDialog != null){
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(LoginActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegSuccessActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", mobile.getText().toString());
-                params.put("password", pwr.getText().toString());
+                params.put("empId", member.getEmpId());
+                params.put("rePass",pwr_one.getText().toString());
                 return params;
             }
 
@@ -136,33 +136,4 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         getRequestQueue().add(request);
     }
-
-    public void saveMember(Member member){
-        save("empId", member.getEmpId());
-        save("emp_number", member.getEmp_number());
-        save("empMobile", member.getEmpMobile());
-        save("empPass", pwr.getText().toString());
-        save("empName", member.getEmpName());
-        save("empCover", member.getEmpCover());
-        save("empSex", member.getEmpSex());
-        save("isUse", member.getIsUse());
-        save("dateline", member.getDateline());
-        save("emp_birthday", member.getEmp_birthday());
-        save("pushId", member.getPushId());
-        save("hxUsername", member.getHxUsername());
-        save("isInGroup", member.getIsInGroup());
-        save("deviceType", member.getDeviceType());
-        save("lat", member.getLat());
-        save("lng", member.getLng());
-        save("level_id", member.getLevel_id());
-        save("emp_erweima", member.getEmp_erweima());
-        save("emp_up", member.getEmp_up());
-        save("emp_up_mobile", member.getEmp_up_mobile());
-
-        save("isLogin", "1");//1已经登录了  0未登录
-
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
 }

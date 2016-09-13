@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             layout="@layout/top_liner"/>
     <TextView android:layout_width="match_parent"
-              android:text="入驻成功！"
+              android:text="注册成功！"
               android:padding="8dp"
               android:textColor="@color/red_p"
               android:gravity="center_horizontal"

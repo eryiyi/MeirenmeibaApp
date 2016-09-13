@@ -1,9 +1,9 @@
 package com.lbins.myapp.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -26,57 +26,45 @@ import java.util.Map;
 
 /**
  * Created by zhl on 2016/8/30.
+ * 缓冲页
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
-    private TextView title;
-    private EditText mobile;
-    private EditText pwr;
+public class WelcomeActivity extends BaseActivity implements Runnable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
-
-        this.findViewById(R.id.back).setOnClickListener(this);
-        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
-        title = (TextView) this.findViewById(R.id.title);
-        title.setText("登录");
-        mobile = (EditText) this.findViewById(R.id.mobile);
-        pwr = (EditText) this.findViewById(R.id.pwr);
-
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
-                !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))){
-            mobile.setText(getGson().fromJson(getSp().getString("empMobile", ""), String.class));
-            pwr.setText(getGson().fromJson(getSp().getString("empPass", ""), String.class));
-        }
+        setContentView(R.layout.welcome_activity);
+        save("isLogin", "0");//1已经登录了  0未登录
+        // 启动一个线程
+        new Thread(WelcomeActivity.this).start();
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.back:
+    public void run() {
+        try {
+            // 3秒后跳转到登录界面
+            Thread.sleep(1500);
+            SharedPreferences.Editor editor = getSp().edit();
+            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
+            if (isFirstRun) {
+                editor.putBoolean("isFirstRun", false);
+                editor.commit();
+                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+                startActivity(loadIntent);
                 finish();
-                break;
-
+            } else {
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
+                        !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))) {
+                    login();
+                } else {
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    finish();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
-    public void regAction(View view){
-        Intent intent = new Intent(LoginActivity.this, RegOneActivity.class);
-        startActivity(intent);
-    }
 
-    public void loginAction(View view){
-        //登录
-        if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入手机号");
-            return;
-        }
-        if(StringUtil.isNullOrEmpty(pwr.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入密码");
-            return;
-        }
-
-        login();
-    }
 
     private void login() {
         StringRequest request = new StringRequest(
@@ -93,16 +81,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     MemberData data = getGson().fromJson(s, MemberData.class);
                                     Member member = data.getData();
                                     saveMember(member);
-
                                 }else {
-                                    showMsg(LoginActivity.this, jo.getString("message"));
+                                    showMsg(WelcomeActivity.this, jo.getString("message"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
                         } else {
-                            Toast.makeText(LoginActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomeActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
                         }
                         if(progressDialog != null){
                             progressDialog.dismiss();
@@ -115,15 +102,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if(progressDialog != null){
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(LoginActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WelcomeActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", mobile.getText().toString());
-                params.put("password", pwr.getText().toString());
+                params.put("username", getGson().fromJson(getSp().getString("empMobile", ""), String.class));
+                params.put("password", getGson().fromJson(getSp().getString("empPass", ""), String.class));
                 return params;
             }
 
@@ -141,7 +128,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("empId", member.getEmpId());
         save("emp_number", member.getEmp_number());
         save("empMobile", member.getEmpMobile());
-        save("empPass", pwr.getText().toString());
         save("empName", member.getEmpName());
         save("empCover", member.getEmpCover());
         save("empSex", member.getEmpSex());
@@ -161,8 +147,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         save("isLogin", "1");//1已经登录了  0未登录
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+
 
 }

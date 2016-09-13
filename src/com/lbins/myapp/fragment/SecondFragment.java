@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
@@ -29,11 +27,9 @@ import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
-import com.lbins.myapp.ui.LoginActivity;
+import com.lbins.myapp.ui.RegOneActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
-import com.lbins.myapp.widget.ContentListView;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -308,7 +304,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
             case R.id.right_img:
                 //登录
             {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(getActivity(), RegOneActivity.class);
                 startActivity(intent);
             }
             break;
