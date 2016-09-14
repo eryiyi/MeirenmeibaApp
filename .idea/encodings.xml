@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/libs/AMap3DMap_3.3.2_AMapNavi_1.8.0_AMapSearch_3.2.1_AMapLocation_2.5.0_20160526.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/MobCommons.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_base_v3_6_1.so" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_map_v3_6_1.so" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_util_v3_6_1.so" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libgdinamapv4sdk752.so" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi/libgdinamapv4sdk752ex.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libsmssdk.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />

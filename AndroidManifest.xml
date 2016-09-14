@@ -45,6 +45,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <!-- 需要运行时注册的权限 -->
+    <!--用于进行网络定位-->
+    <!--用于访问GPS定位-->
+
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <!--读取缓存数据-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- 更改设置 -->
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
@@ -98,6 +107,14 @@
         <activity android:name=".ui.MineAddressAddCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineAddressAddProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
+        <!--// *****************************高德地图sdk*******************************************-->
+        <meta-data
+                android:name="com.amap.api.v2.apikey"
+                android:value="ada683b8245c98bf274d7a6504387583" />
+
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
 
     </application>
 </manifest>

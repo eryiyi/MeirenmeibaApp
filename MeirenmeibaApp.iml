@@ -17,5 +17,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="MobTools" level="project" />
+    <orderEntry type="library" name="AMap3DMap_3.3.2_AMapNavi_1.8.0_AMapSearch_3.2.1_AMapLocation_2.5.0_20160526" level="project" />
   </component>
 </module>

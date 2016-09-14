@@ -93,7 +93,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     MemberData data = getGson().fromJson(s, MemberData.class);
                                     Member member = data.getData();
                                     saveMember(member);
-
                                 }else {
                                     switch (Integer.parseInt(code)){
                                         case 1:
@@ -182,6 +181,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

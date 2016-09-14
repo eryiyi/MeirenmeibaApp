@@ -34,6 +34,15 @@ public class MeirenmeibaAppApplication extends Application {
 
     private static MeirenmeibaAppApplication application;
 
+    public static String latStr;
+    public static String lngStr;
+    public static String locationAddress;
+
+    public static String locationProvinceName;
+    public static String locationCityName;
+    public static String locationAreaName;
+
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
@@ -101,6 +102,10 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
         //查询商品分类
         getGoodsType();
+
+        if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
+            location.setText(MeirenmeibaAppApplication.locationAreaName);
+        }
         return view;
     }
 
@@ -153,6 +158,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
     private void initView() {
         location = (TextView) view.findViewById(R.id.location);
+        location.setOnClickListener(this);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
@@ -308,6 +314,11 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intent);
             }
             break;
+            case R.id.location:
+            {
+                //地址
+            }
+                break;
         }
     }
 

@@ -46,8 +46,8 @@ public class InternetURL {
     public static final String SELECT_PROVINCE_ADDRESS =   INTERNAL +"appGetProvince.do";
     public static final String SELECT_CITY_ADDRESS =   INTERNAL +"appGetCity.do";
     public static final String SELECT_AREA_ADDRESS =   INTERNAL +"appGetArea.do";
-
-
+    //上传经纬度
+    public static final String SEND_LOCATION_BYID_URL = INTERNAL + "sendLocation.do";
 
 
     //获得商品分类
