@@ -23,6 +23,12 @@ public class InternetURL {
     public static final String UPDATE_PWR__URL = INTERNAL + "resetPass.do";
     //更新头像
     public static final String UPDATE_INFO_COVER_URL = INTERNAL + "modifyMember.do";
+    //更改性别
+    public static final String UPDATE_INFO_SEX_URL = INTERNAL + "modifyMemberSex.do";
+    //更新生日
+    public static final String UPDATE_INFO_BIRTH_URL = INTERNAL + "modifyMemberBirth.do";
+    // 跟新手机号
+    public static final String UPDATE_INFO_MOBILE_URL = INTERNAL + "resetMobile.do";
 
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";

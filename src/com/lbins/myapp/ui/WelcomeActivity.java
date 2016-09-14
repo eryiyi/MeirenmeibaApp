@@ -82,6 +82,8 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
                                     Member member = data.getData();
                                     saveMember(member);
                                 }else {
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                                    finish();
                                     showMsg(WelcomeActivity.this, jo.getString("message"));
                                 }
                             } catch (JSONException e) {
@@ -89,7 +91,8 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
                             }
 
                         } else {
-                            Toast.makeText(WelcomeActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                            finish();
                         }
                         if(progressDialog != null){
                             progressDialog.dismiss();
@@ -102,7 +105,8 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
                         if(progressDialog != null){
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(WelcomeActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                        finish();
                     }
                 }
         ) {
@@ -144,6 +148,8 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
         save("emp_erweima", member.getEmp_erweima());
         save("emp_up", member.getEmp_up());
         save("emp_up_mobile", member.getEmp_up_mobile());
+        save("levelName", member.getLevelName());
+        save("jfcount", member.getJfcount());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

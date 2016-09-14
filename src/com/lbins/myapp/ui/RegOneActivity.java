@@ -171,7 +171,17 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
                                         finish();
                                     }
                                 }else {
-                                    showMsg(RegOneActivity.this, jo.getString("message"));
+                                    switch (Integer.parseInt(code)){
+                                        case 1:
+                                            showMsg(RegOneActivity.this, "手机号已经注册了，换个试试");
+                                            break;
+                                        case 2:
+                                            showMsg(RegOneActivity.this, "注册失败，请稍后重试");
+                                            break;
+                                        case 3:
+                                            showMsg(RegOneActivity.this, "注册失败，请稍后重试");
+                                            break;
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

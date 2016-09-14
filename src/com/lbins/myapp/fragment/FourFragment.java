@@ -1,7 +1,9 @@
 package com.lbins.myapp.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -61,6 +63,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerBoradcastReceiver();
     }
 
     @Override
@@ -384,6 +387,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
+                                    save("empCover", InternetURL.INTERNAL+coverStr);
                                     //调用广播
 //                                    Intent intent1 = new Intent("update_cover_success");
 //                                    getActivity().sendBroadcast(intent1);
@@ -430,5 +434,29 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
         getRequestQueue().add(request);
     }
 
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("update_cover_success")) {
+                imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+                mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+            }
+        }
+    };
 
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("update_cover_success");
+        //注册广播
+        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+    }
 }

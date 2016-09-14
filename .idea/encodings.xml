@@ -64,6 +64,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/sex_select_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/viewpage_itemview.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/colors.xml" charset="UTF-8" />

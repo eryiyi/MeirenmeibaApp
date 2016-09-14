@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="0.1dp"></View>
+    <LinearLayout android:layout_width="match_parent"
+                  android:gravity="center_vertical"
+                  android:layout_gravity="center_vertical"
+                  android:orientation="horizontal"
+                  android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:text="昵称:"
+                  android:layout_centerVertical="true"
+                  android:textSize="16sp"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+        <EditText android:layout_width="match_parent"
+                  android:hint="请输入昵称"
+                  android:layout_marginLeft="8dp"
+                  android:id="@+id/name"
+                  android:textSize="15sp"
+                  android:singleLine="true"
+                  android:background="@null"
+                  android:layout_toRightOf="@+id/mobile_msg"
+                  android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="0.1dp"></View>
+    <Button android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:onClick="sureAction"
+            android:text="确  定"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_shape"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -95,7 +95,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     saveMember(member);
 
                                 }else {
-                                    showMsg(LoginActivity.this, jo.getString("message"));
+                                    switch (Integer.parseInt(code)){
+                                        case 1:
+                                            showMsg(LoginActivity.this, "暂无此用户，请检查用户名！");
+                                            break;
+                                        case 2:
+                                            showMsg(LoginActivity.this, "用户密码错误");
+                                            break;
+                                        case 3:
+                                            showMsg(LoginActivity.this, "此用户暂不可用");
+                                            break;
+                                        case 4:
+                                            showMsg(LoginActivity.this, "请输入用户名");
+                                            break;
+                                        case 5:
+                                            showMsg(LoginActivity.this, "请输入密码");
+                                            break;
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
