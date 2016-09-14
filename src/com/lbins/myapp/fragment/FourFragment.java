@@ -3,22 +3,36 @@ package com.lbins.myapp.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.*;
 import android.widget.*;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseFragment;
+import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.ui.MineFensiActivity;
 import com.lbins.myapp.ui.MinePackageActivity;
 import com.lbins.myapp.ui.SetActivity;
+import com.lbins.myapp.upload.CommonUtil;
+import com.lbins.myapp.util.CompressPhotoUtil;
+import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.SelectPhoPopWindow;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -33,7 +47,16 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
     private TextView mine_type;//我的类型
     private TextView mine_name;//我的名字
     private TextView mine_money;//我的金钱
+    private TextView mine_number;//我的账号
     private ImageView mine_erweima;//我的二维码
+
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
+    private String txpic = "";
+    private SelectPhoPopWindow deleteWindow;
+    private String pics = "";
+    private static final File PHOTO_CACHE_DIR = new File(Environment.getExternalStorageDirectory() + "/liangxun/PhotoCache");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +68,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.four_fragment, null);
         res = getActivity().getResources();
         initView();
-
-
+        initData();
         return view;
     }
 
@@ -58,6 +80,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
         mine_cover = (ImageView) view.findViewById(R.id.mine_cover);
         mine_type = (TextView) view.findViewById(R.id.mine_type);
         mine_name = (TextView) view.findViewById(R.id.mine_name);
+        mine_number = (TextView) view.findViewById(R.id.mine_number);
         mine_money = (TextView) view.findViewById(R.id.mine_money);
         mine_erweima = (ImageView) view.findViewById(R.id.mine_erweima);
 
@@ -90,6 +113,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
             case R.id.mine_cover:
             {
                 //头像点击
+                ShowPickDialog();
             }
                 break;
             case R.id.liner_profile_unpay:
@@ -186,4 +210,225 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
 
         }
     }
+
+//    private TextView mine_type;//我的类型
+//    private TextView mine_money;//我的金钱
+//    private ImageView mine_erweima;//我的二维码
+
+    void initData(){
+        imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+        mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_number", ""), String.class))){
+            mine_number.setText("账号："+getGson().fromJson(getSp().getString("emp_number", ""), String.class));
+        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))){
+            mine_type.setText(getGson().fromJson(getSp().getString("levelName", ""), String.class));
+        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
+            mine_money.setText("积分"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
+        }
+    }
+
+    // 选择相册，相机
+    private void ShowPickDialog() {
+        deleteWindow = new SelectPhoPopWindow(getActivity(), itemsOnClick);
+        //显示窗口
+        deleteWindow.showAtLocation(getActivity().findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+
+        public void onClick(View v) {
+            deleteWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.camera: {
+                    Intent camera = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                            .fromFile(new File(Environment
+                                    .getExternalStorageDirectory(),
+                                    "ppCover.jpg")));
+                    startActivityForResult(camera, 2);
+                }
+                break;
+                case R.id.mapstorage: {
+                    Intent mapstorage = new Intent(Intent.ACTION_PICK, null);
+                    mapstorage.setDataAndType(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            "image/*");
+                    startActivityForResult(mapstorage, 1);
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // 如果是直接从相册获取
+            case 1:
+                if (data != null) {
+                    startPhotoZoom(data.getData());
+                }
+                break;
+            // 如果是调用相机拍照时
+            case 2:
+                File temp = new File(Environment.getExternalStorageDirectory()
+                        + "/ppCover.jpg");
+                startPhotoZoom(Uri.fromFile(temp));
+                break;
+            // 取得裁剪后的图片
+            case 3:
+                if (data != null) {
+                    setPicToView(data);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     *
+     * @param picdata
+     */
+    private void setPicToView(Intent picdata) {
+        Bundle extras = picdata.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
+            if (photo != null) {
+                pics = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+                mine_cover.setImageBitmap(photo);
+                //保存头像
+                sendFile(pics);
+            }
+        }
+    }
+
+
+    public void sendFile(final String pic) {
+        File f = new File(pic);
+        final Map<String, File> files = new HashMap<String, File>();
+        files.put("file", f);
+        Map<String, String> params = new HashMap<String, String>();
+        CommonUtil.addPutUploadFileRequest(
+                getActivity(),
+                InternetURL.UPLOAD_FILE,
+                files,
+                params,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    String coverStr = jo.getString("data");
+                                    sendCover(coverStr);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                null);
+    }
+
+
+    //修改头像
+    private void sendCover(final String coverStr) {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.UPDATE_INFO_COVER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    //调用广播
+//                                    Intent intent1 = new Intent("update_cover_success");
+//                                    getActivity().sendBroadcast(intent1);
+                                }else {
+                                    Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.add_failed, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.add_failed, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("empId", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                params.put("empCover", coverStr);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 }

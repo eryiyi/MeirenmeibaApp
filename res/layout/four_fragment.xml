@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:id="@+id/main"
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -29,24 +30,21 @@
                         android:id="@+id/mine_cover"
                         android:layout_height="60dp"/>
                 <TextView android:layout_width="wrap_content"
-                          android:text="账号：韩登举"
                           android:layout_marginTop="90dp"
-                          android:textColor="@color/text_color"
+                          android:textColor="@color/white"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_name"
                           android:layout_toRightOf="@+id/mine_cover"
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
-                          android:text="金币：100"
                           android:layout_toRightOf="@id/mine_cover"
                           android:layout_marginTop="5dp"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_money"
-                          android:textColor="@color/text_color"
+                          android:textColor="@color/white"
                           android:layout_below="@+id/mine_name"
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
-                          android:text="消费股东"
                           android:layout_marginTop="70dp"
                           android:textColor="@color/red"
                           android:layout_toRightOf="@+id/mine_cover"
@@ -61,6 +59,14 @@
                            android:layout_centerVertical="true"
                            android:layout_marginRight="25dp"
                            android:layout_height="45dp"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_toRightOf="@id/mine_cover"
+                          android:layout_marginTop="5dp"
+                          android:layout_marginLeft="15dp"
+                          android:id="@+id/mine_number"
+                          android:textColor="@color/text_color"
+                          android:layout_below="@+id/mine_money"
+                          android:layout_height="wrap_content"/>
             </RelativeLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:padding="8dp"

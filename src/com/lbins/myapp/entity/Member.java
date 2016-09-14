@@ -28,6 +28,24 @@ public class Member implements Serializable{
     private String emp_up;//上级
 
     private String emp_up_mobile;
+    private String levelName;
+    private String jfcount;//积分
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
+
+    public String getJfcount() {
+        return jfcount;
+    }
+
+    public void setJfcount(String jfcount) {
+        this.jfcount = jfcount;
+    }
 
     public String getEmpId() {
         return empId;

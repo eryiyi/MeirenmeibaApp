@@ -158,6 +158,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("emp_erweima", member.getEmp_erweima());
         save("emp_up", member.getEmp_up());
         save("emp_up_mobile", member.getEmp_up_mobile());
+        save("levelName", member.getLevelName());
+        save("jfcount", member.getJfcount());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

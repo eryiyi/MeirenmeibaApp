@@ -10,7 +10,7 @@ public class InternetURL {
 
     public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
     //多媒体文件上传接口
-    public static final String UPLOAD_FILE = INTERNAL + "uploadFileController.do?uploadImage";
+    public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
     public static final String LOGIN__URL = INTERNAL + "memberLogin.do";
 
@@ -21,6 +21,8 @@ public class InternetURL {
 
     //更新密码
     public static final String UPDATE_PWR__URL = INTERNAL + "resetPass.do";
+    //更新头像
+    public static final String UPDATE_INFO_COVER_URL = INTERNAL + "modifyMember.do";
 
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";

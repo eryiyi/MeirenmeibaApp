@@ -42,6 +42,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/btn_red_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_red_press_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_red_shape.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/btn_white_blue_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_press_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_shape.xml" charset="UTF-8" />
@@ -57,6 +58,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_ad_one.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_dialog_camera.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/listview_footer.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
@@ -122,6 +124,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/NoScrollGridView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/PictureGridview.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ReboundScrollView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/SelectPhoPopWindow.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ViewPageItemView.java" charset="UTF-8" />
   </component>
 </project>
