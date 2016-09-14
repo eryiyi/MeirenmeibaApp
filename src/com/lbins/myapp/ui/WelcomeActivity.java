@@ -150,6 +150,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
         save("emp_up_mobile", member.getEmp_up_mobile());
         save("levelName", member.getLevelName());
         save("jfcount", member.getJfcount());
+        save("emp_pay_pass", member.getEmp_pay_pass());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

@@ -29,6 +29,8 @@ public class InternetURL {
     public static final String UPDATE_INFO_BIRTH_URL = INTERNAL + "modifyMemberBirth.do";
     // 跟新手机号
     public static final String UPDATE_INFO_MOBILE_URL = INTERNAL + "resetMobile.do";
+    //更新支付密码
+    public static final String UPDATE_INFO_PAY_PASS_URL = INTERNAL + "modifyMemberPayPass.do";
 
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";

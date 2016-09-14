@@ -30,6 +30,15 @@ public class Member implements Serializable{
     private String emp_up_mobile;
     private String levelName;
     private String jfcount;//积分
+    private String emp_pay_pass;//支付密码
+
+    public String getEmp_pay_pass() {
+        return emp_pay_pass;
+    }
+
+    public void setEmp_pay_pass(String emp_pay_pass) {
+        this.emp_pay_pass = emp_pay_pass;
+    }
 
     public String getLevelName() {
         return levelName;
