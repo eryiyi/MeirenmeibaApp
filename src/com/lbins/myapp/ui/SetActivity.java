@@ -53,6 +53,8 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             case R.id.liner_set_address:
             {
                 //地址
+                Intent pwrV = new Intent(SetActivity.this, MineAddressActivity.class);
+                startActivity(pwrV);
             }
             break;
             case R.id.liner_set_liulan:

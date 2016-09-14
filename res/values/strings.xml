@@ -44,5 +44,35 @@
     <string name="reg_error_two">"该手机号已经注册，请直接登录"</string>
     <string name="login_error">登录失败</string>
     <string name="reg_error_is_use">该手机号已经注册，请直接登录或者联系管理员修改密码！</string>
+    <string name="add_address_error_one">请输入收货人姓名</string>
+    <string name="add_address_error_two">请输入手机号</string>
+    <string name="add_address_error_three">请输入地址</string>
+
+    <string name="goods_favour_error_one">已收藏</string>
+    <string name="goods_favour_error_two">收藏失败</string>
+    <string name="goods_favour_success">收藏成功</string>
+    <string name="money">￥</string>
+    <string name="address_error_one">保存地址失败</string>
+    <string name="cart_error_one">请选择要购买的商品</string>
+    <string name="order_error_one">订单生成失败</string>
+    <string name="order_error_three">订单生成失败,您所购买的商品数量不够了</string>
+    <string name="order_error_two">操作失败，如有疑问，请联系客服</string>
+    <string name="order_success">订单生成成功！请联系商户快送</string>
+    <string name="item_count_adapter">共%1$s件商品</string>
+    <string name="item_money_adapter">合计：￥%1$.2f</string>
+    <string name="mine_cart_title">购物车(%1$.2s)</string>
+    <string name="no_address_error">没有收货地址哦亲</string>
+
+    <string name="cancel_order_success">成功取消订单</string>
+    <string name="cancel_order_error_one">取消订单失败</string>
+    <string name="cancel_order_error_two">请简要描述取消原因</string>
+
+    <string name="send_order_success">成功发货，等待买家签收</string>
+    <string name="send_order_error_one">发货失败，请稍后重试</string>
+
+    <string name="delete_order_success">成功删除订单</string>
+    <string name="goods_prices">￥%1$s</string>
+    <string name="goods_prices1">￥%1$s</string>
+    <string name="create_time">下单时间:</string>
 
 </resources>

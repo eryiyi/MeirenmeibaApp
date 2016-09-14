@@ -91,6 +91,12 @@
         <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.AboutActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.EditNameActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressAddActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressUpdateActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressAddAreaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressAddCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MineAddressAddProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
     </application>

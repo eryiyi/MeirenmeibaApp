@@ -472,7 +472,7 @@ public class SetProfileActivity extends BaseActivity implements View.OnClickList
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     save("empName", nickStr);
-                                    name.setText(nickStr);
+                                    nick.setText(nickStr);
                                     //调用广播
                                     Intent intent1 = new Intent("update_cover_success");
                                     sendBroadcast(intent1);

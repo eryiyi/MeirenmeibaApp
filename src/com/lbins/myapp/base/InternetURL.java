@@ -32,6 +32,24 @@ public class InternetURL {
     //更新支付密码
     public static final String UPDATE_INFO_PAY_PASS_URL = INTERNAL + "modifyMemberPayPass.do";
 
+    //我的收货地址列表
+    public static final String MINE_ADDRSS =   INTERNAL +"listShoppingAddress.do";
+    //添加收货地址
+    public static final String ADD_MINE_ADDRSS =  INTERNAL + "saveShoppingAddress.do";
+    //更新收货地址
+    public static final String UPDATE_MINE_ADDRSS =   INTERNAL +"updateShoppingAddress.do";
+    //删除收货地址
+    public static final String DELETE_MINE_ADDRSS =   INTERNAL +"deleteShoppingAddress.do";
+    //获得默认收货地址
+    public static final String GET_MOREN_ADDRESS =   INTERNAL +"getSingleAddressByEmpId.do";
+    //添加收货地址--选择省份--城市--地区
+    public static final String SELECT_PROVINCE_ADDRESS =   INTERNAL +"appGetProvince.do";
+    public static final String SELECT_CITY_ADDRESS =   INTERNAL +"appGetCity.do";
+    public static final String SELECT_AREA_ADDRESS =   INTERNAL +"appGetArea.do";
+
+
+
+
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";
     //

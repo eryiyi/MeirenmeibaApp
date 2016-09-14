@@ -23,4 +23,9 @@
     <color name="red">#ff99cb</color>
     <color name="red_one">#ff99cb</color>
 
+
+
+    <color name="zhuye_item_bgh">#f1f1f1</color>
+    <color name="login_user_bgcolor">#ffffff</color>
+
 </resources>
