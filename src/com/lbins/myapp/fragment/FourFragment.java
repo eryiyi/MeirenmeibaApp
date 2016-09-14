@@ -443,6 +443,9 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
                 imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
                 mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
             }
+            if(action.equals("update_location_success")){
+                //更新当前城市
+            }
         }
     };
 
@@ -450,6 +453,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction("update_cover_success");
+        myIntentFilter.addAction("update_location_success");//更新选择的城市
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

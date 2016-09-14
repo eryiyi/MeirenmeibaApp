@@ -106,6 +106,9 @@
         <activity android:name=".ui.MineAddressAddAreaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineAddressAddCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineAddressAddProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.LocationCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+
+
 
         <!--// *****************************高德地图sdk*******************************************-->
         <meta-data

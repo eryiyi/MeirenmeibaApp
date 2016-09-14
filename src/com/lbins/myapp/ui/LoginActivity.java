@@ -18,6 +18,7 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,6 +75,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             showMsg(LoginActivity.this ,"请输入密码");
             return;
         }
+
+        progressDialog = new CustomProgressDialog(LoginActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
 
         login();
     }

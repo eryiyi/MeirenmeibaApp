@@ -1,7 +1,10 @@
 package com.lbins.myapp.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +31,7 @@ import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
+import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.RegOneActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
@@ -84,6 +88,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerBoradcastReceiver();
     }
 
     @Override
@@ -103,10 +108,23 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         //查询商品分类
         getGoodsType();
 
-        if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
-            location.setText(MeirenmeibaAppApplication.locationAreaName);
-        }
+        //定位地址
+        initLocation();
         return view;
+    }
+
+    //定位地址
+    void initLocation(){
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("location_city", ""), String.class))){
+            //说明用户自己选择了城市
+            location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
+        }else {
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
+                location.setText(MeirenmeibaAppApplication.locationAreaName);
+            }else {
+                location.setText("郑州");
+            }
+        }
     }
 
     //广告一
@@ -302,8 +320,6 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 //        getRequestQueue().add(request);
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -317,11 +333,12 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
             case R.id.location:
             {
                 //地址
+                Intent intent = new Intent(getActivity(), LocationCityActivity.class);
+                startActivity(intent);
             }
                 break;
         }
     }
-
 
     private void initViewPager() {
         adapterAd = new AdViewPagerAdapter(getActivity());
@@ -508,5 +525,33 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         };
         getRequestQueue().add(request);
     }
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("update_location_success")) {
+                //定位地址
+                initLocation();
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("update_location_success");
+        //注册广播
+        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+    }
+
+
 
 }

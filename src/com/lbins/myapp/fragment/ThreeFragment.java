@@ -1,6 +1,9 @@
 package com.lbins.myapp.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
@@ -15,6 +19,8 @@ import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.DianpuDetailActivity;
+import com.lbins.myapp.ui.LocationCityActivity;
+import com.lbins.myapp.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,7 @@ import java.util.List;
 /**
  * Created by zhl on 2016/7/1.
  */
-public class ThreeFragment extends BaseFragment {
+public class ThreeFragment extends BaseFragment implements View.OnClickListener{
     private View view;
     private Resources res;
 
@@ -41,6 +47,7 @@ public class ThreeFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerBoradcastReceiver();
     }
 
     @Override
@@ -48,10 +55,31 @@ public class ThreeFragment extends BaseFragment {
         view = inflater.inflate(R.layout.three_fragment, null);
         res = getActivity().getResources();
         initView();
+
+
+        //定位地址
+        initLocation();
         return view;
     }
+
+
+    //定位地址
+    void initLocation(){
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("location_city", ""), String.class))){
+            //说明用户自己选择了城市
+            location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
+        }else {
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
+                location.setText(MeirenmeibaAppApplication.locationAreaName);
+            }else {
+                location.setText("郑州");
+            }
+        }
+    }
+
     private void initView() {
         location = (TextView) view.findViewById(R.id.location);
+        location.setOnClickListener(this);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
@@ -191,5 +219,42 @@ public class ThreeFragment extends BaseFragment {
 //        getRequestQueue().add(request);
     }
 
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("update_location_success")) {
+                //定位地址
+                initLocation();
+            }
+        }
+    };
 
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("update_location_success");
+        //注册广播
+        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.location:
+            {
+                //地址
+                Intent intent = new Intent(getActivity(), LocationCityActivity.class);
+                startActivity(intent);
+            }
+            break;
+        }
+    }
 }

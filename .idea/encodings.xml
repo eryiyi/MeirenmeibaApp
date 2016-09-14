@@ -12,6 +12,7 @@
     <file url="file://$PROJECT_DIR$/libs/armeabi/libgdinamapv4sdk752.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libgdinamapv4sdk752ex.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libsmssdk.so" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/greendao-1.3.0-beta-1.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
@@ -114,7 +115,12 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/MineAddressDATA.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/ProvinceDATA.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/SuccessData.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/CityDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DBHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoMaster.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoSession.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Area.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Province.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/ShoppingAddress.java" charset="UTF-8" />

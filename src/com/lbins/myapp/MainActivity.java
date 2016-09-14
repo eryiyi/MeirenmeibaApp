@@ -1,6 +1,7 @@
 package com.lbins.myapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -9,30 +10,28 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.CityDATA;
 import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.db.DBHelper;
+import com.lbins.myapp.entity.City;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.fragment.FirstFragment;
 import com.lbins.myapp.fragment.FourFragment;
 import com.lbins.myapp.fragment.SecondFragment;
 import com.lbins.myapp.fragment.ThreeFragment;
+import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener,Runnable{
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
@@ -54,6 +53,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     //设置底部图标
     Resources res;
 
+    private  List<City> listEmps = new ArrayList<City>();
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initView();
 
         switchFragment(R.id.foot_liner_one);
+
+        //如果是第一次启动 去加载城市数据
+        SharedPreferences.Editor editor = getSp().edit();
+        boolean isFirstRun = getSp().getBoolean("isFirstRunCity", true);
+        if (isFirstRun) {
+            editor.putBoolean("isFirstRunCity", false);
+            editor.commit();
+            // 启动一个线程 加载城市数据
+            new Thread(MainActivity.this).start();
+        }
     }
 
     private void initView() {
@@ -198,4 +210,73 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void run() {
+        getCitys();
+    }
+
+    void getCitys(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SELECT_CITY_ADDRESS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    CityDATA data = getGson().fromJson(s, CityDATA.class);
+                                    listEmps.clear();
+                                    listEmps.addAll(data.getData());
+//                                    Collections.sort(listEmps, new PinyinComparator());
+                                    //处理数据，需要的话保存到数据库
+                                    if (listEmps != null) {
+                                        Collections.sort(listEmps, new PinyinComparator());
+                                        DBHelper.getInstance(MainActivity.this).saveCityList(listEmps);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("areaid", "");
+//                params.put("cityName", keywords.getText().toString());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        getRequestQueue().add(request);
+    }
 }
