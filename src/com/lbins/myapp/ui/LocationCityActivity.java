@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +41,7 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
     private TextView mDialogText;
 
     private List<City> listEmps = new ArrayList<City>();
+    private List<City> listEmpsAll = new ArrayList<City>();
     SlideCityAdapter adapter;
 
     @Override
@@ -48,13 +51,16 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
         mWindowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 
         initView();
-        listEmps.addAll(DBHelper.getInstance(LocationCityActivity.this).getCityList());
+        listEmpsAll.addAll(DBHelper.getInstance(LocationCityActivity.this).getCityList());//全部城市
+        listEmps.addAll(listEmpsAll);//城市列表
         adapter.notifyDataSetChanged();
     }
 
     private void initView() {
         keywords = (EditText) this.findViewById(R.id.keywords);
         this.findViewById(R.id.back).setOnClickListener(this);
+
+        keywords.addTextChangedListener(new EditChangedListener());//事件监听
 
         lvContact = (ListView) this.findViewById(R.id.lvContact);
         adapter = new SlideCityAdapter(LocationCityActivity.this, listEmps);
@@ -87,7 +93,43 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
                 finish();
             }
         });
+
+
+
     }
+
+    class EditChangedListener implements TextWatcher {
+        private CharSequence temp;//监听前的文本
+        private int editStart;//光标开始位置
+        private int editEnd;//光标结束位置
+        private final int charMaxNum = 10;
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            temp = s;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if(listEmpsAll != null && listEmpsAll.size()>0 && !StringUtil.isNullOrEmpty(keywords.getText().toString())){
+                listEmps.clear();
+                for(City city:listEmpsAll){
+                    if(city.getCityName().contains(keywords.getText().toString())){
+                        listEmps.add(city);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+        }
+    };
+
+
 
     @Override
     public void onClick(View view) {
