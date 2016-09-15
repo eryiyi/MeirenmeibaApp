@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:padding="12dp"
+                  android:layout_height="wrap_content">
+        <EditText android:layout_width="match_parent"
+                  android:hint="输入您的店铺名称"
+                  android:padding="15dp"
+                  android:background="@drawable/et_bule_bg"
+                  android:layout_gravity="center_vertical"
+                  android:gravity="center"
+                  android:layout_marginLeft="8dp"
+                  android:id="@+id/shanghuming"
+                  android:textSize="15sp"
+                  android:layout_toRightOf="@+id/mobile_msg"
+                  android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="8dp"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_weight="1"
+                  android:text="*上传当前坐标作为您的店铺位置"
+                  android:layout_marginLeft="15dp"
+                  android:textColor="@color/text_color"
+                  android:textSize="16sp"
+                  android:layout_below="@+id/view_line_four"
+                  android:layout_height="wrap_content"/>
+
+        <CheckBox android:layout_width="wrap_content"
+                  android:id="@+id/checkbox"
+                  android:checked="true"
+                  android:layout_marginRight="15dp"
+                  android:layout_below="@+id/view_line_four"
+                  android:layout_alignParentRight="true"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button android:layout_width="match_parent"
+            android:text="确定申请"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="sureAction"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_shape"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

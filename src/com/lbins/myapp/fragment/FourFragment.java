@@ -22,6 +22,7 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.ui.ApplyDianpuActivity;
 import com.lbins.myapp.ui.MineFensiActivity;
 import com.lbins.myapp.ui.MinePackageActivity;
 import com.lbins.myapp.ui.SetActivity;
@@ -198,6 +199,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener{
             case R.id.liner_profile_ruzhu:
             {
                 //我的入驻
+                Intent intent = new Intent(getActivity(), ApplyDianpuActivity.class);
+                startActivity(intent);
             }
             break;
             case R.id.liner_profile_dianjia:

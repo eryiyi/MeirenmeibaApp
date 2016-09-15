@@ -105,6 +105,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemTuijianDianpusAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/OnClickContentItemListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/RuzhuViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/ActivityTack.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/BaseActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/BaseFragment.java" charset="UTF-8" />
@@ -120,7 +121,6 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoMaster.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoSession.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Area.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Province.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/ShoppingAddress.java" charset="UTF-8" />

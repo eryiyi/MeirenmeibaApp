@@ -48,6 +48,8 @@ public class InternetURL {
     public static final String SELECT_AREA_ADDRESS =   INTERNAL +"appGetArea.do";
     //上传经纬度
     public static final String SEND_LOCATION_BYID_URL = INTERNAL + "sendLocation.do";
+    //申请入驻
+    public static final String EMP_APPLY_DIANPU_URL = INTERNAL + "saveManagerInfo.do";
 
 
     //获得商品分类
