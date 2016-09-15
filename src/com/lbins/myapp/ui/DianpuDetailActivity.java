@@ -16,6 +16,7 @@ import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
 import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.entity.ManagerInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
 
     private GridView gridv_two;
     private ItemTuijianDianpusAdapter adapterDianpu;
-    private List<String> listsDianpus = new ArrayList<String>();
+    private List<ManagerInfo> listsDianpus = new ArrayList<ManagerInfo>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +106,6 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         adapterGoods = new ItemIndexGoodsAdapter(listsGoods, DianpuDetailActivity.this);
         gridv_one.setAdapter(adapterGoods);
 
-        listsDianpus.add("");
-        listsDianpus.add("");
-        listsDianpus.add("");
-        listsDianpus.add("");
-        listsDianpus.add("");
         adapterDianpu = new ItemTuijianDianpusAdapter(listsDianpus, DianpuDetailActivity.this);
         gridv_two.setAdapter(adapterDianpu);
     }

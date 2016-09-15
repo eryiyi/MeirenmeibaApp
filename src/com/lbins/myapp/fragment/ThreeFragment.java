@@ -11,19 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
 import com.lbins.myapp.base.BaseFragment;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.ManagerInfoData;
+import com.lbins.myapp.entity.ManagerInfo;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.DianpuDetailActivity;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.util.StringUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhl on 2016/7/1.
@@ -38,7 +50,7 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener{
 
     private PullToRefreshListView lstv;
     private ItemTuijianDianpusAdapter adapter;
-    List<String> listsgoods = new ArrayList<String>();
+    List<ManagerInfo> listsDianpu = new ArrayList<ManagerInfo>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -55,10 +67,10 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.three_fragment, null);
         res = getActivity().getResources();
         initView();
-
-
         //定位地址
         initLocation();
+        //获得周围店铺
+        initData();
         return view;
     }
 
@@ -84,14 +96,8 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener{
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        adapter = new ItemTuijianDianpusAdapter(listsgoods, getActivity());
+
+        adapter = new ItemTuijianDianpusAdapter(listsDianpu, getActivity());
 
         ListView listView = lstv.getRefreshableView();
         listView.addHeaderView(headLiner);
@@ -139,23 +145,19 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener{
     }
 
     void initData() {
-        lstv.onRefreshComplete();
-//        StringRequest request = new StringRequest(
-//                Request.Method.POST,
-//                InternetURL.GET_RECORD_LIST_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        if (StringUtil.isJson(s)) {
-//                            try {
-//                                JSONObject jo = new JSONObject(s);
-//                                String code = jo.getString("code");
-//                                if (Integer.parseInt(code) == 200) {
-//                                    RecordData data = getGson().fromJson(s, RecordData.class);
-//                                    if (IS_REFRESH) {
-//                                        lists.clear();
-//                                    }
-//                                    lists.addAll(data.getData());
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_DIANPU_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    ManagerInfoData data = getGson().fromJson(s, ManagerInfoData.class);
+                                    listsDianpu.addAll(data.getData());
 //                                    if (data != null && data.getData() != null) {
 //                                        for (RecordMsg recordMsg : data.getData()) {
 //                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
@@ -167,56 +169,44 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener{
 //
 //                                        }
 //                                    }
-//                                    lstv.onRefreshComplete();
-//                                    adapter.notifyDataSetChanged();
-//                                } else if (Integer.parseInt(code) == 9) {
-//                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
-//                                    save("password", "");
-//                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-//                                    startActivity(loginV);
-//                                    getActivity().finish();
-//                                } else {
-//                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            if (lists.size() == 0) {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            } else {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//
-////                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        ) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("index", String.valueOf(pageIndex));
-//                params.put("size", "10");
-//                params.put("mm_msg_type", "0");
-//                return params;
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Content-Type", "application/x-www-form-urlencoded");
-//                return params;
-//            }
-//        };
-//        getRequestQueue().add(request);
+                                    lstv.onRefreshComplete();
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
+                    params.put("lat_company", MeirenmeibaAppApplication.latStr);
+                }
+                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
+                    params.put("lng_company", MeirenmeibaAppApplication.lngStr);
+                }
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
     //广播接收动作

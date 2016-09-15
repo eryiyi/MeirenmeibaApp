@@ -54,6 +54,10 @@ public class InternetURL {
 
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";
+
+    //获得附近首页商店列表
+    public static final String GET_DIANPU_LISTS = INTERNAL + "appGetNearbyDianpu.do";
+
     //
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
 }
