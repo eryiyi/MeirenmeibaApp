@@ -64,6 +64,6 @@ public class InternetURL {
     //查询店铺广告轮播图
     public static final String GET_DIPU_ADS_LISTS = INTERNAL + "appGetAdEmp.do";
 
-    //
+    //获取商品列表
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
 }

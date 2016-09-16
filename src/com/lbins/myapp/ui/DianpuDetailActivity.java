@@ -3,6 +3,8 @@ package com.lbins.myapp.ui;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,8 +26,10 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.AdObjData;
 import com.lbins.myapp.data.ManagerInfoData;
 import com.lbins.myapp.data.ManagerInfoSingleData;
+import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.entity.AdObj;
 import com.lbins.myapp.entity.ManagerInfo;
+import com.lbins.myapp.entity.PaopaoGoods;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
@@ -74,7 +78,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
 
     private GridView gridv_one;
     private ItemGoodsAdapter adapterGoods;
-    private List<String> listsGoods = new ArrayList<String>();
+    private List<PaopaoGoods> listsGoods = new ArrayList<PaopaoGoods>();
 
     private GridView gridv_two;
     private ItemTuijianDianpusAdapter adapterDianpu;
@@ -82,6 +86,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     private String emp_id_dianpu;//店铺
 
     private ManagerInfo managerInfo;//店铺详情对象
+    private int pageIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,8 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         getDetailDianpu();
         //获得店铺广告轮播图
         getAds();
+        //美购
+        getMeigou();
     }
 
     private void initView() {
@@ -123,19 +130,18 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
 
         meigou_num = (TextView) this.findViewById(R.id.meigou_num);
         btn_more = (TextView) this.findViewById(R.id.btn_more);
-
+        btn_more.setOnClickListener(this);
         gridv_one = (GridView) this.findViewById(R.id.gridv_one);
         gridv_two = (GridView) this.findViewById(R.id.gridv_two);
-        listsGoods.add("");
-        listsGoods.add("");
-        listsGoods.add("");
-        listsGoods.add("");
-        listsGoods.add("");
+
         adapterGoods = new ItemGoodsAdapter(listsGoods, DianpuDetailActivity.this);
         gridv_one.setAdapter(adapterGoods);
 
         adapterDianpu = new ItemTuijianDianpusAdapter(listsDianpus, DianpuDetailActivity.this);
         gridv_two.setAdapter(adapterDianpu);
+
+        gridv_one.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        gridv_two.setSelector(new ColorDrawable(Color.TRANSPARENT));
     }
 
     @Override
@@ -152,6 +158,14 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 }else{
                     showMsg(DianpuDetailActivity.this, "暂无联系电话！");
                 }
+            }
+                break;
+            case R.id.btn_more:
+            {
+                //更多
+                Intent intent = new Intent(DianpuDetailActivity.this, MoreDianpuPaopaoGoodsActivity.class);
+                intent.putExtra("emp_id_dianpu", emp_id_dianpu);
+                startActivity(intent);
             }
                 break;
         }
@@ -453,6 +467,64 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("emp_id", emp_id_dianpu);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    //美购
+    void getMeigou(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_GOODS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    PaopaoGoodsData data = getGson().fromJson(s, PaopaoGoodsData.class);
+                                    listsGoods.clear();
+                                    listsGoods.addAll(data.getData());
+                                    adapterGoods.notifyDataSetChanged();
+                                    meigou_num.setText("美购("+listsGoods.size()+")");
+                                } else {
+                                    Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(pageIndex));
+                params.put("empId", emp_id_dianpu);
                 return params;
             }
 
