@@ -21,10 +21,13 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.AdObjData;
 import com.lbins.myapp.data.ManagerInfoData;
 import com.lbins.myapp.data.ManagerInfoSingleData;
+import com.lbins.myapp.entity.AdObj;
 import com.lbins.myapp.entity.ManagerInfo;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +53,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     private ImageView dot, dots[];
     private Runnable runnable;
     private int autoChangeTime = 5000;
-    private List<String> listsAd = new ArrayList<String>();
+    private List<AdObj> listsAd = new ArrayList<AdObj>();
 
     private TextView title_one;
     private TextView btn_sst;
@@ -86,10 +89,16 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.dianpu_detail_activity);
         emp_id_dianpu = getIntent().getExtras().getString("emp_id_dianpu");
         initView();
-        //轮播广告
-        initViewPager();
+
+        progressDialog = new CustomProgressDialog(DianpuDetailActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
         //获得店铺详情
         getDetailDianpu();
+        //获得店铺广告轮播图
+        getAds();
     }
 
     private void initView() {
@@ -177,11 +186,6 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initViewPager() {
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
         adapterAd = new AdViewPagerAdapter(DianpuDetailActivity.this);
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
@@ -358,6 +362,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         getRequestQueue().add(request);
     }
 
+    //实例化内容
     void initData(){
         if(managerInfo != null){
             dp_title.setText(managerInfo.getCompany_name()==null?"":managerInfo.getCompany_name());
@@ -403,4 +408,62 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
             dp_count.setText(managerInfo.getCompany_star()+"分");
         }
     }
+
+    //获得店铺广告轮播图
+    void getAds(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_DIPU_ADS_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    AdObjData data = getGson().fromJson(s, AdObjData.class);
+                                    listsAd.clear();
+                                    listsAd.addAll(data.getData());
+                                    //轮播广告
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", emp_id_dianpu);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 }

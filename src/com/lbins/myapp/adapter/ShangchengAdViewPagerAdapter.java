@@ -18,24 +18,24 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/24.
  */
-public class AdViewPagerAdapter extends PagerAdapter {
+public class ShangchengAdViewPagerAdapter extends PagerAdapter {
     private ViewHolder holder;
     private OnClickContentItemListener onClickContentItemListener;
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-    private List<AdObj> mPaths;
+    private List<String> mPaths;
     private Context mContext;
 
     public void setOnClickContentItemListener(OnClickContentItemListener onClickContentItemListener) {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public AdViewPagerAdapter(Context cx) {
+    public ShangchengAdViewPagerAdapter(Context cx) {
         mContext = cx;
     }
 
-    public void change(List<AdObj> paths) {
+    public void change(List<String> paths) {
         mPaths = paths;
     }
 
@@ -54,14 +54,14 @@ public class AdViewPagerAdapter extends PagerAdapter {
         holder = new ViewHolder();
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.item_main_viewpage_xml, null);
         holder.iv = (ImageView) convertView.findViewById(R.id.item_pic);
-        AdObj slidePic = mPaths.get(position);
-        imageLoader.displayImage((slidePic.getMm_ad_pic() == null ? "" : slidePic.getMm_ad_pic()), holder.iv, MeirenmeibaAppApplication.options, animateFirstListener);
-        holder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 0, "000");
-            }
-        });
+        String slidePic = mPaths.get(position);
+//        imageLoader.displayImage((slidePic.getMm_ad_pic() == null ? "" : slidePic.getMm_ad_pic()), holder.iv, MeirenmeibaAppApplication.options, animateFirstListener);
+//        holder.iv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickContentItemListener.onClickContentItem(position, 0, "000");
+//            }
+//        });
         ((ViewPager) container).addView(convertView, 0);
         return convertView;
     }

@@ -28,6 +28,7 @@ import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.DianpuDetailActivity;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,6 +67,11 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         view = inflater.inflate(R.layout.three_fragment, null);
         res = getActivity().getResources();
         initView();
+
+        progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         //定位地址
         initLocation();
         //获得周围店铺
@@ -178,11 +184,17 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                                 e.printStackTrace();
                             }
                         }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                     }
                 }

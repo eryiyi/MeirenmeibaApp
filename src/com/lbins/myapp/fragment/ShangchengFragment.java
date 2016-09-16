@@ -60,7 +60,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
     //轮播广告
     private ViewPager viewpager;
-    private AdViewPagerAdapter adapterAd;
+    private ShangchengAdViewPagerAdapter adapterAd;
     private LinearLayout viewGroup;
     private ImageView dot, dots[];
     private Runnable runnable;
@@ -276,7 +276,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
 
     private void initViewPager() {
-        adapterAd = new AdViewPagerAdapter(getActivity());
+        adapterAd = new ShangchengAdViewPagerAdapter(getActivity());
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
         viewpager = (ViewPager) view.findViewById(R.id.viewpager);

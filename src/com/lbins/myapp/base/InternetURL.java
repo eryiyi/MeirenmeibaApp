@@ -61,6 +61,8 @@ public class InternetURL {
     public static final String GET_INDEX_TUIJIAN_LISTS = INTERNAL + "getIndexTuijian.do";
     //查询店铺详情
     public static final String GET_DIPU_DETAIL_LISTS = INTERNAL + "appGetDianpuDetailByEmpId.do";
+    //查询店铺广告轮播图
+    public static final String GET_DIPU_ADS_LISTS = INTERNAL + "appGetAdEmp.do";
 
     //
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
