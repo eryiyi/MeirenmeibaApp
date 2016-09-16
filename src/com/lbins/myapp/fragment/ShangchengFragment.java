@@ -27,13 +27,15 @@ import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.data.LxAdData;
 import com.lbins.myapp.entity.GoodsType;
-import com.lbins.myapp.ui.LocationCityActivity;
-import com.lbins.myapp.ui.RegOneActivity;
-import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
-import com.lbins.myapp.ui.SearchTuijianActivity;
+import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.ui.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ import java.util.Map;
  * 商城
  */
 public class ShangchengFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
     private View view;
     private Resources res;
 
@@ -66,7 +71,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private ImageView dot, dots[];
     private Runnable runnable;
     private int autoChangeTime = 5000;
-    private List<String> listsAd = new ArrayList<String>();
+    private List<LxAd> listsAd = new ArrayList<LxAd>();
 
     //分类
     private IndexTypeAdapter adaptertype;
@@ -74,6 +79,11 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
     //商品分类
     public static List<GoodsType> listGoodsType = new ArrayList<GoodsType>();
+
+    private ImageView img_new;
+    private ImageView img_tehui;
+    private LxAd lxadNew;
+    private LxAd lxadTehui;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,9 +99,12 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         //商城分类
         initViewType();
 
-        //轮播广告
-        initViewPager();
+        //查询首发和特惠专区
+        getAdsNew();
+        getAdTehui();
 
+        //轮播广告
+        getAdsOne();
         //查询商品分类
         getGoodsType();
 
@@ -100,9 +113,9 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         return view;
     }
 
+
     //商城分类
     private void initViewType() {
-
         gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
         adaptertype = new IndexTypeAdapter(listGoodsType, getActivity());
         gridv_one.setAdapter(adaptertype);
@@ -128,6 +141,10 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         location.setOnClickListener(this);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
+        img_new = (ImageView) view.findViewById(R.id.img_new);
+        img_tehui = (ImageView) view.findViewById(R.id.img_tehui);
+        img_new.setOnClickListener(this);
+        img_tehui.setOnClickListener(this);
         lstv = (ClassifyGridview) view.findViewById(R.id.lstv);
         listsgoods.add("");
         listsgoods.add("");
@@ -138,13 +155,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         listsgoods.add("");
         listsgoods.add("");
         listsgoods.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
+
         adapter = new ItemIndexGoodsGridviewAdapter(listsgoods, getActivity());
         lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
         lstv.setAdapter(adapter);
@@ -281,6 +292,26 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                 startActivity(intent);
             }
             break;
+            case R.id.img_new:
+            {
+                if(lxadNew != null){
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxadNew.getAd_emp_id());
+                    intent.putExtra("goods_id", lxadNew.getAd_msg_id());
+                    startActivity(intent);
+                }
+            }
+                break;
+            case R.id.img_tehui:
+            {
+                if(lxadTehui != null){
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxadTehui.getAd_emp_id());
+                    intent.putExtra("goods_id", lxadTehui.getAd_msg_id());
+                    startActivity(intent);
+                }
+            }
+                break;
         }
     }
 
@@ -410,7 +441,17 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-
+        switch (flag){
+            case 0:
+                LxAd lxAd= (LxAd) object;
+                if(lxAd != null){
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxAd.getAd_emp_id());
+                    intent.putExtra("goods_id", lxAd.getAd_msg_id());
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     private void getGoodsType() {
@@ -512,5 +553,182 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+
+    //1推荐顶部轮播图  2推荐中部广告（大） 3 推荐中部广告（小） 4 商城顶部轮播图  5 商城首发新品 6 商城特惠专区
+    //获取轮播图-
+    void getAdsOne() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData() != null){
+                                        listsAd.clear();
+                                        listsAd.addAll(data.getData());
+                                    }
+                                    //轮播广告
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "4");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+    void getAdsNew() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData().size()>0){
+                                        lxadNew = data.getData().get(0);
+                                        if(lxadNew != null){
+                                            imageLoader.displayImage(lxadNew.getAd_pic(), img_new, MeirenmeibaAppApplication.options, animateFirstListener);
+                                        }
+
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "5");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+    void getAdTehui() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData().size()>0){
+                                        lxadTehui = data.getData().get(0);
+                                        if(lxadNew != null){
+                                            imageLoader.displayImage(lxadTehui.getAd_pic(), img_tehui, MeirenmeibaAppApplication.options, animateFirstListener);
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "6");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 
 }

@@ -128,6 +128,7 @@
             <ImageView android:layout_width="match_parent"
                        android:src="@drawable/index_ad_one"
                        android:scaleType="centerCrop"
+                       android:id="@+id/img_new"
                        android:maxHeight="120dp"
                        android:layout_height="wrap_content"/>
 
@@ -155,6 +156,7 @@
             <ImageView android:layout_width="match_parent"
                        android:src="@drawable/index_ad_one"
                        android:scaleType="centerCrop"
+                       android:id="@+id/img_tehui"
                        android:maxHeight="120dp"
                        android:layout_height="wrap_content"/>
 

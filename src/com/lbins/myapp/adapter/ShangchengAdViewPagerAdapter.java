@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.AdObj;
+import com.lbins.myapp.entity.LxAd;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -24,7 +25,7 @@ public class ShangchengAdViewPagerAdapter extends PagerAdapter {
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-    private List<String> mPaths;
+    private List<LxAd> mPaths;
     private Context mContext;
 
     public void setOnClickContentItemListener(OnClickContentItemListener onClickContentItemListener) {
@@ -35,7 +36,7 @@ public class ShangchengAdViewPagerAdapter extends PagerAdapter {
         mContext = cx;
     }
 
-    public void change(List<String> paths) {
+    public void change(List<LxAd> paths) {
         mPaths = paths;
     }
 
@@ -54,14 +55,14 @@ public class ShangchengAdViewPagerAdapter extends PagerAdapter {
         holder = new ViewHolder();
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.item_main_viewpage_xml, null);
         holder.iv = (ImageView) convertView.findViewById(R.id.item_pic);
-        String slidePic = mPaths.get(position);
-//        imageLoader.displayImage((slidePic.getMm_ad_pic() == null ? "" : slidePic.getMm_ad_pic()), holder.iv, MeirenmeibaAppApplication.options, animateFirstListener);
-//        holder.iv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickContentItemListener.onClickContentItem(position, 0, "000");
-//            }
-//        });
+       final LxAd cell = mPaths.get(position);
+        imageLoader.displayImage((cell.getAd_pic() == null ? "" : cell.getAd_pic()), holder.iv, MeirenmeibaAppApplication.options, animateFirstListener);
+        holder.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 0, cell);
+            }
+        });
         ((ViewPager) container).addView(convertView, 0);
         return convertView;
     }

@@ -100,6 +100,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
     private ImageView big_middle_ad;//中部大广告位
 
+    LxAd lxAdMiddle;//中间广告轮播图
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +157,13 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         gridv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(listsAdsTwo.size()>position){
+                    LxAd lxAd = listsAdsTwo.get(position);
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxAd.getAd_emp_id());
+                    intent.putExtra("goods_id", lxAd.getAd_msg_id());
+                    startActivity(intent);
+                }
             }
         });
         gridv_two.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -168,6 +177,13 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         gridv_three.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(listsAdsThree.size()>position){
+                    LxAd lxAd = listsAdsThree.get(position);
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxAd.getAd_emp_id());
+                    intent.putExtra("goods_id", lxAd.getAd_msg_id());
+                    startActivity(intent);
+                }
             }
         });
         gridv_three.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -203,7 +219,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);
 
         big_middle_ad = (ImageView) headLiner.findViewById(R.id.big_middle_ad);
-
+        big_middle_ad.setOnClickListener(this);
         adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
 
         final ListView listView = lstv.getRefreshableView();
@@ -339,6 +355,16 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                 startActivity(intent);
             }
                 break;
+            case R.id.big_middle_ad:
+            {
+                if(lxAdMiddle != null){
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxAdMiddle.getAd_emp_id());
+                    intent.putExtra("goods_id", lxAdMiddle.getAd_msg_id());
+                    startActivity(intent);
+                }
+            }
+                break;
         }
     }
 
@@ -467,7 +493,17 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-
+        switch (flag){
+            case 0:
+                LxAd lxAd= (LxAd) object;
+                if(lxAd != null){
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", lxAd.getAd_emp_id());
+                    intent.putExtra("goods_id", lxAd.getAd_msg_id());
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     private void getGoodsType() {
@@ -631,7 +667,10 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                     if(data != null && data.getData().size() > 0){
                                         List<LxAd> lxAds = data.getData();
                                         if(lxAds != null && lxAds.size()>0){
-                                            imageLoader.displayImage((lxAds.get(0).getAd_pic()), big_middle_ad, MeirenmeibaAppApplication.options, animateFirstListener);
+                                            lxAdMiddle= lxAds.get(0);
+                                            if(lxAdMiddle != null){
+                                                imageLoader.displayImage((lxAdMiddle.getAd_pic()), big_middle_ad, MeirenmeibaAppApplication.options, animateFirstListener);
+                                            }
                                         }
                                     }
                                 } else {
