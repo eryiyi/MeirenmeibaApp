@@ -28,7 +28,6 @@ import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsCommentData;
 import com.lbins.myapp.data.ManagerInfoSingleData;
-import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.data.PaopaoGoodsSingleData;
 import com.lbins.myapp.entity.AdObj;
 import com.lbins.myapp.entity.GoodsComment;
@@ -99,9 +98,13 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         goods_id = getIntent().getExtras().getString("goods_id");
 
         initView();
+        if(!StringUtil.isNullOrEmpty(emp_id_dianpu)){
+            //获取店铺详情
+            getDetailDianpu();
+        }else {
+            initData();
+        }
 
-        //获取店铺详情
-        getDetailDianpu();
         //获取商品详情
         getDetailGoods();
         //获取商品评论
@@ -507,6 +510,13 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             }
             dp_address.setText(managerInfo.getCompany_address()==null?"":managerInfo.getCompany_address());
             dp_count.setText(managerInfo.getCompany_star()+"分");
+        }else {
+            dp_title.setText("平台自营");
+            dp_star.setVisibility(View.GONE);
+            dp_distance.setVisibility(View.GONE);
+            dp_address.setVisibility(View.GONE);
+            dp_count.setVisibility(View.GONE);
+            dp_tel.setVisibility(View.GONE);
         }
     }
 
@@ -525,7 +535,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         money_one.setText("￥" + paopaoGoods.getSellPrice());
         btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
         money_two.setText("门市价：￥"+paopaoGoods.getMarketPrice());
-        money_two.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
+        money_two.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
     }
 
 

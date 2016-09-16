@@ -33,8 +33,10 @@ import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
+import com.lbins.myapp.ui.DetailPaopaoGoodsActivity;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.RegOneActivity;
+import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
 import org.json.JSONException;
@@ -114,8 +116,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
         //定位地址
         initLocation();
+        //推荐首页商品查询
         initData();
-
         return view;
     }
 
@@ -175,6 +177,15 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(listGoodsType.size()>(position)){
+                    GoodsType goodsType = listGoodsType.get(position);
+                    if(goodsType != null){
+                        Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+                        intent.putExtra("typeId", goodsType.getTypeId());
+                        intent.putExtra("typeName", goodsType.getTypeName());
+                        startActivity(intent);
+                    }
+                }
             }
         });
         gridv_one.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -195,7 +206,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         listsAd.add("");
         adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
 
-        ListView listView = lstv.getRefreshableView();
+        final ListView listView = lstv.getRefreshableView();
         listView.addHeaderView(headLiner);
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
@@ -227,12 +238,15 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (lists.size() > position -2) {
-//                    lists.get(position - 2).setIs_read("1");
-//                    adapter.notifyDataSetChanged();
-//                    recordVO = lists.get(position - 2);
-//                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-//                }
+                if (listsgoods.size() > position -2) {
+                    PaihangObj paihangObj = listsgoods.get(position - 2);
+                    if(paihangObj != null){
+                        Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                        intent.putExtra("emp_id_dianpu", paihangObj.getGoods_emp_id());
+                        intent.putExtra("goods_id", paihangObj.getGoods_id());
+                        startActivity(intent);
+                    }
+                }
             }
         });
 

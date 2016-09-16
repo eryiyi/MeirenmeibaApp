@@ -14,11 +14,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.ItemGoodsAdapter;
 import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.PaihangObjData;
+import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.entity.PaihangObj;
+import com.lbins.myapp.entity.PaopaoGoods;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
@@ -33,25 +36,27 @@ import java.util.Map;
 
 /**
  * Created by zhl on 2016/8/30.
- * 首发新品 特惠专区
+ * 按照商品类别查询商品列表
  */
-public class SearchTuijianActivity extends BaseActivity implements View.OnClickListener {
+public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
-    private String is_type;//0推荐首页 1首发新品 2特惠专区
+    private String typeId;
+    private String typeName;
     private PullToRefreshListView lstv;//列表
-    private ItemIndexGoodsAdapter adapter;
-    List<PaihangObj> listsgoods = new ArrayList<PaihangObj>();
+    private ItemGoodsAdapter adapter;
+    List<PaopaoGoods> listsgoods = new ArrayList<PaopaoGoods>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_tuijian_activity);
-        is_type = getIntent().getExtras().getString("is_type");
+        setContentView(R.layout.search_goods_byid_activity);
+        typeId = getIntent().getExtras().getString("typeId");
+        typeName = getIntent().getExtras().getString("typeName");
         initView();
 
-        progressDialog = new CustomProgressDialog(SearchTuijianActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(SearchGoodsByTypeActivity.this, "正在加载中",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -63,19 +68,12 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("更多");
-        switch (Integer.parseInt(is_type)){
-            case 0:
-                title.setText("推荐");
-                break;
-            case 1:
-                title.setText("首发新品");
-                break;
-            case 2:
-                title.setText("特惠专区");
-                break;
+        if(!StringUtil.isNullOrEmpty(typeName)){
+            title.setText(typeName);
+        }else{
+            title.setText("搜索");
         }
-        adapter = new ItemIndexGoodsAdapter(listsgoods, SearchTuijianActivity.this);
+        adapter = new ItemGoodsAdapter(listsgoods, SearchGoodsByTypeActivity.this);
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
@@ -107,11 +105,11 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(listsgoods.size() > (position-1)){
-                    PaihangObj paihangObj = listsgoods.get((position-1));
+                    PaopaoGoods paihangObj = listsgoods.get((position-1));
                     if(paihangObj != null){
-                        Intent intent  = new Intent(SearchTuijianActivity.this, DetailPaopaoGoodsActivity.class);
-                        intent.putExtra("emp_id_dianpu", paihangObj.getGoods_emp_id());
-                        intent.putExtra("goods_id", paihangObj.getGoods_id());
+                        Intent intent  = new Intent(SearchGoodsByTypeActivity.this, DetailPaopaoGoodsActivity.class);
+                        intent.putExtra("emp_id_dianpu", paihangObj.getEmpId());
+                        intent.putExtra("goods_id", paihangObj.getId());
                         startActivity(intent);
                     }
                 }
@@ -122,7 +120,7 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
     void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_INDEX_TUIJIAN_LISTS,
+                InternetURL.GET_GOODS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -131,7 +129,7 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
-                                    PaihangObjData data = getGson().fromJson(s, PaihangObjData.class);
+                                    PaopaoGoodsData data = getGson().fromJson(s, PaopaoGoodsData.class);
                                     if (IS_REFRESH) {
                                         listsgoods.clear();
                                     }
@@ -150,7 +148,7 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else {
-                                    Toast.makeText(SearchTuijianActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SearchGoodsByTypeActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -175,8 +173,7 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
-                params.put("is_type", is_type);
-                params.put("is_del", "0");
+                params.put("typeId", typeId);
                 return params;
             }
 

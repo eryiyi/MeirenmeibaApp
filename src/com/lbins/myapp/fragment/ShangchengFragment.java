@@ -30,6 +30,7 @@ import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.RegOneActivity;
+import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
 import com.lbins.myapp.ui.SearchTuijianActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
@@ -108,6 +109,15 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(listGoodsType.size()>(position)){
+                    GoodsType goodsType = listGoodsType.get(position);
+                    if(goodsType != null){
+                        Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+                        intent.putExtra("typeId", goodsType.getTypeId());
+                        intent.putExtra("typeName", goodsType.getTypeName());
+                        startActivity(intent);
+                    }
+                }
             }
         });
         gridv_one.setSelector(new ColorDrawable(Color.TRANSPARENT));
