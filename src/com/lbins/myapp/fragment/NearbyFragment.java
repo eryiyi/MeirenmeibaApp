@@ -130,14 +130,15 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (lists.size() > position -2) {
-//                    lists.get(position - 2).setIs_read("1");
-//                    adapter.notifyDataSetChanged();
-//                    recordVO = lists.get(position - 2);
-//                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-//                }
-                Intent detailDianpuV = new Intent(getActivity(), DianpuDetailActivity.class);
-                startActivity(detailDianpuV);
+                if(listsDianpu != null && listsDianpu.size()>(position-2)){
+                    ManagerInfo managerInfo = listsDianpu.get(position-2);
+                    if(managerInfo != null){
+                        Intent detailDianpuV = new Intent(getActivity(), DianpuDetailActivity.class);
+                        detailDianpuV.putExtra("emp_id_dianpu", managerInfo.getEmp_id());//店铺用户id
+                        startActivity(detailDianpuV);
+                    }
+                }
+
             }
         });
 

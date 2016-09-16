@@ -59,6 +59,8 @@ public class InternetURL {
     public static final String GET_DIANPU_LISTS = INTERNAL + "appGetNearbyDianpu.do";
     //获得首页推荐商品
     public static final String GET_INDEX_TUIJIAN_LISTS = INTERNAL + "getIndexTuijian.do";
+    //查询店铺详情
+    public static final String GET_DIPU_DETAIL_LISTS = INTERNAL + "appGetDianpuDetailByEmpId.do";
 
     //
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";

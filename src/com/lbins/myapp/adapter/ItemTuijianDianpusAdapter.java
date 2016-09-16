@@ -86,37 +86,37 @@ public class ItemTuijianDianpusAdapter extends BaseAdapter {
                 LatLng latLng1 = new LatLng(Double.valueOf(cell.getLat_company()), Double.valueOf(cell.getLng_company()));
                 String distance = StringUtil.getDistance(latLng, latLng1);
                 holder.distance_km.setText(distance + "km");
-                int start_company = Integer.parseInt(cell.getCompany_star()==null?"0":cell.getCompany_star());
-                if(start_company >=0 && start_company<0.5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.start_half));
-                }
-                if(start_company >=0.5 && start_company<1){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_one));
-                }
-                if(start_company >=1 && start_company<1.5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_one_half));
-                }
-                if(start_company >=1.5 && start_company<2){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_two));
-                }
-                if(start_company >=2 && start_company<2.5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_two_half));
-                }
-                if(start_company >=2.5 && start_company<3){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_three));
-                }
-                if(start_company >=3 && start_company<3.5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_three_half));
-                }
-                if(start_company >=3.5 && start_company<4){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_four));
-                }
-                if(start_company >=4 && start_company<4.5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_four_half));
-                }
-                if(start_company >=4.5 && start_company<5){
-                    holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_five));
-                }
+            }
+            int start_company = Integer.parseInt(cell.getCompany_star()==null?"0":cell.getCompany_star());
+            if(start_company >=0 && start_company<0.5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.start_half));
+            }
+            if(start_company >=0.5 && start_company<1){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_one));
+            }
+            if(start_company >=1 && start_company<1.5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_one_half));
+            }
+            if(start_company >=1.5 && start_company<2){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_two));
+            }
+            if(start_company >=2 && start_company<2.5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_two_half));
+            }
+            if(start_company >=2.5 && start_company<3){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_three));
+            }
+            if(start_company >=3 && start_company<3.5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_three_half));
+            }
+            if(start_company >=3.5 && start_company<4){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_four));
+            }
+            if(start_company >=4 && start_company<4.5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_four_half));
+            }
+            if(start_company >=4.5 && start_company<5){
+                holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.star_five));
             }
         }
 

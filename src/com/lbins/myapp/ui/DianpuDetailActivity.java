@@ -1,22 +1,37 @@
 package com.lbins.myapp.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
+import com.amap.api.maps.model.LatLng;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.ManagerInfoData;
+import com.lbins.myapp.data.ManagerInfoSingleData;
 import com.lbins.myapp.entity.ManagerInfo;
+import com.lbins.myapp.util.StringUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhl on 2016/9/11.
@@ -61,14 +76,20 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     private GridView gridv_two;
     private ItemTuijianDianpusAdapter adapterDianpu;
     private List<ManagerInfo> listsDianpus = new ArrayList<ManagerInfo>();
+    private String emp_id_dianpu;//店铺
+
+    private ManagerInfo managerInfo;//店铺详情对象
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dianpu_detail_activity);
+        emp_id_dianpu = getIntent().getExtras().getString("emp_id_dianpu");
         initView();
         //轮播广告
         initViewPager();
+        //获得店铺详情
+        getDetailDianpu();
     }
 
     private void initView() {
@@ -88,6 +109,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         dp_count = (TextView) this.findViewById(R.id.dp_count);
         dp_star = (ImageView) this.findViewById(R.id.dp_star);
         dp_tel = (ImageView) this.findViewById(R.id.dp_tel);
+        dp_tel.setOnClickListener(this);
         dp_address = (TextView) this.findViewById(R.id.dp_address);
 
         meigou_num = (TextView) this.findViewById(R.id.meigou_num);
@@ -113,7 +135,45 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.back:
                 finish();
                 break;
+            case R.id.dp_tel:
+            {
+                //电话点击事件
+                if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
+                    showMsgDialog();
+                }else{
+                    showMsg(DianpuDetailActivity.this, "暂无联系电话！");
+                }
+            }
+                break;
         }
+    }
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(DianpuDetailActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+        cont.setText("确定拨打电话？");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
+                DianpuDetailActivity.this.startActivity(intent);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //举报取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     private void initViewPager() {
@@ -247,5 +307,100 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
 
+    }
+
+    //获得店铺详情
+    void getDetailDianpu(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_DIPU_DETAIL_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    ManagerInfoSingleData data = getGson().fromJson(s, ManagerInfoSingleData.class);
+                                    managerInfo = data.getData();
+                                    initData();
+                                } else {
+                                    Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", emp_id_dianpu);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    void initData(){
+        if(managerInfo != null){
+            dp_title.setText(managerInfo.getCompany_name()==null?"":managerInfo.getCompany_name());
+
+            int start_company = Integer.parseInt(managerInfo.getCompany_star()==null?"0":managerInfo.getCompany_star());
+            if(start_company >=0 && start_company<0.5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.start_half));
+            }
+            if(start_company >=0.5 && start_company<1){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_one));
+            }
+            if(start_company >=1 && start_company<1.5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_one_half));
+            }
+            if(start_company >=1.5 && start_company<2){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_two));
+            }
+            if(start_company >=2 && start_company<2.5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_two_half));
+            }
+            if(start_company >=2.5 && start_company<3){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_three));
+            }
+            if(start_company >=3 && start_company<3.5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_three_half));
+            }
+            if(start_company >=3.5 && start_company<4){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_four));
+            }
+            if(start_company >=4 && start_company<4.5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_four_half));
+            }
+            if(start_company >=4.5 && start_company<5){
+                dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.star_five));
+            }
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr) && !StringUtil.isNullOrEmpty(managerInfo.getLat_company())&& !StringUtil.isNullOrEmpty(managerInfo.getLng_company()) ){
+                LatLng latLng = new LatLng(Double.valueOf(MeirenmeibaAppApplication.latStr), Double.valueOf(MeirenmeibaAppApplication.lngStr));
+                LatLng latLng1 = new LatLng(Double.valueOf(managerInfo.getLat_company()), Double.valueOf(managerInfo.getLng_company()));
+                String distance = StringUtil.getDistance(latLng, latLng1);
+                dp_distance.setText(distance + "km");
+            }
+            dp_address.setText(managerInfo.getCompany_address()==null?"":managerInfo.getCompany_address());
+            dp_count.setText(managerInfo.getCompany_star()+"分");
+        }
     }
 }
