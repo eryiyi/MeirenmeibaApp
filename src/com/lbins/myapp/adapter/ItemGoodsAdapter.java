@@ -2,16 +2,13 @@ package com.lbins.myapp.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.entity.PaihangObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -19,11 +16,11 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/5/27.
- * 推荐下方的推荐商品套餐
+ * 商品套餐
  */
-public class ItemIndexGoodsAdapter extends BaseAdapter {
+public class ItemGoodsAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<PaihangObj> lists;
+    private List<String> lists;
     private Context mContect;
     Resources res;
 
@@ -37,7 +34,7 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
     }
 
 
-    public ItemIndexGoodsAdapter(List<PaihangObj> lists, Context mContect) {
+    public ItemGoodsAdapter(List<String> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -72,14 +69,8 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        PaihangObj cell = lists.get(position);
+        String cell = lists.get(position);
         if (cell != null) {
-            imageLoader.displayImage(cell.getGoods_cover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-            holder.name.setText(cell.getGoods_name());
-            holder.money_one.setText("￥"+cell.getSell_price());
-            holder.money_two.setText("￥"+cell.getMarket_price());
-            holder.money_two.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
-            holder.sale_num.setText("已售:"+cell.getGoods_count_sale());
         }
 
         return convertView;

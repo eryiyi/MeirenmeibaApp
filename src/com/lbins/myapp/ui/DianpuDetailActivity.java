@@ -11,10 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.AdViewPagerAdapter;
-import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
-import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
-import com.lbins.myapp.adapter.OnClickContentItemListener;
+import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.entity.ManagerInfo;
 
@@ -58,7 +55,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     private TextView btn_more;
 
     private GridView gridv_one;
-    private ItemIndexGoodsAdapter adapterGoods;
+    private ItemGoodsAdapter adapterGoods;
     private List<String> listsGoods = new ArrayList<String>();
 
     private GridView gridv_two;
@@ -103,7 +100,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         listsGoods.add("");
         listsGoods.add("");
         listsGoods.add("");
-        adapterGoods = new ItemIndexGoodsAdapter(listsGoods, DianpuDetailActivity.this);
+        adapterGoods = new ItemGoodsAdapter(listsGoods, DianpuDetailActivity.this);
         gridv_one.setAdapter(adapterGoods);
 
         adapterDianpu = new ItemTuijianDianpusAdapter(listsDianpus, DianpuDetailActivity.this);

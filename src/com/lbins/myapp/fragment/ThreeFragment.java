@@ -18,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;

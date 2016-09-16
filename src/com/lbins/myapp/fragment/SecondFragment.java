@@ -28,13 +28,16 @@ import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.data.PaihangObjData;
 import com.lbins.myapp.entity.GoodsType;
+import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.RegOneActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ import java.util.Map;
 
 /**
  * Created by zhl on 2016/7/1.
+ * 推荐
  */
 public class SecondFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
     private View view;
@@ -55,7 +59,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
     private PullToRefreshListView lstv;
     private ItemIndexGoodsAdapter adapter;
-    List<String> listsgoods = new ArrayList<String>();
+    List<PaihangObj> listsgoods = new ArrayList<PaihangObj>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -110,6 +114,8 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
         //定位地址
         initLocation();
+        initData();
+
         return view;
     }
 
@@ -181,13 +187,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.two_header, null);
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
+
         listsAd.add("");
         listsAd.add("");
         listsAd.add("");
@@ -240,23 +240,22 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
 
     void initData() {
-        lstv.onRefreshComplete();
-//        StringRequest request = new StringRequest(
-//                Request.Method.POST,
-//                InternetURL.GET_RECORD_LIST_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        if (StringUtil.isJson(s)) {
-//                            try {
-//                                JSONObject jo = new JSONObject(s);
-//                                String code = jo.getString("code");
-//                                if (Integer.parseInt(code) == 200) {
-//                                    RecordData data = getGson().fromJson(s, RecordData.class);
-//                                    if (IS_REFRESH) {
-//                                        lists.clear();
-//                                    }
-//                                    lists.addAll(data.getData());
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_INDEX_TUIJIAN_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    PaihangObjData data = getGson().fromJson(s, PaihangObjData.class);
+                                    if (IS_REFRESH) {
+                                        listsgoods.clear();
+                                    }
+                                    listsgoods.addAll(data.getData());
 //                                    if (data != null && data.getData() != null) {
 //                                        for (RecordMsg recordMsg : data.getData()) {
 //                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
@@ -268,56 +267,43 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 //
 //                                        }
 //                                    }
-//                                    lstv.onRefreshComplete();
-//                                    adapter.notifyDataSetChanged();
-//                                } else if (Integer.parseInt(code) == 9) {
-//                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
-//                                    save("password", "");
-//                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-//                                    startActivity(loginV);
-//                                    getActivity().finish();
-//                                } else {
-//                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            if (lists.size() == 0) {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            } else {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//
-////                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        ) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("index", String.valueOf(pageIndex));
-//                params.put("size", "10");
-//                params.put("mm_msg_type", "0");
-//                return params;
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Content-Type", "application/x-www-form-urlencoded");
-//                return params;
-//            }
-//        };
-//        getRequestQueue().add(request);
+                                    lstv.onRefreshComplete();
+                                    adapter.notifyDataSetChanged();
+                                }else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(pageIndex));
+                params.put("size", "10");
+                params.put("mm_msg_type", "0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
     @Override

@@ -57,6 +57,8 @@ public class InternetURL {
 
     //获得附近首页商店列表
     public static final String GET_DIANPU_LISTS = INTERNAL + "appGetNearbyDianpu.do";
+    //获得首页推荐商品
+    public static final String GET_INDEX_TUIJIAN_LISTS = INTERNAL + "getIndexTuijian.do";
 
     //
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
