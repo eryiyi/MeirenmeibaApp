@@ -116,6 +116,7 @@
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="更多"
+                          android:id="@+id/btn_first_more"
                           android:drawablePadding="8dp"
                           android:layout_alignParentRight="true"
                           android:layout_marginRight="8dp"
@@ -142,6 +143,7 @@
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="更多"
+                          android:id="@+id/btn_tehui_more"
                           android:drawablePadding="8dp"
                           android:layout_alignParentRight="true"
                           android:layout_marginRight="8dp"

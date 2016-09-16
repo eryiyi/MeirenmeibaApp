@@ -15,14 +15,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.CityDATA;
-import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.City;
-import com.lbins.myapp.entity.GoodsType;
-import com.lbins.myapp.fragment.FirstFragment;
-import com.lbins.myapp.fragment.FourFragment;
-import com.lbins.myapp.fragment.SecondFragment;
-import com.lbins.myapp.fragment.ThreeFragment;
+import com.lbins.myapp.fragment.ShangchengFragment;
+import com.lbins.myapp.fragment.ProfileFragment;
+import com.lbins.myapp.fragment.TuijianFragment;
+import com.lbins.myapp.fragment.NearbyFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.HttpUtils;
@@ -35,10 +33,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
-    private SecondFragment oneFragment;
-    private FirstFragment twoFragment;
-    private ThreeFragment threeFragment;
-    private FourFragment fourFragment;
+    private TuijianFragment oneFragment;
+    private ShangchengFragment twoFragment;
+    private NearbyFragment nearbyFragment;
+    private ProfileFragment profileFragment;
 
     private ImageView foot_one;
     private ImageView foot_two;
@@ -99,7 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
         switch (id) {
             case R.id.foot_liner_one:
                 if (oneFragment == null) {
-                    oneFragment = new SecondFragment();
+                    oneFragment = new TuijianFragment();
                     fragmentTransaction.add(R.id.content_frame, oneFragment);
                 } else {
                     fragmentTransaction.show(oneFragment);
@@ -117,7 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
                 break;
             case R.id.foot_liner_two:
                 if (twoFragment == null) {
-                    twoFragment = new FirstFragment();
+                    twoFragment = new ShangchengFragment();
                     fragmentTransaction.add(R.id.content_frame, twoFragment);
                 } else {
                     fragmentTransaction.show(twoFragment);
@@ -133,11 +131,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
                 foot_four_text.setTextColor(res.getColor(R.color.text_color));
                 break;
             case R.id.foot_liner_three:
-                if (threeFragment == null) {
-                    threeFragment = new ThreeFragment();
-                    fragmentTransaction.add(R.id.content_frame, threeFragment);
+                if (nearbyFragment == null) {
+                    nearbyFragment = new NearbyFragment();
+                    fragmentTransaction.add(R.id.content_frame, nearbyFragment);
                 } else {
-                    fragmentTransaction.show(threeFragment);
+                    fragmentTransaction.show(nearbyFragment);
                 }
                 foot_one.setImageResource(R.drawable.main_good);
                 foot_two.setImageResource(R.drawable.main_home);
@@ -150,11 +148,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
                 foot_four_text.setTextColor(res.getColor(R.color.text_color));
                 break;
             case R.id.foot_liner_four:
-                if (fourFragment == null) {
-                    fourFragment = new FourFragment();
-                    fragmentTransaction.add(R.id.content_frame, fourFragment);
+                if (profileFragment == null) {
+                    profileFragment = new ProfileFragment();
+                    fragmentTransaction.add(R.id.content_frame, profileFragment);
                 } else {
-                    fragmentTransaction.show(fourFragment);
+                    fragmentTransaction.show(profileFragment);
                 }
                 foot_one.setImageResource(R.drawable.main_good);
                 foot_two.setImageResource(R.drawable.main_home);
@@ -178,11 +176,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
         if (twoFragment != null) {
             ft.hide(twoFragment);
         }
-        if (threeFragment != null) {
-            ft.hide(threeFragment);
+        if (nearbyFragment != null) {
+            ft.hide(nearbyFragment);
         }
-        if (fourFragment != null) {
-            ft.hide(fourFragment);
+        if (profileFragment != null) {
+            ft.hide(profileFragment);
         }
     }
 

@@ -41,7 +41,7 @@ import java.util.*;
 /**
  * Created by zhl on 2016/7/1.
  */
-public class FourFragment extends BaseFragment implements View.OnClickListener{
+public class ProfileFragment extends BaseFragment implements View.OnClickListener{
     private View view;
     private Resources res;
     private TextView title;

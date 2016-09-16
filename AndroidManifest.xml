@@ -109,6 +109,7 @@
         <activity android:name=".ui.LocationCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.ApplyDianpuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.ApplyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.SearchTuijianActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
 

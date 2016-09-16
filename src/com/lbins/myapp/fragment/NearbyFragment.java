@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * Created by zhl on 2016/7/1.
  */
-public class ThreeFragment extends BaseFragment implements View.OnClickListener{
+public class NearbyFragment extends BaseFragment implements View.OnClickListener{
     private View view;
     private Resources res;
 

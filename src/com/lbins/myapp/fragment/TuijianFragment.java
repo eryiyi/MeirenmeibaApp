@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,16 @@ import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.data.PaihangObjData;
 import com.lbins.myapp.entity.GoodsType;
+import com.lbins.myapp.entity.PaihangObj;
+import com.lbins.myapp.library.PullToRefreshBase;
+import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.RegOneActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,9 +47,9 @@ import java.util.Map;
 
 /**
  * Created by zhl on 2016/7/1.
- * 商城
+ * 推荐
  */
-public class FirstFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
+public class TuijianFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
     private View view;
     private Resources res;
 
@@ -51,12 +57,13 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     private ImageView btn_scan;
     private TextView keywords;
 
-    private ClassifyGridview lstv;
-    private ItemIndexGoodsGridviewAdapter adapter;
-    List<String> listsgoods = new ArrayList<String>();
-//    private int pageIndex = 1;
-//    private static boolean IS_REFRESH = true;
+    private PullToRefreshListView lstv;
+    private ItemIndexGoodsAdapter adapter;
+    List<PaihangObj> listsgoods = new ArrayList<PaihangObj>();
+    private int pageIndex = 1;
+    private static boolean IS_REFRESH = true;
 
+    private LinearLayout headLiner;
     //轮播广告
     private ViewPager viewpager;
     private AdViewPagerAdapter adapterAd;
@@ -70,6 +77,15 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     private IndexTypeAdapter adaptertype;
     ClassifyGridview gridv_one;//商品分类
 
+    //广告二
+    private AdOneAdapter adapterAdTwo;
+    ClassifyGridview gridv_two;
+    private List<String> listsAdsTwo = new ArrayList<String>();
+    //广告三
+    private AdOneAdapter adapterAdThree;
+    ClassifyGridview gridv_three;
+    private List<String> listsAdsThree = new ArrayList<String>();
+
     //商品分类
     public static List<GoodsType> listGoodsType = new ArrayList<GoodsType>();
 
@@ -81,28 +97,80 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.one_fragment, null);
+        view = inflater.inflate(R.layout.tuijian_fragment, null);
         res = getActivity().getResources();
         initView();
         //商城分类
         initViewType();
-
+        //广告一
+        initViewAdOne();
+        //广告二
+        initViewAdTwo();
         //轮播广告
         initViewPager();
 
         //查询商品分类
         getGoodsType();
 
-        //定位城市
+        //定位地址
         initLocation();
+        initData();
+
         return view;
     }
 
+    //定位地址
+    void initLocation(){
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("location_city", ""), String.class))){
+            //说明用户自己选择了城市
+            location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
+        }else {
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
+                location.setText(MeirenmeibaAppApplication.locationAreaName);
+            }else {
+                location.setText("郑州");
+            }
+        }
+    }
+
+    //广告一
+    private void initViewAdOne() {
+        listsAdsTwo.add("");
+        listsAdsTwo.add("");
+        listsAdsTwo.add("");
+        listsAdsTwo.add("");
+        gridv_two = (ClassifyGridview) headLiner.findViewById(R.id.gridv_two);
+        adapterAdTwo = new AdOneAdapter(listsAdsTwo,getActivity());
+        gridv_two.setAdapter(adapterAdTwo);
+        gridv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+        gridv_two.setSelector(new ColorDrawable(Color.TRANSPARENT));
+    }
+    //广告二
+    private void initViewAdTwo() {
+        listsAdsThree.add("");
+        listsAdsThree.add("");
+        listsAdsThree.add("");
+        listsAdsThree.add("");
+        listsAdsThree.add("");
+        listsAdsThree.add("");
+        gridv_three = (ClassifyGridview) headLiner.findViewById(R.id.gridv_three);
+        adapterAdThree = new AdOneAdapter(listsAdsThree,getActivity());
+        gridv_three.setAdapter(adapterAdThree);
+        gridv_three.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+        gridv_three.setSelector(new ColorDrawable(Color.TRANSPARENT));
+    }
     //商城分类
     private void initViewType() {
-
-        gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
-        adaptertype = new IndexTypeAdapter(listGoodsType, getActivity());
+        gridv_one = (ClassifyGridview) headLiner.findViewById(R.id.gridv_one);
+        adaptertype = new IndexTypeAdapter(listGoodsType,getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -117,26 +185,44 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         location.setOnClickListener(this);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
-        lstv = (ClassifyGridview) view.findViewById(R.id.lstv);
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
+        lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
+        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);
+
         listsAd.add("");
         listsAd.add("");
         listsAd.add("");
         listsAd.add("");
         listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        adapter = new ItemIndexGoodsGridviewAdapter(listsgoods, getActivity());
-        lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
+
+        ListView listView = lstv.getRefreshableView();
+        listView.addHeaderView(headLiner);
+        lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
+        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = true;
+                pageIndex = 1;
+//                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
+                initData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = false;
+                pageIndex++;
+                initData();
+            }
+        });
 
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -153,23 +239,24 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
     }
 
 
+    //推荐首页商品查询
     void initData() {
-//        StringRequest request = new StringRequest(
-//                Request.Method.POST,
-//                InternetURL.GET_RECORD_LIST_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        if (StringUtil.isJson(s)) {
-//                            try {
-//                                JSONObject jo = new JSONObject(s);
-//                                String code = jo.getString("code");
-//                                if (Integer.parseInt(code) == 200) {
-//                                    RecordData data = getGson().fromJson(s, RecordData.class);
-//                                    if (IS_REFRESH) {
-//                                        lists.clear();
-//                                    }
-//                                    lists.addAll(data.getData());
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_INDEX_TUIJIAN_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    PaihangObjData data = getGson().fromJson(s, PaihangObjData.class);
+                                    if (IS_REFRESH) {
+                                        listsgoods.clear();
+                                    }
+                                    listsgoods.addAll(data.getData());
 //                                    if (data != null && data.getData() != null) {
 //                                        for (RecordMsg recordMsg : data.getData()) {
 //                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
@@ -181,59 +268,45 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 //
 //                                        }
 //                                    }
-//                                    lstv.onRefreshComplete();
-//                                    adapter.notifyDataSetChanged();
-//                                } else if (Integer.parseInt(code) == 9) {
-//                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
-//                                    save("password", "");
-//                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-//                                    startActivity(loginV);
-//                                    getActivity().finish();
-//                                } else {
-//                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            if (lists.size() == 0) {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            } else {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//
-////                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        ) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("index", String.valueOf(pageIndex));
-//                params.put("size", "10");
-//                params.put("mm_msg_type", "0");
-//                return params;
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Content-Type", "application/x-www-form-urlencoded");
-//                return params;
-//            }
-//        };
-//        getRequestQueue().add(request);
+                                    lstv.onRefreshComplete();
+                                    adapter.notifyDataSetChanged();
+                                }else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(pageIndex));
+                params.put("size", "10");
+                params.put("is_type", "0");
+                params.put("is_del", "0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -244,23 +317,22 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
                 Intent intent = new Intent(getActivity(), RegOneActivity.class);
                 startActivity(intent);
             }
-                break;
+            break;
             case R.id.location:
             {
                 //地址
                 Intent intent = new Intent(getActivity(), LocationCityActivity.class);
                 startActivity(intent);
             }
-            break;
+                break;
         }
     }
-
 
     private void initViewPager() {
         adapterAd = new AdViewPagerAdapter(getActivity());
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
-        viewpager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewpager = (ViewPager) headLiner.findViewById(R.id.viewpager);
         viewpager.setAdapter(adapterAd);
         viewpager.setOnPageChangeListener(myOnPageChangeListener);
         initDot();
@@ -280,7 +352,7 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
 
     // 初始化dot视图
     private void initDot() {
-        viewGroup = (LinearLayout) view.findViewById(R.id.viewGroup);
+        viewGroup = (LinearLayout) headLiner.findViewById(R.id.viewGroup);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 20, 20);
@@ -451,7 +523,6 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
                 //定位地址
                 initLocation();
             }
-
         }
     };
 
@@ -469,19 +540,6 @@ public class FirstFragment extends BaseFragment implements View.OnClickListener 
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
-    //定位地址
-    void initLocation(){
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("location_city", ""), String.class))){
-            //说明用户自己选择了城市
-            location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
-        }else {
-            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
-                location.setText(MeirenmeibaAppApplication.locationAreaName);
-            }else {
-                location.setText("郑州");
-            }
-        }
-    }
 
 
 }

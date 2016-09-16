@@ -74,7 +74,7 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
         }
         PaihangObj cell = lists.get(position);
         if (cell != null) {
-            imageLoader.displayImage(cell.getGoods_cover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            imageLoader.displayImage(cell.getGoods_cover(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
             holder.name.setText(cell.getGoods_name());
             holder.money_one.setText("￥"+cell.getSell_price());
             holder.money_two.setText("￥"+cell.getMarket_price());
