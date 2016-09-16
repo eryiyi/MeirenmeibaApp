@@ -28,8 +28,10 @@ import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
+import com.lbins.myapp.data.LxAdData;
 import com.lbins.myapp.data.PaihangObjData;
 import com.lbins.myapp.entity.GoodsType;
+import com.lbins.myapp.entity.LxAd;
 import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
@@ -39,6 +41,8 @@ import com.lbins.myapp.ui.RegOneActivity;
 import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +56,9 @@ import java.util.Map;
  * 推荐
  */
 public class TuijianFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
     private View view;
     private Resources res;
 
@@ -73,7 +80,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     private ImageView dot, dots[];
     private Runnable runnable;
     private int autoChangeTime = 5000;
-    private List<String> listsAd = new ArrayList<String>();
+    private List<LxAd> listsAd = new ArrayList<LxAd>();
 
     //分类
     private IndexTypeAdapter adaptertype;
@@ -82,14 +89,16 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     //广告二
     private AdOneAdapter adapterAdTwo;
     ClassifyGridview gridv_two;
-    private List<String> listsAdsTwo = new ArrayList<String>();
+    private List<LxAd> listsAdsTwo = new ArrayList<LxAd>();
     //广告三
     private AdOneAdapter adapterAdThree;
     ClassifyGridview gridv_three;
-    private List<String> listsAdsThree = new ArrayList<String>();
+    private List<LxAd> listsAdsThree = new ArrayList<LxAd>();
 
     //商品分类
     public static List<GoodsType> listGoodsType = new ArrayList<GoodsType>();
+
+    private ImageView big_middle_ad;//中部大广告位
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,11 +114,13 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         //商城分类
         initViewType();
         //广告一
-        initViewAdOne();
-        //广告二
-        initViewAdTwo();
+        getAdsThree();
+
         //轮播广告
-        initViewPager();
+        getAdsOne();
+        //查询中部广告
+        getAdsTwo();
+
 
         //查询商品分类
         getGoodsType();
@@ -137,10 +148,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
     //广告一
     private void initViewAdOne() {
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
-        listsAdsTwo.add("");
+
         gridv_two = (ClassifyGridview) headLiner.findViewById(R.id.gridv_two);
         adapterAdTwo = new AdOneAdapter(listsAdsTwo,getActivity());
         gridv_two.setAdapter(adapterAdTwo);
@@ -153,12 +161,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     }
     //广告二
     private void initViewAdTwo() {
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
-        listsAdsThree.add("");
+
         gridv_three = (ClassifyGridview) headLiner.findViewById(R.id.gridv_three);
         adapterAdThree = new AdOneAdapter(listsAdsThree,getActivity());
         gridv_three.setAdapter(adapterAdThree);
@@ -199,11 +202,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);
 
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
+        big_middle_ad = (ImageView) headLiner.findViewById(R.id.big_middle_ad);
+
         adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
 
         final ListView listView = lstv.getRefreshableView();
@@ -555,5 +555,193 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    //1推荐顶部轮播图  2推荐中部广告（大） 3 推荐中部广告（小） 4 商城顶部轮播图  5 商城首发新品 6 商城特惠专区
+    //获取轮播图-
+    void getAdsOne() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData() != null){
+                                        listsAd.clear();
+                                        listsAd.addAll(data.getData());
+                                    }
+                                    //轮播广告
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "1");
+                return params;
+            }
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    void getAdsTwo() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData().size() > 0){
+                                        List<LxAd> lxAds = data.getData();
+                                        if(lxAds != null && lxAds.size()>0){
+                                            imageLoader.displayImage((lxAds.get(0).getAd_pic()), big_middle_ad, MeirenmeibaAppApplication.options, animateFirstListener);
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "2");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+    //1推荐顶部轮播图  2推荐中部广告（大） 3 推荐中部广告（小） 4 商城顶部轮播图  5 商城首发新品 6 商城特惠专区
+    //获取轮播图-
+    void getAdsThree() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData() != null){
+                                        List<LxAd> listAds = data.getData();
+                                        if(listAds != null){
+                                            for(int i=0;i<listAds.size();i++){
+                                                if(i<4){
+                                                    listsAdsTwo.add(listAds.get(i));
+                                                }
+                                                if(i>4){
+                                                    listsAdsThree.add(listAds.get(i));
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //广告一
+                                    initViewAdOne();
+                                    //广告二
+                                    initViewAdTwo();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "3");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

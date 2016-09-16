@@ -67,6 +67,8 @@ public class InternetURL {
     public static final String GET_GODS_DETAIL_LISTS = INTERNAL + "paopaogoods/findById.do";
     //查询商品评论
     public static final String GET_GOODS_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
+    //广告轮播
+    public static final String GET_AD_LIST_TYPE_LISTS = INTERNAL + "appGetAdByType.do";
 
 
     //获取商品列表

@@ -15,8 +15,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.CityDATA;
+import com.lbins.myapp.data.LxAdData;
+import com.lbins.myapp.data.ManagerInfoData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.City;
+import com.lbins.myapp.entity.LxAd;
 import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
@@ -25,6 +28,7 @@ import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -74,6 +78,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
             new Thread(MainActivity.this).start();
         }
     }
+
+    private List<LxAd> lxads = new ArrayList<LxAd>();
+
 
     private void initView() {
         foot_one = (ImageView) this.findViewById(R.id.foot_one);

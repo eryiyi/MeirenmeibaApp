@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.LxAd;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -19,7 +21,7 @@ import java.util.List;
  */
 public class AdOneAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> goodstypes;
+    private List<LxAd> goodstypes;
     private Context mContext;
 
     private OnClickContentItemListener onClickContentItemListener;
@@ -32,7 +34,7 @@ public class AdOneAdapter extends BaseAdapter {
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
 
-    public AdOneAdapter(List<String> goodstypes, Context mContext) {
+    public AdOneAdapter(List<LxAd> goodstypes, Context mContext) {
         this.goodstypes = goodstypes;
         this.mContext = mContext;
 
@@ -63,10 +65,9 @@ public class AdOneAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final String cell = goodstypes.get(position);//获得元素
+        final LxAd cell = goodstypes.get(position);//获得元素
         if (cell != null) {
-//            imageLoader.displayImage(cell.getTypeCover(), holder.goodstype_item_cover, UniversityApplication.txOptions, animateFirstListener);
-//            holder.goodstype_item_title.setText(cell.getTypeName());
+            imageLoader.displayImage(cell.getAd_pic(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
         }
         return convertView;
     }
