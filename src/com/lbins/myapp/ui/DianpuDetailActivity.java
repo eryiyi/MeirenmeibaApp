@@ -112,6 +112,8 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.back).setOnClickListener(this);
         btn_favour = (ImageView) this.findViewById(R.id.btn_favour);
         btn_share = (ImageView) this.findViewById(R.id.btn_share);
+        btn_favour.setOnClickListener(this);
+        btn_share.setOnClickListener(this);
         title = (TextView) this.findViewById(R.id.title);
         title_one = (TextView) this.findViewById(R.id.title_one);
         btn_sst = (TextView) this.findViewById(R.id.btn_sst);
@@ -133,7 +135,21 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         btn_more.setOnClickListener(this);
         gridv_one = (GridView) this.findViewById(R.id.gridv_one);
         gridv_two = (GridView) this.findViewById(R.id.gridv_two);
+        gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(listsGoods.size() > (i)){
+                    PaopaoGoods paopaoGoods = listsGoods.get(i);
+                    if(paopaoGoods != null){
+                        Intent intent = new Intent(DianpuDetailActivity.this, DetailPaopaoGoodsActivity.class);
+                        intent.putExtra("emp_id_dianpu", paopaoGoods.getEmpId());
+                        intent.putExtra("goods_id", paopaoGoods.getId());
+                        startActivity(intent);
+                    }
+                }
 
+            }
+        });
         adapterGoods = new ItemGoodsAdapter(listsGoods, DianpuDetailActivity.this);
         gridv_one.setAdapter(adapterGoods);
 
@@ -166,6 +182,16 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 Intent intent = new Intent(DianpuDetailActivity.this, MoreDianpuPaopaoGoodsActivity.class);
                 intent.putExtra("emp_id_dianpu", emp_id_dianpu);
                 startActivity(intent);
+            }
+                break;
+            case R.id.btn_favour:
+            {
+                //收藏
+            }
+                break;
+            case R.id.btn_share:
+            {
+                //分享
             }
                 break;
         }

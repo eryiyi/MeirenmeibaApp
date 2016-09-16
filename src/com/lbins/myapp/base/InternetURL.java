@@ -63,6 +63,11 @@ public class InternetURL {
     public static final String GET_DIPU_DETAIL_LISTS = INTERNAL + "appGetDianpuDetailByEmpId.do";
     //查询店铺广告轮播图
     public static final String GET_DIPU_ADS_LISTS = INTERNAL + "appGetAdEmp.do";
+    //查询商品详情
+    public static final String GET_GODS_DETAIL_LISTS = INTERNAL + "paopaogoods/findById.do";
+    //查询商品评论
+    public static final String GET_GOODS_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
+
 
     //获取商品列表
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="9dp"
+              android:background="@drawable/btn_white_shape">
+            <com.lbins.myapp.widget.CircleImageView
+                    android:layout_width="50dp"
+                    android:id="@+id/cover"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_height="50dp"/>
+            <TextView android:layout_width="wrap_content"
+                      android:text="某某某"
+                      android:layout_marginLeft="5dp"
+                      android:layout_marginTop="8dp"
+                      android:layout_toRightOf="@+id/cover"
+                      android:id="@+id/name"
+                      android:textColor="@color/red"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/dateline"
+                      android:textColor="@color/text_color_two"
+                      android:text="2015-02-02"
+                      android:layout_marginLeft="5dp"
+                      android:layout_marginTop="3dp"
+                      android:layout_below="@+id/name"
+                      android:layout_toRightOf="@+id/cover"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/cont"
+                      android:textColor="@color/text_color_two"
+                      android:text="ABCDEFG HIJKLMN ABCDEFG HIJKLMN ABCDEFG HIJKLMN ABCDEFG HIJKLMN"
+                      android:layout_marginLeft="8dp"
+                      android:layout_below="@+id/cover"
+                      android:lineSpacingMultiplier="1.2"
+                      android:layout_height="wrap_content"/>
+            <com.lbins.myapp.widget.ClassifyGridview
+                    android:id="@+id/lstv"
+                    android:layout_below="@+id/cont"
+                    android:layout_marginRight="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:horizontalSpacing="0dip"
+                    android:numColumns="3"
+                    android:verticalSpacing="0dip"
+                    android:padding="4dip"/>
+</RelativeLayout>
+
+

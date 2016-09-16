@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/red"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:drawablePadding="5dp"
+                  android:textSize="16sp"
+                  android:gravity="center_vertical"
+                  android:padding="6dp"
+                  android:id="@+id/back"
+                  android:drawableLeft="@drawable/back_white"
+                  android:text="@string/back"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="40dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="标题"
+                  android:layout_marginLeft="80dp"
+                  android:layout_marginRight="60dp"
+                  android:singleLine="true"
+                  android:id="@+id/title"
+                  android:textSize="18sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/white"
+                  android:layout_height="wrap_content"/>
+
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/top_star"
+                   android:id="@+id/btn_favour"
+                   android:padding="12dp"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"/>
+
+        <ImageView android:layout_width="wrap_content"
+                   android:id="@+id/btn_share"
+                   android:padding="12dp"
+                   android:layout_centerVertical="true"
+                   android:layout_toLeftOf="@+id/btn_favour"
+                   android:src="@drawable/top_share"
+                   android:textColor="@color/white"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <com.lbins.myapp.library.PullToRefreshListView
+            android:id="@+id/lstv"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/main_bg"
+            android:dividerHeight="1.5dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </com.lbins.myapp.library.PullToRefreshListView>>
+
+</LinearLayout>
