@@ -22,10 +22,7 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.ui.ApplyDianpuActivity;
-import com.lbins.myapp.ui.MineFensiActivity;
-import com.lbins.myapp.ui.MinePackageActivity;
-import com.lbins.myapp.ui.SetActivity;
+import com.lbins.myapp.ui.*;
 import com.lbins.myapp.upload.CommonUtil;
 import com.lbins.myapp.util.CompressPhotoUtil;
 import com.lbins.myapp.util.StringUtil;
@@ -123,16 +120,22 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_unpay:
             {
                 //未付款
+                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                startActivity(intent);
             }
             break;
             case R.id.liner_profile_ungetgoods:
             {
                 //待收货
+                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_uncomment:
             {
                 //待评价
+                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_unback:
@@ -143,6 +146,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_order:
             {
                 //我的订单
+                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_comment:
@@ -158,6 +163,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_cart:
             {
                 //我的购物车
+                Intent intent = new Intent(getActivity(), MineCartActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_packget:

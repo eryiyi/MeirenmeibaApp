@@ -66,7 +66,12 @@ public class MineAddressAddActivity extends BaseActivity implements View.OnClick
 
         button_add_address.setOnClickListener(this);
         add_address_one.setText(provinceName+ cityName+ areaName);
-
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empName", ""), String.class))){
+            add_nickname.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class))){
+            add_tel.setText(getGson().fromJson(getSp().getString("empMobile", ""), String.class));
+        }
     }
     @Override
     public void onClick(View view) {

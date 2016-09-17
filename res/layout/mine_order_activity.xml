@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:id="@+id/main"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:padding="8dp"
+                  android:background="@color/white"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="全部"
+                  android:padding="8dp"
+                  android:id="@+id/text_one"
+                  android:gravity="center"
+                  android:textSize="16sp"
+                  android:textColor="@color/red"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="待付款"
+                  android:gravity="center"
+                  android:padding="8dp"
+                  android:id="@+id/text_two"
+                  android:textSize="16sp"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="已付款"
+                  android:id="@+id/text_three"
+                  android:padding="8dp"
+                  android:textSize="16sp"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="已完成"
+                  android:id="@+id/text_four"
+                  android:gravity="center"
+                  android:padding="8dp"
+                  android:textSize="16sp"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <com.lbins.myapp.library.PullToRefreshListView
+            android:id="@+id/lstv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/gray"
+            android:dividerHeight="10dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"/>
+</LinearLayout>

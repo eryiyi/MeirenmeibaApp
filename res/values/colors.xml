@@ -27,5 +27,7 @@
 
     <color name="zhuye_item_bgh">#f1f1f1</color>
     <color name="login_user_bgcolor">#ffffff</color>
+    <color name="cart_activity_foot">#393939</color>
 
+    <color name="drak_gray">#5e6b85</color>
 </resources>

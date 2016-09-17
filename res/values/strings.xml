@@ -75,4 +75,10 @@
     <string name="goods_prices1">￥%1$s</string>
     <string name="create_time">下单时间:</string>
 
+    <string name="add_cart_success">添加成功，在购物车等亲~</string>
+    <string name="add_cart_is">商品已加入购物车~</string>
+    <string name="prices">￥</string>
+    <string name="countPrices">合计：</string>
+    <string name="select_zero">没有了哦</string>
+
 </resources>

@@ -275,4 +275,26 @@ public class DateUtil {
         return 1;
     }
 
+    /**
+     * 返回当前日期+时间
+     *
+     * @return
+     */
+    public static String getCurrentDateTime() {
+        return getFormatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss");
+    }
+
+    /**
+     * 格式化
+     *
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String getFormatDateTime(Date date, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(date);
+    }
+
+
 }

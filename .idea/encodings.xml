@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/libs/MobCommons.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/alipaySDK-20150724.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_base_v3_6_1.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_map_v3_6_1.so" charset="UTF-8" />
@@ -27,12 +28,21 @@
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_left.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_right.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_top.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/dizhi.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/address_select.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_pressed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cansaiguize.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_add.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_jian.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_selected.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_selectno.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/default_ptr_rotate.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dizhi.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotc.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotn.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/favour_n.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/favour_p.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_0.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_1.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_2.png" charset="UTF-8" />
@@ -44,8 +54,10 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_one.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_three.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_two.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/msg_order.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/order_tel.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/order_tx.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/tel_order.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/analyze_empty_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_press_shape.xml" charset="UTF-8" />
@@ -59,6 +71,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_press_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_white_shape.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/button_red_delete.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_progress_bar.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/et_bule_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/et_bule_radio_bg.xml" charset="UTF-8" />
@@ -70,20 +83,27 @@
     <file url="file://$PROJECT_DIR$/res/drawable/zhuye_item_select.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/activity_viewpage.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/custom_progress_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/detail_order_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_ad_one.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_address_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_address_province.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_cancel_pop_window.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_cart_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_dialog_camera.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_goods_comment.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_mine_order_adapter.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_select_address_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/listview_footer.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/mine_address_add_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/mine_address_add_four_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/mine_address_update_activity.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/mine_cart_activity.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/mine_order_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/msg_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/order_make_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
@@ -102,6 +122,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/IndexTypeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemAreaAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBankCardAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCartAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCityAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCommentAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemFensiAdapter.java" charset="UTF-8" />
@@ -109,7 +130,9 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsGridviewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineAddressAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineOrderAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemSelectAddressAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemTuijianDianpusAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/OnClickContentItemListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/RuzhuViewPageAdapter.java" charset="UTF-8" />
@@ -123,16 +146,25 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/CityDATA.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/Data.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/MineAddressDATA.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/OrderInfoAndSignDATA.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/OrdersSingleDATA.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/OrdersVoDATA.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/ProvinceDATA.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/ShoppingAddressSingleDATA.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/data/SuccessData.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/CityDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DBHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoMaster.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoSession.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/ShoppingCartDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Area.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Order.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/OrderVo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/OrdersForm.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Province.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/ShoppingAddress.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/ShoppingCart.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/EmptyViewMethodAccessor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/FlipLoadingLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/ILoadingLayout.java" charset="UTF-8" />
@@ -148,13 +180,22 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/RotateLoadingLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/Utils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/library/ViewCompat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/pay/Base64.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/pay/OrderInfoAndSign.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/pay/PayResult.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/pay/SignUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/receiver/SMSBroadcastReceiver.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/AboutActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/DetailOrderActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineAddressAddActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineAddressAddAreaActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineAddressAddCityActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineAddressAddProvinceActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineAddressUpdateActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineCartActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineOrdersActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/OrderMakeActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/SelectAddressActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/CommonUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/MultiPartRequest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/MultiPartStack.java" charset="UTF-8" />

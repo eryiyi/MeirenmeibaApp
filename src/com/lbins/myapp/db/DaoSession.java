@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.Map;
 
 import com.lbins.myapp.entity.City;
+import com.lbins.myapp.entity.ShoppingCart;
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.AbstractDaoSession;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
@@ -23,6 +24,10 @@ public class DaoSession extends AbstractDaoSession {
 
     private final CityDao cityDao;
 
+    private final DaoConfig shoppingCartDaoConfig;
+
+    private final ShoppingCartDao shoppingCartDao;
+
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
@@ -33,14 +38,25 @@ public class DaoSession extends AbstractDaoSession {
         cityDao = new CityDao(cityDaoConfig, this);
 
         registerDao(City.class, cityDao);
+
+        shoppingCartDaoConfig = daoConfigMap.get(ShoppingCartDao.class).clone();
+        shoppingCartDaoConfig.initIdentityScope(type);
+
+        shoppingCartDao = new ShoppingCartDao(shoppingCartDaoConfig, this);
+
+        registerDao(ShoppingCart.class, shoppingCartDao);
     }
     
     public void clear() {
         cityDaoConfig.getIdentityScope().clear();
+        shoppingCartDaoConfig.getIdentityScope().clear();
     }
 
     public CityDao getCityDao() {
         return cityDao;
     }
 
+    public ShoppingCartDao getShoppingCartDao() {
+        return shoppingCartDao;
+    }
 }

@@ -29,12 +29,11 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsCommentData;
 import com.lbins.myapp.data.ManagerInfoSingleData;
 import com.lbins.myapp.data.PaopaoGoodsSingleData;
-import com.lbins.myapp.entity.AdObj;
-import com.lbins.myapp.entity.GoodsComment;
-import com.lbins.myapp.entity.ManagerInfo;
-import com.lbins.myapp.entity.PaopaoGoods;
+import com.lbins.myapp.db.DBHelper;
+import com.lbins.myapp.entity.*;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
+import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,6 +88,10 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private String goods_id;//商品ID
     private ManagerInfo managerInfo;//店铺详情对象
     private PaopaoGoods paopaoGoods;//商品详情
+
+    private Button foot_cart;
+    private Button foot_order;
+    private TextView foot_goods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +181,13 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         money_two = (TextView) headLiner.findViewById(R.id.money_two);
         btn_money = (TextView) headLiner.findViewById(R.id.btn_money);
 
+        foot_cart = (Button) this.findViewById(R.id.foot_cart);
+        foot_order = (Button) this.findViewById(R.id.foot_order);
+        foot_goods = (TextView) this.findViewById(R.id.foot_goods);
+        foot_cart.setOnClickListener(this);
+        foot_order.setOnClickListener(this);
+        foot_goods.setOnClickListener(this);
+
     }
 
     @Override
@@ -206,6 +216,83 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 }
             }
             break;
+            case R.id.foot_cart:
+                //购物车
+                //先查询是否已经存在该商品了
+                if(DBHelper.getInstance(DetailPaopaoGoodsActivity.this).isSaved(paopaoGoods.getId())){
+                    //如果已经加入购物车了
+                    Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.add_cart_is, Toast.LENGTH_SHORT).show();
+                }else{
+                    ShoppingCart shoppingCart = new ShoppingCart();
+                    shoppingCart.setCartid(StringUtil.getUUID());
+                    shoppingCart.setGoods_id(paopaoGoods.getId());
+                    shoppingCart.setEmp_id(paopaoGoods.getEmpId() == null ? "" : paopaoGoods.getEmpId());
+                    shoppingCart.setManager_id(paopaoGoods.getManager_id() == null ? "" : paopaoGoods.getManager_id());
+                    shoppingCart.setGoods_name(paopaoGoods.getName());
+                    shoppingCart.setGoods_cover(paopaoGoods.getCover());
+                    shoppingCart.setSell_price(paopaoGoods.getSellPrice());
+                    shoppingCart.setMarketPrice(paopaoGoods.getMarketPrice());
+                    shoppingCart.setGoods_count("1");
+                    shoppingCart.setDateline(DateUtil.getCurrentDateTime());
+                    shoppingCart.setIs_select("0");//默认选中
+                    shoppingCart.setIs_zhiying(paopaoGoods.getIs_zhiying());
+                    if("0".equals(paopaoGoods.getIs_zhiying())){
+                        //商家发布的商品
+                        shoppingCart.setEmp_name(paopaoGoods.getNickName());
+                        shoppingCart.setEmp_cover(paopaoGoods.getEmpCover());
+                    }else{
+                        shoppingCart.setEmp_name(paopaoGoods.getManagerName());
+                        shoppingCart.setEmp_cover(paopaoGoods.getManagerCover());
+                    }
+
+                    DBHelper.getInstance(DetailPaopaoGoodsActivity.this).addShoppingToTable(shoppingCart);
+                    Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.add_cart_success, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.foot_order:
+                if("0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                    return;
+                }
+                //订单
+                Intent orderMakeView = new Intent(DetailPaopaoGoodsActivity.this, OrderMakeActivity.class);
+                ArrayList<ShoppingCart> arrayList = new ArrayList<ShoppingCart>();
+
+                ShoppingCart shoppingCart = new ShoppingCart();
+                shoppingCart.setCartid(StringUtil.getUUID());
+                shoppingCart.setGoods_id(paopaoGoods.getId());
+                shoppingCart.setEmp_id(paopaoGoods.getEmpId() == null ? "" : paopaoGoods.getEmpId());
+                shoppingCart.setManager_id(paopaoGoods.getManager_id() == null ? "" : paopaoGoods.getManager_id());
+                shoppingCart.setGoods_name(paopaoGoods.getName());
+                shoppingCart.setGoods_cover(paopaoGoods.getCover());
+                shoppingCart.setSell_price(paopaoGoods.getSellPrice());
+                shoppingCart.setMarketPrice(paopaoGoods.getMarketPrice());
+                shoppingCart.setGoods_count("1");
+                shoppingCart.setDateline(DateUtil.getCurrentDateTime());
+                shoppingCart.setIs_select("0");//默认选中
+                shoppingCart.setIs_zhiying(paopaoGoods.getIs_zhiying());
+                if("0".equals(paopaoGoods.getIs_zhiying())){
+                    //商家发布的商品
+                    shoppingCart.setEmp_name(paopaoGoods.getNickName());
+                    shoppingCart.setEmp_cover(paopaoGoods.getEmpCover());
+                }else{
+                    shoppingCart.setEmp_name(paopaoGoods.getManagerName());
+                    shoppingCart.setEmp_cover(paopaoGoods.getManagerCover());
+                }
+                arrayList.add(shoppingCart);
+                if(arrayList !=null && arrayList.size() > 0){
+                    orderMakeView.putExtra("listsgoods",arrayList);
+                    startActivity(orderMakeView);
+                }else{
+                    Toast.makeText(DetailPaopaoGoodsActivity.this,R.string.cart_error_one,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.foot_goods:
+                //进入购物车
+                Intent cartView = new Intent(DetailPaopaoGoodsActivity.this, MineCartActivity.class);
+                startActivity(cartView);
+                break;
+
         }
     }
 

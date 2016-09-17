@@ -73,4 +73,21 @@ public class InternetURL {
 
     //获取商品列表
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
+
+
+    //传订单给服务端--生成订单
+    public static final String SEND_ORDER_TOSERVER = INTERNAL + "orderSave.do";
+    //更新订单状态
+    public static final String UPDATE_ORDER_TOSERVER =  INTERNAL +"orderUpdate.do";
+    //查询订单列表
+    public static final String MINE_ORDERS_URL = INTERNAL + "listOrders.do";
+    //更新订单
+    public static final String UPDATE_ORDER = INTERNAL + "updateOrder.do";
+    //去付款--单个订单付款
+    public static final String SAVE_ORDER_SIGNLE =INTERNAL +  "orderSaveSingle.do";
+    //更新订单状态
+    public static final String UPDATE_ORDER_TOSERVER_SINGLE = INTERNAL + "orderUpdateSingle.do";
+    //根据地址id，查询收货地址、
+    public static final String GET_ADDRESS_BYID =  INTERNAL + "getSingleAddressByAddressId.do";
+
 }
