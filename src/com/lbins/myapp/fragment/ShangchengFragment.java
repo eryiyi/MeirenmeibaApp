@@ -137,6 +137,9 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initView() {
+        view.findViewById(R.id.btn_cart).setOnClickListener(this);
+        view.findViewById(R.id.btn_cz).setOnClickListener(this);
+        view.findViewById(R.id.btn_order).setOnClickListener(this);
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
         btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
@@ -312,6 +315,23 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                 }
             }
                 break;
+            case R.id.btn_cart:
+            {
+                Intent intent  = new Intent(getActivity(), MineCartActivity.class);
+                startActivity(intent);
+            }
+                break;
+            case R.id.btn_cz:
+            {
+                //
+            }
+            break;
+            case R.id.btn_order:
+            {
+                Intent intent  = new Intent(getActivity(), MineOrdersActivity.class);
+                startActivity(intent);
+            }
+            break;
         }
     }
 

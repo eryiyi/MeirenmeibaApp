@@ -109,7 +109,7 @@
                   android:layout_height="30dp"/>
 
         <TextView android:layout_width="80dp"
-                  android:text="投诉卖家"
+                  android:text="去付款"
                   android:gravity="center"
                   android:layout_marginBottom="10dp"
                   android:layout_marginRight="8dp"

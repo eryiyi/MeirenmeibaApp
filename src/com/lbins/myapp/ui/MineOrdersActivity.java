@@ -227,7 +227,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 break;
             case 2:
                 //去付款
-//                sendOrderSingle();
+                sendOrderSingle();
                 break;
             case 3:
                 //投诉
@@ -415,7 +415,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     private void sureOrder() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                getGson().fromJson(getSp().getString("select_big_area", ""), String.class) +  InternetURL.UPDATE_ORDER,
+                InternetURL.UPDATE_ORDER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -461,7 +461,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     private void sendOrderSingle(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                getGson().fromJson(getSp().getString("select_big_area", ""), String.class) +  InternetURL.SAVE_ORDER_SIGNLE,
+                InternetURL.SAVE_ORDER_SIGNLE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -632,7 +632,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     public void deleteOrder() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                getGson().fromJson(getSp().getString("select_big_area", ""), String.class) +  InternetURL.UPDATE_ORDER,
+                InternetURL.UPDATE_ORDER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

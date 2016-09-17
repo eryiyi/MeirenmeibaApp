@@ -158,6 +158,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_favour:
             {
                 //我的收藏
+                Intent intent = new Intent(getActivity(), MineFavoursActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_cart:

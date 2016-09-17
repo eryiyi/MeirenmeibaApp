@@ -29,6 +29,7 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsCommentData;
 import com.lbins.myapp.data.ManagerInfoSingleData;
 import com.lbins.myapp.data.PaopaoGoodsSingleData;
+import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.*;
 import com.lbins.myapp.library.PullToRefreshBase;
@@ -199,6 +200,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             case R.id.btn_favour:
             {
                 //收藏
+                favour();
             }
             break;
             case R.id.btn_share:
@@ -675,4 +677,56 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         };
         getRequestQueue().add(request);
     }
+
+    //收藏
+    private void favour() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_FAVOUR,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
+                                Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_success, Toast.LENGTH_SHORT).show();
+                            }else if(data.getCode() == 2){
+                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
+                                Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_one, Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_two, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_two, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_two, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("goods_id", paopaoGoods.getId());
+                params.put("emp_id_favour", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                params.put("emp_id_goods", paopaoGoods.getEmpId());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 }

@@ -69,8 +69,6 @@ public class InternetURL {
     public static final String GET_GOODS_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
     //广告轮播
     public static final String GET_AD_LIST_TYPE_LISTS = INTERNAL + "appGetAdByType.do";
-
-
     //获取商品列表
     public static final String GET_GOODS_URL = INTERNAL + "paopaogoods/listGoods.do";
 
@@ -89,5 +87,13 @@ public class InternetURL {
     public static final String UPDATE_ORDER_TOSERVER_SINGLE = INTERNAL + "orderUpdateSingle.do";
     //根据地址id，查询收货地址、
     public static final String GET_ADDRESS_BYID =  INTERNAL + "getSingleAddressByAddressId.do";
+
+
+    //收藏商品接口
+    public static final String SAVE_FAVOUR = INTERNAL +  "saveGoodsFavour.do";
+    //收藏商品列表
+    public static final String MINE_FAVOUR = INTERNAL +  "listFavour.do";
+    //删除收藏的商品
+    public static final String DELETE_FAVOUR = INTERNAL +  "deleteFavour.do";
 
 }

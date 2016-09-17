@@ -85,17 +85,17 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             holder.item_nickname.setText(cell.getEmpName());
 //            1生成订单,2支付订单,3取消订单,4作废订单,5完成订单，6物流运输中（卖家确认订单）',
 //            TextView button_one;//确认收货
-//            TextView button_two;//去付款
-//            TextView button_three;//投诉卖家
+//            TextView button_two;//等待发货
+//            TextView button_three;//去付款
 //            TextView button_four;//取消订单
-//            TextView button_five;//pingjia
+//            TextView button_five;//去评价
 //            TextView button_six;//删除订单
             switch (Integer.parseInt(cell.getStatus())){
                 case 1:
-                    holder.item_status.setText("等待卖家发货");
+                    holder.item_status.setText("等待买家付款");
                     holder.button_one.setVisibility(View.GONE);
-                    holder.button_two.setVisibility(View.VISIBLE);
-                    holder.button_three.setVisibility(View.GONE);
+                    holder.button_two.setVisibility(View.GONE);
+                    holder.button_three.setVisibility(View.VISIBLE);
                     holder.button_four.setVisibility(View.VISIBLE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
@@ -118,6 +118,15 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.VISIBLE);
                     break;
+                case 4:
+                    holder.item_status.setText("作废订单");
+                    holder.button_one.setVisibility(View.GONE);
+                    holder.button_two.setVisibility(View.GONE);
+                    holder.button_three.setVisibility(View.GONE);
+                    holder.button_four.setVisibility(View.GONE);
+                    holder.button_five.setVisibility(View.GONE);
+                    holder.button_six.setVisibility(View.GONE);
+                    break;
                 case 5:
                     holder.item_status.setText("交易完成");
                     holder.button_one.setVisibility(View.GONE);
@@ -125,7 +134,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_three.setVisibility(View.GONE);
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.VISIBLE);
-                    holder.button_six.setVisibility(View.GONE);
+                    holder.button_six.setVisibility(View.VISIBLE);
                     break;
                 case 6:
                     holder.item_status.setText("等待买家收货");
