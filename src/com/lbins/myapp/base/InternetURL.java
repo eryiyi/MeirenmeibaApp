@@ -96,4 +96,11 @@ public class InternetURL {
     //删除收藏的商品
     public static final String DELETE_FAVOUR = INTERNAL +  "deleteFavour.do";
 
+    //删除店铺收藏
+    public static final String DELETE_DIANPU_FAVOUR_URL = INTERNAL +   "deleteDianpuFavour.do";
+    //收藏店铺
+    public static final String SAVE_FAVOUR_URL = INTERNAL +   "saveDianpuFavour.do";
+    //获得我的店铺收藏列表
+    public static final String APP_GET_FAVOUR_DIANPU_URL = INTERNAL +   "appGetDianpuFavour.do";
+
 }

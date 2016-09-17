@@ -23,10 +23,7 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.AdObjData;
-import com.lbins.myapp.data.ManagerInfoData;
-import com.lbins.myapp.data.ManagerInfoSingleData;
-import com.lbins.myapp.data.PaopaoGoodsData;
+import com.lbins.myapp.data.*;
 import com.lbins.myapp.entity.AdObj;
 import com.lbins.myapp.entity.ManagerInfo;
 import com.lbins.myapp.entity.PaopaoGoods;
@@ -187,6 +184,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.btn_favour:
             {
                 //收藏
+                saveFavour();
             }
                 break;
             case R.id.btn_share:
@@ -196,6 +194,58 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
+
+    //收藏店铺
+    void saveFavour(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_FAVOUR_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
+                                showMsg(DianpuDetailActivity.this, "收藏店铺成功！");
+                            } else if(data.getCode() == 2){
+                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
+                                showMsg(DianpuDetailActivity.this, "已经收藏了！");
+                            }
+                            else {
+                                Toast.makeText(DianpuDetailActivity.this, "收藏店铺失败", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(DianpuDetailActivity.this, "收藏店铺失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DianpuDetailActivity.this, "收藏店铺失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", emp_id_dianpu);
+                params.put("emp_id_favour", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 
     private void showMsgDialog() {
         final Dialog picAddDialog = new Dialog(DianpuDetailActivity.this, R.style.dialog);
