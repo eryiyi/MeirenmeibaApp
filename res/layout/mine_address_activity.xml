@@ -9,22 +9,33 @@
             android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
             layout="@layout/top_liner"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+        <ImageView android:layout_width="match_parent"
+                   android:src="@drawable/no_pic"
+                   android:id="@+id/search_null"
+                   android:visibility="gone"
+                   android:layout_centerInParent="true"
+                   android:layout_height="wrap_content"/>
 
-    <ListView android:layout_width="match_parent"
-              android:layout_marginTop="5dp"
-              android:cacheColorHint="#00000000"
-              android:divider="#19000000"
-              android:dividerHeight="1dp"
-              android:fadingEdge="none"
-              android:layout_weight="1"
-              android:id="@+id/lstv"
-              android:fastScrollEnabled="false"
-              android:footerDividersEnabled="false"
-              android:headerDividersEnabled="false"
-              android:smoothScrollbar="true"
-              android:layout_height="wrap_content">
+        <ListView android:layout_width="match_parent"
+                  android:layout_marginTop="5dp"
+                  android:cacheColorHint="#00000000"
+                  android:divider="#19000000"
+                  android:dividerHeight="1dp"
+                  android:fadingEdge="none"
+                  android:id="@+id/lstv"
+                  android:fastScrollEnabled="false"
+                  android:footerDividersEnabled="false"
+                  android:headerDividersEnabled="false"
+                  android:smoothScrollbar="true"
+                  android:layout_height="wrap_content">
 
-    </ListView>
+        </ListView>
+    </RelativeLayout>
+
+
 
     <Button android:layout_width="match_parent"
             android:layout_marginLeft="30dp"

@@ -43,6 +43,7 @@ public class MineAddressActivity extends BaseActivity implements View.OnClickLis
     private Button button_add_address;
 
     private String emp_id = "";
+    private ImageView search_null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MineAddressActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
+        search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
@@ -110,17 +112,30 @@ public class MineAddressActivity extends BaseActivity implements View.OnClickLis
                                 lists.clear();
                                 lists.addAll(data.getData());
                                 adapter.notifyDataSetChanged();
+                                if(lists.size() == 0){
+                                    search_null.setVisibility(View.VISIBLE);
+                                    lstv.setVisibility(View.GONE);
+                                }else{
+                                    search_null.setVisibility(View.GONE);
+                                    lstv.setVisibility(View.VISIBLE);
+                                }
                             } else {
                                 Toast.makeText(MineAddressActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(MineAddressActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(MineAddressActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                     }
                 }

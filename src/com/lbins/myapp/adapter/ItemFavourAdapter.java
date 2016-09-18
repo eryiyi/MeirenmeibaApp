@@ -73,7 +73,7 @@ public class ItemFavourAdapter extends BaseAdapter {
             if (!StringUtil.isNullOrEmpty(cell.getGoods_cover())) {
                 String[] picarr = cell.getGoods_cover().split(",");
                 if (picarr != null) {
-                    imageLoader.displayImage(picarr[0], holder.item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+                    imageLoader.displayImage(picarr[0], holder.item_pic, MeirenmeibaAppApplication.options, animateFirstListener);
                 }
             }
             holder.item_title.setText(cell.getGoods_name());

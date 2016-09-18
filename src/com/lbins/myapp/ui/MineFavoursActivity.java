@@ -29,6 +29,7 @@ import com.lbins.myapp.entity.GoodsFavourVO;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 import com.lbins.myapp.widget.DeletePopWindow;
 
 import java.util.ArrayList;
@@ -79,6 +80,10 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mine_favours_xml);
         initView();
+        progressDialog = new CustomProgressDialog(MineFavoursActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         initData1();
         initData2();
     }
@@ -404,7 +409,7 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
 
     };
 
-    //收藏商品列表
+    //获得我的店铺收藏列表
     private void initData2() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -432,11 +437,17 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             Toast.makeText(MineFavoursActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(MineFavoursActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -444,6 +455,7 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("page", String.valueOf(pageIndex2));
                 params.put("emp_id_favour", getGson().fromJson(getSp().getString("empId", ""), String.class));
                 return params;
             }
@@ -505,11 +517,17 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             Toast.makeText(MineFavoursActivity.this, "取消收藏失败", Toast.LENGTH_SHORT).show();
                         }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(MineFavoursActivity.this,"取消收藏失败", Toast.LENGTH_SHORT).show();
                     }
                 }

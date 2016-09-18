@@ -31,6 +31,7 @@ public class MineCartActivity extends BaseActivity implements View.OnClickListen
     private Button goAccount;
     private TextView title;//标题
     private boolean flag = false;
+    private ImageView search_null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +40,17 @@ public class MineCartActivity extends BaseActivity implements View.OnClickListen
         lists = DBHelper.getInstance(MineCartActivity.this).getShoppingList();
         initView();
         toCalculate();
+        if(lists.size() == 0){
+            search_null.setVisibility(View.VISIBLE);
+            lstv.setVisibility(View.GONE);
+        }else{
+            search_null.setVisibility(View.GONE);
+            lstv.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initView() {
+        search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
         lstv = (ListView) this.findViewById(R.id.lstv);
         adapter = new ItemCartAdapter(lists , MineCartActivity.this , flag);

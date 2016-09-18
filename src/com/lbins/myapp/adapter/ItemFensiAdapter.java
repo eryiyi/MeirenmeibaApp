@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.DianPuFavour;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class ItemFensiAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> lists;
+    private List<DianPuFavour> lists;
     private Context mContect;
     Resources res;
 
@@ -34,7 +36,7 @@ public class ItemFensiAdapter extends BaseAdapter {
     }
 
 
-    public ItemFensiAdapter(List<String> lists, Context mContect) {
+    public ItemFensiAdapter(List<DianPuFavour> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -66,8 +68,10 @@ public class ItemFensiAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String cell = lists.get(position);
+        DianPuFavour cell = lists.get(position);
         if (cell != null) {
+            imageLoader.displayImage(cell.getEmp_cover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            holder.name.setText(cell.getEmp_name()==null?"":cell.getEmp_name());
         }
 
         return convertView;

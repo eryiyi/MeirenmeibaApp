@@ -73,7 +73,7 @@ public class ItemFavourDianpuAdapter extends BaseAdapter {
             if (!StringUtil.isNullOrEmpty(cell.getCompany_pic())) {
                 String[] picarr = cell.getCompany_pic().split(",");
                 if (picarr != null) {
-                    imageLoader.displayImage(picarr[0], holder.item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+                    imageLoader.displayImage(picarr[0], holder.item_pic, MeirenmeibaAppApplication.options, animateFirstListener);
                 }
             }
             holder.item_title.setText(cell.getCompany_name());

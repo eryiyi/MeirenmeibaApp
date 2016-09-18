@@ -8,10 +8,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.alipay.sdk.app.PayTask;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -110,6 +107,8 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     private OrderCancelPopWindow orderCancelPopWindowThree;//删除订单
 
     private TextView title;
+    private ImageView search_null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +118,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView() {
+        search_null = (ImageView) this.findViewById(R.id.search_null);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("我的订单");
         this.findViewById(R.id.back).setOnClickListener(this);
@@ -269,6 +269,13 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                                 orderVos.addAll(data.getData());
                                 classtype_lstv.onRefreshComplete();
                                 adapter.notifyDataSetChanged();
+                                if(orderVos.size() == 0){
+                                    search_null.setVisibility(View.VISIBLE);
+                                    classtype_lstv.setVisibility(View.GONE);
+                                }else{
+                                    search_null.setVisibility(View.GONE);
+                                    classtype_lstv.setVisibility(View.VISIBLE);
+                                }
                             } else {
                                 Toast.makeText(MineOrdersActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                             }
