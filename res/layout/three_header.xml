@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@color/main_bg"
-              android:layout_width="match_parent"
-              android:layout_height="200dp">
-    <ImageView android:layout_width="match_parent"
-               android:scaleType="centerCrop"
-               android:src="@drawable/good_ruzhu"
-               android:layout_height="match_parent"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-</LinearLayout>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <com.amap.api.maps.MapView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+        </com.amap.api.maps.MapView>
+
+    </FrameLayout>
+
+
+</RelativeLayout>
