@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.BankObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ItemBankCardAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> lists;
+    private List<BankObj> lists;
     private Context mContect;
     Resources res;
 
@@ -33,7 +34,7 @@ public class ItemBankCardAdapter extends BaseAdapter {
     }
 
 
-    public ItemBankCardAdapter(List<String> lists, Context mContect) {
+    public ItemBankCardAdapter(List<BankObj> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -61,12 +62,26 @@ public class ItemBankCardAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_bank_card, null);
             holder.btn_select = (ImageView) convertView.findViewById(R.id.btn_select);
             holder.card = (TextView) convertView.findViewById(R.id.card);
+            holder.bank_name = (TextView) convertView.findViewById(R.id.bank_name);
+            holder.bank_kaihu_name = (TextView) convertView.findViewById(R.id.bank_kaihu_name);
+            holder.bank_mobile = (TextView) convertView.findViewById(R.id.bank_mobile);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String cell = lists.get(position);
+        BankObj cell = lists.get(position);
         if (cell != null) {
+            holder.card.setText(cell.getBank_card()==null?"":cell.getBank_card());
+            holder.bank_name.setText(cell.getBank_name()==null?"":cell.getBank_name());
+            holder.bank_kaihu_name.setText(cell.getBank_kaihu_name()==null?"":cell.getBank_kaihu_name());
+            holder.bank_mobile.setText(cell.getBank_mobile()==null?"":cell.getBank_mobile());
+
+            holder.btn_select.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 1, null);
+                }
+            });
         }
 
         return convertView;
@@ -75,5 +90,8 @@ public class ItemBankCardAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView btn_select;
         TextView card;
+        TextView bank_name;
+        TextView bank_kaihu_name;
+        TextView bank_mobile;
     }
 }

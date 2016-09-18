@@ -1,41 +1,56 @@
 package com.lbins.myapp.ui;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemBankCardAdapter;
+import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.BankObjData;
+import com.lbins.myapp.data.MineAddressDATA;
+import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.entity.BankObj;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhl on 2016/8/30.
  * 绑定解绑银行卡
  */
-public class BankCardDoneActivity extends BaseActivity implements View.OnClickListener {
+public class BankCardDoneActivity extends BaseActivity implements View.OnClickListener,OnClickContentItemListener {
     private TextView title;
     private TextView btn_one;
     private TextView btn_two;
     //--------------------
     private EditText bank_card;//银行卡号
     private EditText mobile;//手机号
-    private EditText card;//验证码
-    private Button btn_card;
+    private EditText bank_emp_name;//银行预留名
+    private EditText bank_name;//银行名
+    private EditText bank_kaihu_name;//银行开户名
 
     //----------------------
     private ListView lstv;
     private ItemBankCardAdapter adapter;
-    List<String> listsBank = new ArrayList<String>();
+    List<BankObj> listsBank = new ArrayList<BankObj>();
 
     //viewPager
     private ViewPager vPager;
@@ -49,7 +64,67 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.bank_card_done_activity);
 
         initView();
+
+        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
+        //获得银行卡列表
+        getData();
     }
+    //获得银行卡列表
+    public void getData(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_GET_BANK_CARDS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            BankObjData data = getGson().fromJson(s, BankObjData.class);
+                            if (data.getCode() == 200) {
+                                listsBank.clear();
+                                listsBank.addAll(data.getData());
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 
     private void initView() {
         this.findViewById(R.id.back).setOnClickListener(this);
@@ -79,18 +154,14 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
         //第一部分
         bank_card= (EditText) view1.findViewById(R.id.bank_card);
         mobile= (EditText) view1.findViewById(R.id.mobile);
-        card= (EditText) view1.findViewById(R.id.card);
-        btn_card= (Button) view1.findViewById(R.id.btn_card);
+        bank_emp_name= (EditText) view1.findViewById(R.id.bank_emp_name);
+        bank_name= (EditText) view1.findViewById(R.id.bank_name);
+        bank_kaihu_name= (EditText) view1.findViewById(R.id.bank_kaihu_name);
 
-        btn_card.setOnClickListener(this);
         //第二部分
         lstv = (ListView) view2.findViewById(R.id.lstv);
-        listsBank.add("");
-        listsBank.add("");
-        listsBank.add("");
-        listsBank.add("");
-        listsBank.add("");
         adapter = new ItemBankCardAdapter(listsBank, BankCardDoneActivity.this);
+        adapter.setOnClickContentItemListener(this);
         lstv.setAdapter(adapter);
     }
 
@@ -137,10 +208,63 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
         if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
             showMsg(BankCardDoneActivity.this, "请输入手机号！");
             return;
-        } if(StringUtil.isNullOrEmpty(card.getText().toString())){
-            showMsg(BankCardDoneActivity.this, "请输入验证码！");
+        } if(StringUtil.isNullOrEmpty(bank_emp_name.getText().toString())){
+            showMsg(BankCardDoneActivity.this, "请输入开户人姓名！");
+            return;
+        }if(StringUtil.isNullOrEmpty(bank_name.getText().toString())){
+            showMsg(BankCardDoneActivity.this, "请输入银行名！");
+            return;
+        }if(StringUtil.isNullOrEmpty(bank_kaihu_name.getText().toString())){
+            showMsg(BankCardDoneActivity.this, "请输入开户行信息！");
             return;
         }
+
+        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        saveBankCard();
+
+    }
+
+    BankObj bankObjTmp;
+    @Override
+    public void onClickContentItem(int position, int flag, Object object) {
+        switch (flag) {
+            case 1:
+                bankObjTmp  = listsBank.get(position);
+                showMsgDialog();
+                break;
+             }
+
+    }
+
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(BankCardDoneActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+        cont.setText("确定解绑该银行卡？");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                delBankCard();
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     public class MyViewPagerAdapter extends PagerAdapter {
@@ -201,4 +325,124 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
     }
 
 
+    //保存银行卡信息
+    public void saveBankCard(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_SAVE_BANK_CARDS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(BankCardDoneActivity.this, "绑定银行卡成功！");
+                                getData();
+                                btn_one.setTextColor(getResources().getColor(R.color.text_color));
+                                btn_two.setTextColor(getResources().getColor(R.color.red));
+                                currentSelect = 1;
+                                vPager.setCurrentItem(currentSelect);
+                                mobile.setText("");
+                                bank_emp_name.setText("");
+                                bank_kaihu_name.setText("");
+                                bank_name.setText("");
+                                bank_card.setText("");
+                            } else if(data.getCode() == 2){
+                                Toast.makeText(BankCardDoneActivity.this, "绑定失败，最多绑定5张银行卡！", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                params.put("bank_mobile", mobile.getText().toString());
+                params.put("bank_emp_name", bank_emp_name.getText().toString());
+                params.put("bank_kaihu_name", bank_kaihu_name.getText().toString());
+                params.put("bank_name", bank_name.getText().toString());
+                params.put("bank_card", bank_card.getText().toString());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+    //解绑银行卡
+    public void delBankCard(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_DELETE_BANK_CARDS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(BankCardDoneActivity.this, "解绑银行卡成功！");
+                                getData();
+                            } else if(data.getCode() == 2){
+                                Toast.makeText(BankCardDoneActivity.this, "绑定失败，最多绑定5张银行卡！", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(BankCardDoneActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("bank_id", bankObjTmp.getBank_id());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

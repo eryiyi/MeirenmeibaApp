@@ -8,7 +8,8 @@ public class InternetURL {
     public static final String APP_MOB_KEY = "171c439f201e8";
     public static final String APP_MOB_SCRECT = "dc2a8e43e9498e9454f4c13297c8bed2";
 
-    public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
+//    public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
+    public static final String INTERNAL = "http://192.168.1.110:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -102,5 +103,12 @@ public class InternetURL {
     public static final String SAVE_FAVOUR_URL = INTERNAL +   "saveDianpuFavour.do";
     //获得我的店铺收藏列表
     public static final String APP_GET_FAVOUR_DIANPU_URL = INTERNAL +   "appGetDianpuFavour.do";
+
+    //查询用户银行卡
+    public static final String APP_GET_BANK_CARDS_URL = INTERNAL +   "appGetBankCards.do";
+    //保存银行卡信息
+    public static final String APP_SAVE_BANK_CARDS_URL = INTERNAL +   "appSaveBankCards.do";
+    //删除银行卡 根据银行卡id
+    public static final String APP_DELETE_BANK_CARDS_URL = INTERNAL +   "deleteBankCard.do";
 
 }

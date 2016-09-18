@@ -20,6 +20,7 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.MineAddressDATA;
 import com.lbins.myapp.entity.ShoppingAddress;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.CustomProgressDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +51,11 @@ public class MineAddressActivity extends BaseActivity implements View.OnClickLis
         registerBoradcastReceiver();
         emp_id = getGson().fromJson(getSp().getString("empId", ""), String.class);
         initView();
+
+        progressDialog = new CustomProgressDialog(MineAddressActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog.setCancelable(true);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         getData();
     }
 
