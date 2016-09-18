@@ -110,5 +110,7 @@ public class InternetURL {
     public static final String APP_SAVE_BANK_CARDS_URL = INTERNAL +   "appSaveBankCards.do";
     //删除银行卡 根据银行卡id
     public static final String APP_DELETE_BANK_CARDS_URL = INTERNAL +   "deleteBankCard.do";
+    //查询会员钱包信息
+    public static final String APP_GET_PACKAGE_URL = INTERNAL +   "appGetPackage.do";
 
 }

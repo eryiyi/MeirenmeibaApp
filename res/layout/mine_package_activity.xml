@@ -125,7 +125,7 @@
                           android:drawablePadding="15dp"
                           android:layout_gravity="center"
                           android:gravity="center"
-                          android:text="666个"
+                          android:text="0"
                           android:id="@+id/mine_jinbi_num"
                           android:textStyle="bold"
                           android:layout_marginRight="5dp"
