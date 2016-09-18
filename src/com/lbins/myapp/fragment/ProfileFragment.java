@@ -46,7 +46,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private ImageView mine_cover;//我的头像
     private TextView mine_type;//我的类型
     private TextView mine_name;//我的名字
-    private TextView mine_money;//我的金钱
+//    private TextView mine_money;//我的金钱
     private TextView mine_number;//我的账号
     private ImageView mine_erweima;//我的二维码
 
@@ -82,7 +82,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mine_type = (TextView) view.findViewById(R.id.mine_type);
         mine_name = (TextView) view.findViewById(R.id.mine_name);
         mine_number = (TextView) view.findViewById(R.id.mine_number);
-        mine_money = (TextView) view.findViewById(R.id.mine_money);
+//        mine_money = (TextView) view.findViewById(R.id.mine_money);
         mine_erweima = (ImageView) view.findViewById(R.id.mine_erweima);
 
 
@@ -239,9 +239,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))){
             mine_type.setText(getGson().fromJson(getSp().getString("levelName", ""), String.class));
         }
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
-            mine_money.setText("积分"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
-        }
+//        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
+//            mine_money.setText("积分"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
+//        }
     }
 
     // 选择相册，相机
