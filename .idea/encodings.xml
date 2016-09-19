@@ -103,6 +103,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/item_goods_comment.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_mine_order_adapter.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_mood_bq.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_select_address_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/listview_footer.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/mine_address_add_activity.xml" charset="UTF-8" />
@@ -116,6 +117,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/select_type_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/sex_select_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/viewpage_itemview.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
@@ -128,6 +130,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdOneAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AnimateFirstDisplayListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/GoodsTypeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/IndexTypeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemAreaAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBankCardAdapter.java" charset="UTF-8" />

@@ -8,8 +8,8 @@ public class InternetURL {
     public static final String APP_MOB_KEY = "171c439f201e8";
     public static final String APP_MOB_SCRECT = "dc2a8e43e9498e9454f4c13297c8bed2";
 
-//    public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
-    public static final String INTERNAL = "http://192.168.1.110:8080/";
+    public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
+//    public static final String INTERNAL = "http://192.168.1.110:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 

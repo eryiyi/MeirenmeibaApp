@@ -1,27 +1,30 @@
 package com.lbins.myapp.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.GoodsTypeAdapter;
 import com.lbins.myapp.adapter.ItemGoodsAdapter;
 import com.lbins.myapp.adapter.ItemIndexGoodsAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.PaihangObjData;
 import com.lbins.myapp.data.PaopaoGoodsData;
+import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.entity.PaopaoGoods;
+import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
@@ -39,7 +42,6 @@ import java.util.Map;
  * 按照商品类别查询商品列表
  */
 public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnClickListener {
-    private TextView title;
     private String typeId;
     private String typeName;
     private PullToRefreshListView lstv;//列表
@@ -47,6 +49,13 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
     List<PaopaoGoods> listsgoods = new ArrayList<PaopaoGoods>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
+    private ImageView search_null;
+    private EditText keywords;
+
+    private TextView btn_all;
+    private TextView btn_nearby;
+    private TextView btn_paixu;
+    private TextView btn_val;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +74,30 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
     }
 
     private void initView() {
-        this.findViewById(R.id.back).setOnClickListener(this);
-        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
-        title = (TextView) this.findViewById(R.id.title);
+        btn_all = (TextView) this.findViewById(R.id.btn_all);
+        btn_nearby = (TextView) this.findViewById(R.id.btn_nearby);
+        btn_paixu = (TextView) this.findViewById(R.id.btn_paixu);
+        btn_val = (TextView) this.findViewById(R.id.btn_val);
+
         if(!StringUtil.isNullOrEmpty(typeName)){
-            title.setText(typeName);
-        }else{
-            title.setText("搜索");
+            btn_all.setText(typeName);
         }
+        btn_all.setTextColor(getResources().getColor(R.color.red));
+        btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+        btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+        btn_val.setTextColor(getResources().getColor(R.color.text_color));
+
+
+        btn_all.setOnClickListener(this);
+        btn_nearby.setOnClickListener(this);
+        btn_paixu.setOnClickListener(this);
+        btn_val.setOnClickListener(this);
+
+        keywords = (EditText) this.findViewById(R.id.keywords);
+        keywords.addTextChangedListener(watcher);
+        search_null = (ImageView) this.findViewById(R.id.search_null);
+        this.findViewById(R.id.back).setOnClickListener(this);
+
         adapter = new ItemGoodsAdapter(listsgoods, SearchGoodsByTypeActivity.this);
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
@@ -115,7 +140,32 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 }
             }
         });
+
+
+
     }
+
+     private TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //todo
+        }
+    };
+
 
     void initData() {
         StringRequest request = new StringRequest(
@@ -147,6 +197,13 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
 //                                    }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                    if(listsgoods.size() == 0){
+                                        search_null.setVisibility(View.VISIBLE);
+                                        lstv.setVisibility(View.GONE);
+                                    }else {
+                                        search_null.setVisibility(View.GONE);
+                                        lstv.setVisibility(View.VISIBLE);
+                                    }
                                 }else {
                                     Toast.makeText(SearchGoodsByTypeActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -194,6 +251,68 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
             case R.id.back:
                 finish();
                 break;
+            case R.id.btn_all:
+            {
+                //全部点击
+                btn_all.setTextColor(getResources().getColor(R.color.red));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                showGoodsType();
+            }
+                break;
+            case R.id.btn_nearby:
+            {
+                //附近点击
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.red));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+            }
+            break;
+            case R.id.btn_paixu:
+            {
+                //智能排序点击
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.red));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+            }
+            break;
+            case R.id.btn_val:
+            {
+                //筛选点击
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.red));
+            }
+            break;
         }
     }
+    private void showGoodsType() {
+        final Dialog picAddDialog = new Dialog(SearchGoodsByTypeActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.select_type_dialog, null);
+        ListView listView = (ListView) picAddInflate.findViewById(R.id.lstv);
+        TextView title_msg = (TextView) picAddInflate.findViewById(R.id.title_msg);
+        title_msg.setText("请选择分类");
+        GoodsTypeAdapter adapter = new GoodsTypeAdapter(TuijianFragment.listGoodsType, SearchGoodsByTypeActivity.this);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                GoodsType goodsType = TuijianFragment.listGoodsType.get(i);
+                btn_all.setText(goodsType.getTypeName());
+                typeId = goodsType.getTypeId();
+                IS_REFRESH = true;
+                pageIndex = 1;
+                initData();
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 }

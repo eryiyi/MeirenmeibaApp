@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -44,6 +41,8 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
+    private ImageView search_null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +59,7 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
+        search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
@@ -149,6 +149,13 @@ public class SearchTuijianActivity extends BaseActivity implements View.OnClickL
 //                                    }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                    if(listsgoods.size() == 0){
+                                        search_null.setVisibility(View.VISIBLE);
+                                        lstv.setVisibility(View.GONE);
+                                    }else {
+                                        search_null.setVisibility(View.GONE);
+                                        lstv.setVisibility(View.VISIBLE);
+                                    }
                                 }else {
                                     Toast.makeText(SearchTuijianActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
