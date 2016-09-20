@@ -20,7 +20,6 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.MineAddressDATA;
 import com.lbins.myapp.entity.ShoppingAddress;
 import com.lbins.myapp.util.StringUtil;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;

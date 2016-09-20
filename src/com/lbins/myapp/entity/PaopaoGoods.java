@@ -5,20 +5,20 @@ package com.lbins.myapp.entity;
  * 商品
  */
 public class PaopaoGoods {
-    private String id;
-    private String typeId;
-    private String name;
-    private String cover;
-    private String cont;
+    private String id;//商品ID
+    private String typeId;//类别ID
+    private String name;//商品名
+    private String cover;//图片
+    private String cont;//介绍
     private String sellPrice;//销售价格
     private String marketPrice;//市场价格
-    private String address;
+    private String address;//地址
     private String person;//联系人
-    private String tel;
-    private String qq;
+    private String tel;//电话
+    private String qq;//qq
 
-    private String isUse;
-    private String isDel;
+    private String isUse;//
+    private String isDel;//
     private String upTime;//上架时间
     private String count;//商品数量
     private String goods_count_sale;//已卖商品数量
@@ -29,13 +29,13 @@ public class PaopaoGoods {
     private String manager_id;//自营商品发布者
 
 
-    private String nickName;
-    private String empCover;
+    private String nickName;//商品发布者名(商品是会员发布的)
+    private String empCover;//商品发布者头像（商品是会员发布的）
 
-    private String managerName;
-    private String managerCover;
+    private String managerName;//商品发布者（商品是后台管理员发布）
+    private String managerCover;//商品发布者头像（商品是后台管理员发布）
 
-    private String type_name;
+    private String type_name;//商品分类名称
 
     public String getType_name() {
         return type_name;

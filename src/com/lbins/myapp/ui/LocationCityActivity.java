@@ -11,22 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
-import com.android.volley.*;
-import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.SlideCityAdapter;
 import com.lbins.myapp.base.BaseActivity;
-import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.CityDATA;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.City;
-import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.pinyin.SideBar;
 import com.lbins.myapp.util.StringUtil;
-import com.lbins.myapp.widget.CustomProgressDialog;
-import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhl on 2016/9/14.

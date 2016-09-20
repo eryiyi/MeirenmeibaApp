@@ -106,6 +106,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerBoradcastReceiver();
+        registerBoradcastReceiver();
     }
 
     @Override

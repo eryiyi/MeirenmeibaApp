@@ -1,6 +1,5 @@
 package com.lbins.myapp.ui;
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.MemberData;
-import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.receiver.SMSBroadcastReceiver;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;

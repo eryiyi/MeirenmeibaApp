@@ -6,29 +6,29 @@ import java.io.Serializable;
  * Created by Administrator on 2015/8/14.
  */
 public class Order implements Serializable{
-    private String order_no;
-    private String goods_id;
-    private String emp_id;
-    private String seller_emp_id;
-    private String address_id;
-    private String goods_count;
-    private String payable_amount;
-    private String create_time;
-    private String pay_time;
-    private String send_time;
-    private String accept_time;
-    private String completion_time;
-    private String status;
-    private String pay_status;
-    private String distribution_type;
-    private String distribution_status;
-    private String postscript;
+    private String order_no;//订单no
+    private String goods_id;//商品id
+    private String emp_id;//会员ID
+    private String seller_emp_id;//卖家id
+    private String address_id;//收货地址ID
+    private String goods_count;//商品数量
+    private String payable_amount;//支付金额
+    private String create_time;//创建订单时间--毫秒
+    private String pay_time;//支付时间--毫秒
+    private String send_time;//发货时间--毫秒
+    private String accept_time;//收货时间--毫秒
+    private String completion_time;//订单完成时间--毫秒
+    private String status;//状态---1生成订单,2支付订单,3取消订单,4作废订单,5完成订单',
+    private String pay_status;//支付状态 0：未支付，1：已支付，2：退款'
+    private String distribution_type;//0配送 1自取 默认0
+    private String distribution_status;//配送状态 0：未发送,1：已发送,2：到达
+    private String postscript;//用户附言
     private String point;
     private String trade_no;
     private String invoice;
     private String invoice_title;
-    private String taxes;
-    private String out_trade_no;
+    private String taxes;//税率
+    private String out_trade_no;//支付宝 微信的订单id
 
     private String provinceId;
     private String cityId;

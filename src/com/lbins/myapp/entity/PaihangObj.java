@@ -4,21 +4,21 @@ package com.lbins.myapp.entity;
  * Created by zhl on 2016/9/16.
  */
 public class PaihangObj {
-    private String mm_paihang_id;
+    private String mm_paihang_id;//推荐ID
     private String goods_id;//商品id
     private String top_num;
-    private String is_del;
-    private String end_time;
+    private String is_del;//是否删除 0否
+    private String end_time;//退出推荐时间
 
-    private String goods_type_id;
-    private String goods_name;
-    private String goods_cover;
-    private String goods_cont;
+    private String goods_type_id;//商品分类
+    private String goods_name;//商品名城
+    private String goods_cover;//商品图片
+    private String goods_cont;//商品内容
     private String sell_price;//销售价格
     private String market_price;//市场价格
-    private String goods_address;
+    private String goods_address;//商品地址
     private String goods_person;//联系人
-    private String goods_tel;
+    private String goods_tel;//电话
     private String goods_qq;
 
     private String goods_is_use;

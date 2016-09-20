@@ -2,8 +2,6 @@ package com.lbins.myapp.data;
 
 import com.lbins.myapp.entity.PaopaoGoods;
 
-import java.util.List;
-
 /**
  * Created by zhl on 2016/9/13.
  */

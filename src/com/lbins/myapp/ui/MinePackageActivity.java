@@ -17,7 +17,6 @@ import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.BankObjData;
-import com.lbins.myapp.data.MineAddressDATA;
 import com.lbins.myapp.data.MinePackageData;
 import com.lbins.myapp.entity.MinePackage;
 import com.lbins.myapp.util.StringUtil;

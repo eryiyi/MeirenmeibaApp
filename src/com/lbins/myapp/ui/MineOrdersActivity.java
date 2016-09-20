@@ -592,7 +592,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     void updateMineOrder(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                getGson().fromJson(getSp().getString("select_big_area", ""), String.class) +  InternetURL.UPDATE_ORDER_TOSERVER_SINGLE,
+                InternetURL.UPDATE_ORDER_TOSERVER_SINGLE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

@@ -4,32 +4,32 @@ package com.lbins.myapp.entity;
  * Created by zhl on 2016/9/15.
  */
 public class ManagerInfo {
-    private String id;
-    private String realName;
-    private String idcard;
-    private String idcardUrl;
+    private String id;//店铺ID
+    private String realName;//用户真实姓名
+    private String idcard;//身份证
+    private String idcardUrl;//身份证图片
 
-    private String payNumber;
-    private String checkName;
+    private String payNumber;//支付宝
+    private String checkName;//支付宝用户名
 
-    private String bankCard;
-    private String bankType;
-    private String bankAddress;
-    private String mobile;
-    private String bankName;
+    private String bankCard;//银行卡
+    private String bankType;//银行卡类别
+    private String bankAddress;//银行地址
+    private String mobile;//银行预留手机号
+    private String bankName;//银行名称
 
-    private String company_name;
-    private String company_person;
-    private String company_tel;
-    private String company_address;
-    private String company_detail;
-    private String company_pic;
-    private String company_star;
+    private String company_name;//店铺名称
+    private String company_person;//店铺地址
+    private String company_tel;//店铺联系电话
+    private String company_address;//店铺地址
+    private String company_detail;//店铺详情
+    private String company_pic;//店铺主图
+    private String company_star;//店铺星级
 
-    private String lat_company;
-    private String lng_company;
+    private String lat_company;//店铺地址经纬度
+    private String lng_company;//店铺地址经纬度
 
-    private String emp_id;
+    private String emp_id;//用户ID
 
     private String yingye_time_start;
     private String yingye_time_end;

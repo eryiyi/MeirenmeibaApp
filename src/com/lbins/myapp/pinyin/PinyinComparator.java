@@ -2,7 +2,6 @@ package com.lbins.myapp.pinyin;
 
 
 import com.lbins.myapp.entity.City;
-import com.lbins.myapp.entity.Member;
 
 import java.util.Comparator;
 

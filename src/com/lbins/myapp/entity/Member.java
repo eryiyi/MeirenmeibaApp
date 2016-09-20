@@ -6,29 +6,31 @@ import java.io.Serializable;
  * Created by zhl on 2016/9/13.
  */
 public class Member implements Serializable{
-    private String empId;
-    private String emp_number;
-    private String empMobile;
-    private String empPass;
-    private String empName;
-    private String empCover;
-    private String empSex;
-    private String isUse;
-    private String dateline;
-    private String emp_birthday;
-    private String pushId;
-    private String hxUsername;
-    private String isInGroup;
-    private String deviceType;
+    private String empId; //用户ID 唯一标识
+    private String emp_number;//用户账号（注册时生成的唯一标识）
+    private String empMobile;//手机号
+    private String empPass;//密码
+    private String empName;//姓名
+    private String empCover;//头像
+    private String empSex;//性别
+    private String isUse;//是否禁用 0否  1是
+    private String dateline;//注册日期 毫秒值
+    private String emp_birthday;//出生日期 1988-2-11
 
-    private String lat;
-    private String lng;
-    private String level_id;//等级
+    private String hxUsername;//暂不用
+    private String isInGroup;//暂不用
+
+    private String pushId;//百度推送的用户唯一标志
+    private String deviceType;//百度推送的设备标志  3是安卓 4是苹果
+
+    private String lat;//用户经纬度 37.415571
+    private String lng;//用户经纬度 117.482235
+    private String level_id;//等级id 对应等级表
     private String emp_erweima;//二维码
-    private String emp_up;//上级
+    private String emp_up;//上级ID（介绍人、推荐人）
 
-    private String emp_up_mobile;
-    private String levelName;
+    private String emp_up_mobile;//上级手机号
+    private String levelName;//等级名称
     private String jfcount;//积分
     private String emp_pay_pass;//支付密码
 

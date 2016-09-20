@@ -32,7 +32,6 @@ import com.lbins.myapp.pay.PayResult;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -496,7 +495,7 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
     void updateMineOrder(){
             StringRequest request = new StringRequest(
                     Request.Method.POST,
-                    getGson().fromJson(getSp().getString("select_big_area", ""), String.class) +  InternetURL.UPDATE_ORDER_TOSERVER,
+                    InternetURL.UPDATE_ORDER_TOSERVER,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {

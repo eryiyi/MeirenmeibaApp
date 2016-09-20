@@ -4,12 +4,12 @@ package com.lbins.myapp.entity;
  * Created by zhl on 2016/9/12.
  */
 public class GoodsType {
-    private String typeId;
-    private String typeName;
-    private String typeContent;
-    private String typeIsUse;
-    private String typeCover;
-    private String type_num;
+    private String typeId;//分类ID
+    private String typeName;//分类名称
+    private String typeContent;//分类介绍
+    private String typeIsUse;//是否使用
+    private String typeCover;//分类图标
+    private String type_num;//排序
 
     public String getTypeId() {
         return typeId;

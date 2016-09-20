@@ -1,6 +1,5 @@
 package com.lbins.myapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -16,11 +15,9 @@ import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.DianPuFavourData;
 import com.lbins.myapp.entity.DianPuFavour;
-import com.lbins.myapp.entity.OrderVo;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
-import com.lbins.myapp.widget.ContentListView;
 import com.lbins.myapp.widget.CustomProgressDialog;
 
 import java.util.ArrayList;

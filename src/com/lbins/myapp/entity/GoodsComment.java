@@ -4,14 +4,14 @@ package com.lbins.myapp.entity;
  * Created by zhl on 2016/9/16.
  */
 public class GoodsComment {
-    private String id;
-    private String goodsId;
-    private String content;
-    private String fplid;
-    private String empId;
-    private String dateline;
-    private String goodsEmpId;
-    private String comment_pic;
+    private String id;//评论ID
+    private String goodsId;//商品iD
+    private String content;//商品内容
+    private String fplid;//父评论ID
+    private String empId;//评论者ID
+    private String dateline;//评论时间
+    private String goodsEmpId;//商品所有者ID
+    private String comment_pic;//评论图片 逗号隔开 最多三图
     private String fempId;//父评论者ID
     private String nickName;//评论人昵称
     private String cover;//评论人头像

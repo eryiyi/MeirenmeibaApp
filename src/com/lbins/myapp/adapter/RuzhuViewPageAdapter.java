@@ -8,8 +8,6 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import com.lbins.myapp.MainActivity;
-import com.lbins.myapp.ui.AboutActivity;
 import com.lbins.myapp.ui.ApplyDianpuActivity;
 import com.lbins.myapp.widget.ViewPageItemView;
 import org.json.JSONArray;

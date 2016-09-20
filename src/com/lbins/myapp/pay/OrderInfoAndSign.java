@@ -4,9 +4,9 @@ package com.lbins.myapp.pay;
  * Created by Administrator on 2015/8/14.
  */
 public class OrderInfoAndSign {
-    private String orderInfo;
-    private String sign;
-    private String out_trade_no;
+    private String orderInfo;//订单编号
+    private String sign;//支付宝签名
+    private String out_trade_no;//支付宝 微信订单ID
 
     public String getOut_trade_no() {
         return out_trade_no;

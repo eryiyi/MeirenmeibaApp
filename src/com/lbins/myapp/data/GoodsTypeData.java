@@ -2,7 +2,6 @@ package com.lbins.myapp.data;
 
 import com.lbins.myapp.entity.GoodsType;
 
-import java.util.Date;
 import java.util.List;
 
 /**

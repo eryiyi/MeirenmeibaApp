@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.GoodsComment;
-import com.lbins.myapp.entity.Province;
 import com.lbins.myapp.widget.ClassifyGridview;
 
 import java.util.List;

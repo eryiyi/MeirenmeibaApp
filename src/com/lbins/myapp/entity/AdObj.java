@@ -4,12 +4,12 @@ package com.lbins.myapp.entity;
  * Created by zhl on 2016/9/16.
  */
 public class AdObj {
-    private String mm_ad_id;
-    private String mm_ad_url;
-    private String mm_ad_pic;
-    private String mm_ad_title;
-    private String emp_id;
-    private String mm_ad_num;
+    private String mm_ad_id;//广告ID
+    private String mm_ad_url;//广告地址
+    private String mm_ad_pic;//广告图片
+    private String mm_ad_title;//标题
+    private String emp_id;//会员ID
+    private String mm_ad_num;//排序
 
     public String getMm_ad_id() {
         return mm_ad_id;

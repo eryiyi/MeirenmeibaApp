@@ -8,20 +8,20 @@ import java.io.Serializable;
  */
 public class ShoppingAddress implements Serializable{
     private String address_id;
-    private String emp_id;
-    private String accept_name;
-    private String address;
-    private String phone;
-    private String is_default;
-    private String dateline;
+    private String emp_id;//用户ID
+    private String accept_name;//收货人姓名
+    private String address;//详细地址
+    private String phone;//电话
+    private String is_default;//是否默认
+    private String dateline;//添加时间
 
-    private String province;
-    private String city;
-    private String area;
+    private String province;//省ID
+    private String city;//市ID
+    private String area;//县ID
 
-    private String provinceName;
-    private String cityName;
-    private String areaName;
+    private String provinceName;//省
+    private String cityName;//市
+    private String areaName;//县
 
     public String getProvinceName() {
         return provinceName;
