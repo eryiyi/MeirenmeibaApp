@@ -619,6 +619,26 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         adObj.setEmp_id("");
         adObj.setMm_ad_num("");
         listsAd.add(adObj);
+
+        AdObj adObj1 = new AdObj();
+        adObj1.setMm_ad_id("");
+        adObj1.setMm_ad_url("");
+        adObj1.setMm_ad_pic(paopaoGoods.getGoods_cover1());
+        adObj1.setMm_ad_title("");
+        adObj1.setEmp_id("");
+        adObj1.setMm_ad_num("");
+        listsAd.add(adObj1);
+
+
+        AdObj adObj2 = new AdObj();
+        adObj2.setMm_ad_id("");
+        adObj2.setMm_ad_url("");
+        adObj2.setMm_ad_pic(paopaoGoods.getGoods_cover2());
+        adObj2.setMm_ad_title("");
+        adObj2.setEmp_id("");
+        adObj2.setMm_ad_num("");
+        listsAd.add(adObj2);
+
         //轮播广告
         initViewPager();
         money_one.setText("￥" + paopaoGoods.getSellPrice());

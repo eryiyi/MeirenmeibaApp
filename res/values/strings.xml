@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MEIMEI</string>
+    <string name="app_name">美人美吧</string>
     <string name="net_work_error">请检查网络连接</string>
     <string name="back">返回</string>
     <string name="pull_to_refresh_pull_label" translatable="false">向下拉动可以刷新</string>

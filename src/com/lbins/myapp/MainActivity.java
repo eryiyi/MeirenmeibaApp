@@ -1,7 +1,6 @@
 package com.lbins.myapp;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        registerMessageReceiver();
         res = getResources();
         fm = getSupportFragmentManager();
         initView();
@@ -74,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
             // 启动一个线程 加载城市数据
             new Thread(MainActivity.this).start();
         }
+        JPushInterface.init(getApplicationContext());
     }
 
     private List<LxAd> lxads = new ArrayList<LxAd>();
@@ -280,5 +282,59 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         getRequestQueue().add(request);
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.lbins.myapp.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                String messge = intent.getStringExtra(KEY_MESSAGE);
+                String extras = intent.getStringExtra(KEY_EXTRAS);
+                StringBuilder showMsg = new StringBuilder();
+                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                //todo
+            }
+        }
+    }
+
+
+    public static boolean isForeground = false;
+    @Override
+    public void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+
+    @Override
+    public void onPause() {
+        isForeground = false;
+        super.onPause();
     }
 }

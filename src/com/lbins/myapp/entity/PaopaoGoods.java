@@ -36,6 +36,24 @@ public class PaopaoGoods {
     private String managerCover;//商品发布者头像（商品是后台管理员发布）
 
     private String type_name;//商品分类名称
+    private String goods_cover1;
+    private String goods_cover2;
+
+    public String getGoods_cover1() {
+        return goods_cover1;
+    }
+
+    public void setGoods_cover1(String goods_cover1) {
+        this.goods_cover1 = goods_cover1;
+    }
+
+    public String getGoods_cover2() {
+        return goods_cover2;
+    }
+
+    public void setGoods_cover2(String goods_cover2) {
+        this.goods_cover2 = goods_cover2;
+    }
 
     public String getType_name() {
         return type_name;

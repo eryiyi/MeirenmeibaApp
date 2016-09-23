@@ -67,3 +67,9 @@
 
     -keep class com.amap.api.navi.**{*;}
     -keep class com.autonavi.**{*;}
+
+    -dontoptimize
+    -dontpreverify
+
+    -dontwarn cn.jpush.**
+    -keep class cn.jpush.** { *; }

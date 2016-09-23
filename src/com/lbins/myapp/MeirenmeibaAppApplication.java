@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.LruCache;
+import cn.jpush.android.api.JPushInterface;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -53,6 +54,9 @@ public class MeirenmeibaAppApplication extends Application {
         sp = getSharedPreferences("university_manage", Context.MODE_PRIVATE);
         imageLoader = new com.android.volley.toolbox.ImageLoader(requestQueue, new BitmapCache());
         initImageLoader(this);
+
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
     }
 
     public static Context getContext() {
