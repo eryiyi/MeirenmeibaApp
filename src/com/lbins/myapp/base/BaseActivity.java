@@ -9,7 +9,6 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -83,12 +82,10 @@ public class BaseActivity extends FragmentActivity {
 
     public void onResume() {
         super.onResume();
-        JPushInterface.onResume(this);
     }
 
     public void onPause() {
         super.onPause();
-        JPushInterface.onPause(this);
     }
 
     public void onStop() {

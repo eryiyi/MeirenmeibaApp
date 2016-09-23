@@ -115,4 +115,8 @@ public class InternetURL {
     //版本检查
     public static final String CHECK_VERSION_CODE_URL = INTERNAL +   "getVersionCode.do";
 
+
+    //百度推送 绑定 get方法
+    public static final String UPDATE_PUSH_ID = INTERNAL + "updatePushId.do";
+
 }

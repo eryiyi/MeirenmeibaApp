@@ -8,12 +8,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
-
     public static final String TAG = "PushDemoActivity";
     public static final String RESPONSE_METHOD = "method";
     public static final String RESPONSE_CONTENT = "content";
@@ -45,7 +45,7 @@ public class Utils {
                 apiKey = metaData.getString(metaKey);
             }
         } catch (NameNotFoundException e) {
-
+            Log.e(TAG, "error " + e.getMessage());
         }
         return apiKey;
     }

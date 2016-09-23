@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
@@ -75,7 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
             // 启动一个线程 加载城市数据
             new Thread(MainActivity.this).start();
         }
-        JPushInterface.init(getApplicationContext());
     }
 
     private List<LxAd> lxads = new ArrayList<LxAd>();

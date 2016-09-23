@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import cn.jpush.android.api.JPushInterface;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -14,6 +13,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
@@ -22,6 +23,7 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.util.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -159,6 +161,9 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
     }
 
     public void saveMember(Member member){
+        PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                Utils.getMetaValue(WelcomeActivity.this, "api_key"));
         save("empId", member.getEmpId());
         save("emp_number", member.getEmp_number());
         save("empMobile", member.getEmpMobile());
