@@ -542,6 +542,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", goods_id);
+                params.put("empid", getGson().fromJson(getSp().getString("empId", ""), String.class));
                 return params;
             }
 

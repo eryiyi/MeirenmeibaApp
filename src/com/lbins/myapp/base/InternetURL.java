@@ -119,4 +119,7 @@ public class InternetURL {
     //百度推送 绑定 get方法
     public static final String UPDATE_PUSH_ID = INTERNAL + "updatePushId.do";
 
+    //查询我的浏览记录
+    public static final String GET_BROWSING_ID = INTERNAL + "appGetBrowsing.do";
+
 }

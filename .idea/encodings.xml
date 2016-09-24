@@ -142,6 +142,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/IndexTypeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemAreaAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBankCardAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemBrowsingAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCartAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCityAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemCommentAdapter.java" charset="UTF-8" />
@@ -181,6 +182,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoSession.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/ShoppingCartDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Area.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/BrowsingObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/DianPuFavour.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Order.java" charset="UTF-8" />
