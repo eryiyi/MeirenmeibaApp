@@ -168,22 +168,24 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
                 order_sure.setClickable(false);
                 if(shoppingAddress != null){
                     //先传值给服务端
-                    if(lists != null && lists.size() > 0){
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea()));
-                            }
-                        }
-                    }
-                    SGform.setList(listOrders);
-                    if(listOrders!=null && listOrders.size() > 0){
-                        //传值给服务端
-                        sendOrderToServer();
-                    }
+//                    if(lists != null && lists.size() > 0){
+//                        for(int i=0;i<lists.size();i++){
+//                            ShoppingCart shoppingCart = lists.get(i);
+//                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+//                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+//                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+//                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+//                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea()));
+//                            }
+//                        }
+//                    }
+//                    SGform.setList(listOrders);
+//                    if(listOrders!=null && listOrders.size() > 0){
+//                        //传值给服务端
+//                        sendOrderToServer();
+//                    }
+                    Intent intent = new Intent(OrderMakeActivity.this, PaySelectActivity.class);
+                    startActivity(intent);
                 }else{
                     order_sure.setClickable(true);
                     Toast.makeText(OrderMakeActivity.this, R.string.no_address_error, Toast.LENGTH_SHORT).show();
