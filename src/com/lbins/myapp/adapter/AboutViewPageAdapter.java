@@ -64,9 +64,10 @@ public class AboutViewPageAdapter extends PagerAdapter {
                 public void onClick(View v) {
                     Intent intent = null;
                     switch (position) {
-                        case 2:
+                        case 3:
                             Intent main = new Intent(context, MainActivity.class);
                             context.startActivity(main);
+                            context.finish();
                             break;
                     }
                 }

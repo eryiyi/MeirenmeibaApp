@@ -12,12 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AboutActivity extends BaseActivity {
-    private static final int PICTURE_COUNT = 3;
+    private static final int PICTURE_COUNT = 4;
 
     private static final int[] PICTURE_RESOURCES = {R.drawable.loading_one,
-            R.drawable.loading_two, R.drawable.loading_three};
+            R.drawable.loading_two, R.drawable.loading_three, R.drawable.loading_four};
 
-    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片"};
+    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片","第四张图片"};
     private JSONArray jsonArray;
     private ViewPager viewPager;
     private AboutViewPageAdapter adapter;
@@ -48,7 +48,7 @@ public class AboutActivity extends BaseActivity {
 
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpage);
-        adapter = new AboutViewPageAdapter(this, jsonArray);
+        adapter = new AboutViewPageAdapter(AboutActivity.this, jsonArray);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -121,5 +121,7 @@ public class InternetURL {
 
     //查询我的浏览记录
     public static final String GET_BROWSING_ID = INTERNAL + "appGetBrowsing.do";
+    //分享商品链接
+    public static final String SHARE_GOODS_DETAIL_URL = INTERNAL + "paopaogoods/shareGoodsUrl.do";
 
 }

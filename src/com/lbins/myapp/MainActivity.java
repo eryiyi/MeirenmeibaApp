@@ -29,7 +29,7 @@ import org.json.JSONObject;
 
 import java.util.*;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener,Runnable{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
@@ -71,9 +71,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
         if (isFirstRun) {
             editor.putBoolean("isFirstRunCity", false);
             editor.commit();
-            // 启动一个线程 加载城市数据
-            new Thread(MainActivity.this).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getCitys();
+                }
+            }).start();
         }
+
     }
 
     private List<LxAd> lxads = new ArrayList<LxAd>();
@@ -210,11 +215,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,R
         } else {
             switchFragment(v.getId());
         }
-    }
-
-    @Override
-    public void run() {
-        getCitys();
     }
 
     void getCitys(){
