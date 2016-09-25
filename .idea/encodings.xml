@@ -8,14 +8,10 @@
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/alipaySDK-20150724.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/arm64-v8a" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/armeabi-v7a" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_base_v3_6_1.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_map_v3_6_1.so" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi/libBaiduMapSDK_util_v3_6_1.so" charset="UTF-8" />
@@ -29,15 +25,11 @@
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/mips" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/mips64" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/open_sdk_r5756.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/pushservice-5.2.0.12.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/umeng_social_sdk.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/x86" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/x86_64" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/custom_dialog_frame.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_left.xml" charset="UTF-8" />
@@ -450,9 +442,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/SelectPhoPopWindow.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ViewPageItemView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/Constants.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/Constants.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXEntryActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxpay/Util.java" charset="UTF-8" />
   </component>
