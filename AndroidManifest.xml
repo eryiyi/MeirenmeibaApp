@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.lbins.myapp"
           android:versionCode="1"
           android:versionName="1.0">
@@ -70,8 +71,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-
-
     <application android:label="@string/app_name"
                  android:theme="@android:style/Theme.NoTitleBar"
                  android:name=".MeirenmeibaAppApplication"
@@ -127,6 +126,7 @@
         <activity android:name=".ui.DetailOrderActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineFavoursActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineBrowsingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
         <!--// *****************************高德地图sdk*******************************************-->
@@ -214,6 +214,64 @@
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data android:name="api_key" android:value="Y2YvCibBy54Tathk9FkDCDVe" />
 
+
+
+
+
+        <!-- ###################注册SDK使用的Activity###################### -->
+        <!--分享编辑页-->
+        <activity
+                android:name="com.umeng.socialize.editorpage.ShareActivity"
+                android:theme="@style/Theme.UMDefault"
+                android:excludeFromRecents="true"/>
+
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <activity
+                android:name="com.tencent.tauth.AuthActivity"
+                android:launchMode="singleTask"
+                android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID-->
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:screenOrientation="portrait">
+        </activity>
+        <!-- ###################添加UmengAppkey###################### -->
+        <meta-data
+                android:name="UMENG_APPKEY"
+                android:value="57e721f067e58ef935001a22" >
+        </meta-data>
+
+
+        <!-- QQ、QQ空间所需权限 -->
+        <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+        <uses-permission android:name="android.permission.CALL_PHONE"/>
+        <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+        <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+        <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+
+        <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions"></uses-permission>
+
+        <activity
+                android:name=".wxapi.WXPayEntryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait" />
 
     </application>
 </manifest>

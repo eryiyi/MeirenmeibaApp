@@ -9,12 +9,14 @@ import android.util.LruCache;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.lbins.myapp.base.InternetURL;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.umeng.socialize.PlatformConfig;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +55,11 @@ public class MeirenmeibaAppApplication extends Application {
         sp = getSharedPreferences("university_manage", Context.MODE_PRIVATE);
         imageLoader = new com.android.volley.toolbox.ImageLoader(requestQueue, new BitmapCache());
         initImageLoader(this);
+
+        //微信 wx12342956d1cab4f9,a5ae111de7d9ea137e88a5e02c07c94d
+        PlatformConfig.setWeixin(InternetURL.WEIXIN_APPID, InternetURL.WEIXIN_SECRET);
+
+        PlatformConfig.setQQZone("1105560084", "939gBlg60YfMVERY");
     }
 
     public static Context getContext() {

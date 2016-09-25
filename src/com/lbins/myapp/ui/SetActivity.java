@@ -46,6 +46,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         this.findViewById(R.id.liner_set_address).setOnClickListener(this);
         this.findViewById(R.id.liner_set_liulan).setOnClickListener(this);
         this.findViewById(R.id.liner_set_version).setOnClickListener(this);
+        this.findViewById(R.id.liner_aboutus).setOnClickListener(this);
 
     }
 
@@ -94,6 +95,12 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 initData();
             }
             break;
+            case R.id.liner_aboutus:
+            {
+                Intent intetn = new Intent(SetActivity.this, AboutUsActivity.class);
+                startActivity(intetn);
+            }
+                break;
         }
     }
 

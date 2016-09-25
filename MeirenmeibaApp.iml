@@ -24,5 +24,7 @@
     <orderEntry type="library" name="Msc" level="project" />
     <orderEntry type="library" name="pushservice-5.2.0.12" level="project" />
     <orderEntry type="library" name="MobTools1" level="project" />
+    <orderEntry type="library" name="SocialSDK_email" level="project" />
+    <orderEntry type="library" name="open_sdk_r5756" level="project" />
   </component>
 </module>

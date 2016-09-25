@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/main"
+              android:orientation="vertical"
+              android:background="@color/white">
+
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content">
+        <ImageView android:layout_width="80dp"
+                   android:layout_gravity="center_horizontal"
+                   android:src="@drawable/ic_launcher"
+                   android:id="@+id/head"
+                   android:layout_marginTop="25dp"
+                   android:layout_height="80dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="美人美吧"
+                  android:layout_marginTop="15dp"
+                  android:textSize="16sp"
+                  android:textColor="@color/text_color"
+                  android:layout_gravity="center_horizontal"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="V1.0"
+                  android:layout_marginTop="6dp"
+                  android:textSize="12sp"
+                  android:id="@+id/version"
+                  android:layout_gravity="center_horizontal"
+                  android:textColor="@color/blue"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView android:layout_width="wrap_content"
+              android:gravity="center"
+              android:padding="15dp"
+              android:textColor="@color/text_color"
+              android:textSize="12sp"
+              android:lineSpacingMultiplier="1.2"
+              android:text="河南家望实业有限公司 版权所有 \nCopyright 2015-2022 Guiren All Right Reserved"
+              android:layout_gravity="center_horizontal"
+              android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -36,6 +36,13 @@ import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.StringUtil;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -93,6 +100,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private Button foot_cart;
     private Button foot_order;
     private TextView foot_goods;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +214,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             case R.id.btn_share:
             {
                 //分享
+                share();
             }
             break;
             case R.id.dp_tel:
@@ -749,5 +758,50 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         getRequestQueue().add(request);
     }
 
+
+    void share() {
+        new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(shareBoardlistener)
+                .open();
+    }
+
+    private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
+
+        @Override
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+            UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
+            String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
+            String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
+            new ShareAction(DetailPaopaoGoodsActivity.this).setPlatform(share_media).setCallback(umShareListener)
+                    .withText(content)
+                    .withTitle(title)
+                    .withTargetUrl((InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId()))
+                    .withMedia(image)
+                    .share();
+        }
+    };
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(DetailPaopaoGoodsActivity.this).onActivityResult(requestCode, resultCode, data);
+    }
 
 }

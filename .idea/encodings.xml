@@ -6,6 +6,11 @@
     <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Msc.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/alipaySDK-20150724.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/arm64-v8a" charset="UTF-8" />
@@ -26,7 +31,9 @@
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/mips" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/mips64" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/open_sdk_r5756.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/pushservice-5.2.0.12.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/umeng_social_sdk.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/x86" charset="UTF-8" />
@@ -40,7 +47,25 @@
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_left.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_right.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_out_to_top.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_fade_in.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_fade_out.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_shareboard_animation_in.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_shareboard_animation_out.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_slide_in_from_bottom.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_slide_out_from_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-hdpi/dizhi.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_light_bar_bg_pad.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_nav_bar_bg_pad.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_oauth_check_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_oauth_check_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_off_focused_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_off_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_off_pressed_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_on_focused_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_on_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_btn_check_on_pressed_holo_light.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_close_bg_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_update_close_bg_tap.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/address_select.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_normal.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_pressed.png" charset="UTF-8" />
@@ -92,7 +117,147 @@
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/jubao_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/pull_to_refresh_arrow.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_app_icon.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_common_gradient_green.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_common_gradient_orange.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_common_gradient_red.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_share_solid_icon.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_action_back.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_action_back_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_action_back_selected.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_alipay.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_button.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_selected.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_bind_bg.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_blue.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_grey.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_grey_blue.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_login.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_login_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_login_pressed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_red.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_red_blue.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_white.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_button_white_blue.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_default_avatar.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_douban_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_douban_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_evernote.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_evernote_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_facebook.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_facebook_close.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_facebook_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_fetch_image.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_flickr.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_flickr_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_follow_check.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_follow_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_follow_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_foursquare.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_foursquare_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_gmail_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_gmail_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_google.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_instagram_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_instagram_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_kakao.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_kakao_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_laiwang.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_laiwang_dynamic.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_laiwang_dynamic_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_laiwang_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_light_bar_bg.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_line.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_line_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_linkedin.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_linkedin_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_location_ic.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_location_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_location_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_nav_bar_bg.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_oauth_check.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_oauth_check_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_oauth_check_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_pinterest.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_pinterest_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_pocket.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_pocket_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_qq_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_qq_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_qzone_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_qzone_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_refersh.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_renren_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_renren_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_search_icon.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_shape_solid_black.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_shape_solid_grey.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_share_music.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_share_pic.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_share_to_button.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_share_transparent_corner.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_share_video.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_shareboard_item_background.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sidebar_normal.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sidebar_selected.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sidebar_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sina_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sina_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sms_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_sms_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_back_bt.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_back_bt_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_back_bt_selected.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_right_bt.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_right_bt_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_right_bt_selected.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_button_left.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_button_right.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_left_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_left_pressed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_right_normal.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_title_tab_right_pressed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tumblr.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tumblr_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_twitter.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tx_off.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tx_on.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wechat.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wechat_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_whatsapp.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_whatsapp_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_window_shadow_pad.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wxcircle.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wxcircle_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_x_button.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_yixin.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_yixin_circle.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_yixin_circle_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_yixin_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_ynote.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_ynote_gray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_cancel_bg_focused.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_cancel_bg_normal.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_cancel_bg_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_cancel_bg_tap.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_check_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_close_bg_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_ok_bg_focused.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_ok_bg_normal.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_ok_bg_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_button_ok_bg_tap.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_dialog_bg.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_title_bg.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/umeng_update_wifi_disable.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/zhuye_item_select.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout-sw550dp-large/umeng_socialize_post_share.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout-v9" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/aboutus_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/activity_viewpage.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/custom_info_contents.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/custom_info_window.xml" charset="UTF-8" />
@@ -122,18 +287,54 @@
     <file url="file://$PROJECT_DIR$/res/layout/mine_order_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/msg_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/order_make_activity.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/pay_result.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/select_type_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/sex_select_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_common_download_notification.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_base_alert_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_base_alert_dialog_button.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_facebook_login_activity_layout.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_failed_load_page.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_full_alert_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_full_alert_dialog_item.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_full_curtain.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_oauth_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_post_share.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_shareboard_item.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_simple_spinner_item.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_socialize_titile_bar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/umeng_update_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/viewpage_itemview.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values-large" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values-v11" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values-w820dp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values-xhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values-xlarge" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/colors.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/dimens.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/ids.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/pull_refresh_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/styles.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_common_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_colors.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_facebook_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_flickr_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_foursquare_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_kakao_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_laiwang_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_line_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_linkedin_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_pocket_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_style.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_tumblr_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_whatsapp_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_ynote_strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/umeng_update_string.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdOneAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
@@ -248,5 +449,11 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ReboundScrollView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/SelectPhoPopWindow.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ViewPageItemView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/Constants.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/Constants.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXEntryActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxpay/Util.java" charset="UTF-8" />
   </component>
 </project>
