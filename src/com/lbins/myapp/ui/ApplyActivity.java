@@ -82,7 +82,10 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                                 save("ruzhu_apply", shanghuming.getText().toString());
                                 showMsg(ApplyActivity.this, "申请入驻成功，请等待管理员审核！");
                                 finish();
-                            } else {
+                            }else if(data.getCode() == 1){
+                                showMsg(ApplyActivity.this, "申请失败，您已经申请入驻，不能重复申请！");
+                            }
+                            else {
                                 Toast.makeText(ApplyActivity.this, R.string.add_failed, Toast.LENGTH_SHORT).show();
                             }
                         } else {

@@ -91,5 +91,6 @@ public class ApplyDianpuActivity extends BaseActivity implements View.OnClickLis
     public void ruzhuAction(View view){
         Intent intent = new Intent(ApplyDianpuActivity.this, ApplyActivity.class);
         startActivity(intent);
+        finish();
     }
 }
