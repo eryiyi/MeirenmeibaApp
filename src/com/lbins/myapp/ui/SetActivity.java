@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
+import com.lbins.myapp.base.ActivityTack;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.VersionUpdateObjData;
@@ -188,6 +189,13 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             e.printStackTrace();
             return "";
         }
+    }
+
+
+    public void quiteAction(View view){
+        //退出
+        save("empPass", "");
+        ActivityTack.getInstanse().exit(SetActivity.this);
     }
 
 }
