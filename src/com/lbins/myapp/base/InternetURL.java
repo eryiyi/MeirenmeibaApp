@@ -10,6 +10,8 @@ public class InternetURL {
 
     public static final String WEIXIN_APPID = "wx9769250919c81901";
     public static final String WEIXIN_SECRET = "559afbe3ff53400c469f12648a976eff";
+    public static final  String WX_API_KEY="559afbe3ff53400c469f12648a976eff";
+
 
 //    public static final String INTERNAL = "http://157j1274e3.iask.in/";
     public static final String INTERNAL = "http://192.168.0.224:8080/";
@@ -126,5 +128,7 @@ public class InternetURL {
     public static final String GET_BROWSING_ID = INTERNAL + "appGetBrowsing.do";
     //分享商品链接
     public static final String SHARE_GOODS_DETAIL_URL = INTERNAL + "paopaogoods/shareGoodsUrl.do";
+    //微信支付
+    public static final String SEND_ORDER_TOSERVER_WX = INTERNAL + "orderSaveWx";
 
 }

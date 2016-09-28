@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/alipaySDK-20150724.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
@@ -445,6 +447,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/Constants.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXEntryActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxpay/MD5.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/wxpay/Util.java" charset="UTF-8" />
   </component>
 </project>
