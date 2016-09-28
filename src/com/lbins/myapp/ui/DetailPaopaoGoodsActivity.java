@@ -146,10 +146,9 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//                IS_REFRESH = true;
-//                pageIndex = 1;
-//                getComment();
-                lstv.onRefreshComplete();
+                IS_REFRESH = true;
+                pageIndex = 1;
+                getComment();
             }
 
             @Override
@@ -158,10 +157,9 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//                IS_REFRESH = false;
-//                pageIndex++;
-//                getComment();
-                lstv.onRefreshComplete();
+                IS_REFRESH = false;
+                pageIndex++;
+                getComment();
             }
         });
         lstv.setAdapter(adapterComment);
@@ -672,8 +670,11 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     GoodsCommentData data = getGson().fromJson(s, GoodsCommentData.class);
-                                    listComments.clear();
+                                    if(IS_REFRESH ){
+                                        listComments.clear();
+                                    }
                                     listComments.addAll(data.getData());
+                                    lstv.onRefreshComplete();
                                     adapterComment.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
@@ -695,6 +696,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("goodsId", goods_id);
+                params.put("page", String.valueOf(pageIndex));
                 return params;
             }
 

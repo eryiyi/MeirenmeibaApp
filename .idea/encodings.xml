@@ -283,6 +283,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/msg_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/order_make_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pay_result.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/publish_comment_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
@@ -419,6 +420,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineFavoursActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/MineOrdersActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/OrderMakeActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/PublishGoodCommentActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/SelectAddressActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/CommonUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/upload/MultiPartRequest.java" charset="UTF-8" />

@@ -238,13 +238,10 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 break;
             case 5:
                 //评价
-//                Intent comment = new Intent(this, PublishGoodCommentActivity.class);
-//                comment.putExtra(Constants.GOODS_FATHER_PERSON_NAME, "");
-//                comment.putExtra(Constants.GOODS_FATHER_UUID, "");
-//                comment.putExtra(Constants.GOODS_RECORD_UUID, orderVoTmp.getGoods_id());
-//                comment.putExtra(Constants.GOODS_PERSON_UUID, orderVoTmp.getEmp_id());//商品所有者
-//                comment.putExtra("fplempid", "");
-//                startActivity(comment);
+                Intent comment = new Intent(this, PublishGoodCommentActivity.class);
+                comment.putExtra("goods_id", orderVoTmp.getGoods_id());
+                comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
+                startActivity(comment);
                 break;
             case 6:
                 //删除订单

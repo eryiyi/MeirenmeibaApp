@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.GoodsComment;
+import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -24,6 +28,8 @@ public class ItemCommentAdapter extends BaseAdapter {
     private List<GoodsComment> findEmps;
     private Context mContext;
 
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private OnClickContentItemListener onClickContentItemListener;
 
     public void setOnClickContentItemListener(OnClickContentItemListener onClickContentItemListener) {
@@ -66,8 +72,12 @@ public class ItemCommentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final GoodsComment favour = findEmps.get(position);
+        final GoodsComment cell = findEmps.get(position);
         if (findEmps != null) {
+            imageLoader.displayImage(cell.getCover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            holder.name.setText(cell.getNickName());
+            holder.dateline.setText(cell.getDateline());
+            holder.cont.setText(cell.getContent());
         }
         return convertView;
     }

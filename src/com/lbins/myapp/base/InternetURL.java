@@ -131,4 +131,8 @@ public class InternetURL {
     //微信支付
     public static final String SEND_ORDER_TOSERVER_WX = INTERNAL + "orderSaveWx";
 
+
+    //添加商品评论
+    public static final String PUBLISH_GOODS_COMMNENT_URL = INTERNAL+ "saveGoodsComment.do";
+
 }
