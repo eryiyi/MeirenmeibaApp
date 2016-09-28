@@ -32,6 +32,9 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="SetPicCheck" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_set_number_check</item>
+    </style>
 
     <style name="top_category_scroll_view_item_text">
         <item name="android:textSize">16.0sp</item>

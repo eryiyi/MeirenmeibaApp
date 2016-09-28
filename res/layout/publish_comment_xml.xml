@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:id="@+id/main"
               android:background="@drawable/white"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -31,7 +32,15 @@
             android:hint="说点儿什么吧......"
             android:padding="10dp"
             android:textColor="#ff000000"/>
-
+    <com.lbins.myapp.widget.NoScrollGridView
+            android:id="@+id/publish_moopd_gridview_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/btn_white_shape"
+            android:horizontalSpacing="5dip"
+            android:numColumns="4"
+            android:padding="10dip"
+            android:verticalSpacing="5dip"/>
     <View android:layout_width="match_parent"
           android:layout_height="0.5dp"
           android:background="#d1d1d1"/>

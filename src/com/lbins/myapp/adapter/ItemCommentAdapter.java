@@ -1,17 +1,21 @@
 package com.lbins.myapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.GoodsComment;
+import com.lbins.myapp.ui.GalleryUrlActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
+import com.lbins.myapp.widget.PictureGridview;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -67,7 +71,7 @@ public class ItemCommentAdapter extends BaseAdapter {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
             holder.cont = (TextView) convertView.findViewById(R.id.cont);
-            holder.lstv = (ClassifyGridview) convertView.findViewById(R.id.lstv);
+            holder.gridview_detail_picture = (PictureGridview) convertView.findViewById(R.id.lstv);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -78,6 +82,33 @@ public class ItemCommentAdapter extends BaseAdapter {
             holder.name.setText(cell.getNickName());
             holder.dateline.setText(cell.getDateline());
             holder.cont.setText(cell.getContent());
+            if (!StringUtil.isNullOrEmpty(cell.getComment_pic())) {
+                //说明有图片
+                final String[] picUrls = cell.getComment_pic().split(",");//图片链接切割
+                if (picUrls.length > 0) {
+                    //有多张图
+                    holder.gridview_detail_picture.setVisibility(View.VISIBLE);
+                    holder.gridview_detail_picture.setAdapter(new ImageGridViewAdapter(picUrls, mContext));
+                        holder.gridview_detail_picture.setClickable(true);
+                        holder.gridview_detail_picture.setPressed(true);
+                        holder.gridview_detail_picture.setEnabled(true);
+                    holder.gridview_detail_picture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(mContext, GalleryUrlActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                            intent.putExtra("img_urls", picUrls);
+                            intent.putExtra("position", position);
+                            mContext.startActivity(intent);
+                        }
+                    });
+                }else{
+                    holder.gridview_detail_picture.setVisibility(View.GONE);
+                }
+            }else {
+                holder.gridview_detail_picture.setVisibility(View.GONE);
+            }
+
         }
         return convertView;
     }
@@ -87,6 +118,6 @@ public class ItemCommentAdapter extends BaseAdapter {
         TextView name;
         TextView dateline;
         TextView cont;
-        ClassifyGridview lstv;
+        PictureGridview gridview_detail_picture;
     }
 }
