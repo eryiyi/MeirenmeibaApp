@@ -216,9 +216,9 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                             if (data.getCode() == 200) {
                                 Toast.makeText(PublishGoodCommentActivity.this, "添加评论成功！", Toast.LENGTH_SHORT).show();
                                 //调用广播，刷新详细页评论
-                                Intent intent1 = new Intent("add_goods_comment_success");
-                                sendBroadcast(intent1);
-                                finish();
+//                                Intent intent1 = new Intent("add_goods_comment_success");
+//                                sendBroadcast(intent1);
+//                                finish();
                             }
                         }
                     }

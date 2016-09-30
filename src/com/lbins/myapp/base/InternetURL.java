@@ -12,9 +12,8 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "559afbe3ff53400c469f12648a976eff";
     public static final  String WX_API_KEY="559afbe3ff53400c469f12648a976eff";
 
-
-//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-    public static final String INTERNAL = "http://192.168.0.224:8080/";
+    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -134,5 +133,7 @@ public class InternetURL {
 
     //添加商品评论
     public static final String PUBLISH_GOODS_COMMNENT_URL = INTERNAL+ "saveGoodsComment.do";
+    //获得客户电话列表
+    public static final String GET_KEFU_TEL_URL = INTERNAL+ "getKefuTel.do";
 
 }

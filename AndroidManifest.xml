@@ -133,6 +133,7 @@
         <activity android:name=".ui.AlbumChanceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.AlbumActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.GalleryUrlActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.KefuTelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
         <!--// *****************************高德地图sdk*******************************************-->

@@ -9,8 +9,6 @@
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/alipaySDK-20150724.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
@@ -117,7 +115,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable/jubao_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/pull_to_refresh_arrow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/selector_set_number_check.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/spinner1_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_app_icon.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_common_gradient_green.xml" charset="UTF-8" />
@@ -282,6 +279,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/item_goods_comment.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_grid_detail_image.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_img_del.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_kefu_tel_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_mine_order_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_mood_bq.xml" charset="UTF-8" />
@@ -366,6 +364,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemGoodsAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsGridviewAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemKefuTelAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineAddressAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineOrderAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
@@ -400,6 +399,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/BrowsingObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/DianPuFavour.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/KefuTel.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Order.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/OrderVo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/OrdersForm.java" charset="UTF-8" />
