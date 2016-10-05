@@ -63,7 +63,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     private Resources res;
 
     private TextView location;
-    private ImageView btn_scan;
     private TextView keywords;
 
     private PullToRefreshListView lstv;
@@ -214,7 +213,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     private void initView() {
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);

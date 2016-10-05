@@ -61,7 +61,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
     private Resources res;
 
     private TextView location;
-    private ImageView btn_scan;
     private TextView keywords;
 
     private PullToRefreshListView lstv;
@@ -124,7 +123,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         }
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);

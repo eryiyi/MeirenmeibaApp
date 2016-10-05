@@ -43,6 +43,7 @@
         <ImageView android:layout_width="wrap_content"
                    android:src="@drawable/scan_mine"
                    android:padding="12dp"
+                   android:onClick="scanAction"
                    android:id="@+id/btn_scan"
                    android:layout_centerVertical="true"
                    android:layout_alignParentRight="true"

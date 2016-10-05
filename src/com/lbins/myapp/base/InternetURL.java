@@ -136,4 +136,8 @@ public class InternetURL {
     //获得客户电话列表
     public static final String GET_KEFU_TEL_URL = INTERNAL+ "getKefuTel.do";
 
+    //推广注册
+    public static final String APP_SHARE_REG_URL = INTERNAL+ "appShareReg.do";
+//    http://192.168.0.224:8080/appShareReg.do?emp_id=3f0e9bb23de9469198de0e14e2f8641c
+
 }

@@ -442,6 +442,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/AbsActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/AlbumActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/AlbumChanceActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/CaptureActivity.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/DetailOrderActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/GalleryUrlActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/ui/ImageDelActivity.java" charset="UTF-8" />

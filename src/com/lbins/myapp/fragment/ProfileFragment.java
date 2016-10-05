@@ -208,6 +208,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_ad:
             {
                 //推广
+                Intent intent = new Intent(getActivity(), TuiguangActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_set:

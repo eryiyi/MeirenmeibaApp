@@ -55,7 +55,6 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private Resources res;
 
     private TextView location;
-    private ImageView btn_scan;
     private TextView keywords;
 
     private ClassifyGridview lstv;
@@ -142,7 +141,6 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         view.findViewById(R.id.btn_order).setOnClickListener(this);
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        btn_scan = (ImageView) view.findViewById(R.id.btn_scan);
         keywords = (TextView) view.findViewById(R.id.keywords);
         img_new = (ImageView) view.findViewById(R.id.img_new);
         img_tehui = (ImageView) view.findViewById(R.id.img_tehui);

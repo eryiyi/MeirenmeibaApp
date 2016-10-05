@@ -22,6 +22,7 @@ import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
+import com.lbins.myapp.ui.CaptureActivity;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
@@ -52,7 +53,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     Resources res;
 
     private  List<City> listEmps = new ArrayList<City>();
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -334,5 +334,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onPause() {
         isForeground = false;
         super.onPause();
+    }
+
+    public void scanAction(View view){
+        //扫描
+        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+        startActivity(intent);
     }
 }
