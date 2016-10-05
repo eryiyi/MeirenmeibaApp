@@ -16,12 +16,12 @@
                   android:orientation="vertical"
                   android:layout_weight="1"
                   android:layout_height="wrap_content">
-        <ImageView android:layout_width="80dp"
+        <ImageView android:layout_width="120dp"
                    android:layout_gravity="center_horizontal"
-                   android:src="@drawable/ic_launcher"
-                   android:id="@+id/head"
+                   android:src="@drawable/download_pic"
+                   android:id="@+id/download_pic"
                    android:layout_marginTop="25dp"
-                   android:layout_height="80dp"/>
+                   android:layout_height="120dp"/>
         <TextView android:layout_width="wrap_content"
                   android:text="美人美吧"
                   android:layout_marginTop="15dp"

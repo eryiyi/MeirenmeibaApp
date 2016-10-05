@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_bg"
+              android:orientation="vertical">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="match_parent">
+        <com.lbins.myapp.widget.MyTextView2
+                android:id="@+id/view"
+                android:padding="6dp"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+    </ScrollView>
+
+</LinearLayout>

@@ -50,6 +50,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private View view;
     private Resources res;
     private TextView title;
+    private TextView right_btn;
 
     private ImageView mine_cover;//我的头像
     private TextView mine_type;//我的类型
@@ -83,8 +84,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     void initView(){
         view.findViewById(R.id.back).setVisibility(View.GONE);
-        view.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) view.findViewById(R.id.title);
+        right_btn = (TextView) view.findViewById(R.id.right_btn);
+        right_btn.setVisibility(View.VISIBLE);
+        right_btn.setText("客服");
+        right_btn.setOnClickListener(this);
         title.setText("个人中心");
         mine_cover = (ImageView) view.findViewById(R.id.mine_cover);
         mine_type = (TextView) view.findViewById(R.id.mine_type);
@@ -229,6 +233,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             {
                 //我的浏览
                 Intent intent = new Intent(getActivity(), MineBrowsingActivity.class);
+                startActivity(intent);
+            }
+                break;
+            case R.id.right_btn:
+            {
+                //客服
+                Intent intent = new Intent(getActivity(), KefuTelActivity.class);
                 startActivity(intent);
             }
                 break;

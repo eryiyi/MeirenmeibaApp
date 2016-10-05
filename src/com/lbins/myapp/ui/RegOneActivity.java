@@ -113,6 +113,7 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         mobile = (EditText) this.findViewById(R.id.mobile);
         emp_up_mobile = (EditText) this.findViewById(R.id.emp_up_mobile);
         card = (EditText) this.findViewById(R.id.card);
+        this.findViewById(R.id.liner_one).setOnClickListener(this);
     }
 
     @Override
@@ -130,6 +131,14 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
                }
                 checkMObile();
                 break;
+            case R.id.liner_one:
+            {
+                //注册协议
+                Intent intent = new Intent(RegOneActivity.this, RegistMsgActivity.class);
+                startActivity(intent);
+            }
+                break;
+
         }
     }
 
@@ -210,11 +219,11 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("empMobile", mobile.getText().toString());
-
                 if(!StringUtil.isNullOrEmpty(emp_up_mobile.getText().toString())){
                     params.put("emp_up_mobile", emp_up_mobile.getText().toString());
+                }else{
+                    params.put("emp_up_mobile", "10000000000");
                 }
-
                 return params;
             }
 
