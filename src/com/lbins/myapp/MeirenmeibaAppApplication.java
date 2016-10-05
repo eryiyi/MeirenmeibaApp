@@ -59,7 +59,7 @@ public class MeirenmeibaAppApplication extends Application {
         //微信 wx12342956d1cab4f9,a5ae111de7d9ea137e88a5e02c07c94d
         PlatformConfig.setWeixin(InternetURL.WEIXIN_APPID, InternetURL.WEIXIN_SECRET);
 
-        PlatformConfig.setQQZone("1105560084", "939gBlg60YfMVERY");
+        PlatformConfig.setQQZone("1105644219", "G0cagmHEkzXdMs0e");
     }
 
     public static Context getContext() {

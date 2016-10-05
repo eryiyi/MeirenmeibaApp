@@ -4,12 +4,12 @@ package com.lbins.myapp.entity;
  * Created by zhanghailong on 2016/3/4.
  */
 public class KefuTel {
-    private String mm_tel_id;
-    private String mm_tel;
-    private String mm_name;
-    private String mm_cover;
-    private String mm_tel_type;
-    private String top_num;
+    private String mm_tel_id;//唯一标志
+    private String mm_tel;//电话
+    private String mm_name;//昵称
+    private String mm_cover;//头像
+    private String mm_tel_type;//暂无用处
+    private String top_num;//置顶 后天查询排序用
 
     public String getTop_num() {
         return top_num;
