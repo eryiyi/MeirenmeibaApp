@@ -1,6 +1,7 @@
 package com.lbins.myapp.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.camera.util.CreateQRImageTest;
 import com.lbins.myapp.data.ShoppingAddressSingleDATA;
 import com.lbins.myapp.entity.OrderVo;
 import com.lbins.myapp.entity.ShoppingAddress;
@@ -49,7 +51,6 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
     private TextView item_count;
 
     //功能按钮
-    private Button button_one;
     private Button button_two;
 
     private RelativeLayout relative_one;
@@ -58,6 +59,8 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private TextView title;
+
+    private ImageView erweima_order;//卖家扫一扫
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +89,17 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         item_prices = (TextView) this.findViewById(R.id.item_prices);
         item_money = (TextView) this.findViewById(R.id.item_money);
         item_count = (TextView) this.findViewById(R.id.item_count);
-        button_one = (Button) this.findViewById(R.id.button_one);
         button_two = (Button) this.findViewById(R.id.button_two);
         relative_one = (RelativeLayout) this.findViewById(R.id.relative_one);
         order_dateline = (TextView) this.findViewById(R.id.order_dateline);
 
-        button_one.setOnClickListener(this);
         button_two.setOnClickListener(this);
         item_head.setOnClickListener(this);
         item_nickname.setOnClickListener(this);
         relative_one.setOnClickListener(this);
+
+        erweima_order = (ImageView) this.findViewById(R.id.erweima_order);
+        erweima_order.setOnClickListener(this);
     }
 
     @Override
@@ -120,20 +124,11 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
 //                startActivity(profileView);
             }
                 break;
-            case R.id.item_nickname:
+            case R.id.erweima_order:
             {
-//                Intent profileView = new Intent(DetailOrderActivity.this, ProfilePersonalActivity.class);
-//                profileView.putExtra(Constants.EMPID, orderVo.getSeller_emp_id());
-//                startActivity(profileView);
+                //二维码
+            }
 
-            }
-                break;
-            case R.id.button_one:
-            {
-//                Intent profileView = new Intent(DetailOrderActivity.this, ProfilePersonalActivity.class);
-//                profileView.putExtra(Constants.EMPID, orderVo.getSeller_emp_id());
-//                startActivity(profileView);
-            }
                 break;
             case R.id.button_two:
             {
@@ -144,13 +139,15 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    Bitmap bitmap ;
+
     void initData(){
         StringBuilder datetime = new StringBuilder();
         datetime.append("订单编号:" + orderVo.getOrder_no());
         switch (Integer.parseInt(orderVo.getStatus())){
             //1生成订单,2支付订单,3取消订单,4作废订单,5完成订单', 6物流运输中（卖家确认订单）
             case 1:
-                order_status.setText("等待卖家发货");
+                order_status.setText("等待买家付款");
                 if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
                     datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
                 }
@@ -160,9 +157,16 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
                     datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
                 }
-//                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())) {
-//                    datetime.append("\n" + "付款时间:"+orderVo.getPay_time());
-//                }
+                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())) {
+                    datetime.append("\n" + "付款时间:"+orderVo.getPay_time());
+                }
+                this.findViewById(R.id.liner_order_erweima).setVisibility(View.VISIBLE);//显示
+                //构造二维码 卖家扫一扫 订单完成
+                String urlErweima = InternetURL.APP_SURE_FAHUO_URL+"?order_no=" + orderVo.getOrder_no() +"&status=5";
+                bitmap = CreateQRImageTest.createQRImage(urlErweima);
+                if(bitmap != null){
+                    erweima_order.setImageBitmap(bitmap);
+                }
                 break;
             case 3:
                 order_status.setText("订单已取消");
@@ -175,9 +179,9 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
                     datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
                 }
-//                if(StringUtil.isNullOrEmpty(orderVo.getPay_time())){
-//                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
-//                }
+                if(StringUtil.isNullOrEmpty(orderVo.getPay_time())){
+                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
+                }
                 if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
                     datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
                 }

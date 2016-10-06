@@ -137,6 +137,7 @@
         <activity android:name=".ui.RegistMsgActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.CaptureActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.TuiguangActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.PaySelectSingleActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
         <!--// *****************************高德地图sdk*******************************************-->

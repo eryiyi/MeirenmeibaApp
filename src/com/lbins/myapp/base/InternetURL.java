@@ -85,8 +85,9 @@ public class InternetURL {
     public static final String MINE_ORDERS_URL = INTERNAL + "listOrders.do";
     //更新订单
     public static final String UPDATE_ORDER = INTERNAL + "updateOrder.do";
-    //去付款--单个订单付款
+    //去付款--单个订单付款-支付宝
     public static final String SAVE_ORDER_SIGNLE =INTERNAL +  "orderSaveSingle.do";
+
     //更新订单状态
     public static final String UPDATE_ORDER_TOSERVER_SINGLE = INTERNAL + "orderUpdateSingle.do";
     //根据地址id，查询收货地址、
@@ -136,6 +137,11 @@ public class InternetURL {
 
     //推广注册
     public static final String APP_SHARE_REG_URL = INTERNAL+ "appShareReg.do";
-//    http://192.168.0.224:8080/appShareReg.do?emp_id=3f0e9bb23de9469198de0e14e2f8641c
+
+    //去付款--单个订单付款-微信
+    public static final String SAVE_ORDER_SIGNLE_WX =INTERNAL +  "orderSaveSingleWx.do";
+
+    //确认收货 生成二维码用，卖家扫一扫确认发货 这个是面对面的，所以直接订单完成
+    public static final String APP_SURE_FAHUO_URL = INTERNAL+ "scanOrder.do";
 
 }

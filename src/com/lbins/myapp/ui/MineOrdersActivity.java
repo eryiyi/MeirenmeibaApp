@@ -2,14 +2,10 @@ package com.lbins.myapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
-import com.alipay.sdk.app.PayTask;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,14 +16,11 @@ import com.lbins.myapp.adapter.ItemMineOrderAdapter;
 import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.OrderInfoAndSignDATA;
 import com.lbins.myapp.data.OrdersVoDATA;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.entity.OrderVo;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
-import com.lbins.myapp.pay.OrderInfoAndSign;
-import com.lbins.myapp.pay.PayResult;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.OrderCancelPopWindow;
 
@@ -41,55 +34,7 @@ import java.util.Map;
  * 我的订单
  */
 public class MineOrdersActivity extends BaseActivity implements View.OnClickListener,OnClickContentItemListener {
-    private String order_no;
-    //---------------------------------支付开始----------------------------------------
-    private static final int SDK_PAY_FLAG = 1;
 
-    private static final int SDK_CHECK_FLAG = 2;
-
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SDK_PAY_FLAG: {
-                    PayResult payResult = new PayResult((String) msg.obj);
-                    // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
-                    String resultInfo = payResult.getResult();
-
-                    String resultStatus = payResult.getResultStatus();
-
-                    // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-                    if (TextUtils.equals(resultStatus, "9000")) {
-//                        Toast.makeText(OrderMakeActivity.this, "支付成功",
-//                                Toast.LENGTH_SHORT).show();
-                        //更新订单状态
-                        updateMineOrder();
-                    } else {
-                        // 判断resultStatus 为非“9000”则代表可能支付失败
-                        // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-                        if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(MineOrdersActivity.this, "支付结果确认中",
-                                    Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(MineOrdersActivity.this, "支付失败",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                    break;
-                }
-                case SDK_CHECK_FLAG: {
-                    Toast.makeText(MineOrdersActivity.this, "检查结果为：" + msg.obj,
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                default:
-                    break;
-            }
-        };
-    };
-    //------------------------------------------------------------------------------------
     private PullToRefreshListView classtype_lstv;//列表
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
@@ -225,13 +170,17 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 //确认收货
                 showSure();
                 break;
-            case 2:
-                //去付款
-                sendOrderSingle();
-                break;
             case 3:
-                //投诉
+                //去付款
+            {
+                Intent intent = new Intent(MineOrdersActivity.this, PaySelectSingleActivity.class);
+                intent.putExtra("orderVoTmp", orderVoTmp);
+                startActivity(intent);
+            }
                 break;
+//            case 3:
+//                //投诉
+//                break;
             case 4:
                 //取消订单
                 showCancel();
@@ -460,177 +409,6 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         };
         getRequestQueue().add(request);
     }
-
-    //去付款
-    private void sendOrderSingle(){
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                InternetURL.SAVE_ORDER_SIGNLE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        if (StringUtil.isJson(s)) {
-                            OrderInfoAndSignDATA data = getGson().fromJson(s, OrderInfoAndSignDATA.class);
-                            if (data.getCode() == 200) {
-                                order_no= data.getData().getOut_trade_no();
-                                pay(data.getData());//调用支付接口
-                            } else {
-                                Toast.makeText(MineOrdersActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(MineOrdersActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(MineOrdersActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("order_no", orderVoTmp.getOrder_no());
-                params.put("doublePrices", String.valueOf(orderVoTmp.getPayable_amount()));
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return params;
-            }
-        };
-        getRequestQueue().add(request);
-    }
-
-    //---------------------------------------------------------支付宝------------------------------------------
-
-    /**
-     * call alipay sdk pay. 调用SDK支付
-     *
-     */
-    public void pay(OrderInfoAndSign orderInfoAndSign) {
-
-        // 完整的符合支付宝参数规范的订单信息
-        final String payInfo = orderInfoAndSign.getOrderInfo() + "&sign=\"" + orderInfoAndSign.getSign() + "\"&"
-                + getSignType();
-
-        Runnable payRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask alipay = new PayTask(MineOrdersActivity.this);
-                // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo);
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        // 必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
-
-    /**
-     * check whether the device has authentication alipay account.
-     * 查询终端设备是否存在支付宝认证账户
-     *
-     */
-    public void check(View v) {
-        Runnable checkRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask payTask = new PayTask(MineOrdersActivity.this);
-                // 调用查询接口，获取查询结果
-                boolean isExist = payTask.checkAccountIfExist();
-
-                Message msg = new Message();
-                msg.what = SDK_CHECK_FLAG;
-                msg.obj = isExist;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        Thread checkThread = new Thread(checkRunnable);
-        checkThread.start();
-
-    }
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * get the sign type we use. 获取签名方式
-     *
-     */
-    public String getSignType() {
-        return "sign_type=\"RSA\"";
-    }
-
-    //更新订单状态
-    void updateMineOrder(){
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                InternetURL.UPDATE_ORDER_TOSERVER_SINGLE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        if (StringUtil.isJson(s)) {
-                            SuccessData data = getGson().fromJson(s, SuccessData.class);
-                            if (data.getCode() == 200) {
-                                Toast.makeText(MineOrdersActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
-                                orderVos.get(tmpPosition).setStatus("2");
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                Toast.makeText(MineOrdersActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(MineOrdersActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(MineOrdersActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("order_no",  order_no);
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return params;
-            }
-        };
-        getRequestQueue().add(request);
-    }
-
 
     //删除订单
     public void deleteOrder() {
