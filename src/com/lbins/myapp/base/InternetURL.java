@@ -144,4 +144,7 @@ public class InternetURL {
     //确认收货 生成二维码用，卖家扫一扫确认发货 这个是面对面的，所以直接订单完成
     public static final String APP_SURE_FAHUO_URL = INTERNAL+ "scanOrder.do";
 
+    //查询我的點評
+    public static final String GET_MINE_GOODS_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
+
 }

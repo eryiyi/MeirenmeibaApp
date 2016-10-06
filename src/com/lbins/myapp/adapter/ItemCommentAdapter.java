@@ -2,6 +2,8 @@ package com.lbins.myapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,11 +89,12 @@ public class ItemCommentAdapter extends BaseAdapter {
                 final String[] picUrls = cell.getComment_pic().split(",");//图片链接切割
                 if (picUrls.length > 0) {
                     //有多张图
+                    holder.gridview_detail_picture.setSelector(new ColorDrawable(Color.TRANSPARENT));
                     holder.gridview_detail_picture.setVisibility(View.VISIBLE);
                     holder.gridview_detail_picture.setAdapter(new ImageGridViewAdapter(picUrls, mContext));
-                        holder.gridview_detail_picture.setClickable(true);
-                        holder.gridview_detail_picture.setPressed(true);
-                        holder.gridview_detail_picture.setEnabled(true);
+//                        holder.gridview_detail_picture.setClickable(true);
+//                        holder.gridview_detail_picture.setPressed(true);
+//                        holder.gridview_detail_picture.setEnabled(true);
                     holder.gridview_detail_picture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
