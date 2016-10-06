@@ -56,7 +56,6 @@ public class InternetURL {
     //申请入驻
     public static final String EMP_APPLY_DIANPU_URL = INTERNAL + "saveManagerInfo.do";
 
-
     //获得商品分类
     public static final String GET_GOODS_TYPE_URL = INTERNAL + "appGetGoodsType.do";
 

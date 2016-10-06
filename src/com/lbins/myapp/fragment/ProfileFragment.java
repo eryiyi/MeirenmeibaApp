@@ -245,6 +245,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 startActivity(intent);
             }
                 break;
+            case R.id.mine_erweima:
+            {
+                //二维码
+                Intent intent = new Intent(getActivity(), TuiguangActivity.class);
+                startActivity(intent);
+            }
+                break;
 
         }
     }
@@ -265,6 +272,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 //        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
 //            mine_money.setText("积分"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
 //        }
+
     }
 
     // 选择相册，相机

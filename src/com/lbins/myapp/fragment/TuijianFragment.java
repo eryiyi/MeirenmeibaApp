@@ -321,7 +321,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
-                params.put("size", "10");
                 params.put("is_type", "0");
                 params.put("is_del", "0");
                 return params;
