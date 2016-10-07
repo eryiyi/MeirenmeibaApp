@@ -55,7 +55,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private ImageView mine_cover;//我的头像
     private TextView mine_type;//我的类型
     private TextView mine_name;//我的名字
-//    private TextView mine_money;//我的金钱
+    private TextView mine_money;//我的金钱
     private TextView mine_number;//我的账号
     private ImageView mine_erweima;//我的二维码
 
@@ -94,7 +94,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mine_type = (TextView) view.findViewById(R.id.mine_type);
         mine_name = (TextView) view.findViewById(R.id.mine_name);
         mine_number = (TextView) view.findViewById(R.id.mine_number);
-//        mine_money = (TextView) view.findViewById(R.id.mine_money);
+        mine_money = (TextView) view.findViewById(R.id.mine_money);
         mine_erweima = (ImageView) view.findViewById(R.id.mine_erweima);
 
 
@@ -212,6 +212,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.liner_profile_count:
             {
                 //积分
+                Intent intent = new Intent(getActivity(),   MineCountActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_ad:
@@ -265,10 +267,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-//    private TextView mine_type;//我的类型
-//    private TextView mine_money;//我的金钱
-//    private ImageView mine_erweima;//我的二维码
-
     void initData(){
         imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
         mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
@@ -278,9 +276,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))){
             mine_type.setText(getGson().fromJson(getSp().getString("levelName", ""), String.class));
         }
-//        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
-//            mine_money.setText("积分"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
-//        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("package_money", ""), String.class))){
+            mine_money.setText("零钱:￥"+getGson().fromJson(getSp().getString("package_money", ""), String.class));
+        }
 
     }
 

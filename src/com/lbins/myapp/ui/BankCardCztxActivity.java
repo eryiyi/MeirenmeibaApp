@@ -32,7 +32,7 @@ public class BankCardCztxActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("充值/提现");
+        title.setText("充值");
         btn_one = (TextView) this.findViewById(R.id.btn_one);
         btn_two = (TextView) this.findViewById(R.id.btn_two);
         money_count = (TextView) this.findViewById(R.id.money_count);

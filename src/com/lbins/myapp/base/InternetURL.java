@@ -149,4 +149,9 @@ public class InternetURL {
 
     //更新订单--退货
     public static final String UPDATE_ORDER_RETURN = INTERNAL + "updateOrder.do";
+
+    //获得会员的消费记录 ，钱包-》我的金币，点击查看消费详情
+    public static final String GET_CONSUMPTION_RETURN = INTERNAL + "appGetConsumption.do";
+    //我的积分
+    public static final String GET_COUNT_RECORD_RETURN = INTERNAL + "appGetCountRecord.do";
 }

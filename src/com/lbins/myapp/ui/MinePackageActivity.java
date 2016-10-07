@@ -121,17 +121,17 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
     }
 
     void initData(){
-        if(!StringUtil.isJson(getGson().fromJson(getSp().getString("empCover", ""), String.class))){
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empCover", ""), String.class))){
             imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
         }
-        if(!StringUtil.isJson(getGson().fromJson(getSp().getString("empName", ""), String.class))){
-            name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_number", ""), String.class))){
+            name.setText("账号:"+getGson().fromJson(getSp().getString("emp_number", ""), String.class));
         }
     }
 
     void initDataPackage(){
-        mine_money.setText("￥"+minePackage.getPackage_money()==null?"":minePackage.getPackage_money());
-        mine_jinbi_num.setText(minePackage.getPackage_money()==null?"":minePackage.getPackage_money());
+        mine_money.setText("￥"+ (minePackage.getPackage_money()==null?"":minePackage.getPackage_money()));
+        mine_jinbi_num.setText("￥"+ (minePackage.getPackage_money()==null?"":minePackage.getPackage_money()));
     }
 
     @Override
@@ -143,6 +143,8 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
             case R.id.liner_profile_packget:
             {
                 //可用金币
+                Intent intent = new Intent(MinePackageActivity.this, MineConsumptionActivity.class);
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_cztx:

@@ -33,6 +33,15 @@ public class Member implements Serializable{
     private String levelName;//等级名称
     private String jfcount;//积分
     private String emp_pay_pass;//支付密码
+    private String package_money;//零钱（后台处理，前台只接收值就行）
+
+    public String getPackage_money() {
+        return package_money;
+    }
+
+    public void setPackage_money(String package_money) {
+        this.package_money = package_money;
+    }
 
     public String getEmp_pay_pass() {
         return emp_pay_pass;
