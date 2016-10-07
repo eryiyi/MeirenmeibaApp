@@ -34,6 +34,15 @@ public class Order implements Serializable{
     private String cityId;
     private String areaId;
     private String trade_type;
+    private String is_return;//是否退货完成 0否 1是（卖家已处理）
+
+    public String getIs_return() {
+        return is_return;
+    }
+
+    public void setIs_return(String is_return) {
+        this.is_return = is_return;
+    }
 
     public String getTrade_type() {
         return trade_type;

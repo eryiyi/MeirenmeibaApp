@@ -74,6 +74,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             holder.button_five = (TextView) convertView.findViewById(R.id.button_five);
             holder.button_six = (TextView) convertView.findViewById(R.id.button_six);
             holder.item_dateline = (TextView) convertView.findViewById(R.id.item_dateline);
+            holder.button_seven = (TextView) convertView.findViewById(R.id.button_seven);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -99,6 +100,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.VISIBLE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
+                    holder.button_seven.setVisibility(View.GONE);
                     break;
                 case 2:
                     holder.item_status.setText("等待卖家发货");
@@ -108,6 +110,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
+                    holder.button_seven.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     holder.item_status.setText("交易已取消");
@@ -117,6 +120,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.VISIBLE);
+                    holder.button_seven.setVisibility(View.GONE);
                     break;
                 case 4:
                     holder.item_status.setText("作废订单");
@@ -126,6 +130,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
+                    holder.button_seven.setVisibility(View.GONE);
                     break;
                 case 5:
                     holder.item_status.setText("交易完成");
@@ -135,6 +140,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.VISIBLE);
                     holder.button_six.setVisibility(View.VISIBLE);
+                    holder.button_seven.setVisibility(View.GONE);
                     break;
                 case 6:
                     holder.item_status.setText("等待买家收货");
@@ -144,6 +150,21 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
+                    holder.button_seven.setVisibility(View.VISIBLE);
+                    break;
+                case 7:
+                    if("0".equals(cell.getIs_return())){
+                        holder.item_status.setText("退货中，等待卖家处理");
+                    }else if("1".equals(cell.getIs_return())){
+                        holder.item_status.setText("退货完成");
+                    }
+                    holder.button_one.setVisibility(View.GONE);
+                    holder.button_two.setVisibility(View.GONE);
+                    holder.button_three.setVisibility(View.GONE);
+                    holder.button_four.setVisibility(View.GONE);
+                    holder.button_five.setVisibility(View.GONE);
+                    holder.button_six.setVisibility(View.GONE);
+                    holder.button_seven.setVisibility(View.GONE);
                     break;
             }
             holder.item_content.setText(cell.getGoodsTitle());
@@ -187,6 +208,12 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 6, null);
                 }
             });
+            holder.button_seven.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickContentItemListener.onClickContentItem(position, 7, null);
+                }
+            });
         }
         return convertView;
     }
@@ -207,5 +234,6 @@ public class ItemMineOrderAdapter extends BaseAdapter {
         TextView button_five;//pingjia
         TextView button_six;//删除订单
         TextView item_dateline;//下单时间
+        TextView button_seven;//退货
     }
 }

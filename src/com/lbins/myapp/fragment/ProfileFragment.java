@@ -133,6 +133,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             {
                 //未付款
                 Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                intent.putExtra("status", "1");
                 startActivity(intent);
             }
             break;
@@ -140,6 +141,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             {
                 //待收货
                 Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                intent.putExtra("status", "2");
                 startActivity(intent);
             }
                 break;
@@ -147,18 +149,23 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             {
                 //待评价
                 Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                intent.putExtra("status", "5");
                 startActivity(intent);
             }
                 break;
             case R.id.liner_profile_unback:
             {
                 //退款退回
+                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                intent.putExtra("status", "7");
+                startActivity(intent);
             }
                 break;
             case R.id.liner_profile_order:
             {
                 //我的订单
                 Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                intent.putExtra("status", "");
                 startActivity(intent);
             }
                 break;

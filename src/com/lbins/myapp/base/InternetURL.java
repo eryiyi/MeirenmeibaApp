@@ -147,4 +147,6 @@ public class InternetURL {
     //查询我的點評
     public static final String GET_MINE_GOODS_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
 
+    //更新订单--退货
+    public static final String UPDATE_ORDER_RETURN = INTERNAL + "updateOrder.do";
 }

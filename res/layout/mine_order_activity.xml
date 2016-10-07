@@ -21,7 +21,7 @@
                   android:padding="8dp"
                   android:id="@+id/text_one"
                   android:gravity="center"
-                  android:textSize="16sp"
+                  android:textSize="13sp"
                   android:textColor="@color/red"
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="0dp"
@@ -30,7 +30,7 @@
                   android:gravity="center"
                   android:padding="8dp"
                   android:id="@+id/text_two"
-                  android:textSize="16sp"
+                  android:textSize="13sp"
                   android:textColor="@color/text_color"
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="0dp"
@@ -38,7 +38,7 @@
                   android:text="已付款"
                   android:id="@+id/text_three"
                   android:padding="8dp"
-                  android:textSize="16sp"
+                  android:textSize="13sp"
                   android:gravity="center"
                   android:textColor="@color/text_color"
                   android:layout_height="wrap_content"/>
@@ -48,7 +48,16 @@
                   android:id="@+id/text_four"
                   android:gravity="center"
                   android:padding="8dp"
-                  android:textSize="16sp"
+                  android:textSize="13sp"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="退款/货"
+                  android:id="@+id/text_five"
+                  android:gravity="center"
+                  android:padding="8dp"
+                  android:textSize="13sp"
                   android:textColor="@color/text_color"
                   android:layout_height="wrap_content"/>
     </LinearLayout>

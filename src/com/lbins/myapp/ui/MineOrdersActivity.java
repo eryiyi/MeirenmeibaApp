@@ -1,6 +1,9 @@
 package com.lbins.myapp.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.Gravity;
@@ -45,20 +48,69 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     private TextView text_two;
     private TextView text_three;
     private TextView text_four;
+    private TextView text_five;
     private String status="";
 
     private OrderCancelPopWindow orderCancelPopWindow;//取消订单
     private OrderCancelPopWindow orderCancelPopWindowTwo;//确认收货
     private OrderCancelPopWindow orderCancelPopWindowThree;//删除订单
+    private OrderCancelPopWindow orderCancelPopWindowFour;//退回
 
     private TextView title;
     private ImageView search_null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mine_order_activity);
+        registerBoradcastReceiver();
+        status = getIntent().getExtras().getString("status");//订单状态
+        if(StringUtil.isNullOrEmpty(status)){
+            status = "";
+        }
         initView();
+        if("".equals(status)){
+            text_one.setTextColor(getResources().getColor(R.color.red));
+            text_two.setTextColor(getResources().getColor(R.color.text_color));
+            text_three.setTextColor(getResources().getColor(R.color.text_color));
+            text_four.setTextColor(getResources().getColor(R.color.text_color));
+            text_five.setTextColor(getResources().getColor(R.color.text_color));
+            initData();
+        }
+        if("1".equals(status)){
+            text_one.setTextColor(getResources().getColor(R.color.text_color));
+            text_two.setTextColor(getResources().getColor(R.color.red));
+            text_three.setTextColor(getResources().getColor(R.color.text_color));
+            text_four.setTextColor(getResources().getColor(R.color.text_color));
+            text_five.setTextColor(getResources().getColor(R.color.text_color));
+            initData();
+        }
+        if("2".equals(status)){
+            text_one.setTextColor(getResources().getColor(R.color.text_color));
+            text_two.setTextColor(getResources().getColor(R.color.text_color));
+            text_three.setTextColor(getResources().getColor(R.color.red));
+            text_four.setTextColor(getResources().getColor(R.color.text_color));
+            text_five.setTextColor(getResources().getColor(R.color.text_color));
+            initData();
+        }
+        if("5".equals(status)){
+            text_one.setTextColor(getResources().getColor(R.color.text_color));
+            text_two.setTextColor(getResources().getColor(R.color.text_color));
+            text_three.setTextColor(getResources().getColor(R.color.text_color));
+            text_four.setTextColor(getResources().getColor(R.color.red));
+            text_five.setTextColor(getResources().getColor(R.color.text_color));
+            initData();
+        }
+        if("7".equals(status)){
+            text_one.setTextColor(getResources().getColor(R.color.text_color));
+            text_two.setTextColor(getResources().getColor(R.color.text_color));
+            text_three.setTextColor(getResources().getColor(R.color.text_color));
+            text_four.setTextColor(getResources().getColor(R.color.text_color));
+            text_five.setTextColor(getResources().getColor(R.color.red));
+            initData();
+        }
+
         initData();
     }
 
@@ -110,10 +162,12 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         text_two = (TextView) this.findViewById(R.id.text_two);
         text_three = (TextView) this.findViewById(R.id.text_three);
         text_four = (TextView) this.findViewById(R.id.text_four);
+        text_five = (TextView) this.findViewById(R.id.text_five);
         text_one.setOnClickListener(this);
         text_two.setOnClickListener(this);
         text_three.setOnClickListener(this);
         text_four.setOnClickListener(this);
+        text_five.setOnClickListener(this);
     }
 
 
@@ -125,6 +179,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 text_two.setTextColor(getResources().getColor(R.color.text_color));
                 text_three.setTextColor(getResources().getColor(R.color.text_color));
                 text_four.setTextColor(getResources().getColor(R.color.text_color));
+                text_five.setTextColor(getResources().getColor(R.color.text_color));
                 status = "";
                 initData();
                 break;
@@ -133,6 +188,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 text_two.setTextColor(getResources().getColor(R.color.red));
                 text_three.setTextColor(getResources().getColor(R.color.text_color));
                 text_four.setTextColor(getResources().getColor(R.color.text_color));
+                text_five.setTextColor(getResources().getColor(R.color.text_color));
                 status = "1";
                 initData();
                 break;
@@ -141,6 +197,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 text_two.setTextColor(getResources().getColor(R.color.text_color));
                 text_three.setTextColor(getResources().getColor(R.color.red));
                 text_four.setTextColor(getResources().getColor(R.color.text_color));
+                text_five.setTextColor(getResources().getColor(R.color.text_color));
                 status = "2";
                 initData();
                 break;
@@ -149,7 +206,17 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 text_two.setTextColor(getResources().getColor(R.color.text_color));
                 text_three.setTextColor(getResources().getColor(R.color.text_color));
                 text_four.setTextColor(getResources().getColor(R.color.red));
+                text_five.setTextColor(getResources().getColor(R.color.text_color));
                 status = "5";
+                initData();
+                break;
+            case R.id.text_five:
+                text_one.setTextColor(getResources().getColor(R.color.text_color));
+                text_two.setTextColor(getResources().getColor(R.color.text_color));
+                text_three.setTextColor(getResources().getColor(R.color.text_color));
+                text_four.setTextColor(getResources().getColor(R.color.text_color));
+                text_five.setTextColor(getResources().getColor(R.color.red));
+                status = "7";
                 initData();
                 break;
             case R.id.back:
@@ -195,6 +262,12 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
             case 6:
                 //删除订单
                 showDelete();
+                break;
+            case 7:
+            {
+                //退货
+                showTuihuo();
+            }
                 break;
         }
     }
@@ -271,6 +344,11 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         //显示窗口
         orderCancelPopWindowThree.showAtLocation(MineOrdersActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+    private void showTuihuo() {
+        orderCancelPopWindowFour = new OrderCancelPopWindow(MineOrdersActivity.this, itemsOnClickFour);
+        //显示窗口
+        orderCancelPopWindowFour.showAtLocation(MineOrdersActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
 
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener() {
@@ -312,6 +390,23 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 {
                     //删除订单
                     deleteOrder();
+                }
+                break;
+            }
+        }
+    };
+    private View.OnClickListener itemsOnClickFour = new View.OnClickListener() {
+
+        public void onClick(View v) {
+            orderCancelPopWindowFour.dismiss();
+            switch (v.getId()) {
+                case R.id.sure:
+                {
+                    //退货
+//                    tuiOrder();
+                    Intent intent = new Intent(MineOrdersActivity.this, TuihuoActivity.class);
+                    intent.putExtra("orderVoTmp", orderVoTmp);
+                    startActivity(intent);
                 }
                 break;
             }
@@ -456,5 +551,40 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         };
         getRequestQueue().add(request);
     }
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("update_order_success")) {
+//                intent1.putExtra("order_no", orderVoTmp.getOrder_no());
+//                intent1.putExtra("status", "7");
+                String orderno = intent.getExtras().getString("order_no");
+                String status = intent.getExtras().getString("status");
+                if("7".equals(status)){
+                    //退货申请成功
+                    initData();
+                }
+            }
+
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("update_order_success");
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
+
 
 }

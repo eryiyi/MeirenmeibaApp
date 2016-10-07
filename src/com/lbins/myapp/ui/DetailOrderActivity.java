@@ -204,6 +204,22 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                     datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
                 }
                 break;
+            case 7:
+                if("0".equals(orderVo.getIs_return())){
+                    order_status.setText("退货处理中，等待卖家处理");
+                }else if("1".equals(orderVo.getIs_return())){
+                    order_status.setText("退货已完成");
+                }
+                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                    datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
+                }
+                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())){
+                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
+                }
+                if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
+                    datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
+                }
+                break;
         }
 
         imageLoader.displayImage(orderVo.getEmpCover(), item_head, MeirenmeibaAppApplication.txOptions, animateFirstListener);
