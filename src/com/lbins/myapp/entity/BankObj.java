@@ -1,9 +1,11 @@
 package com.lbins.myapp.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/9/18 0018.
  */
-public class BankObj {
+public class BankObj implements Serializable{
     private String bank_id;
     private String emp_id;
     private String bank_mobile;

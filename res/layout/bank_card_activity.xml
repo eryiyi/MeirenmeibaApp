@@ -11,7 +11,19 @@
             layout="@layout/top_liner"/>
     <ListView android:layout_width="match_parent"
               android:id="@+id/lstv"
-              android:layout_height="match_parent">
+              android:layout_weight="1"
+              android:layout_height="wrap_content">
 
     </ListView>
+
+    <Button android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:text="新增我的银行卡"
+            android:id="@+id/btn_add_bank_card"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_shape"
+            android:layout_height="40dp"/>
+
 </LinearLayout>

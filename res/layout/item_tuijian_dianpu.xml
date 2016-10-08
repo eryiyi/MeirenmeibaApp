@@ -9,12 +9,11 @@
     <ImageView
             android:id="@+id/cover"
             android:scaleType="centerCrop"
-            android:src="@drawable/tuijian_one"
+            android:src="@drawable/no_pic"
             android:layout_width="120dp"
             android:layout_height="match_parent"/>
 
     <TextView android:layout_width="wrap_content"
-             android:text="温暖女子养生会所"
              android:layout_marginLeft="8dp"
              android:layout_marginTop="8dp"
              android:layout_toRightOf="@+id/cover"
@@ -59,7 +58,6 @@
     <TextView android:layout_width="wrap_content"
               android:textColor="@color/text_color"
               android:textSize="14sp"
-              android:text="养生"
               android:singleLine="true"
               android:layout_toRightOf="@+id/cover"
               android:layout_marginLeft="8dp"
@@ -67,11 +65,9 @@
               android:id="@+id/typename"
               android:layout_height="wrap_content"/>
 
-
     <TextView android:layout_width="wrap_content"
               android:textColor="@color/text_color_two"
               android:textSize="13sp"
-              android:text="3.5Km"
               android:layout_alignParentRight="true"
               android:layout_marginLeft="8dp"
               android:layout_alignParentBottom="true"

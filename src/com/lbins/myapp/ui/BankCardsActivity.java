@@ -1,6 +1,9 @@
 package com.lbins.myapp.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemBankCardAdapter;
+import com.lbins.myapp.adapter.ItemBankCardAdapterT;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.BankObjData;
@@ -34,27 +38,35 @@ import java.util.Map;
 public class BankCardsActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
     private ListView lstv;
-    private ItemBankCardAdapter adapter;
+    private ItemBankCardAdapterT adapter;
     List<BankObj> listsBank = new ArrayList<BankObj>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bank_card_activity);
-
+        registerBoradcastReceiver();
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
+        this.findViewById(R.id.btn_add_bank_card).setOnClickListener(this);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("选择银行卡");
         lstv = (ListView) this.findViewById(R.id.lstv);
-        adapter = new ItemBankCardAdapter(listsBank, BankCardsActivity.this);
+        adapter = new ItemBankCardAdapterT(listsBank, BankCardsActivity.this);
         lstv.setAdapter(adapter);
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                setResult(10001, intent);
-                finish();
+                if(listsBank.size()>i){
+                    BankObj bankObj = listsBank.get(i);
+                    if(bankObj != null){
+                        Intent intent = new Intent();
+                        intent.putExtra("bankObj", bankObj);
+                        setResult(10001, intent);
+                        finish();
+                    }
+                }
+
             }
         });
 
@@ -123,6 +135,37 @@ public class BankCardsActivity extends BaseActivity implements View.OnClickListe
             case R.id.back:
                 finish();
                 break;
+            case R.id.btn_add_bank_card:
+            {
+                Intent intent = new Intent(BankCardsActivity.this, BankCardDoneActivity.class);
+                startActivity(intent);
+            }
+                break;
         }
     }
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("add_bank_card_success")) {
+                getData();
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("add_bank_card_success");
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
 }

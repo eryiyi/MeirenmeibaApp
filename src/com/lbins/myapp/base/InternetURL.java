@@ -12,8 +12,8 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "559afbe3ff53400c469f12648a976eff";
     public static final  String WX_API_KEY="559afbe3ff53400c469f12648a976eff";
 
-//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-    public static final String INTERNAL = "http://192.168.0.224:8080/";
+    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -152,6 +152,12 @@ public class InternetURL {
 
     //获得会员的消费记录 ，钱包-》我的金币，点击查看消费详情
     public static final String GET_CONSUMPTION_RETURN = INTERNAL + "appGetConsumption.do";
-    //我的积分
+    //我的积分记录
     public static final String GET_COUNT_RECORD_RETURN = INTERNAL + "appGetCountRecord.do";
+    //查询我的积分
+    //查询我的积分
+    public static final String GET_COUNT_RETURN = INTERNAL + "appGetCount.do";
+
+    //提交提现申请
+    public static final String SAVE_BANK_APPLY_RETURN = INTERNAL + "appSaveBankApply.do";
 }

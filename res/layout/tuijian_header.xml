@@ -48,7 +48,7 @@
             android:padding="4dip"/>
 
     <ImageView android:layout_width="match_parent"
-               android:src="@drawable/tuijian_two"
+               android:src="@drawable/no_pic"
                android:layout_marginTop="8dp"
                android:id="@+id/big_middle_ad"
                android:scaleType="centerCrop"

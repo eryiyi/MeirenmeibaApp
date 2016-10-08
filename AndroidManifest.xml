@@ -142,6 +142,7 @@
         <activity android:name=".ui.TuihuoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineCountActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineConsumptionActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.TixianCountActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
 
         <!--// *****************************高德地图sdk*******************************************-->

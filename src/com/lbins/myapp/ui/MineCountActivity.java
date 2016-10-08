@@ -1,5 +1,9 @@
 package com.lbins.myapp.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -14,8 +18,10 @@ import com.lbins.myapp.adapter.ItemConsumptionAdapter;
 import com.lbins.myapp.adapter.ItemCountRecordAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.CountData;
 import com.lbins.myapp.data.CountRecordData;
 import com.lbins.myapp.data.LxConsumptionData;
+import com.lbins.myapp.entity.Count;
 import com.lbins.myapp.entity.CountRecord;
 import com.lbins.myapp.entity.LxConsumption;
 import com.lbins.myapp.library.PullToRefreshBase;
@@ -43,26 +49,31 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
 
     private TextView countJf;
 
+    private TextView right_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mine_consumption_activity);
+        registerBoradcastReceiver();
+        setContentView(R.layout.mine_count_activity);
         initView();
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("jfcount", ""), String.class))){
-            countJf.setText("现有积分:￥"+getGson().fromJson(getSp().getString("jfcount", ""), String.class));
-        }
+
         progressDialog = new CustomProgressDialog(MineCountActivity.this, "正在加载中",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         getData();
+        getCount();
     }
 
     private void initView() {
         countJf = (TextView) this.findViewById(R.id.countJf);
         search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
-        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
+        right_btn = (TextView) this.findViewById(R.id.right_btn);
+        right_btn.setOnClickListener(this);
+        right_btn.setVisibility(View.VISIBLE);
+        right_btn.setText("提现");
         title = (TextView) this.findViewById(R.id.title);
         title.setText("我的积分");
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
@@ -105,6 +116,14 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+            case R.id.right_btn:
+            {
+                //提现积分
+                Intent intent = new Intent(MineCountActivity.this, TixianCountActivity.class);
+                intent.putExtra("count", count);
+                startActivity(intent);
+            }
                 break;
         }
     }
@@ -170,6 +189,85 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
             }
         };
         getRequestQueue().add(request);
+    }
+    Count count = null;
+    private void getCount() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_COUNT_RETURN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            CountData data = getGson().fromJson(s, CountData.class);
+                            if (data.getCode() == 200) {
+                                count = data.getData();
+                                if(count != null){
+                                    countJf.setText("现有积分:￥"+count.getCount());
+                                }
+                            } else {
+                                Toast.makeText(MineCountActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MineCountActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MineCountActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("bank_apply_success")) {
+                getCount();
+            }
+
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("bank_apply_success");
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 
 

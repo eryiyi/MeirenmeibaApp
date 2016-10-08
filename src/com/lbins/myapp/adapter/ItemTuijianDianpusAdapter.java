@@ -78,7 +78,7 @@ public class ItemTuijianDianpusAdapter extends BaseAdapter {
 
         ManagerInfo cell = lists.get(position);
         if (cell != null) {
-            imageLoader.displayImage(cell.getCompany_pic(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            imageLoader.displayImage(cell.getCompany_pic(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
             holder.name.setText(cell.getCompany_name());
             holder.typename.setText(cell.getType_name());
             if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr) && !StringUtil.isNullOrEmpty(cell.getLat_company())&& !StringUtil.isNullOrEmpty(cell.getLng_company()) ){

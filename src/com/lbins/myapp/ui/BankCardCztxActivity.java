@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.entity.BankObj;
 import com.lbins.myapp.util.StringUtil;
 
 /**
@@ -79,7 +80,7 @@ public class BankCardCztxActivity extends BaseActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000 && resultCode == 10001 ){
-            //
+            BankObj bankObj = (BankObj) data.getExtras().get("bankObj");
         }
     }
 

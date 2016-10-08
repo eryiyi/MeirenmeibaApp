@@ -8,7 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:scaleType="fitXY"
-            android:src="@drawable/tuijian_one"
+            android:src="@drawable/no_pic"
             android:id="@+id/cover"/>
 
 </LinearLayout>

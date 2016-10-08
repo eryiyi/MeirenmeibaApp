@@ -1,6 +1,7 @@
 package com.lbins.myapp.ui;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -347,6 +348,8 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
                                 bank_kaihu_name.setText("");
                                 bank_name.setText("");
                                 bank_card.setText("");
+                                Intent intent1 = new Intent("add_bank_card_success");
+                                sendBroadcast(intent1);
                             } else if(data.getCode() == 2){
                                 Toast.makeText(BankCardDoneActivity.this, "绑定失败，最多绑定5张银行卡！", Toast.LENGTH_SHORT).show();
                             }else {
