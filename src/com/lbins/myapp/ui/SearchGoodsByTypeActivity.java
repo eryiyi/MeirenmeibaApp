@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.GoodsTypeAdapter;
 import com.lbins.myapp.adapter.ItemGoodsAdapter;
@@ -159,7 +160,7 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void afterTextChanged(Editable s) {
-            //todo
+            initData();
         }
     };
 
@@ -228,6 +229,26 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 params.put("typeId", typeId);
+
+                params.put("cont", keywords.getText().toString());
+
+                if(tmpNearby == 1){
+                    if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
+                        params.put("lat_company", MeirenmeibaAppApplication.latStr);
+                    }
+                    if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
+                        params.put("lng_company", MeirenmeibaAppApplication.lngStr);
+                    }
+                }
+
+                if(tmpNearby == 2){
+                    params.put("is_time", "1");
+                }
+
+                if(tmpNearby == 3){
+                    params.put("is_count", "1");
+                }
+
                 return params;
             }
 
@@ -241,7 +262,7 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
         getRequestQueue().add(request);
     }
 
-
+    private int tmpNearby = 0;
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -255,8 +276,9 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 0;
                 showGoodsType();
-            }
+        }
                 break;
             case R.id.btn_nearby:
             {
@@ -265,24 +287,30 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
                 btn_nearby.setTextColor(getResources().getColor(R.color.red));
                 btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 1;
+                initData();
             }
             break;
             case R.id.btn_paixu:
             {
-                //智能排序点击
+                //最新排序
                 btn_all.setTextColor(getResources().getColor(R.color.text_color));
                 btn_paixu.setTextColor(getResources().getColor(R.color.red));
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 2;
+                initData();
             }
             break;
             case R.id.btn_val:
             {
-                //筛选点击
+                //销量
                 btn_all.setTextColor(getResources().getColor(R.color.text_color));
                 btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.red));
+                tmpNearby = 3;
+                initData();
             }
             break;
         }

@@ -237,6 +237,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                 if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
                     params.put("lng_company", MeirenmeibaAppApplication.lngStr);
                 }
+
                 return params;
             }
 
