@@ -245,7 +245,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     intent.putExtra("emp_id_dianpu", getGson().fromJson(getSp().getString("empId", ""), String.class));
                     startActivity(intent);
                 }else{
-                    Toast.makeText(getActivity(), "您不会店家，请先入驻！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您不是店家，请先入驻！", Toast.LENGTH_SHORT).show();
                 }
 
             }

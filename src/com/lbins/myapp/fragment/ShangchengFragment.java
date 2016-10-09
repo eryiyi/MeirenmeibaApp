@@ -315,19 +315,43 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.btn_cart:
             {
-                Intent intent  = new Intent(getActivity(), MineCartActivity.class);
-                startActivity(intent);
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent  = new Intent(getActivity(), MineCartActivity.class);
+                    startActivity(intent);
+                }
             }
                 break;
             case R.id.btn_cz:
             {
-                //
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent  = new Intent(getActivity(), BankCardCztxActivity.class);
+                    startActivity(intent);
+                }
             }
             break;
             case R.id.btn_order:
             {
-                Intent intent  = new Intent(getActivity(), MineOrdersActivity.class);
-                startActivity(intent);
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent  = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "");
+                    startActivity(intent);
+                }
+
             }
             break;
         }
