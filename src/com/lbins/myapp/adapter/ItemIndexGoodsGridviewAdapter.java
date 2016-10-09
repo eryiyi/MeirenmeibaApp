@@ -2,13 +2,16 @@ package com.lbins.myapp.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.PaopaoGoods;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class ItemIndexGoodsGridviewAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> lists;
+    private List<PaopaoGoods> lists;
     private Context mContect;
     Resources res;
 
@@ -34,7 +37,7 @@ public class ItemIndexGoodsGridviewAdapter extends BaseAdapter {
     }
 
 
-    public ItemIndexGoodsGridviewAdapter(List<String> lists, Context mContect) {
+    public ItemIndexGoodsGridviewAdapter(List<PaopaoGoods> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -68,8 +71,13 @@ public class ItemIndexGoodsGridviewAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String cell = lists.get(position);
+        PaopaoGoods cell = lists.get(position);
         if (cell != null) {
+            imageLoader.displayImage(cell.getCover(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
+            holder.name.setText(cell.getName());
+            holder.money_one.setText("￥" + cell.getSellPrice());
+            holder.icon_baoyou.setText(cell.getMarketPrice());
+            holder.icon_baoyou.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
         }
 
         return convertView;

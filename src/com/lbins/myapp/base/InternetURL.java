@@ -159,4 +159,6 @@ public class InternetURL {
 
     //提交提现申请
     public static final String SAVE_BANK_APPLY_RETURN = INTERNAL + "appSaveBankApply.do";
+    //猜你喜欢的
+    public static final String GET_LIKES_URN = INTERNAL + "appGetLikes.do";
 }

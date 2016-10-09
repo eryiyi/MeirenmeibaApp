@@ -173,7 +173,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                         startActivity(detailDianpuV);
                     }
                 }
-
             }
         });
 

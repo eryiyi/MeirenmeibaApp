@@ -24,11 +24,11 @@
               android:id="@+id/money_one"
               android:layout_height="20dp"/>
     <TextView android:layout_width="wrap_content"
-              android:textColor="@color/red"
+              android:textColor="@color/text_color_two"
               android:textSize="13sp"
               android:singleLine="true"
               android:layout_marginTop="5dp"
-              android:text="包邮"
+              android:text="100"
               android:layout_toRightOf="@+id/money_one"
               android:layout_below="@+id/cover"
               android:layout_marginLeft="8dp"

@@ -28,8 +28,10 @@ import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.data.LxAdData;
+import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.entity.PaopaoGoods;
 import com.lbins.myapp.ui.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
@@ -59,7 +61,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
     private ClassifyGridview lstv;
     private ItemIndexGoodsGridviewAdapter adapter;
-    List<String> listsgoods = new ArrayList<String>();
+    List<PaopaoGoods> listsgoods = new ArrayList<PaopaoGoods>();
 //    private int pageIndex = 1;
 //    private static boolean IS_REFRESH = true;
 
@@ -109,6 +111,9 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
         //定位城市
         initLocation();
+
+        //猜你喜欢
+        initData();
         return view;
     }
 
@@ -147,15 +152,6 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         img_new.setOnClickListener(this);
         img_tehui.setOnClickListener(this);
         lstv = (ClassifyGridview) view.findViewById(R.id.lstv);
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
-        listsgoods.add("");
 
         adapter = new ItemIndexGoodsGridviewAdapter(listsgoods, getActivity());
         lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -164,12 +160,13 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (lists.size() > position -2) {
-//                    lists.get(position - 2).setIs_read("1");
-//                    adapter.notifyDataSetChanged();
-//                    recordVO = lists.get(position - 2);
-//                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-//                }
+                if (listsgoods.size() > position ) {
+                    PaopaoGoods paopaoGoods = listsgoods.get(position );
+                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+                    intent.putExtra("emp_id_dianpu", paopaoGoods.getEmpId());
+                    intent.putExtra("goods_id", paopaoGoods.getId());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -179,22 +176,22 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
 
     void initData() {
-//        StringRequest request = new StringRequest(
-//                Request.Method.POST,
-//                InternetURL.GET_RECORD_LIST_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        if (StringUtil.isJson(s)) {
-//                            try {
-//                                JSONObject jo = new JSONObject(s);
-//                                String code = jo.getString("code");
-//                                if (Integer.parseInt(code) == 200) {
-//                                    RecordData data = getGson().fromJson(s, RecordData.class);
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_LIKES_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    PaopaoGoodsData data = getGson().fromJson(s, PaopaoGoodsData.class);
 //                                    if (IS_REFRESH) {
-//                                        lists.clear();
+                                        listsgoods.clear();
 //                                    }
-//                                    lists.addAll(data.getData());
+                                    listsgoods.addAll(data.getData());
 //                                    if (data != null && data.getData() != null) {
 //                                        for (RecordMsg recordMsg : data.getData()) {
 //                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
@@ -207,55 +204,40 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 //                                        }
 //                                    }
 //                                    lstv.onRefreshComplete();
-//                                    adapter.notifyDataSetChanged();
-//                                } else if (Integer.parseInt(code) == 9) {
-//                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
-//                                    save("password", "");
-//                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-//                                    startActivity(loginV);
-//                                    getActivity().finish();
-//                                } else {
-//                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            if (lists.size() == 0) {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            } else {
-//                                no_data.setVisibility(View.GONE);
-//                                lstv.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//
-////                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        ) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("index", String.valueOf(pageIndex));
-//                params.put("size", "10");
-//                params.put("mm_msg_type", "0");
-//                return params;
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Content-Type", "application/x-www-form-urlencoded");
-//                return params;
-//            }
-//        };
-//        getRequestQueue().add(request);
+                                    adapter.notifyDataSetChanged();
+                                }else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(1));
+                params.put("size", "10");
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
 
