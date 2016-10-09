@@ -187,6 +187,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         save("jfcount", member.getJfcount());
         save("emp_pay_pass", member.getEmp_pay_pass());
         save("package_money", member.getPackage_money());
+        save("empType", member.getEmpType());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

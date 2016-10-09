@@ -239,7 +239,15 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             break;
             case R.id.liner_profile_dianjia:
             {
-                //我的店家
+                //我是店家
+                if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
+                    Intent intent = new Intent(getActivity(), DianpuDetailActivity.class);
+                    intent.putExtra("emp_id_dianpu", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity(), "您不会店家，请先入驻！", Toast.LENGTH_SHORT).show();
+                }
+
             }
                 break;
             case R.id.liner_profile_liulan:

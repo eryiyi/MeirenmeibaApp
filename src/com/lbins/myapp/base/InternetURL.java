@@ -155,7 +155,6 @@ public class InternetURL {
     //我的积分记录
     public static final String GET_COUNT_RECORD_RETURN = INTERNAL + "appGetCountRecord.do";
     //查询我的积分
-    //查询我的积分
     public static final String GET_COUNT_RETURN = INTERNAL + "appGetCount.do";
 
     //提交提现申请

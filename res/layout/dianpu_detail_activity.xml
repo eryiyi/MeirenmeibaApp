@@ -22,7 +22,6 @@
                   android:layout_height="40dp"/>
 
         <TextView android:layout_width="wrap_content"
-                  android:text="标题"
                   android:layout_marginLeft="80dp"
                   android:layout_marginRight="60dp"
                   android:singleLine="true"
@@ -167,7 +166,7 @@
                           android:layout_height="wrap_content"/>
 
                 <TextView android:layout_width="wrap_content"
-                          android:text="共3个消费评价"
+                          android:text="共0个消费评价"
                           android:textColor="@color/text_color_two"
                           android:textSize="14sp"
                           android:id="@+id/comment_count"
@@ -207,7 +206,6 @@
                                 android:id="@+id/relate_one"
                                 android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
-                              android:text="温暖如初女子养生会所"
                               android:textColor="@color/text_color"
                               android:textSize="16sp"
                               android:id="@+id/dp_title"
@@ -220,7 +218,7 @@
                                android:src="@drawable/star_five"
                                android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
-                              android:text="4.9分"
+                              android:text="5.0分"
                               android:layout_below="@+id/dp_title"
                               android:layout_marginTop="3dp"
                               android:layout_marginLeft="3dp"
@@ -236,7 +234,6 @@
                                android:layout_alignParentRight="true"
                                android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
-                              android:text="离你距离：60KM"
                               android:textSize="12sp"
                               android:id="@+id/dp_distance"
                               android:layout_marginTop="5dp"
@@ -254,7 +251,6 @@
                       android:layout_height="0.1dp"></View>
                 <TextView android:layout_width="match_parent"
                           android:id="@+id/dp_address"
-                          android:text="郑州东路"
                           android:layout_marginTop="8dp"
                           android:layout_below="@+id/liner_two"
                           android:textColor="@color/text_color"

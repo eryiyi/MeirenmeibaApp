@@ -34,6 +34,15 @@ public class Member implements Serializable{
     private String jfcount;//积分
     private String emp_pay_pass;//支付密码
     private String package_money;//零钱（后台处理，前台只接收值就行）
+    private String empType;//用户类别 0普通会员 1是商家
+
+    public String getEmpType() {
+        return empType;
+    }
+
+    public void setEmpType(String empType) {
+        this.empType = empType;
+    }
 
     public String getPackage_money() {
         return package_money;
