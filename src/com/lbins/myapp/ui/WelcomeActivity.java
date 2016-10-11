@@ -77,22 +77,25 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
             // 3秒后跳转到登录界面
             Thread.sleep(1500);
             SharedPreferences.Editor editor = getSp().edit();
-            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
-            if (isFirstRun) {
-                editor.putBoolean("isFirstRun", false);
-                editor.commit();
-                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
-                startActivity(loadIntent);
-                finish();
-            } else {
+//            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
+//            if (isFirstRun) {
+//                editor.putBoolean("isFirstRun", false);
+//                editor.commit();
+//                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+//                startActivity(loadIntent);
+//                finish();
+//            } else {
                 if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
                         !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))) {
                     login();
                 } else {
-                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+                    startActivity(loadIntent);
                     finish();
+//                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+//                    finish();
                 }
-            }
+//            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -188,11 +191,16 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         save("emp_pay_pass", member.getEmp_pay_pass());
         save("package_money", member.getPackage_money());
         save("empType", member.getEmpType());
+        save("is_card_emp", member.getIs_card_emp());
+        save("lx_attribute_id", member.getLx_attribute_id());
 
         save("isLogin", "1");//1已经登录了  0未登录
 
-        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+        Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+        startActivity(loadIntent);
         finish();
     }
 

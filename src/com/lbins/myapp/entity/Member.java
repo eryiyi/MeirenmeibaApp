@@ -35,6 +35,24 @@ public class Member implements Serializable{
     private String emp_pay_pass;//支付密码
     private String package_money;//零钱（后台处理，前台只接收值就行）
     private String empType;//用户类别 0普通会员 1是商家
+    private String is_card_emp;//定向卡会员 0否 1是  能购买零元商品
+    private String lx_attribute_id;//分销等级0是普通会员 没有返利
+
+    public String getIs_card_emp() {
+        return is_card_emp;
+    }
+
+    public void setIs_card_emp(String is_card_emp) {
+        this.is_card_emp = is_card_emp;
+    }
+
+    public String getLx_attribute_id() {
+        return lx_attribute_id;
+    }
+
+    public void setLx_attribute_id(String lx_attribute_id) {
+        this.lx_attribute_id = lx_attribute_id;
+    }
 
     public String getEmpType() {
         return empType;

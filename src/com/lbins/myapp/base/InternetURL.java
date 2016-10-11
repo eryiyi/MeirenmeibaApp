@@ -161,4 +161,6 @@ public class InternetURL {
     public static final String SAVE_BANK_APPLY_RETURN = INTERNAL + "appSaveBankApply.do";
     //猜你喜欢的
     public static final String GET_LIKES_URN = INTERNAL + "appGetLikes.do";
+    //获得定向卡会员详情
+    public static final String GET_CARD_EMP_BY_ID_URN = INTERNAL + "appGetCardEmp.do";
 }

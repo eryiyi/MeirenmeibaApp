@@ -1,9 +1,12 @@
 package com.lbins.myapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AboutViewPageAdapter;
 import com.lbins.myapp.base.BaseActivity;
@@ -11,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends BaseActivity implements View.OnClickListener{
     private static final int PICTURE_COUNT = 4;
 
     private static final int[] PICTURE_RESOURCES = {R.drawable.loading_one,
@@ -66,5 +69,19 @@ public class AboutActivity extends BaseActivity {
 
             }
         });
+        this.findViewById(R.id.skip).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.skip:
+            {
+                Intent main = new Intent(AboutActivity.this, MainActivity.class);
+                startActivity(main);
+                finish();
+            }
+                break;
+        }
     }
 }

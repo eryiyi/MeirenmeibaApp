@@ -1,5 +1,6 @@
 package com.lbins.myapp;
 
+import android.app.Dialog;
 import android.content.*;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,17 +14,24 @@ import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.CardEmpData;
 import com.lbins.myapp.data.CityDATA;
+import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.db.DBHelper;
+import com.lbins.myapp.entity.CardEmp;
 import com.lbins.myapp.entity.City;
+import com.lbins.myapp.entity.KefuTel;
 import com.lbins.myapp.entity.LxAd;
 import com.lbins.myapp.fragment.NearbyFragment;
 import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
+import com.lbins.myapp.ui.BankCardDoneActivity;
 import com.lbins.myapp.ui.CaptureActivity;
+import com.lbins.myapp.ui.KefuTelActivity;
 import com.lbins.myapp.ui.LoginActivity;
+import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONObject;
@@ -79,7 +87,114 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             }).start();
         }
 
+        if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+            //未登录
+        } else {
+            if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                //是定向卡会员
+                getCardEmp();
+            }else {
+                //不是定向卡会员
+                showMsgDialog();
+            }
+        }
     }
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+        cont.setText("充值成为定向卡会员，享受免费消费一年");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, KefuTelActivity.class);
+                startActivity(intent);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+    CardEmp cardEmp;//定向卡会还详情
+    public void getCardEmp(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_CARD_EMP_BY_ID_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            CardEmpData data = getGson().fromJson(s, CardEmpData.class);
+                            if (data.getCode() == 200) {
+                                cardEmp = data.getData();
+                                showMsgDialogDxk();
+                            }else {
+                            }
+                        } else {
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    private void showMsgDialogDxk() {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+        cont.setText("您的定向卡会员到期日："+ DateUtil.getDate(cardEmp.getLx_card_emp_end_time(), "yyyy-MM-dd"));
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setVisibility(View.GONE);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 
     private List<LxAd> lxads = new ArrayList<LxAd>();
 

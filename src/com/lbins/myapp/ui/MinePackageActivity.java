@@ -17,7 +17,9 @@ import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.BankObjData;
+import com.lbins.myapp.data.CountData;
 import com.lbins.myapp.data.MinePackageData;
+import com.lbins.myapp.entity.Count;
 import com.lbins.myapp.entity.MinePackage;
 import com.lbins.myapp.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -34,6 +36,7 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
     private TextView title;
     private TextView name;
     private TextView mine_money;
+    private TextView mine_count_num;
     private TextView mine_bank_card_num_two;
     private TextView mine_bank_card_num_one;
     private TextView mine_jinbi_num;
@@ -55,6 +58,62 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
         getData();
         //获得银行卡列表
         getDataBanks();
+        //获得积分
+        getCount();
+
+    }
+
+    Count count = null;
+    private void getCount() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_COUNT_RETURN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            CountData data = getGson().fromJson(s, CountData.class);
+                            if (data.getCode() == 200) {
+                                count = data.getData();
+                                if(count != null){
+                                    mine_count_num.setText("现有积分:￥"+count.getCount());
+                                }
+                            } else {
+                                Toast.makeText(MinePackageActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MinePackageActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MinePackageActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
     //获得钱包
@@ -115,9 +174,11 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
         mine_bank_card_num_one = (TextView) this.findViewById(R.id.mine_bank_card_num_one);
         mine_bank_card_num_two = (TextView) this.findViewById(R.id.mine_bank_card_num_two);
         mine_jinbi_num = (TextView) this.findViewById(R.id.mine_jinbi_num);
+        mine_count_num = (TextView) this.findViewById(R.id.mine_count_num);
         this.findViewById(R.id.liner_profile_packget).setOnClickListener(this);
         this.findViewById(R.id.liner_profile_cztx).setOnClickListener(this);
         this.findViewById(R.id.liner_profile_bank_card).setOnClickListener(this);
+        this.findViewById(R.id.liner_profile_count).setOnClickListener(this);
     }
 
     void initData(){
@@ -161,6 +222,13 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
             }
             break;
+            case R.id.liner_profile_count:
+            {
+                //积分
+                Intent intent = new Intent(MinePackageActivity.this, MineCountActivity.class);
+                startActivity(intent);
+            }
+                break;
         }
     }
 
