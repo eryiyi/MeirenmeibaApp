@@ -181,10 +181,10 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
             case R.id.check_btn_ling:
             {
                 //零钱
-//                check_btn_wx.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
-//                check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
-//                check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
-//                selectPayWay = 2;
+                check_btn_wx.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
+                check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
+                check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
+                selectPayWay = 2;
             }
             break;
         }
@@ -264,6 +264,9 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                     sendOrderToServer();
                 }
             }
+                break;
+            case 2:
+                showMsg(PaySelectActivity.this, "该功能，正在开发测试，请等待");
                 break;
         }
 
