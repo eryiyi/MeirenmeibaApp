@@ -11,6 +11,15 @@
             android:layout_height="wrap_content"
             layout="@layout/top_liner_index"/>
 
+    <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp" >-->
+        <!--<com.amap.api.maps.MapView-->
+                <!--android:id="@+id/map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+    <!--</FrameLayout>-->
+
     <com.lbins.myapp.library.PullToRefreshListView
             android:id="@+id/lstv"
             android:cacheColorHint="#00000000"
@@ -25,4 +34,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     </com.lbins.myapp.library.PullToRefreshListView>>
+
 </LinearLayout>

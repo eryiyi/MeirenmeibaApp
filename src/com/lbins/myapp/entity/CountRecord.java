@@ -5,9 +5,9 @@ package com.lbins.myapp.entity;
  */
 public class CountRecord {
     private String lx_count_record_id;
-    private String lx_count_record_cont;
-    private String lx_count_record_count;
-    private String dateline;
+    private String lx_count_record_cont;//积分释义
+    private String lx_count_record_count;//积分
+    private String dateline;//时间
     private String emp_id;
 
     public String getLx_count_record_id() {

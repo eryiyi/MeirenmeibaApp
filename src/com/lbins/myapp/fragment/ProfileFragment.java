@@ -266,9 +266,15 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.mine_erweima:
             {
-                //二维码
-                Intent intent = new Intent(getActivity(), MineErweimaActivity.class);
-                startActivity(intent);
+
+                //我是店家
+                if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
+                    //二维码
+                    Intent intent = new Intent(getActivity(), MineErweimaActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity(), "您不是店家，请先入驻才能生成二维码！", Toast.LENGTH_SHORT).show();
+                }
             }
                 break;
 

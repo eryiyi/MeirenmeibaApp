@@ -8,11 +8,11 @@ import java.io.Serializable;
 public class Count implements Serializable {
     private String id;
     private String empId;
-    private String count;
-    private String emp_number;
-    private String emp_name;
-    private String emp_mobile;
-    private String emp_cover;
+    private String count;//积分
+    private String emp_number;//用户账号
+    private String emp_name;//用户昵称
+    private String emp_mobile;//用户手机号
+    private String emp_cover;//用户头像
 
     public String getId() {
         return id;

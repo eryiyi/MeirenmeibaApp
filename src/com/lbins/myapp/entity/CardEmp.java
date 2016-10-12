@@ -5,15 +5,15 @@ package com.lbins.myapp.entity;
  */
 public class CardEmp {
     private  String emp_id;
-    private  String lx_card_emp_year;
-    private  String lx_card_emp_start_time;
-    private  String lx_card_emp_end_time;
-    private  String is_use;
+    private  String lx_card_emp_year;//第几年了
+    private  String lx_card_emp_start_time;//第一次开定向卡的时间
+    private  String lx_card_emp_end_time;//结束日期--定向卡到期日
+    private  String is_use;//是否可用  0可用 1不可用
 
-    private  String emp_number;
-    private  String emp_mobile;
-    private  String emp_name;
-    private  String emp_cover;
+    private  String emp_number;//会员账号
+    private  String emp_mobile;//会员手机号
+    private  String emp_name;//会员昵称
+    private  String emp_cover;//会员头像
 
     public String getEmp_id() {
         return emp_id;

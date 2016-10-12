@@ -69,7 +69,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
-    private RelativeLayout headLiner;
+    private LinearLayout headLiner;
 
     private MapView mapView;
     private AMap aMap;
@@ -125,11 +125,11 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         location.setOnClickListener(this);
         keywords = (TextView) view.findViewById(R.id.keywords);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
-        headLiner = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
+        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
         mapView = (MapView) headLiner.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         init();
-        setUpMap();
+
 
         adapter = new ItemTuijianDianpusAdapter(listsDianpu, getActivity());
 
@@ -190,6 +190,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
+                                    listsDianpu.clear();
                                     ManagerInfoData data = getGson().fromJson(s, ManagerInfoData.class);
                                     listsDianpu.addAll(data.getData());
 //                                    if (data != null && data.getData() != null) {
@@ -205,7 +206,9 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
 //                                    }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                    setUpMap();
                                 } else {
+                                    setUpMap();
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -223,6 +226,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                         if(progressDialog != null){
                             progressDialog.dismiss();
                         }
+                        setUpMap();
                         Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -348,6 +352,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                     markerOption.icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                     markerOptionlst.add(markerOption);
+//                    aMap.addMarker(markerOption);
                 }
 
             }
@@ -493,9 +498,9 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
             }
         }
         if(empT != null){
-//            Intent detail = new Intent(getActivity(), ProfileActivity.class);
-//            detail.putExtra("mm_emp_id", empT.getMm_emp_id());
-//            startActivity(detail);
+            Intent detail = new Intent(getActivity(), DianpuDetailActivity.class);
+            detail.putExtra("emp_id_dianpu", empT.getEmp_id());
+            startActivity(detail);
         }
 
     }

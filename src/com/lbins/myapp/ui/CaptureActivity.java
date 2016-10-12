@@ -199,28 +199,40 @@ public class CaptureActivity extends BaseActivity implements Callback
                 startActivity(intent);
                 finish();
             }
-            if(url.contains(InternetURL.SAVE_FAVOUR_URL)){
-                //收藏店铺，加粉丝
-                url = url+"&emp_id_favour="+ getGson().fromJson(getSp().getString("empId", ""), String.class);
-                saveFavour(url);
+            if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                    "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                //未登录
+            } else {
+                if(url.contains(InternetURL.SAVE_FAVOUR_URL)){
+                    //收藏店铺，加粉丝
+                    url = url+"&emp_id_favour="+ getGson().fromJson(getSp().getString("empId", ""), String.class);
+                    saveFavour(url);
+                }
+                if(url.contains(InternetURL.GET_GET_GOODS_URN)){
+                    String emp_id = url.substring(url.indexOf("=")).replace("=","");
+                    //有偿消费
+                    payScanObj.setEmp_id(emp_id);
+                    payScanObj.setTitle("扫码消费_有偿消费");
+                    //弹框提示输入金额
+                    Intent intent = new Intent(CaptureActivity.this, PaySelectTwoActivity.class);
+                    intent.putExtra("payScanObj", payScanObj);
+                    startActivity(intent);
+                    finish();
+                }
+                if(url.contains(InternetURL.GET_GET_DXK_GOODS_URN)){
+                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                        //是定向卡会员
+                        //无偿消费
+                        String emp_id = url.substring(url.indexOf("=")).replace("=", "");
+                        //插入一个订单-定向卡订单
+                        saveDxkOrder(emp_id);
+                    }else {
+                        //不是定向卡会员
+                       showMsg(CaptureActivity.this, "您不是定向卡会员，不能扫描！");
+                    }
+                }
             }
-            if(url.contains(InternetURL.GET_GET_GOODS_URN)){
-                String emp_id = url.substring(url.indexOf("=")).replace("=","");
-                //有偿消费
-                payScanObj.setEmp_id(emp_id);
-                payScanObj.setTitle("扫码消费_有偿消费");
-                //弹框提示输入金额
-                Intent intent = new Intent(CaptureActivity.this, PaySelectTwoActivity.class);
-                intent.putExtra("payScanObj", payScanObj);
-                startActivity(intent);
-                finish();
-            }
-            if(url.contains(InternetURL.GET_GET_DXK_GOODS_URN)){
-                //无偿消费
-                String emp_id = url.substring(url.indexOf("=")).replace("=", "");
-                //插入一个订单-定向卡订单
-                saveDxkOrder(emp_id);
-            }
+
         }
     }
 
