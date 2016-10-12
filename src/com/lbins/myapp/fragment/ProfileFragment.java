@@ -267,7 +267,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.mine_erweima:
             {
                 //二维码
-                Intent intent = new Intent(getActivity(), TuiguangActivity.class);
+                Intent intent = new Intent(getActivity(), MineErweimaActivity.class);
                 startActivity(intent);
             }
                 break;

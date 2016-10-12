@@ -12,8 +12,8 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "559afbe3ff53400c469f12648a976eff";
     public static final  String WX_API_KEY="559afbe3ff53400c469f12648a976eff";
 
-    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-//    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -163,4 +163,10 @@ public class InternetURL {
     public static final String GET_LIKES_URN = INTERNAL + "appGetLikes.do";
     //获得定向卡会员详情
     public static final String GET_CARD_EMP_BY_ID_URN = INTERNAL + "appGetCardEmp.do";
+    //商家有偿消费二维码url
+    public static final String GET_GET_GOODS_URN = INTERNAL + "appPayYouchang.do";
+    public static final String GET_GET_DXK_GOODS_URN = INTERNAL + "appPayWuchang.do";
+    //商家无偿消费二维码url
+    public static final String SAVE_DXK_ORDER_URN = INTERNAL + "appSaveDxkOrder.do";
+
 }

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,9 +45,9 @@ import java.util.*;
 
 /**
  * Created by zhl on 2016/8/30.
- * 选择支付方式
+ * 选择支付方式 扫一扫付款
  */
-public class PaySelectActivity extends BaseActivity implements View.OnClickListener,Runnable {
+public class PaySelectTwoActivity extends BaseActivity implements View.OnClickListener,Runnable {
     private OrdersForm SGform = new OrdersForm();
     private List<Order> listOrders = new ArrayList<Order>();//订单集合 --传给服务器
     private ShoppingAddress shoppingAddress;
@@ -74,12 +75,12 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(PaySelectActivity.this, "支付结果确认中",
+                            Toast.makeText(PaySelectTwoActivity.this, "支付结果确认中",
                                     Toast.LENGTH_SHORT).show();
 
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(PaySelectActivity.this, "支付失败",
+                            Toast.makeText(PaySelectTwoActivity.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
 
                         }
@@ -87,7 +88,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                     break;
                 }
                 case SDK_CHECK_FLAG: {
-                    Toast.makeText(PaySelectActivity.this, "检查结果为：" + msg.obj,
+                    Toast.makeText(PaySelectTwoActivity.this, "检查结果为：" + msg.obj,
                             Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -99,12 +100,13 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     //------------------------------------------------------------------------------------
 
     private TextView title;
-    private List<ShoppingCart> lists = new ArrayList<ShoppingCart>();//订单集合 --传给服务器
-    private TextView count_money;
+    private EditText count_money;
     private String out_trade_no;
     private ImageView check_btn_wx;
     private ImageView check_btn_ali;
     private ImageView check_btn_ling;
+
+    private PayScanObj payScanObj;
 
     //微信支付
     // IWXAPI 是第三方app和微信通信的openapi接口
@@ -113,15 +115,17 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay_select_activity);
+        setContentView(R.layout.pay_select_two_activity);
+        payScanObj = (PayScanObj) getIntent().getExtras().get("payScanObj");
         //微信支付
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, InternetURL.WEIXIN_APPID, false);
 
-        lists = (List<ShoppingCart>) getIntent().getExtras().get("listsSelect");
-        shoppingAddress = (ShoppingAddress) getIntent().getExtras().get("shoppingAddress");
         initView();
-        toCalculate();
+//        toCalculate();
+
+//        payScanObj.setPay_count(cont.getText().toString());
+
     }
 
     private void initView() {
@@ -129,7 +133,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("选择支付方式");
-        count_money = (TextView) this.findViewById(R.id.count_money);
+        count_money = (EditText) this.findViewById(R.id.count_money);
         check_btn_wx = (ImageView) this.findViewById(R.id.check_btn_wx);
         check_btn_ali = (ImageView) this.findViewById(R.id.check_btn_ali);
         check_btn_ling = (ImageView) this.findViewById(R.id.check_btn_ling);
@@ -140,19 +144,11 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
     //计算金额总的
     void toCalculate(){
-        DecimalFormat df = new DecimalFormat("0.00");
-        if (lists != null){
-            Double doublePrices = 0.0;
-            for(int i=0; i<lists.size() ;i++){
-                ShoppingCart shoppingCart = lists.get(i);
-                if(shoppingCart.getIs_select() .equals("0")){
-                    //默认是选中的
-                    doublePrices = doublePrices + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
-                }
-            }
-            count_money.setText(getResources().getString(R.string.countPrices) + df.format(doublePrices).toString());
+        if(payScanObj != null){
+            count_money.setText(getResources().getString(R.string.countPrices) + payScanObj.getPay_count());
         }
     }
+
     private int selectPayWay = 0;//0微信 1支付宝  2零钱
     @Override
     public void onClick(View view) {
@@ -194,80 +190,46 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     WxPayObj wxPayObj;
 
     public void payAction(View view){
-        switch (selectPayWay){
-            case 0:
-            {
-                //微信
-                //先传值给服务端
-                if(lists != null && lists.size() > 0){
-                    if(shoppingAddress != null){
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1"));
-                            }
-                        }
-                    }else {
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","1"));
-                            }
-                        }
+        if(StringUtil.isNullOrEmpty(count_money.getText().toString())){
+            showMsg(PaySelectTwoActivity.this, "请输入金额！");
+            return;
+        }else {
+            payScanObj.setPay_count(count_money.getText().toString());
+            switch (selectPayWay){
+                case 0:
+                {
+                    //微信
+                    //先传值给服务端
+                    if(payScanObj != null ){
+                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+                                ,"", "1", payScanObj.getPay_count()
+                                ,"0","0","","","","","","","","1"));
                     }
-
-                }
-                SGform.setList(listOrders);
-                if(listOrders!=null && listOrders.size() > 0){
-                    //传值给服务端
-                    goToPayWeixin();
-                }
-            }
-                break;
-            case 1:
-            {
-                //先传值给服务端
-                if(lists != null && lists.size() > 0){
-                    if(shoppingAddress != null){
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0"));
-                            }
-                        }
-                    }else{
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","0"));
-                            }
-                        }
+                    SGform.setList(listOrders);
+                    if(listOrders!=null && listOrders.size() > 0){
+                        //传值给服务端
+                        goToPayWeixin();
                     }
-
                 }
-                SGform.setList(listOrders);
-                //支付宝
-                if(listOrders!=null && listOrders.size() > 0){
-                    //传值给服务端
-                    sendOrderToServer();
-                }
-            }
                 break;
+                case 1:
+                {
+                    //先传值给服务端
+                    if(payScanObj != null){
+                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+                                ,"", "1", payScanObj.getPay_count()
+                                ,"0","0","","","","","","","","0"));
+                    }
+                    SGform.setList(listOrders);
+                    //支付宝
+                    if(listOrders!=null && listOrders.size() > 0){
+                        //传值给服务端
+                        sendOrderToServer();
+                    }
+                }
+                break;
+            }
         }
-
-
     }
 
     //传order给服务器
@@ -288,15 +250,15 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                 pay(data.getData());//调用支付接口
 //                                updateMineOrder();
                             }else if(data.getCode() == 2){
-                                Toast.makeText(PaySelectActivity.this, R.string.order_error_three, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_three, Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                             else {
-                                Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         } else {
-                            Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -304,7 +266,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -328,7 +290,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
     //清空购物车
     void deleteCart(){
-        DBHelper.getInstance(PaySelectActivity.this).deleteShopping();
+        DBHelper.getInstance(PaySelectTwoActivity.this).deleteShopping();
         Intent clear_cart = new Intent("cart_clear");
         sendBroadcast(clear_cart);
     }
@@ -350,7 +312,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void run() {
                 // 构造PayTask 对象
-                PayTask alipay = new PayTask(PaySelectActivity.this);
+                PayTask alipay = new PayTask(PaySelectTwoActivity.this);
                 // 调用支付接口，获取支付结果
                 String result = alipay.pay(payInfo);
 
@@ -377,7 +339,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void run() {
                 // 构造PayTask 对象
-                PayTask payTask = new PayTask(PaySelectActivity.this);
+                PayTask payTask = new PayTask(PaySelectTwoActivity.this);
                 // 调用查询接口，获取查询结果
                 boolean isExist = payTask.checkAccountIfExist();
 
@@ -422,23 +384,23 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                         if (StringUtil.isJson(s)) {
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
-                                Toast.makeText(PaySelectActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaySelectTwoActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
-                                Intent orderView =  new Intent(PaySelectActivity.this, MineOrdersActivity.class);
+                                Intent orderView =  new Intent(PaySelectTwoActivity.this, MineOrdersActivity.class);
                                 startActivity(orderView);
                                 finish();
                             } else {
-                                Toast.makeText(PaySelectActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(PaySelectActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(PaySelectActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -479,13 +441,13 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                     out_trade_no = wxPayObj.getOut_trade_no();
                                 }
                                 // 启动一个线程
-                                new Thread(PaySelectActivity.this).start();
+                                new Thread(PaySelectTwoActivity.this).start();
                             } else {
-                                Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         } else {
-                            Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -493,7 +455,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

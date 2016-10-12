@@ -35,6 +35,15 @@ public class Order implements Serializable{
     private String areaId;
     private String trade_type;
     private String is_return;//是否退货完成 0否 1是（卖家已处理）
+    private String is_dxk_order;//是否0元订单； 默认0否  1是
+
+    public String getIs_dxk_order() {
+        return is_dxk_order;
+    }
+
+    public void setIs_dxk_order(String is_dxk_order) {
+        this.is_dxk_order = is_dxk_order;
+    }
 
     public String getIs_return() {
         return is_return;

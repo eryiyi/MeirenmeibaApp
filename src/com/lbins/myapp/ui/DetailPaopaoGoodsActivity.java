@@ -227,6 +227,17 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             break;
             case R.id.foot_cart:
                 //购物车
+                if("1".equals(paopaoGoods.getIs_dxk())){
+                    //是定向卡商品
+                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                        //是定向卡会员
+
+                    }else {
+                        //不是定向卡会员
+                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
+                        return;
+                    }
+                }
                 //先查询是否已经存在该商品了
                 if(DBHelper.getInstance(DetailPaopaoGoodsActivity.this).isSaved(paopaoGoods.getId())){
                     //如果已经加入购物车了
@@ -262,6 +273,17 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 if("0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
                     showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
                     return;
+                }
+                if("1".equals(paopaoGoods.getIs_dxk())){
+                    //是定向卡商品
+                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                        //是定向卡会员
+
+                    }else {
+                        //不是定向卡会员
+                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
+                        return;
+                    }
                 }
                 //订单
                 Intent orderMakeView = new Intent(DetailPaopaoGoodsActivity.this, OrderMakeActivity.class);
@@ -650,9 +672,17 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         //轮播广告
         initViewPager();
         money_one.setText("￥" + paopaoGoods.getSellPrice());
-        btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
+
         money_two.setText("门市价：￥"+paopaoGoods.getMarketPrice());
         money_two.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
+
+
+        if("1".equals(paopaoGoods.getIs_dxk())){
+            //说明是定向卡商品
+            btn_money.setText("￥0 定向卡商品");
+        }else{
+            btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
+        }
     }
 
 

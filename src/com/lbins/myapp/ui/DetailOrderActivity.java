@@ -70,8 +70,11 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         initView();
         //填充数据
         initData();
-        //获得收货地址
-        getAddressById();
+        if(!StringUtil.isNullOrEmpty(orderVo.getAddress_id())){
+            //获得收货地址
+            getAddressById();
+        }
+
     }
 
     private void initView() {
@@ -110,7 +113,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.relative_one:
             {
-                if (orderVo != null) {
+                if (orderVo != null && !StringUtil.isNullOrEmpty(orderVo.getGoods_id()) && !StringUtil.isNullOrEmpty(orderVo.getEmp_id())) {
                     Intent goodsdetail = new Intent(DetailOrderActivity.this, DetailPaopaoGoodsActivity.class);
                     goodsdetail.putExtra("emp_id_dianpu", orderVo.getEmp_id());
                     goodsdetail.putExtra("goods_id", orderVo.getGoods_id());
@@ -132,8 +135,11 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.button_two:
             {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + orderVo.getEmpMobile()));
-                this.startActivity(intent);
+                if(!StringUtil.isNullOrEmpty(orderVo.getEmpMobile())){
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + orderVo.getEmpMobile()));
+                    this.startActivity(intent);
+                }
+
             }
                 break;
         }
@@ -222,13 +228,13 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
 
-        imageLoader.displayImage(orderVo.getEmpCover(), item_head, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-        imageLoader.displayImage(orderVo.getGoodsCover(), item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-        item_nickname.setText(orderVo.getEmpName());
-        item_content.setText(orderVo.getGoodsTitle());
-        item_prices.setText(getResources().getString(R.string.money) + orderVo.getGoodsPrice());
-        item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), orderVo.getGoods_count()));
-        item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount())));
+        imageLoader.displayImage((orderVo.getEmpCover()==null?"":orderVo.getEmpCover()), item_head, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+        imageLoader.displayImage((orderVo.getGoodsCover()==null?"":orderVo.getGoodsCover()), item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+        item_nickname.setText(orderVo.getEmpName()==null?"":orderVo.getEmpName());
+        item_content.setText(orderVo.getGoodsTitle()==null?"":orderVo.getGoodsTitle());
+        item_prices.setText(getResources().getString(R.string.money) + (orderVo.getGoodsPrice()==null?"":orderVo.getGoodsPrice()));
+        item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), (orderVo.getGoods_count()==null?"":orderVo.getGoods_count())));
+        item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount()==null?"":orderVo.getPayable_amount())));
         order_dateline.setText(datetime);
     }
 
@@ -279,9 +285,12 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
 
     void initAddress(ShoppingAddress shoppingAddress){
         //收货地址
-        order_name.setText(shoppingAddress.getAccept_name());
-        order_tel.setText(shoppingAddress.getPhone());
-        order_location.setText(shoppingAddress.getProvinceName()+shoppingAddress.getCityName()+shoppingAddress.getAreaName()+shoppingAddress.getAddress());
+        if(shoppingAddress != null){
+            order_name.setText(shoppingAddress.getAccept_name());
+            order_tel.setText(shoppingAddress.getPhone());
+            order_location.setText(shoppingAddress.getProvinceName()+shoppingAddress.getCityName()+shoppingAddress.getAreaName()+shoppingAddress.getAddress());
+        }
+
     }
 
 }

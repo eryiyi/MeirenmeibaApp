@@ -23,7 +23,8 @@ public class PaopaoGoods {
     private String count;//商品数量
     private String goods_count_sale;//已卖商品数量
     private String goodsPosition;
-    private String is_zhiying;//0 商家发布 1自营
+    private String is_zhiying;//0 商家发布 1自营 （暂时不用了）
+    private String is_dxk;//是否定向卡商品 0否 1是
 
     private String empId;//商家商品发布者
     private String manager_id;//自营商品发布者
@@ -38,6 +39,14 @@ public class PaopaoGoods {
     private String type_name;//商品分类名称
     private String goods_cover1;
     private String goods_cover2;
+
+    public String getIs_dxk() {
+        return is_dxk;
+    }
+
+    public void setIs_dxk(String is_dxk) {
+        this.is_dxk = is_dxk;
+    }
 
     public String getGoods_cover1() {
         return goods_cover1;

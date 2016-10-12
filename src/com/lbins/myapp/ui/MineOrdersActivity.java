@@ -240,9 +240,11 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
             case 3:
                 //去付款
             {
-                Intent intent = new Intent(MineOrdersActivity.this, PaySelectSingleActivity.class);
-                intent.putExtra("orderVoTmp", orderVoTmp);
-                startActivity(intent);
+                if(orderVoTmp != null){
+                    Intent intent = new Intent(MineOrdersActivity.this, PaySelectSingleActivity.class);
+                    intent.putExtra("orderVoTmp", orderVoTmp);
+                    startActivity(intent);
+                }
             }
                 break;
 //            case 3:
@@ -254,10 +256,12 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 break;
             case 5:
                 //评价
-                Intent comment = new Intent(this, PublishGoodCommentActivity.class);
-                comment.putExtra("goods_id", orderVoTmp.getGoods_id());
-                comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
-                startActivity(comment);
+                if(orderVoTmp != null && !StringUtil.isNullOrEmpty(orderVoTmp.getGoods_id())){
+                    Intent comment = new Intent(this, PublishGoodCommentActivity.class);
+                    comment.putExtra("goods_id", orderVoTmp.getGoods_id());
+                    comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
+                    startActivity(comment);
+                }
                 break;
             case 6:
                 //删除订单

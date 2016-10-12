@@ -74,7 +74,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             holder.button_five = (TextView) convertView.findViewById(R.id.button_five);
             holder.button_six = (TextView) convertView.findViewById(R.id.button_six);
             holder.item_dateline = (TextView) convertView.findViewById(R.id.item_dateline);
-            holder.button_seven = (TextView) convertView.findViewById(R.id.button_seven);
+            holder.button_seven = (TextView) convertView.findViewById(R.id.button_seven);//退货
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -91,6 +91,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
 //            TextView button_four;//取消订单
 //            TextView button_five;//去评价
 //            TextView button_six;//删除订单
+//            TextView button_seven;//退货
             switch (Integer.parseInt(cell.getStatus())){
                 case 1:
                     holder.item_status.setText("等待买家付款");
@@ -167,11 +168,16 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_seven.setVisibility(View.GONE);
                     break;
             }
-            holder.item_content.setText(cell.getGoodsTitle());
-            holder.item_prices.setText(res.getString(R.string.money) +cell.getGoodsPrice());
-            holder.item_count.setText(String.format(res.getString(R.string.item_count_adapter),cell.getGoods_count()));
-            holder.item_money.setText(String.format(res.getString(R.string.item_money_adapter),Double.valueOf(cell.getPayable_amount())));
-            holder.item_dateline.setText(res.getString(R.string.create_time) +cell.getCreate_time());
+            if("1".equals(cell.getIs_dxk_order())){
+                //如果是0元订单
+                holder.button_three.setVisibility(View.GONE);
+                holder.button_seven.setVisibility(View.GONE);
+            }
+            holder.item_content.setText(cell.getGoodsTitle()==null?"":cell.getGoodsTitle());
+            holder.item_prices.setText(res.getString(R.string.money) +(cell.getGoodsPrice()==null?"":cell.getGoodsPrice()));
+            holder.item_count.setText(String.format(res.getString(R.string.item_count_adapter),(cell.getGoods_count()==null?"0":cell.getGoods_count())));
+            holder.item_money.setText(String.format(res.getString(R.string.item_money_adapter),Double.valueOf(cell.getPayable_amount()==null?"0":cell.getPayable_amount())));
+            holder.item_dateline.setText(res.getString(R.string.create_time) +(cell.getCreate_time()==null?"":cell.getCreate_time()));
             holder.button_one.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

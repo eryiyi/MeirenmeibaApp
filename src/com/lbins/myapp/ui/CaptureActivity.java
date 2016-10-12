@@ -1,6 +1,7 @@
 package com.lbins.myapp.ui;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
@@ -17,21 +18,38 @@ import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.camera.CameraManager;
 import com.lbins.myapp.camera.decoding.CaptureActivityHandler;
 import com.lbins.myapp.camera.decoding.InactivityTimer;
 import com.lbins.myapp.camera.view.ViewfinderView;
+import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.entity.PayScanObj;
+import com.lbins.myapp.entity.ShoppingAddress;
+import com.lbins.myapp.entity.ShoppingCart;
+import com.lbins.myapp.util.StringUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
-
+//扫描
 public class CaptureActivity extends BaseActivity implements Callback
 {
-
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
     private boolean hasSurface;
@@ -43,7 +61,6 @@ public class CaptureActivity extends BaseActivity implements Callback
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -162,48 +179,188 @@ public class CaptureActivity extends BaseActivity implements Callback
         viewfinderView.drawViewfinder();
 
     }
-
+    PayScanObj payScanObj = new PayScanObj();//扫一扫付款对象
     public void handleDecode(final Result obj, Bitmap barcode)
     {
         inactivityTimer.onActivity();
         playBeepSoundAndVibrate();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        if (barcode == null)
-        {
-            dialog.setIcon(null);
-        }
-        else
-        {
-
-            Drawable drawable = new BitmapDrawable(barcode);
-            dialog.setIcon(drawable);
-        }
-        dialog.setTitle("扫描结果");
-        dialog.setMessage(obj.getText());
-        dialog.setNegativeButton("确定", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+        if(barcode == null){
+            //
+        }else{
+            //扫描结果
+            String url = obj.getText();
+            if(url.contains(InternetURL.APP_SHARE_REG_URL)){
+                //推广注册
                 //用默认浏览器打开扫描得到的地址
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(obj.getText());
+                Uri content_url = Uri.parse(url);
                 intent.setData(content_url);
                 startActivity(intent);
                 finish();
             }
-        });
-        dialog.setPositiveButton("取消", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            if(url.contains(InternetURL.SAVE_FAVOUR_URL)){
+                //收藏店铺，加粉丝
+                url = url+"&emp_id_favour="+ getGson().fromJson(getSp().getString("empId", ""), String.class);
+                saveFavour(url);
+            }
+            if(url.contains(InternetURL.GET_GET_GOODS_URN)){
+                String emp_id = url.substring(url.indexOf("=")).replace("=","");
+                //有偿消费
+                payScanObj.setEmp_id(emp_id);
+                payScanObj.setTitle("扫码消费_有偿消费");
+                //弹框提示输入金额
+                Intent intent = new Intent(CaptureActivity.this, PaySelectTwoActivity.class);
+                intent.putExtra("payScanObj", payScanObj);
+                startActivity(intent);
                 finish();
             }
-        });
-        dialog.create().show();
+            if(url.contains(InternetURL.GET_GET_DXK_GOODS_URN)){
+                //无偿消费
+                String emp_id = url.substring(url.indexOf("=")).replace("=", "");
+                //插入一个订单-定向卡订单
+                saveDxkOrder(emp_id);
+            }
+        }
     }
+
+
+    private void showPayCount() {
+        final Dialog picAddDialog = new Dialog(CaptureActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_pay_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final EditText cont = (EditText) picAddInflate.findViewById(R.id.cont);
+        cont.setText("请输入支付金额？");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(StringUtil.isNullOrEmpty(cont.getText().toString())){
+                    showMsg(CaptureActivity.this, "请输入支付金额！");
+                    return;
+                }else {
+                    payScanObj.setPay_count(cont.getText().toString());
+                    Intent intent = new Intent(CaptureActivity.this, PaySelectTwoActivity.class);
+                    intent.putExtra("payScanObj", payScanObj);
+                    ShoppingAddress shoppingAddress=null;
+                    startActivity(intent);
+                    picAddDialog.dismiss();
+                }
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
+    //收藏店铺
+    void saveFavour(String url){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(CaptureActivity.this, "收藏店铺成功！");
+                                finish();
+                            } else if(data.getCode() == 2){
+                                showMsg(CaptureActivity.this, "已经收藏了！");
+                                finish();
+                            }
+                            else {
+                                Toast.makeText(CaptureActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(CaptureActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(CaptureActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    //保存订单 定向卡的
+    void saveDxkOrder(final String emp_id){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_DXK_ORDER_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(CaptureActivity.this, "订单已生成，等待管理员审核！");
+                                finish();
+                            }
+                            else {
+                                Toast.makeText(CaptureActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(CaptureActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(CaptureActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));//这个是买家的
+                params.put("seller_emp_id", emp_id);//这个是卖家的
+                params.put("payable_amount","0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 
     private void initBeepSound()
     {
