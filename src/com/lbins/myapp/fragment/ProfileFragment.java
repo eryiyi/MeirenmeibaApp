@@ -58,6 +58,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private TextView mine_money;//我的金钱
     private TextView mine_number;//我的账号
     private ImageView mine_erweima;//我的二维码
+    private ImageView vip_type;//是否是vip
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -96,6 +97,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mine_number = (TextView) view.findViewById(R.id.mine_number);
         mine_money = (TextView) view.findViewById(R.id.mine_money);
         mine_erweima = (ImageView) view.findViewById(R.id.mine_erweima);
+        vip_type = (ImageView) view.findViewById(R.id.vip_type);
 
 
         mine_cover.setOnClickListener(this);
@@ -294,6 +296,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             mine_money.setText("零钱:￥"+getGson().fromJson(getSp().getString("package_money", ""), String.class));
         }
 
+        //判断是否vip
+        if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+            //是定向卡会员
+            vip_type.setVisibility(View.VISIBLE);
+        }else {
+            vip_type.setVisibility(View.GONE);
+        }
     }
 
     // 选择相册，相机
