@@ -35,10 +35,7 @@ import com.lbins.myapp.entity.LxAd;
 import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
-import com.lbins.myapp.ui.DetailPaopaoGoodsActivity;
-import com.lbins.myapp.ui.LocationCityActivity;
-import com.lbins.myapp.ui.RegOneActivity;
-import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
+import com.lbins.myapp.ui.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -123,7 +120,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         //查询中部广告
         getAdsTwo();
 
-
         //查询商品分类
         getGoodsType();
 
@@ -199,10 +195,16 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                 if(listGoodsType.size()>(position)){
                     GoodsType goodsType = listGoodsType.get(position);
                     if(goodsType != null){
-                        Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-                        intent.putExtra("typeId", goodsType.getTypeId());
-                        intent.putExtra("typeName", goodsType.getTypeName());
-                        startActivity(intent);
+                        if("0".equals(goodsType.getTypeId())){
+                            //更多
+                            Intent intent = new Intent(getActivity(), MoreGoodsTypeActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+                            intent.putExtra("typeId", goodsType.getTypeId());
+                            intent.putExtra("typeName", goodsType.getTypeName());
+                            startActivity(intent);
+                        }
                     }
                 }
             }
@@ -512,14 +514,25 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
-
                             try {
                                 JSONObject jo = new JSONObject(s);
                                 int code1 = jo.getInt("code");
                                 if (code1 == 200) {
                                     GoodsTypeData data = getGson().fromJson(s, GoodsTypeData.class);
                                     listGoodsType.clear();
-                                    listGoodsType.addAll(data.getData());
+                                    List<GoodsType> listsgoodstype = new ArrayList<GoodsType>();
+                                    listsgoodstype.clear();
+                                    listsgoodstype.addAll(data.getData());
+                                    if(listsgoodstype != null){
+                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
+                                            listGoodsType.add(listsgoodstype.get(i));
+                                        }
+                                    }
+                                    GoodsType goodsType = new GoodsType();
+                                    goodsType.setTypeId("0");
+                                    goodsType.setTypeName("更多");
+                                    goodsType.setTypeIsUse("0");
+                                    listGoodsType.add(goodsType);
                                     adaptertype.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();

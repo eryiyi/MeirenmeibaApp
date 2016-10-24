@@ -16,8 +16,10 @@ import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.DianPuFavourData;
 import com.lbins.myapp.data.LxConsumptionData;
+import com.lbins.myapp.data.MinePackageData;
 import com.lbins.myapp.entity.DianPuFavour;
 import com.lbins.myapp.entity.LxConsumption;
+import com.lbins.myapp.entity.MinePackage;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
@@ -41,6 +43,8 @@ public class MineConsumptionActivity extends BaseActivity implements View.OnClic
     private static boolean IS_REFRESH = true;
     private ImageView search_null;
 
+    private TextView countJb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +55,65 @@ public class MineConsumptionActivity extends BaseActivity implements View.OnClic
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         getData();
+        getPackage();
+    }
+
+    private MinePackage minePackage;//我的钱包
+
+    //获得钱包
+    public void getPackage(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_GET_PACKAGE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            MinePackageData data = getGson().fromJson(s, MinePackageData.class);
+                            if (data.getCode() == 200) {
+                                minePackage = data.getData();
+                                if(minePackage != null){
+                                    initDataPackage();
+                                }
+                            } else {
+                                Toast.makeText(MineConsumptionActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MineConsumptionActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(MineConsumptionActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    void initDataPackage(){
+        countJb.setText("现有美币："+ (minePackage.getPackage_money()==null?"":minePackage.getPackage_money()));
     }
 
     private void initView() {
+        countJb = (TextView) this.findViewById(R.id.countJb);
+
         search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);

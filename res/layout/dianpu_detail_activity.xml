@@ -44,6 +44,7 @@
         <ImageView android:layout_width="wrap_content"
                    android:id="@+id/btn_share"
                    android:padding="12dp"
+                   android:visibility="gone"
                    android:layout_centerVertical="true"
                    android:layout_toLeftOf="@+id/btn_favour"
                    android:src="@drawable/top_share"

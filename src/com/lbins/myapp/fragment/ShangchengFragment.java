@@ -129,10 +129,16 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                 if(listGoodsType.size()>(position)){
                     GoodsType goodsType = listGoodsType.get(position);
                     if(goodsType != null){
-                        Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-                        intent.putExtra("typeId", goodsType.getTypeId());
-                        intent.putExtra("typeName", goodsType.getTypeName());
-                        startActivity(intent);
+                        if("0".equals(goodsType.getTypeId())){
+                            //更多
+                            Intent intent = new Intent(getActivity(), MoreGoodsTypeActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+                            intent.putExtra("typeId", goodsType.getTypeId());
+                            intent.putExtra("typeName", goodsType.getTypeName());
+                            startActivity(intent);
+                        }
                     }
                 }
             }
@@ -493,7 +499,19 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                 if (code1 == 200) {
                                     GoodsTypeData data = getGson().fromJson(s, GoodsTypeData.class);
                                     listGoodsType.clear();
-                                    listGoodsType.addAll(data.getData());
+                                    List<GoodsType> listsgoodstype = new ArrayList<GoodsType>();
+                                    listsgoodstype.clear();
+                                    listsgoodstype.addAll(data.getData());
+                                    if(listsgoodstype != null){
+                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
+                                            listGoodsType.add(listsgoodstype.get(i));
+                                        }
+                                    }
+                                    GoodsType goodsType = new GoodsType();
+                                    goodsType.setTypeId("0");
+                                    goodsType.setTypeName("更多");
+                                    goodsType.setTypeIsUse("0");
+                                    listGoodsType.add(goodsType);
                                     adaptertype.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();

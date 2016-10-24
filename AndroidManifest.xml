@@ -154,6 +154,7 @@
         <activity android:name=".ui.BusRouteDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.DriveRouteDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.WalkRouteDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.MoreGoodsTypeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
         <!--// *****************************高德地图sdk*******************************************-->
         <meta-data

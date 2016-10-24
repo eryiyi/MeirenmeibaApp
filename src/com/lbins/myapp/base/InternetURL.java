@@ -169,4 +169,7 @@ public class InternetURL {
     //商家无偿消费二维码url
     public static final String SAVE_DXK_ORDER_URN = INTERNAL + "appSaveDxkOrder.do";
 
+    //获得商品详情页好评度和消费评价总数
+    public static final String GET_COMMENT_ALL_URN = INTERNAL + "appGetCountComment.do";
+
 }

@@ -11,11 +11,11 @@
             layout="@layout/top_liner"/>
 
     <TextView android:layout_width="wrap_content"
-              android:text="现有积分：1000"
+              android:text="现有金币：1000"
               android:layout_gravity="center_horizontal"
               android:textColor="@color/red"
               android:padding="8dp"
-              android:id="@+id/countJf"
+              android:id="@+id/countJb"
               android:layout_height="wrap_content"/>
 
     <RelativeLayout android:layout_width="match_parent"

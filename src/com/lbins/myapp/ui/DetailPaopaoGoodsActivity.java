@@ -26,10 +26,7 @@ import com.lbins.myapp.adapter.ItemCommentAdapter;
 import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.GoodsCommentData;
-import com.lbins.myapp.data.ManagerInfoSingleData;
-import com.lbins.myapp.data.PaopaoGoodsSingleData;
-import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.data.*;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.*;
 import com.lbins.myapp.library.PullToRefreshBase;
@@ -116,11 +113,12 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         }else {
             initData();
         }
-
         //获取商品详情
         getDetailGoods();
         //获取商品评论
         getComment();
+        //查询商品的好评度和消费评价数量
+        getDetailComment();
     }
 
     private void initView() {
@@ -683,6 +681,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         }else{
             btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
         }
+        sale_num.setText(paopaoGoods.getGoods_count_sale()==null?"0":paopaoGoods.getGoods_count_sale());
     }
 
 
@@ -834,6 +833,61 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(DetailPaopaoGoodsActivity.this).onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    CommentNumber commentNumber;
+    //获得商评论总数和好评度
+    void getDetailComment(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_COMMENT_ALL_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    CommentNumberData data = getGson().fromJson(s, CommentNumberData.class);
+                                    commentNumber = data.getData();
+                                    if(commentNumber != null){
+                                        rate_comment.setText(String.valueOf(commentNumber.getStarDouble())+"%");
+                                        comment_count.setText("共"+commentNumber.getCommentCount()+"个消费评价");
+                                    }
+                                } else {
+                                    Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", goods_id);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
 }
