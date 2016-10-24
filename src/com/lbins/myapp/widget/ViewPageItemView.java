@@ -73,7 +73,10 @@ public class ViewPageItemView extends FrameLayout {
             int resourceId = jsonObject.getInt("resourceId");
             String title = jsonObject.optString("title");
 
-            imageView.setImageResource(resourceId);
+            if(imageView != null){
+                imageView.setImageResource(resourceId);
+            }
+
 //            tvTitle.setText(title);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -83,7 +86,9 @@ public class ViewPageItemView extends FrameLayout {
 
     // 资源回收
     public void recycle() {
-        imageView.setImageBitmap(null);
+        if(imageView != null){
+            imageView.setImageBitmap(null);
+        }
 
         if (null == bitmap || bitmap.isRecycled()) {
             return;
@@ -97,7 +102,10 @@ public class ViewPageItemView extends FrameLayout {
     public void reload() {
         try {
             int resourceId = jsonObject.getInt("resourceId");
-            imageView.setImageResource(resourceId);
+            if(imageView != null){
+                imageView.setImageResource(resourceId);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

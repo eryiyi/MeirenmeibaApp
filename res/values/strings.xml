@@ -86,4 +86,7 @@
     <string name="version_name">"检查版本"</string>
     <string name="can_not_find_version_name">"没有最新版本信息"</string>
 
+    <string name="error_other">未知错误，请稍后重试!错误码为</string>
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+
 </resources>

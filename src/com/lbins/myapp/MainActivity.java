@@ -18,6 +18,7 @@ import com.lbins.myapp.data.CardEmpData;
 import com.lbins.myapp.data.CityDATA;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.db.DBHelper;
+import com.lbins.myapp.db.RecordLogin;
 import com.lbins.myapp.entity.CardEmp;
 import com.lbins.myapp.entity.City;
 import com.lbins.myapp.entity.KefuTel;
@@ -102,30 +103,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void showMsgDialog() {
-        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
-        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
-        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
-        cont.setText("充值成为定向卡会员，享受免费消费一年");
-        btn_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, KefuTelActivity.class);
-                startActivity(intent);
-                picAddDialog.dismiss();
-            }
-        });
 
-        //取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
-        picAddDialog.setContentView(picAddInflate);
-        picAddDialog.show();
+            final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+            View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+            TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+            final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+            cont.setText("充值成为定向卡会员，享受免费消费一年");
+            btn_sure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, KefuTelActivity.class);
+                    startActivity(intent);
+                    picAddDialog.dismiss();
+                }
+            });
+
+            //取消
+            TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    picAddDialog.dismiss();
+                }
+            });
+            picAddDialog.setContentView(picAddInflate);
+            picAddDialog.show();
     }
     CardEmp cardEmp;//定向卡会还详情
     public void getCardEmp(){
@@ -170,29 +172,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void showMsgDialogDxk() {
-        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
-        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
-        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
-        cont.setText("您的定向卡会员到期日："+ DateUtil.getDate(cardEmp.getLx_card_emp_end_time(), "yyyy-MM-dd"));
-        btn_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
+        //判断今天是否弹框了
+        if(DBHelper.getInstance(MainActivity.this).isRecordLogin(getGson().fromJson(getSp().getString("empId", ""), String.class), DateUtil.getDate())){
+            //已经存在了
+        }else{
+            final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+            View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
+            TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+            final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
+            cont.setText("您的定向卡会员到期日："+ DateUtil.getDate(cardEmp.getLx_card_emp_end_time(), "yyyy-MM-dd"));
+            btn_sure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    picAddDialog.dismiss();
+                }
+            });
 
-        //取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-        btn_cancel.setVisibility(View.GONE);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
-        picAddDialog.setContentView(picAddInflate);
-        picAddDialog.show();
+            //取消
+            TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+            btn_cancel.setVisibility(View.GONE);
+            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    picAddDialog.dismiss();
+                }
+            });
+            picAddDialog.setContentView(picAddInflate);
+            picAddDialog.show();
+
+            RecordLogin recordLogin = new RecordLogin();
+            recordLogin.setId(System.currentTimeMillis()+"");
+            recordLogin.setEmp_id(getGson().fromJson(getSp().getString("empId", ""), String.class));
+            recordLogin.setDateline(DateUtil.getDate());
+            DBHelper.getInstance(MainActivity.this).addRecordLogin(recordLogin);
+        }
     }
 
 

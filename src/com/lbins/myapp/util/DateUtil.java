@@ -50,6 +50,11 @@ public class DateUtil {
         return dateFormat.format( date );
     }
 
+    public static String getDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        return dateFormat.format( new Date() );
+    }
+
     public static String getDateAndTimeTwo(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
         return  dateFormat.format(new Date());

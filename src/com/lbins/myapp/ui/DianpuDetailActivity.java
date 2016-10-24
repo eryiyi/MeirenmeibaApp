@@ -132,6 +132,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         dp_tel = (ImageView) this.findViewById(R.id.dp_tel);
         dp_tel.setOnClickListener(this);
         dp_address = (TextView) this.findViewById(R.id.dp_address);
+        this.findViewById(R.id.liner_address).setOnClickListener(this);
 
         meigou_num = (TextView) this.findViewById(R.id.meigou_num);
         btn_more = (TextView) this.findViewById(R.id.btn_more);
@@ -196,6 +197,23 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.btn_share:
             {
                 //分享
+            }
+                break;
+            case R.id.liner_address:
+            {
+                //地址点击
+                if(StringUtil.isNullOrEmpty(managerInfo.getLat_company()) || StringUtil.isNullOrEmpty(managerInfo.getLng_company())){
+                    //如果有地址为空
+                    showMsg(DianpuDetailActivity.this, "该店铺尚未定位！");
+                }else{
+                    Intent intent = new Intent(DianpuDetailActivity.this, DianpuLocationMapActivity.class);
+                    intent.putExtra("lat", managerInfo.getLat_company());
+                    intent.putExtra("lng", managerInfo.getLng_company());
+                    intent.putExtra("name", managerInfo.getCompany_name());
+                    intent.putExtra("address", managerInfo.getCompany_address());
+                    startActivity(intent);
+                }
+
             }
                 break;
         }

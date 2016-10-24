@@ -3,6 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/assets" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/AMap3DMap_3.3.2_AMapNavi_1.8.0_AMapSearch_3.2.1_AMapLocation_2.5.0_20160526.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/AMap3DMap_4.1.1_AMapNavi_1.9.3_AMapSearch_3.5.0_AMapLocation_3.0.0_20161019.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/MobCommons.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Msc.jar" charset="UTF-8" />
@@ -400,6 +401,8 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DBHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoMaster.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/DaoSession.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/RecordLogin.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/RecordLoginDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/db/ShoppingCartDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Area.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/BrowsingObj.java" charset="UTF-8" />

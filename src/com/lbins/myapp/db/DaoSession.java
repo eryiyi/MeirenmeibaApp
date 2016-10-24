@@ -27,6 +27,10 @@ public class DaoSession extends AbstractDaoSession {
 
     private final ShoppingCartDao shoppingCartDao;
 
+    private final DaoConfig recordLoginDaoConfig;
+
+    private final RecordLoginDao recordLoginDao;
+
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
@@ -44,11 +48,19 @@ public class DaoSession extends AbstractDaoSession {
         shoppingCartDao = new ShoppingCartDao(shoppingCartDaoConfig, this);
 
         registerDao(ShoppingCart.class, shoppingCartDao);
+
+        recordLoginDaoConfig = daoConfigMap.get(RecordLoginDao.class).clone();
+        recordLoginDaoConfig.initIdentityScope(type);
+
+        recordLoginDao = new RecordLoginDao(recordLoginDaoConfig, this);
+
+        registerDao(RecordLogin.class, recordLoginDao);
     }
     
     public void clear() {
         cityDaoConfig.getIdentityScope().clear();
         shoppingCartDaoConfig.getIdentityScope().clear();
+        recordLoginDaoConfig.getIdentityScope().clear();
     }
 
     public CityDao getCityDao() {
@@ -57,5 +69,9 @@ public class DaoSession extends AbstractDaoSession {
 
     public ShoppingCartDao getShoppingCartDao() {
         return shoppingCartDao;
+    }
+
+    public RecordLoginDao getRecordLoginDao() {
+        return recordLoginDao;
     }
 }

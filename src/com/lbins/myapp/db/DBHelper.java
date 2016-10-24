@@ -20,6 +20,7 @@ public class DBHelper {
 
     private CityDao cityDao;
     private ShoppingCartDao shoppingCartDao;
+    private RecordLoginDao recordLoginDao;
 
     private DBHelper() {
     }
@@ -35,6 +36,7 @@ public class DBHelper {
             daoMaster = new DaoMaster(db);
             instance.cityDao = daoMaster.newSession().getCityDao();
             instance.shoppingCartDao = daoMaster.newSession().getShoppingCartDao();
+            instance.recordLoginDao = daoMaster.newSession().getRecordLoginDao();
         }
         return instance;
     }
@@ -133,4 +135,23 @@ public class DBHelper {
         shoppingCartDao.deleteByKey(cartid);//删除
     }
 
+
+
+    /**
+     * 插入数据--登录记录
+     * @param test
+     */
+    public void addRecordLogin(RecordLogin test){
+        recordLoginDao.insert(test);
+    }
+
+    //查询是否存在该登录记录
+    public boolean isRecordLogin(String emp_id, String dateline)
+    {
+        QueryBuilder<RecordLogin> qb = recordLoginDao.queryBuilder();
+        qb.where(RecordLoginDao.Properties.Emp_id.eq(emp_id));
+        qb.where(RecordLoginDao.Properties.Dateline.eq(dateline));
+        qb.buildCount().count();
+        return qb.buildCount().count() > 0 ? true : false;
+    }
 }
