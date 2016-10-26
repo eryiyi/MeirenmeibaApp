@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.OrderVo;
+import com.lbins.myapp.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -75,6 +77,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             holder.button_six = (TextView) convertView.findViewById(R.id.button_six);
             holder.item_dateline = (TextView) convertView.findViewById(R.id.item_dateline);
             holder.button_seven = (TextView) convertView.findViewById(R.id.button_seven);//退货
+            holder.relative_one = (RelativeLayout) convertView.findViewById(R.id.relative_one);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -142,6 +145,9 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_five.setVisibility(View.VISIBLE);
                     holder.button_six.setVisibility(View.VISIBLE);
                     holder.button_seven.setVisibility(View.GONE);
+                    if("1".equals(cell.getIs_comment())){
+                        holder.button_five.setVisibility(View.GONE);
+                    }
                     break;
                 case 6:
                     holder.item_status.setText("等待买家收货");
@@ -172,6 +178,13 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                 //如果是0元订单
                 holder.button_three.setVisibility(View.GONE);
                 holder.button_seven.setVisibility(View.GONE);
+                holder.relative_one.setVisibility(View.GONE);
+            }
+
+            if(StringUtil.isNullOrEmpty(cell.getGoods_id())){
+                holder.button_three.setVisibility(View.GONE);
+                holder.button_seven.setVisibility(View.GONE);
+                holder.relative_one.setVisibility(View.GONE);
             }
             holder.item_content.setText(cell.getGoodsTitle()==null?"":cell.getGoodsTitle());
             holder.item_prices.setText(res.getString(R.string.money) +(cell.getGoodsPrice()==null?"":cell.getGoodsPrice()));
@@ -241,5 +254,6 @@ public class ItemMineOrderAdapter extends BaseAdapter {
         TextView button_six;//删除订单
         TextView item_dateline;//下单时间
         TextView button_seven;//退货
+        RelativeLayout relative_one;
     }
 }

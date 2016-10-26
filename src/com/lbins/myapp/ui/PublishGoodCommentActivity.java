@@ -54,6 +54,7 @@ import java.util.Map;
 public class PublishGoodCommentActivity extends BaseActivity implements View.OnClickListener {
     private String record_uuid;
     private String emp_id;
+    private String order_no;
 
     private String cont;
     /**
@@ -73,6 +74,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
     private Uri uri;
     private NoScrollGridView publish_moopd_gridview_image;//图片
     private Publish_mood_GridView_Adapter adapter;
+    private RatingBar startNumber;
 
 
     @Override
@@ -81,6 +83,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
         setContentView(R.layout.publish_comment_xml);
         emp_id = getIntent().getExtras().getString("emp_id");
         record_uuid = getIntent().getExtras().getString("goods_id");
+        order_no = getIntent().getExtras().getString("order_no");
         initView();
     }
 
@@ -113,7 +116,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                 }
             }
         });
-
+        startNumber = (RatingBar) this.findViewById(R.id.startNumber);
     }
 
     @Override
@@ -131,6 +134,10 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                 }
                 if(cont.length() > 200){
                     Toast.makeText(this, "评论超出字段限制！最多200字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(startNumber.getRating()==0.0){
+                    Toast.makeText(this, "请选择评价星级！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressDialog = new CustomProgressDialog(PublishGoodCommentActivity.this, "正在加载中",R.anim.custom_dialog_frame);
@@ -215,10 +222,10 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
                                 Toast.makeText(PublishGoodCommentActivity.this, "添加评论成功！", Toast.LENGTH_SHORT).show();
-                                //调用广播，刷新详细页评论
-//                                Intent intent1 = new Intent("add_goods_comment_success");
-//                                sendBroadcast(intent1);
-//                                finish();
+                                Intent intent1 = new Intent("add_goods_comment_success");
+                                intent1.putExtra("order_no", order_no);
+                                sendBroadcast(intent1);
+                                finish();
                             }
                         }
                     }
@@ -249,6 +256,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                 if(!StringUtil.isNullOrEmpty(String.valueOf(filePath))){
                     params.put("comment_pic", String.valueOf(filePath));
                 }
+                params.put("starNumber", String.valueOf((int)startNumber.getRating()));
                 return params;
             }
 

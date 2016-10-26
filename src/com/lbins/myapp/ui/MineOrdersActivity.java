@@ -257,10 +257,15 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
             case 5:
                 //评价
                 if(orderVoTmp != null && !StringUtil.isNullOrEmpty(orderVoTmp.getGoods_id())){
-                    Intent comment = new Intent(this, PublishGoodCommentActivity.class);
-                    comment.putExtra("goods_id", orderVoTmp.getGoods_id());
-                    comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
-                    startActivity(comment);
+                    if("0".equals(orderVoTmp.getIs_comment())){
+                        Intent comment = new Intent(this, PublishGoodCommentActivity.class);
+                        comment.putExtra("goods_id", orderVoTmp.getGoods_id());
+                        comment.putExtra("order_no", orderVoTmp.getOrder_no());
+                        comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
+                        startActivity(comment);
+                    }
+                }else {
+                    showMsg(MineOrdersActivity.this, "该商品暂不支持评论！");
                 }
                 break;
             case 6:
@@ -556,6 +561,51 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         getRequestQueue().add(request);
     }
 
+
+
+    //用户已经评价
+    public void updateCommentStatus(final String order_no) {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.UPDATE_ORDER_COMMENT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                initData();
+                            } else {
+                                Toast.makeText(MineOrdersActivity.this, "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MineOrdersActivity.this,  "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(MineOrdersActivity.this,  "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("order_no", order_no);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -574,6 +624,11 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
             if(action.equals("pay_single_order_success")){
                 initData();
             }
+            if(action.equals("add_goods_comment_success")){
+                String order_no = intent.getExtras().getString("order_no");
+                //更新订单状态
+                updateCommentStatus(order_no);
+            }
 
         }
     };
@@ -583,6 +638,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction("update_order_success");
         myIntentFilter.addAction("pay_single_order_success");
+        myIntentFilter.addAction("add_goods_comment_success");//评价成功
         //注册广播
         registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

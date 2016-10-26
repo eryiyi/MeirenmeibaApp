@@ -26,11 +26,9 @@ import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
 import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.AdObjData;
-import com.lbins.myapp.data.ManagerInfoSingleData;
-import com.lbins.myapp.data.PaopaoGoodsData;
-import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.data.*;
 import com.lbins.myapp.entity.AdObj;
+import com.lbins.myapp.entity.CommentNumber;
 import com.lbins.myapp.entity.ManagerInfo;
 import com.lbins.myapp.entity.PaopaoGoods;
 import com.lbins.myapp.util.StringUtil;
@@ -109,6 +107,9 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         getAds();
         //美购
         getMeigou();
+
+        //查询商品的好评度和消费评价数量
+        getDetailComment();
     }
 
     private void initView() {
@@ -638,4 +639,56 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         getRequestQueue().add(request);
     }
 
+    CommentNumber commentNumber;
+    //获得商评论总数和好评度
+    void getDetailComment(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_COMMENT_ALL_DIANPU_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    CommentNumberData data = getGson().fromJson(s, CommentNumberData.class);
+                                    commentNumber = data.getData();
+                                    if(commentNumber != null){
+                                        rate_comment.setText(String.valueOf(commentNumber.getStarDouble())+"%");
+                                        comment_count.setText("共"+commentNumber.getCommentCount()+"个消费评价");
+                                    }
+                                } else {
+                                    Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", emp_id_dianpu);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

@@ -53,6 +53,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
     //功能按钮
     private Button button_two;
 
+    private RelativeLayout liner_two;
     private RelativeLayout relative_one;
     private TextView order_dateline;//订单编号
 
@@ -94,6 +95,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         item_count = (TextView) this.findViewById(R.id.item_count);
         button_two = (Button) this.findViewById(R.id.button_two);
         relative_one = (RelativeLayout) this.findViewById(R.id.relative_one);
+        liner_two = (RelativeLayout) this.findViewById(R.id.liner_two);
         order_dateline = (TextView) this.findViewById(R.id.order_dateline);
 
         button_two.setOnClickListener(this);
@@ -139,7 +141,6 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + orderVo.getEmpMobile()));
                     this.startActivity(intent);
                 }
-
             }
                 break;
         }
@@ -166,7 +167,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())) {
                     datetime.append("\n" + "付款时间:"+orderVo.getPay_time());
                 }
-                this.findViewById(R.id.liner_order_erweima).setVisibility(View.VISIBLE);//显示
+//                this.findViewById(R.id.liner_order_erweima).setVisibility(View.VISIBLE);//显示
                 //构造二维码 卖家扫一扫 订单完成
                 String urlErweima = InternetURL.APP_SURE_FAHUO_URL+"?order_no=" + orderVo.getOrder_no() +"&status=5";
                 bitmap = CreateQRImageTest.createQRImage(urlErweima);
@@ -236,6 +237,18 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), (orderVo.getGoods_count()==null?"":orderVo.getGoods_count())));
         item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount()==null?"":orderVo.getPayable_amount())));
         order_dateline.setText(datetime);
+
+        if("1".equals(orderVo.getIs_dxk_order())){
+            relative_one.setVisibility(View.GONE);
+            liner_two.setVisibility(View.GONE);
+        }else {
+            relative_one.setVisibility(View.VISIBLE);
+            liner_two.setVisibility(View.VISIBLE);
+        }
+        if(StringUtil.isNullOrEmpty(orderVo.getGoods_id())){
+            relative_one.setVisibility(View.GONE);
+            liner_two.setVisibility(View.GONE);
+        }
     }
 
     void getAddressById(){

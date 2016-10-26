@@ -169,12 +169,16 @@ public class InternetURL {
     //商家无偿消费二维码url
     public static final String SAVE_DXK_ORDER_URN = INTERNAL + "appSaveDxkOrder.do";
 
+
+
     //获得商品详情页好评度和消费评价总数
     public static final String GET_COMMENT_ALL_URN = INTERNAL + "appGetCountComment.do";
-
-
+    //获得店铺详情页好评度和消费评价总数
+    public static final String GET_COMMENT_ALL_DIANPU_URN = INTERNAL + "appGetCountCommentDianpu.do";
     //零钱支付方式(购物车生成订单 付款  直接购买的时候)
     public static final String SEND_ORDER_TOSERVER_LQ = INTERNAL + "orderSaveLq.do";
     //零钱支付方式 -- 单个付款--（我的订单，没支付的订单，去付款的时候）
     public static final String SAVE_ORDER_SIGNLE_LQ =INTERNAL +  "orderSaveSingleLq.do";
+    //订单评价之后 更新订单状态
+    public static final String UPDATE_ORDER_COMMENT =INTERNAL +  "orderUpdateComment.do";
 }
