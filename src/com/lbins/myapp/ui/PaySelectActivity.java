@@ -1,6 +1,9 @@
 package com.lbins.myapp.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -115,6 +118,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_select_activity);
+        registerBoradcastReceiver();
         //微信支付
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, InternetURL.WEIXIN_APPID, false);
@@ -362,7 +366,6 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
             sendOrderToServerLq();
         }
     }
-
 
     //传order给服务器---零钱
     private void sendOrderToServerLq() {
@@ -753,5 +756,32 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         return appSign;
     }
+
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("pay_wx_success")) {
+                updateMineOrder();
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("pay_wx_success");
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
 
 }

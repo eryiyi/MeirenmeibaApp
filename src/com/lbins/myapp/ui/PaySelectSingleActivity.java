@@ -1,6 +1,9 @@
 package com.lbins.myapp.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -114,6 +117,7 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_select_activity);
+        registerBoradcastReceiver();
         orderVo = (OrderVo) getIntent().getExtras().get("orderVoTmp");
         order_no = orderVo.getOrder_no();
         //微信支付
@@ -402,7 +406,6 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
                                 //刷新订单页面
                                 Intent intent1 = new Intent("pay_single_order_success");
                                 sendBroadcast(intent1);
-                                finish();
                             } else {
                                 Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
                             }
@@ -573,5 +576,32 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         return appSign;
     }
+
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("pay_wx_success")) {
+                updateMineOrder();
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("pay_wx_success");
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
 
 }

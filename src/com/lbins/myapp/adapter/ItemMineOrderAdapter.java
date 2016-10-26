@@ -176,13 +176,22 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             }
             if("1".equals(cell.getIs_dxk_order())){
                 //如果是0元订单
-                holder.button_three.setVisibility(View.GONE);
+                if("1".equals(cell.getStatus())){
+                    holder.button_three.setVisibility(View.VISIBLE);
+                }else {
+                    holder.button_three.setVisibility(View.GONE);
+                }
+
                 holder.button_seven.setVisibility(View.GONE);
                 holder.relative_one.setVisibility(View.GONE);
             }
 
             if(StringUtil.isNullOrEmpty(cell.getGoods_id())){
-                holder.button_three.setVisibility(View.GONE);
+                if("1".equals(cell.getStatus())){
+                    holder.button_three.setVisibility(View.VISIBLE);
+                }else {
+                    holder.button_three.setVisibility(View.GONE);
+                }
                 holder.button_seven.setVisibility(View.GONE);
                 holder.relative_one.setVisibility(View.GONE);
             }

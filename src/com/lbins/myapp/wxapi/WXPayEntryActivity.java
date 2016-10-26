@@ -7,6 +7,7 @@ import android.util.Log;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.ActivityTack;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.ui.MineOrdersActivity;
 import com.lbins.myapp.ui.OrderMakeActivity;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -56,11 +57,16 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 				//调用逻辑处理
 				Intent intent1 = new Intent("pay_wx_success");
 				sendBroadcast(intent1);
-				ActivityTack.getInstanse().popUntilActivity(OrderMakeActivity.class);
+				Intent intent  = new Intent(WXPayEntryActivity.this, MineOrdersActivity.class);
+				intent.putExtra("status", "");
+				startActivity(intent);
+				finish();
+//				ActivityTack.getInstanse().popUntilActivity(OrderMakeActivity.class);
 			}else {
 				//支付失败
 				showMsg(WXPayEntryActivity.this, "支付失败");
-				ActivityTack.getInstanse().popUntilActivity(OrderMakeActivity.class);
+				finish();
+//				ActivityTack.getInstanse().popUntilActivity(OrderMakeActivity.class);
 			}
 		}
 

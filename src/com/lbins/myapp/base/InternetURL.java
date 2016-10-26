@@ -10,7 +10,7 @@ public class InternetURL {
 
     public static final String WEIXIN_APPID = "wx9769250919c81901";
     public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
-    public static final  String WX_API_KEY="611fcae2cb0a43381be9ee527de1c406";
+    public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
     public static final String INTERNAL = "http://157j1274e3.iask.in/";
 //    public static final String INTERNAL = "http://192.168.0.224:8080/";
