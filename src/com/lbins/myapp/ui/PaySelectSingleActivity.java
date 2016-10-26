@@ -171,10 +171,10 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
             case R.id.check_btn_ling:
             {
                 //零钱
-//                check_btn_wx.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
-//                check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
-//                check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
-//                selectPayWay = 2;
+                check_btn_wx.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
+                check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
+                check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
+                selectPayWay = 2;
             }
             break;
         }
@@ -197,9 +197,70 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
                 payzfb();
             }
                 break;
+            case 2:
+            {
+                payLq();
+            }
+                break;
         }
+    }
 
+    //零钱支付
+    private void payLq(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_ORDER_SIGNLE_LQ,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            OrderInfoAndSignDATA data = getGson().fromJson(s, OrderInfoAndSignDATA.class);
+                            if (data.getCode() == 200) {
+                                order_no= data.getData().getOut_trade_no();
+                                //更新订单状态
+                                updateMineOrder();
+                                //通知修改零钱显示
+                                Intent intent1 = new Intent("update_mine_package_success");
+                                sendBroadcast(intent1);
 
+                            }else if(data.getCode() == 2){
+                                Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_three, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else if(data.getCode() == 3){
+                                Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_four, Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("order_no", orderVo.getOrder_no());
+                params.put("doublePrices", String.valueOf(orderVo.getPayable_amount()));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 
     //去付款-支付宝
@@ -338,6 +399,10 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
                                 Toast.makeText(PaySelectSingleActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
+                                //刷新订单页面
+                                Intent intent1 = new Intent("pay_single_order_success");
+                                sendBroadcast(intent1);
+                                finish();
                             } else {
                                 Toast.makeText(PaySelectSingleActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
                             }

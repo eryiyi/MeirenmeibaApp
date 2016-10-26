@@ -227,14 +227,15 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 //购物车
                 if("1".equals(paopaoGoods.getIs_dxk())){
                     //是定向卡商品
-                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
-                        //是定向卡会员
-
-                    }else {
-                        //不是定向卡会员
-                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
-                        return;
-                    }
+//                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+//                        //是定向卡会员
+//                    }else {
+//                        //不是定向卡会员
+//                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
+//                        return;
+//                    }
+                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接联系商家购买！");
+                    return;
                 }
                 //先查询是否已经存在该商品了
                 if(DBHelper.getInstance(DetailPaopaoGoodsActivity.this).isSaved(paopaoGoods.getId())){
@@ -274,14 +275,16 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 }
                 if("1".equals(paopaoGoods.getIs_dxk())){
                     //是定向卡商品
-                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
-                        //是定向卡会员
-
-                    }else {
-                        //不是定向卡会员
-                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
-                        return;
-                    }
+//                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+//                        //是定向卡会员
+//
+//                    }else {
+//                        //不是定向卡会员
+//                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
+//                        return;
+//                    }
+                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接联系商家购买！");
+                    return;
                 }
                 //订单
                 Intent orderMakeView = new Intent(DetailPaopaoGoodsActivity.this, OrderMakeActivity.class);

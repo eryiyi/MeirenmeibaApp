@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.MinePackageData;
 import com.lbins.myapp.data.OrderInfoAndSignDATA;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.data.WxPayObjData;
@@ -255,7 +256,6 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                             }
                         }
                     }
-
                 }
                 SGform.setList(listOrders);
                 //支付宝
@@ -266,12 +266,166 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
             }
                 break;
             case 2:
-                showMsg(PaySelectActivity.this, "该功能，正在开发测试，请等待");
+            {
+                //零钱支付
+                getLingqian();
+            }
                 break;
         }
-
-
     }
+
+    private MinePackage minePackage;//我的钱包
+    //获得钱包
+    public void getLingqian(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_GET_PACKAGE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            MinePackageData data = getGson().fromJson(s, MinePackageData.class);
+                            if (data.getCode() == 200) {
+                                minePackage = data.getData();
+                                if(minePackage != null){
+                                    String package_money = minePackage.getPackage_money();//金额
+                                    if(!StringUtil.isNullOrEmpty(package_money)){
+                                        payLingqian();
+                                    }else {
+                                        showMsg(PaySelectActivity.this, "支付出现问题，请稍后！");
+                                    }
+                                }else{
+                                    showMsg(PaySelectActivity.this, "支付出现问题，请稍后！");
+                                }
+                            } else {
+                                showMsg(PaySelectActivity.this, "支付出现问题，请稍后！");
+                            }
+                        } else {
+                            showMsg(PaySelectActivity.this, "支付出现问题，请稍后！");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        showMsg(PaySelectActivity.this, "支付出现问题，请稍后！");
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    //零钱支付处理
+    void payLingqian(){
+        //先传值给服务端
+        if(lists != null && lists.size() > 0){
+            if(shoppingAddress != null){
+                for(int i=0;i<lists.size();i++){
+                    ShoppingCart shoppingCart = lists.get(i);
+                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0"));
+                    }
+                }
+            }else{
+                for(int i=0;i<lists.size();i++){
+                    ShoppingCart shoppingCart = lists.get(i);
+                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                ,"0","0","","","","","","","","0"));
+                    }
+                }
+            }
+        }
+        SGform.setList(listOrders);
+        //零钱
+        if(listOrders!=null && listOrders.size() > 0){
+            //传值给服务端---零钱
+            sendOrderToServerLq();
+        }
+    }
+
+
+    //传order给服务器---零钱
+    private void sendOrderToServerLq() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SEND_ORDER_TOSERVER_LQ,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            OrderInfoAndSignDATA data = getGson().fromJson(s, OrderInfoAndSignDATA.class);
+                            if (data.getCode() == 200) {
+                                //删除购物车商品
+                                deleteCart();
+                                //已经生成订单，等待支付，下面去支付
+                                out_trade_no= data.getData().getOut_trade_no();
+                                //更新订单状态
+                                updateMineOrder();
+                                //通知修改零钱显示
+                                Intent intent1 = new Intent("update_mine_package_success");
+                                sendBroadcast(intent1);
+                            }else if(data.getCode() == 2){
+                                Toast.makeText(PaySelectActivity.this, R.string.order_error_three, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else if(data.getCode() == 3){
+                                Toast.makeText(PaySelectActivity.this, R.string.order_error_four, Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(PaySelectActivity.this, R.string.order_error_one, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("list", new Gson().toJson(SGform));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 
     //传order给服务器
     private void sendOrderToServer() {
@@ -428,6 +582,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                 Toast.makeText(PaySelectActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
                                 Intent orderView =  new Intent(PaySelectActivity.this, MineOrdersActivity.class);
+                                orderView.putExtra("status", "");
                                 startActivity(orderView);
                                 finish();
                             } else {

@@ -29,6 +29,8 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.MinePackageData;
+import com.lbins.myapp.entity.MinePackage;
 import com.lbins.myapp.ui.*;
 import com.lbins.myapp.upload.CommonUtil;
 import com.lbins.myapp.util.CompressPhotoUtil;
@@ -519,14 +521,60 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             if(action.equals("update_location_success")){
                 //更新当前城市
             }
+            if(action.equals("update_mine_package_success")){
+                //更新零钱
+                getPackage();
+            }
         }
     };
 
+    //获得钱包
+    public void getPackage(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_GET_PACKAGE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            MinePackageData data = getGson().fromJson(s, MinePackageData.class);
+                            if (data.getCode() == 200) {
+                                MinePackage minePackage = data.getData();
+                                if(minePackage != null){
+                                    mine_money.setText("零钱:￥" + minePackage.getPackage_money());
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
     //注册广播
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction("update_cover_success");
         myIntentFilter.addAction("update_location_success");//更新选择的城市
+        myIntentFilter.addAction("update_mine_package_success");//更新零钱
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

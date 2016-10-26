@@ -9,11 +9,11 @@ public class InternetURL {
     public static final String APP_MOB_SCRECT = "dc2a8e43e9498e9454f4c13297c8bed2";
 
     public static final String WEIXIN_APPID = "wx9769250919c81901";
-    public static final String WEIXIN_SECRET = "559afbe3ff53400c469f12648a976eff";
-    public static final  String WX_API_KEY="559afbe3ff53400c469f12648a976eff";
+    public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
+    public static final  String WX_API_KEY="611fcae2cb0a43381be9ee527de1c406";
 
-//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-    public static final String INTERNAL = "http://192.168.0.224:8080/";
+    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -128,7 +128,7 @@ public class InternetURL {
     //分享商品链接
     public static final String SHARE_GOODS_DETAIL_URL = INTERNAL + "paopaogoods/shareGoodsUrl.do";
     //微信支付
-    public static final String SEND_ORDER_TOSERVER_WX = INTERNAL + "orderSaveWx";
+    public static final String SEND_ORDER_TOSERVER_WX = INTERNAL + "orderSaveWx.do";
 
     //添加商品评论
     public static final String PUBLISH_GOODS_COMMNENT_URL = INTERNAL+ "saveGoodsComment.do";
@@ -172,4 +172,9 @@ public class InternetURL {
     //获得商品详情页好评度和消费评价总数
     public static final String GET_COMMENT_ALL_URN = INTERNAL + "appGetCountComment.do";
 
+
+    //零钱支付方式(购物车生成订单 付款  直接购买的时候)
+    public static final String SEND_ORDER_TOSERVER_LQ = INTERNAL + "orderSaveLq.do";
+    //零钱支付方式 -- 单个付款--（我的订单，没支付的订单，去付款的时候）
+    public static final String SAVE_ORDER_SIGNLE_LQ =INTERNAL +  "orderSaveSingleLq.do";
 }

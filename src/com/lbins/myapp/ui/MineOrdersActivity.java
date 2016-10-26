@@ -571,6 +571,9 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                     initData();
                 }
             }
+            if(action.equals("pay_single_order_success")){
+                initData();
+            }
 
         }
     };
@@ -579,6 +582,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction("update_order_success");
+        myIntentFilter.addAction("pay_single_order_success");
         //注册广播
         registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
