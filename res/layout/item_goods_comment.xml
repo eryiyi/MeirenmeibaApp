@@ -28,26 +28,43 @@
                       android:layout_height="wrap_content"/>
             <TextView android:layout_width="wrap_content"
                       android:id="@+id/cont"
+                      android:layout_marginTop="5dp"
                       android:textColor="@color/text_color_two"
                       android:text="ABCDEFG HIJKLMN ABCDEFG HIJKLMN ABCDEFG HIJKLMN ABCDEFG HIJKLMN"
-                      android:layout_marginLeft="8dp"
+                      android:layout_marginLeft="6dp"
                       android:layout_below="@+id/cover"
                       android:lineSpacingMultiplier="1.2"
                       android:layout_height="wrap_content"/>
-
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_below="@+id/cont"
+                  android:id="@+id/star"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginLeft="6dp"
+                  android:layout_height="wrap_content">
+        <RatingBar android:layout_width="wrap_content"
+                   android:isIndicator="true"
+                   style="?android:attr/ratingBarStyleSmall"
+                   android:numStars="5"
+                   android:id="@+id/startNumber"
+                   android:rating="0"
+                   android:stepSize="1"
+                   android:layout_height="wrap_content"/>
+    </LinearLayout>
     <com.lbins.myapp.widget.PictureGridview
             android:id="@+id/lstv"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/cont"
+            android:layout_below="@+id/star"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:horizontalSpacing="4dip"
             android:numColumns="3"
             android:stretchMode="columnWidth"
             android:verticalSpacing="4dip"
             android:padding="4dip"/>
+
 </RelativeLayout>
 
 

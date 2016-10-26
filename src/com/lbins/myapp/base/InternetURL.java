@@ -181,4 +181,7 @@ public class InternetURL {
     public static final String SAVE_ORDER_SIGNLE_LQ =INTERNAL +  "orderSaveSingleLq.do";
     //订单评价之后 更新订单状态
     public static final String UPDATE_ORDER_COMMENT =INTERNAL +  "orderUpdateComment.do";
+    //查询店铺的评论列表
+    public static final String GET_DIANPU_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
+
 }

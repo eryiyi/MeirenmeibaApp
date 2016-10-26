@@ -146,6 +146,7 @@
                   android:layout_height="0.1dp"></View>
             <RelativeLayout android:layout_width="match_parent"
                             android:padding="12dp"
+                            android:id="@+id/comment_liner"
                             android:layout_gravity="center_vertical"
                             android:background="@color/white"
                             android:layout_height="wrap_content">

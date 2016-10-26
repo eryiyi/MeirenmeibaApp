@@ -134,6 +134,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         dp_tel.setOnClickListener(this);
         dp_address = (TextView) this.findViewById(R.id.dp_address);
         this.findViewById(R.id.liner_address).setOnClickListener(this);
+        this.findViewById(R.id.comment_liner).setOnClickListener(this);
 
         meigou_num = (TextView) this.findViewById(R.id.meigou_num);
         btn_more = (TextView) this.findViewById(R.id.btn_more);
@@ -215,6 +216,14 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                     startActivity(intent);
                 }
 
+            }
+                break;
+            case R.id.comment_liner:
+            {
+                //评论列表
+                Intent intent = new Intent(DianpuDetailActivity.this, CommentListDianpuActivity.class);
+                intent.putExtra("id", emp_id_dianpu);
+                startActivity(intent);
             }
                 break;
         }

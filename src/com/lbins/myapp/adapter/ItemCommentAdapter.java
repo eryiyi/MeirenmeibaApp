@@ -7,10 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.GoodsComment;
@@ -74,6 +71,7 @@ public class ItemCommentAdapter extends BaseAdapter {
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
             holder.cont = (TextView) convertView.findViewById(R.id.cont);
             holder.gridview_detail_picture = (PictureGridview) convertView.findViewById(R.id.lstv);
+            holder.startNumber = (RatingBar) convertView.findViewById(R.id.startNumber);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -83,7 +81,8 @@ public class ItemCommentAdapter extends BaseAdapter {
             imageLoader.displayImage(cell.getCover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
             holder.name.setText(cell.getNickName());
             holder.dateline.setText(cell.getDateline());
-            holder.cont.setText(cell.getContent());
+            holder.cont.setText(cell.getContent()==null?"":cell.getContent());
+            holder.startNumber.setRating(Float.valueOf(cell.getStarNumber()==null?"0":cell.getStarNumber()));
             if (!StringUtil.isNullOrEmpty(cell.getComment_pic())) {
                 //说明有图片
                 final String[] picUrls = cell.getComment_pic().split(",");//图片链接切割
@@ -122,5 +121,6 @@ public class ItemCommentAdapter extends BaseAdapter {
         TextView dateline;
         TextView cont;
         PictureGridview gridview_detail_picture;
+        RatingBar startNumber;
     }
 }
