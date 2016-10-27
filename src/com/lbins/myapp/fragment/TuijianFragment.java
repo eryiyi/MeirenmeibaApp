@@ -357,12 +357,14 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.big_middle_ad:
             {
-                if(lxAdMiddle != null){
-                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
-                    intent.putExtra("emp_id_dianpu", lxAdMiddle.getAd_emp_id());
-                    intent.putExtra("goods_id", lxAdMiddle.getAd_msg_id());
-                    startActivity(intent);
-                }
+//                if(lxAdMiddle != null){
+//                    Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
+//                    intent.putExtra("emp_id_dianpu", lxAdMiddle.getAd_emp_id());
+//                    intent.putExtra("goods_id", lxAdMiddle.getAd_msg_id());
+//                    startActivity(intent);
+//                }
+                Intent intent = new Intent(getActivity(), DxkDetailActivity.class);
+                startActivity(intent);
             }
                 break;
         }

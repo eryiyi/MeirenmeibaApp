@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
+
+    <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <ImageView android:layout_width="match_parent"
+                       android:src="@drawable/dxk_detail"
+                       android:layout_height="wrap_content"/>
+            <TextView android:layout_width="match_parent"
+                      android:lineSpacingMultiplier="1.4"
+                      android:padding="8dp"
+                      android:textColor="@color/text_color"
+                      android:textSize="16sp"
+                      android:text="美人美吧定向卡，是美人美吧尊贵会员，可享受美人美吧加盟店提供的各项免费服务。\n目前已包含的服务种类包括\n免费美容美甲\n免费咖啡饮品\n没费汽车水洗\n让您的投入物超所值。"
+                      android:layout_height="wrap_content"/>
+            <Button android:layout_width="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/btn_red_shape"
+                    android:textSize="16sp"
+                    android:onClick="dxkAction"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_horizontal"
+                    android:text="选购定向卡"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.lbins.myapp.widget.ReboundScrollView>
+</LinearLayout>

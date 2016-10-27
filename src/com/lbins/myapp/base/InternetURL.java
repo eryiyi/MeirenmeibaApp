@@ -17,6 +17,9 @@ public class InternetURL {
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
+    //平台EMP_ID
+    public static final String DEFAULT_EMP_ID = "b530cca19dba4509867477a3d9fc85d1";
+
     //登录
     public static final String LOGIN__URL = INTERNAL + "memberLogin.do";
     //注册第一步
@@ -81,6 +84,7 @@ public class InternetURL {
     public static final String SEND_ORDER_TOSERVER = INTERNAL + "orderSave.do";
     //更新订单状态
     public static final String UPDATE_ORDER_TOSERVER =  INTERNAL +"orderUpdate.do";
+
     //查询订单列表
     public static final String MINE_ORDERS_URL = INTERNAL + "listOrders.do";
     //更新订单
@@ -183,5 +187,8 @@ public class InternetURL {
     public static final String UPDATE_ORDER_COMMENT =INTERNAL +  "orderUpdateComment.do";
     //查询店铺的评论列表
     public static final String GET_DIANPU_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
-
+    //定向卡要充值的金额
+    public static final String GET_DXK_CHONGZHI_MONEY = INTERNAL + "appToChongzhiDxk.do";
+    //定向卡充值之后 更新订单和充值卡记录
+    public static final String UPDATE_ORDER_DXK_TOSERVER =  INTERNAL +"appChongzhiDxk.do";
 }
