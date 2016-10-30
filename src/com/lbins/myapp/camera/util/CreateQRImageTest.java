@@ -1,7 +1,6 @@
 package com.lbins.myapp.camera.util;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;

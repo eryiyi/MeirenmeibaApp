@@ -14,8 +14,6 @@ import com.android.volley.toolbox.Volley;
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.google.gson.Gson;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.ui.AndMeActivity;
-import com.lbins.myapp.ui.NoticesActivity;
 import com.lbins.myapp.ui.WebViewActivity;
 import com.lbins.myapp.util.Utils;
 import org.json.JSONException;

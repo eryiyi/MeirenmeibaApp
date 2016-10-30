@@ -44,7 +44,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
-import java.text.DecimalFormat;
 import java.util.*;
 
 /**

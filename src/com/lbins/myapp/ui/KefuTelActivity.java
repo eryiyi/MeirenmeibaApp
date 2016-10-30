@@ -12,13 +12,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemKefuTelAdapter;
-import com.lbins.myapp.adapter.ItemMineAddressAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.KefuTelData;
-import com.lbins.myapp.data.MineAddressDATA;
 import com.lbins.myapp.entity.KefuTel;
-import com.lbins.myapp.entity.ShoppingAddress;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 

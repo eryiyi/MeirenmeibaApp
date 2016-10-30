@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.*;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;

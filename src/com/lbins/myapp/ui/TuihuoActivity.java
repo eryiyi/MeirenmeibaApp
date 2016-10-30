@@ -16,7 +16,6 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.SuccessData;
-import com.lbins.myapp.entity.Order;
 import com.lbins.myapp.entity.OrderVo;
 import com.lbins.myapp.util.StringUtil;
 

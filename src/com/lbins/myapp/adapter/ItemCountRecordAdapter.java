@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.CountRecord;
-import com.lbins.myapp.entity.LxConsumption;
 import com.lbins.myapp.util.DateUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;

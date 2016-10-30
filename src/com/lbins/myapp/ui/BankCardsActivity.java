@@ -16,7 +16,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.ItemBankCardAdapter;
 import com.lbins.myapp.adapter.ItemBankCardAdapterT;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;

@@ -24,9 +24,15 @@ import com.google.gson.Gson;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.*;
+import com.lbins.myapp.data.DxkMoneyObjData;
+import com.lbins.myapp.data.OrderInfoAndSignDATA;
+import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.data.WxPayObjData;
 import com.lbins.myapp.db.DBHelper;
-import com.lbins.myapp.entity.*;
+import com.lbins.myapp.entity.DxkMoneyObj;
+import com.lbins.myapp.entity.Order;
+import com.lbins.myapp.entity.OrdersForm;
+import com.lbins.myapp.entity.WxPayObj;
 import com.lbins.myapp.pay.OrderInfoAndSign;
 import com.lbins.myapp.pay.PayResult;
 import com.lbins.myapp.util.StringUtil;
@@ -40,7 +46,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
-import java.text.DecimalFormat;
 import java.util.*;
 
 /**

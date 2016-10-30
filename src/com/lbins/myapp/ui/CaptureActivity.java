@@ -1,13 +1,9 @@
 package com.lbins.myapp.ui;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -39,11 +35,9 @@ import com.lbins.myapp.camera.view.ViewfinderView;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.entity.PayScanObj;
 import com.lbins.myapp.entity.ShoppingAddress;
-import com.lbins.myapp.entity.ShoppingCart;
 import com.lbins.myapp.util.StringUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
