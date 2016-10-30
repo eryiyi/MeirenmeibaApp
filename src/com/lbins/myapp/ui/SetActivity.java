@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.NoticeAdapter;
 import com.lbins.myapp.base.ActivityTack;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
@@ -49,6 +50,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         this.findViewById(R.id.liner_set_version).setOnClickListener(this);
         this.findViewById(R.id.liner_aboutus).setOnClickListener(this);
         this.findViewById(R.id.liner_kefu).setOnClickListener(this);
+        this.findViewById(R.id.liner_set_notice).setOnClickListener(this);
 
     }
 
@@ -106,6 +108,12 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             case R.id.liner_kefu:
             {
                 Intent intetn = new Intent(SetActivity.this, KefuTelActivity.class);
+                startActivity(intetn);
+            }
+                break;
+            case R.id.liner_set_notice:
+            {
+                Intent intetn = new Intent(SetActivity.this, NoticesActivity.class);
                 startActivity(intetn);
             }
                 break;

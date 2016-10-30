@@ -191,4 +191,9 @@ public class InternetURL {
     public static final String GET_DXK_CHONGZHI_MONEY = INTERNAL + "appToChongzhiDxk.do";
     //定向卡充值之后 更新订单和充值卡记录
     public static final String UPDATE_ORDER_DXK_TOSERVER =  INTERNAL +"appChongzhiDxk.do";
+
+    //公告列表
+    public static final String APP_GET_NOTICES_LIST =  INTERNAL +"appListNotice.do";
+    //公告详情
+    public static final String APP_NOTICE_DETAIL_LIST =  INTERNAL +"viewNotice.do";
 }
