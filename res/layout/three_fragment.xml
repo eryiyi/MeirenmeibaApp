@@ -4,12 +4,55 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <include
-            android:id="@+id/home_item_photo"
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content"
-            layout="@layout/top_liner_index"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/red"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:maxWidth="80dp"
+                  android:drawablePadding="5dp"
+                  android:textSize="13sp"
+                  android:gravity="center_vertical"
+                  android:padding="6dp"
+                  android:singleLine="true"
+                  android:id="@+id/location"
+                  android:drawableLeft="@drawable/sm_location"
+                  android:text="郑州"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="40dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="附近"
+                  android:layout_marginLeft="80dp"
+                  android:layout_marginRight="60dp"
+                  android:singleLine="true"
+                  android:id="@+id/title"
+                  android:textSize="18sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/white"
+                  android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="列表"
+                  android:id="@+id/right_btn"
+                  android:padding="12dp"
+                  android:layout_centerVertical="true"
+                  android:textSize="16sp"
+                  android:layout_alignParentRight="true"
+                  android:textColor="@color/white"
+                  android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <!--<include-->
+            <!--android:id="@+id/home_item_photo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--layout="@layout/top_liner_index"/>-->
 
     <!--<FrameLayout-->
             <!--android:layout_width="match_parent"-->
@@ -20,19 +63,28 @@
                 <!--android:layout_height="match_parent" />-->
     <!--</FrameLayout>-->
 
-    <com.lbins.myapp.library.PullToRefreshListView
-            android:id="@+id/lstv"
-            android:cacheColorHint="#00000000"
-            android:divider="@color/main_bg"
-            android:dividerHeight="1.5dp"
-            android:layout_weight="1"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="false"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            android:smoothScrollbar="true"
+    <!--<com.lbins.myapp.library.PullToRefreshListView-->
+            <!--android:id="@+id/lstv"-->
+            <!--android:cacheColorHint="#00000000"-->
+            <!--android:divider="@color/main_bg"-->
+            <!--android:dividerHeight="1.5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fadingEdge="none"-->
+            <!--android:fastScrollEnabled="false"-->
+            <!--android:footerDividersEnabled="false"-->
+            <!--android:headerDividersEnabled="false"-->
+            <!--android:smoothScrollbar="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+    <!--</com.lbins.myapp.library.PullToRefreshListView>>-->
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-    </com.lbins.myapp.library.PullToRefreshListView>>
+            android:layout_height="match_parent" >
 
+        <com.amap.api.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+    </FrameLayout>
 </LinearLayout>

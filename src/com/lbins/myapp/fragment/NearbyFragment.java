@@ -42,6 +42,7 @@ import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.DianpuDetailActivity;
 import com.lbins.myapp.ui.LocationCityActivity;
+import com.lbins.myapp.ui.NearbyActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
@@ -61,21 +62,17 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
     private Resources res;
 
     private TextView location;
-    private TextView keywords;
+    private EditText keywords;
 
-    private PullToRefreshListView lstv;
-    private ItemTuijianDianpusAdapter adapter;
-    List<ManagerInfo> listsDianpu = new ArrayList<ManagerInfo>();
-    private int pageIndex = 1;
-    private static boolean IS_REFRESH = true;
-
-    private LinearLayout headLiner;
+//    private LinearLayout headLiner;
 
     private MapView mapView;
     private AMap aMap;
 
     private MarkerOptions markerOption;
     private LatLng latlng = new LatLng(36.061, 103.834);
+
+    List<ManagerInfo> listsDianpu = new ArrayList<ManagerInfo>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,7 +93,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         progressDialog.show();
         //定位地址
         initLocation();
-        //获得周围店铺
         initData();
         return view;
     }
@@ -117,67 +113,67 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void initView( Bundle savedInstanceState) {
-
         if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
             latlng = new LatLng(Double.valueOf(MeirenmeibaAppApplication.latStr), Double.valueOf(MeirenmeibaAppApplication.lngStr));
         }
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        keywords = (TextView) view.findViewById(R.id.keywords);
-        lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
-        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
-        mapView = (MapView) headLiner.findViewById(R.id.map);
+        keywords = (EditText) view.findViewById(R.id.keywords);
+
+//        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
+        mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
+        view.findViewById(R.id.right_btn).setOnClickListener(this);
         init();
-
-
-        adapter = new ItemTuijianDianpusAdapter(listsDianpu, getActivity());
-
-        ListView listView = lstv.getRefreshableView();
-        listView.addHeaderView(headLiner);
-        lstv.setMode(PullToRefreshBase.Mode.BOTH);
-        lstv.setAdapter(adapter);
-        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = true;
-                pageIndex = 1;
-//                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
-                initData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = false;
-                pageIndex++;
-                initData();
-            }
-        });
-
-        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(listsDianpu != null && listsDianpu.size()>(position-2)){
-                    ManagerInfo managerInfo = listsDianpu.get(position-2);
-                    if(managerInfo != null){
-                        Intent detailDianpuV = new Intent(getActivity(), DianpuDetailActivity.class);
-                        detailDianpuV.putExtra("emp_id_dianpu", managerInfo.getEmp_id());//店铺用户id
-                        startActivity(detailDianpuV);
-                    }
-                }
-            }
-        });
-
     }
 
+
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("update_location_success")) {
+                //定位地址
+                initLocation();
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("update_location_success");
+        //注册广播
+        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.location:
+            {
+                //地址
+                Intent intent = new Intent(getActivity(), LocationCityActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.right_btn:
+            {
+                Intent intent = new Intent(getActivity(), NearbyActivity.class);
+                startActivity(intent);
+            }
+                break;
+        }
+    }
     void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -193,19 +189,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                                     listsDianpu.clear();
                                     ManagerInfoData data = getGson().fromJson(s, ManagerInfoData.class);
                                     listsDianpu.addAll(data.getData());
-//                                    if (data != null && data.getData() != null) {
-//                                        for (RecordMsg recordMsg : data.getData()) {
-//                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-//                                            if (recordMsgLocal != null) {
-//                                                //已经存在了 不需要插入了
-//                                            } else {
-//                                                DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
-//                                            }
-//
-//                                        }
-//                                    }
-                                    lstv.onRefreshComplete();
-                                    adapter.notifyDataSetChanged();
                                     setUpMap();
                                 } else {
                                     setUpMap();
@@ -252,46 +235,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
             }
         };
         getRequestQueue().add(request);
-    }
-
-    //广播接收动作
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals("update_location_success")) {
-                //定位地址
-                initLocation();
-            }
-        }
-    };
-
-    //注册广播
-    public void registerBoradcastReceiver() {
-        IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction("update_location_success");
-        //注册广播
-        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unregisterReceiver(mBroadcastReceiver);
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.location:
-            {
-                //地址
-                Intent intent = new Intent(getActivity(), LocationCityActivity.class);
-                startActivity(intent);
-            }
-            break;
-        }
     }
 
 
@@ -651,6 +594,4 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
-
 }
