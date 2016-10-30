@@ -14,6 +14,9 @@ import com.android.volley.toolbox.Volley;
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.google.gson.Gson;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.ui.AndMeActivity;
+import com.lbins.myapp.ui.NoticesActivity;
+import com.lbins.myapp.ui.WebViewActivity;
 import com.lbins.myapp.util.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -204,35 +207,63 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
      *            上下文
      * @param title
      *            推送的通知的标题
-     * @param description
+     * @param content
      *            推送的通知的描述
-     * @param customContentString
+     * @param customContent
      *            自定义内容，为空或者json字符串
      */
     @Override
     public void onNotificationClicked(Context context, String title,
-            String description, String customContentString) {
-        String notifyString = "通知点击 onNotificationClicked title=\"" + title + "\" description=\""
-                + description + "\" customContent=" + customContentString;
-        Log.d(TAG, notifyString);
-
-        // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
-        if (!TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
-            try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
-                if (!customJson.isNull("mykey")) {
-                    myvalue = customJson.getString("mykey");
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+            String content, String customContent) {
+//        String notifyString = "通知点击 onNotificationClicked title=\"" + title + "\" description=\""
+//                + description + "\" customContent=" + customContentString;
+//        Log.d(TAG, notifyString);
+//
+//        // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
+//        if (!TextUtils.isEmpty(customContentString)) {
+//            JSONObject customJson = null;
+//            try {
+//                customJson = new JSONObject(customContentString);
+//                String myvalue = null;
+//                if (!customJson.isNull("mykey")) {
+//                    myvalue = customJson.getString("mykey");
+//                }
+//            } catch (JSONException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
 
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, notifyString);
+//        updateContent(context, notifyString);
+
+        try {
+            Intent intent = new Intent();
+            JSONObject custom = new JSONObject(customContent);
+            int type = custom.getInt("type");
+            String noticeId = custom.getString("noticeId");
+            switch (type) {
+                case 1://公告
+                    //改变底部图标
+                    Intent msg_notice = new Intent("_msg_notice");
+                    context.sendBroadcast(msg_notice);
+
+//                    Intent intent = new Intent(NoticesActivity.this, WebViewActivity.class);
+                    intent.putExtra("strurl", InternetURL.APP_NOTICE_DETAIL_LIST+"?noticeId=" + noticeId);
+
+                    intent.setClass(context.getApplicationContext(), WebViewActivity.class);
+                    break;
+//                case 2://与我相关
+//                    Intent msg_record = new Intent("_msg_record");
+//                    context.sendBroadcast(msg_record);
+//                    intent.setClass(context.getApplicationContext(), AndMeActivity.class);
+//                    break;
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.getApplicationContext().startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }    
     
     /**
