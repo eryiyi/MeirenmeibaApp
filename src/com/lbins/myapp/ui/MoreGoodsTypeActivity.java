@@ -130,6 +130,7 @@ public class MoreGoodsTypeActivity extends BaseActivity implements View.OnClickL
                             Intent intent = new Intent(MoreGoodsTypeActivity.this, SearchGoodsByTypeActivity.class);
                             intent.putExtra("typeId", goodsType.getTypeId());
                             intent.putExtra("typeName", goodsType.getTypeName());
+                            intent.putExtra("keyContent", "");
                             startActivity(intent);
                         }
                     }

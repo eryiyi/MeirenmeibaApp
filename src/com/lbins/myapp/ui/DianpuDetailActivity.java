@@ -20,17 +20,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.AdViewPagerAdapter;
-import com.lbins.myapp.adapter.ItemGoodsAdapter;
-import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
-import com.lbins.myapp.adapter.OnClickContentItemListener;
+import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.*;
-import com.lbins.myapp.entity.AdObj;
-import com.lbins.myapp.entity.CommentNumber;
-import com.lbins.myapp.entity.ManagerInfo;
-import com.lbins.myapp.entity.PaopaoGoods;
+import com.lbins.myapp.entity.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 import org.json.JSONException;
@@ -82,8 +76,8 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
     private List<PaopaoGoods> listsGoods = new ArrayList<PaopaoGoods>();
 
     private GridView gridv_two;
-    private ItemTuijianDianpusAdapter adapterDianpu;
-    private List<ManagerInfo> listsDianpus = new ArrayList<ManagerInfo>();
+    private ItemTopDianpusAdapter adapterDianpu;
+    private List<PaihangDianpu> listsDianpus = new ArrayList<PaihangDianpu>();
     private String emp_id_dianpu;//店铺
 
     private ManagerInfo managerInfo;//店铺详情对象
@@ -110,6 +104,9 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
 
         //查询商品的好评度和消费评价数量
         getDetailComment();
+
+        //获得更多商家
+        getMoreDianpu();
     }
 
     private void initView() {
@@ -159,11 +156,24 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         adapterGoods = new ItemGoodsAdapter(listsGoods, DianpuDetailActivity.this);
         gridv_one.setAdapter(adapterGoods);
 
-        adapterDianpu = new ItemTuijianDianpusAdapter(listsDianpus, DianpuDetailActivity.this);
+        adapterDianpu = new ItemTopDianpusAdapter(listsDianpus, DianpuDetailActivity.this);
         gridv_two.setAdapter(adapterDianpu);
 
         gridv_one.setSelector(new ColorDrawable(Color.TRANSPARENT));
         gridv_two.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        gridv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(listsDianpus.size() > (i)){
+                    PaihangDianpu paihangDianpu = listsDianpus.get(i);
+                    if(paihangDianpu != null){
+                        Intent intent = new Intent(DianpuDetailActivity.this, DianpuDetailActivity.class);
+                        intent.putExtra("emp_id_dianpu", paihangDianpu.getEmp_id());
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -700,4 +710,60 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         };
         getRequestQueue().add(request);
     }
+
+    void getMoreDianpu(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.APP_GET_TUIJIAN_DIANPU_LIST,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    PaihangDianpuData data = getGson().fromJson(s, PaihangDianpuData.class);
+                                    listsDianpus.clear();
+                                    listsDianpus.addAll(data.getData());
+                                    adapterDianpu.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(DianpuDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(pageIndex));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 }

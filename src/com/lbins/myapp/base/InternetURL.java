@@ -196,4 +196,6 @@ public class InternetURL {
     public static final String APP_GET_NOTICES_LIST =  INTERNAL +"appListNotice.do";
     //公告详情
     public static final String APP_NOTICE_DETAIL_LIST =  INTERNAL +"viewNotice.do";
+    //获得店铺详情页底部的推荐商家
+    public static final String APP_GET_TUIJIAN_DIANPU_LIST =  INTERNAL +"getPaihangDianpu.do";
 }

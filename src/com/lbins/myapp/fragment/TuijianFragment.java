@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     private Resources res;
 
     private TextView location;
-    private TextView keywords;
+    private EditText keywords;
 
     private PullToRefreshListView lstv;
     private ItemIndexGoodsAdapter adapter;
@@ -129,6 +131,31 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         initData();
         return view;
     }
+
+    private TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+            intent.putExtra("typeId", "");
+            intent.putExtra("typeName", "");
+            intent.putExtra("keyContent", keywords.getText().toString());
+            startActivity(intent);
+        }
+    };
 
     //定位地址
     void initLocation(){
@@ -203,6 +230,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                             Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
                             intent.putExtra("typeId", goodsType.getTypeId());
                             intent.putExtra("typeName", goodsType.getTypeName());
+                            intent.putExtra("keyContent", "");
                             startActivity(intent);
                         }
                     }
@@ -215,7 +243,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     private void initView() {
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        keywords = (TextView) view.findViewById(R.id.keywords);
+        keywords = (EditText) view.findViewById(R.id.keywords);
+        keywords.addTextChangedListener(watcher);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);
 

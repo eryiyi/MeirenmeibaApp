@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +59,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private Resources res;
 
     private TextView location;
-    private TextView keywords;
+    private EditText keywords;
 
     private ClassifyGridview lstv;
     private ItemIndexGoodsGridviewAdapter adapter;
@@ -118,6 +120,30 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     }
 
 
+    private TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+            intent.putExtra("typeId", "");
+            intent.putExtra("typeName", "");
+            intent.putExtra("keyContent", keywords.getText().toString());
+            startActivity(intent);
+        }
+    };
     //商城分类
     private void initViewType() {
         gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
@@ -137,6 +163,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                             Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
                             intent.putExtra("typeId", goodsType.getTypeId());
                             intent.putExtra("typeName", goodsType.getTypeName());
+                            intent.putExtra("keyContent", "");
                             startActivity(intent);
                         }
                     }
@@ -152,7 +179,8 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         view.findViewById(R.id.btn_order).setOnClickListener(this);
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
-        keywords = (TextView) view.findViewById(R.id.keywords);
+        keywords = (EditText) view.findViewById(R.id.keywords);
+        keywords.addTextChangedListener(watcher);
         img_new = (ImageView) view.findViewById(R.id.img_new);
         img_tehui = (ImageView) view.findViewById(R.id.img_tehui);
         img_new.setOnClickListener(this);

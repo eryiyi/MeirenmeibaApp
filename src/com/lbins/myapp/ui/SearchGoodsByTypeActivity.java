@@ -55,14 +55,19 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
     private TextView btn_paixu;
     private TextView btn_val;
 
+    private String keyContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_goods_byid_activity);
         typeId = getIntent().getExtras().getString("typeId");
         typeName = getIntent().getExtras().getString("typeName");
+        keyContent = getIntent().getExtras().getString("keyContent");
         initView();
-
+        if(!StringUtil.isNullOrEmpty(keyContent)){
+            keywords.setText(keyContent);
+        }
         progressDialog = new CustomProgressDialog(SearchGoodsByTypeActivity.this, "正在加载中",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
