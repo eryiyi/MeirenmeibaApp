@@ -25,6 +25,8 @@ public class PaopaoGoods {
     private String goodsPosition;
     private String is_zhiying;//0 商家发布 1自营 （暂时不用了）
     private String is_dxk;//是否定向卡商品 0否 1是
+    private String pv_prices;//pv 商品利润  返利用  给上级返的积分的百分比就是乘以它
+
 
     private String empId;//商家商品发布者
     private String manager_id;//自营商品发布者
@@ -42,6 +44,15 @@ public class PaopaoGoods {
 
     public String getIs_dxk() {
         return is_dxk;
+    }
+
+
+    public String getPv_prices() {
+        return pv_prices;
+    }
+
+    public void setPv_prices(String pv_prices) {
+        this.pv_prices = pv_prices;
     }
 
     public void setIs_dxk(String is_dxk) {
