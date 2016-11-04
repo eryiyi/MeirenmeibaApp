@@ -251,11 +251,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
                     intent.setClass(context.getApplicationContext(), WebViewActivity.class);
                     break;
-//                case 2://与我相关
-//                    Intent msg_record = new Intent("_msg_record");
-//                    context.sendBroadcast(msg_record);
-//                    intent.setClass(context.getApplicationContext(), AndMeActivity.class);
-//                    break;
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);

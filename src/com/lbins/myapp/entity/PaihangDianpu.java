@@ -16,11 +16,11 @@ public class PaihangDianpu {
     private String company_address;
     private String company_detail;
     private String company_pic;
-    private String company_star;
+    private String company_star;//店铺星级
 
     private String lat_company;
     private String lng_company;
-    private String type_name;
+    private String type_name;//店铺分类
 
 
     public String getMm_paihang_id() {

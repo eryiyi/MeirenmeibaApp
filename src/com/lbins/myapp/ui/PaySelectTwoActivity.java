@@ -303,7 +303,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         if(payScanObj != null){
             listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
                     ,"", "1", payScanObj.getPay_count()
-                    ,"0","0","","","","","","","","0"));
+                    ,"0","0","","","","","","","","2"));
         }
         SGform.setList(listOrders);
         //支付宝

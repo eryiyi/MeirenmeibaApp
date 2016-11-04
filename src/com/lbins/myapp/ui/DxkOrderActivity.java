@@ -720,7 +720,6 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                             if (data.getCode() == 200) {
                                 Toast.makeText(DxkOrderActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
-                                //跳转到订单列表
                                 Intent orderView =  new Intent(DxkOrderActivity.this, MineOrdersActivity.class);
                                 orderView.putExtra("status", "");
                                 startActivity(orderView);
