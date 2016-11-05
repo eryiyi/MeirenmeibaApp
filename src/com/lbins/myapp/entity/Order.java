@@ -38,6 +38,26 @@ public class Order implements Serializable{
     private String is_dxk_order;//是否0元订单； 默认0否  1是
     private String is_comment;//是否评价； 默认0否  1是
 
+    private String payable_amount_all;//没打折之前的金额
+    private String pv_amount;//商品的pv在订单中的总和 这是返利用到的（商品pv,pv即利润）
+
+
+    public String getPayable_amount_all() {
+        return payable_amount_all;
+    }
+
+    public void setPayable_amount_all(String payable_amount_all) {
+        this.payable_amount_all = payable_amount_all;
+    }
+
+    public String getPv_amount() {
+        return pv_amount;
+    }
+
+    public void setPv_amount(String pv_amount) {
+        this.pv_amount = pv_amount;
+    }
+
     public String getIs_comment() {
         return is_comment;
     }
@@ -278,7 +298,7 @@ public class Order implements Serializable{
         this.taxes = taxes;
     }
 
-    public Order(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount, String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes, String provinceId, String cityId, String areaId,String trade_type) {
+    public Order(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount, String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes, String provinceId, String cityId, String areaId,String trade_type,String payable_amount_all,String pv_amount) {
         this.goods_id = goods_id;
         this.emp_id = emp_id;
         this.seller_emp_id = seller_emp_id;
@@ -295,6 +315,8 @@ public class Order implements Serializable{
         this.cityId = cityId;
         this.areaId = areaId;
         this.trade_type = trade_type;
+        this.payable_amount_all = payable_amount_all;
+        this.pv_amount = pv_amount;
     }
 
 }

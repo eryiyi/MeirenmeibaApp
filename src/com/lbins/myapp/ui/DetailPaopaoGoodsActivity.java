@@ -256,6 +256,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                     shoppingCart.setDateline(DateUtil.getCurrentDateTime());
                     shoppingCart.setIs_select("0");//默认选中
                     shoppingCart.setIs_zhiying(paopaoGoods.getIs_zhiying());
+                    shoppingCart.setPv_prices(paopaoGoods.getPv_prices()==null?"0":paopaoGoods.getPv_prices());
                     if("0".equals(paopaoGoods.getIs_zhiying())){
                         //商家发布的商品
                         shoppingCart.setEmp_name(paopaoGoods.getNickName());
@@ -304,6 +305,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 shoppingCart.setDateline(DateUtil.getCurrentDateTime());
                 shoppingCart.setIs_select("0");//默认选中
                 shoppingCart.setIs_zhiying(paopaoGoods.getIs_zhiying());
+                shoppingCart.setPv_prices(paopaoGoods.getPv_prices()==null?"0":paopaoGoods.getPv_prices());
                 if("0".equals(paopaoGoods.getIs_zhiying())){
                     //商家发布的商品
                     shoppingCart.setEmp_name(paopaoGoods.getNickName());

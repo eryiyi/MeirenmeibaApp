@@ -60,8 +60,8 @@ public class OrderVo extends Order{
         this.empMobile = empMobile;
     }
 
-    public OrderVo(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount, String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes, String provinceId, String cityId, String areaId, String empCover,String trade_type) {
-        super(goods_id, emp_id, seller_emp_id, address_id, goods_count, payable_amount, distribution_type, distribution_status, postscript, invoice, invoice_title, taxes, provinceId, cityId, areaId,trade_type);
+    public OrderVo(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount, String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes, String provinceId, String cityId, String areaId, String empCover,String trade_type, String payable_amount_all,String pv_amount) {
+        super(goods_id, emp_id, seller_emp_id, address_id, goods_count, payable_amount, distribution_type, distribution_status, postscript, invoice, invoice_title, taxes, provinceId, cityId, areaId,trade_type, payable_amount_all, pv_amount);
         this.empCover = empCover;
     }
 }

@@ -32,6 +32,7 @@ public class ShoppingCart implements Serializable{
     private String dateline;
     private String is_zhiying;
     private String is_select;
+    private String pv_prices;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -50,7 +51,7 @@ public class ShoppingCart implements Serializable{
         this.cartid = cartid;
     }
 
-    public ShoppingCart(String cartid, String goods_id, String emp_id, String manager_id, String emp_name, String emp_cover, String goods_name, String goods_cover, String sell_price, String marketPrice, String goods_count, String dateline, String is_zhiying, String is_select) {
+    public ShoppingCart(String cartid, String goods_id, String emp_id, String manager_id, String emp_name, String emp_cover, String goods_name, String goods_cover, String sell_price, String marketPrice, String goods_count, String dateline, String is_zhiying, String is_select, String pv_prices) {
         this.cartid = cartid;
         this.goods_id = goods_id;
         this.emp_id = emp_id;
@@ -65,6 +66,7 @@ public class ShoppingCart implements Serializable{
         this.dateline = dateline;
         this.is_zhiying = is_zhiying;
         this.is_select = is_select;
+        this.pv_prices = pv_prices;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -187,6 +189,14 @@ public class ShoppingCart implements Serializable{
 
     public void setIs_select(String is_select) {
         this.is_select = is_select;
+    }
+
+    public String getPv_prices() {
+        return pv_prices;
+    }
+
+    public void setPv_prices(String pv_prices) {
+        this.pv_prices = pv_prices;
     }
 
     public void delete() {

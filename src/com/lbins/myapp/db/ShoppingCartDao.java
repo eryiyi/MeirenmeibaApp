@@ -36,6 +36,7 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         public final static Property Dateline = new Property(11, String.class, "dateline", false, "DATELINE");
         public final static Property Is_zhiying = new Property(12, String.class, "is_zhiying", false, "IS_ZHIYING");
         public final static Property Is_select = new Property(13, String.class, "is_select", false, "IS_SELECT");
+        public final static Property Pv_prices = new Property(14, String.class, "pv_prices", false, "PV_PRICES");
     };
 
     private DaoSession daoSession;
@@ -67,7 +68,8 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
                 "'GOODS_COUNT' TEXT," + // 10: goods_count
                 "'DATELINE' TEXT," + // 11: dateline
                 "'IS_ZHIYING' TEXT," + // 12: is_zhiying
-                "'IS_SELECT' TEXT);"); // 13: is_select
+                "'IS_SELECT' TEXT," +
+                "'PV_PRICES' TEXT);"); // 13: is_select
     }
 
     /** Drops the underlying database table. */
@@ -142,6 +144,11 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         if (is_select != null) {
             stmt.bindString(14, is_select);
         }
+
+        String pv_prices = entity.getPv_prices();
+        if (pv_prices != null) {
+            stmt.bindString(15, pv_prices);
+        }
     }
 
     @Override
@@ -173,7 +180,8 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // goods_count
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // dateline
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // is_zhiying
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // is_select
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // is_select
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // pv_prices
         );
         return entity;
     }
@@ -195,6 +203,7 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         entity.setDateline(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setIs_zhiying(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setIs_select(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setPv_prices(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     /** @inheritdoc */

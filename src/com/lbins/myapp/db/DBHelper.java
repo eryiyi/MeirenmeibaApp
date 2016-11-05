@@ -31,7 +31,7 @@ public class DBHelper {
             if (mContext == null) {
                 mContext = context;
             }
-            helper = new DaoMaster.DevOpenHelper(context, "guiren_hm_db_t_001", null);
+            helper = new DaoMaster.DevOpenHelper(context, "guiren_hm_db_t_002", null);
             db = helper.getWritableDatabase();
             daoMaster = new DaoMaster(db);
             instance.cityDao = daoMaster.newSession().getCityDao();

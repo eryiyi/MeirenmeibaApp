@@ -104,7 +104,6 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.order_sure:
                 if(shoppingAddress != null){
-                    //先传值给服务端
                     if(lists != null && lists.size() > 0){
                         for(int i=0;i<lists.size();i++){
                             ShoppingCart shoppingCart = lists.get(i);

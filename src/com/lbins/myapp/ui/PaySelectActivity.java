@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -105,6 +106,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     private TextView title;
     private List<ShoppingCart> lists = new ArrayList<ShoppingCart>();//订单集合 --传给服务器
     private TextView count_money;
+    private TextView count_money_all;
     private String out_trade_no;
     private ImageView check_btn_wx;
     private ImageView check_btn_ali;
@@ -135,6 +137,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         title = (TextView) this.findViewById(R.id.title);
         title.setText("选择支付方式");
         count_money = (TextView) this.findViewById(R.id.count_money);
+        count_money_all = (TextView) this.findViewById(R.id.count_money_all);
         check_btn_wx = (ImageView) this.findViewById(R.id.check_btn_wx);
         check_btn_ali = (ImageView) this.findViewById(R.id.check_btn_ali);
         check_btn_ling = (ImageView) this.findViewById(R.id.check_btn_ling);
@@ -147,15 +150,20 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     void toCalculate(){
         DecimalFormat df = new DecimalFormat("0.00");
         if (lists != null){
-            Double doublePrices = 0.0;
+//            Double doublePrices = 0.0;
+            Double doublePricesAll = 0.0;
+            Double payable_amount;//金额
             for(int i=0; i<lists.size() ;i++){
                 ShoppingCart shoppingCart = lists.get(i);
                 if(shoppingCart.getIs_select() .equals("0")){
                     //默认是选中的
-                    doublePrices = doublePrices + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
+                    doublePricesAll = doublePricesAll + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
                 }
             }
-            count_money.setText(getResources().getString(R.string.countPrices) + df.format(doublePrices).toString());
+            payable_amount = doublePricesAll*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+            count_money.setText(getResources().getString(R.string.countPrices) + df.format(payable_amount).toString() );
+            count_money_all.setText("原价："+ df.format(doublePricesAll).toString() );
+            count_money_all.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
         }
     }
     private int selectPayWay = 0;//0微信 1支付宝  2零钱
@@ -209,20 +217,24 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                         for(int i=0;i<lists.size();i++){
                             ShoppingCart shoppingCart = lists.get(i);
                             if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
                                 listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                         ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1"));
+                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1",String.valueOf(payable_amount_all) ,String.valueOf(pv_amount)));
                             }
                         }
                     }else {
                         for(int i=0;i<lists.size();i++){
                             ShoppingCart shoppingCart = lists.get(i);
                             if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
                                 listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                         ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","1"));
+                                        ,"0","0","","","","","","","","1", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
                             }
                         }
                     }
@@ -243,20 +255,26 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                         for(int i=0;i<lists.size();i++){
                             ShoppingCart shoppingCart = lists.get(i);
                             if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
                                 listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                         ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0"));
+                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0",String.valueOf(payable_amount_all),String.valueOf(pv_amount)));
                             }
                         }
                     }else{
                         for(int i=0;i<lists.size();i++){
                             ShoppingCart shoppingCart = lists.get(i);
                             if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
                                 listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                         ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","0"));
+                                        ,"0","0","","","","","","","","0", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
                             }
                         }
                     }
@@ -341,20 +359,29 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 for(int i=0;i<lists.size();i++){
                     ShoppingCart shoppingCart = lists.get(i);
                     if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+//                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+
+                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                 ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"2"));
+                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"2", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
                     }
                 }
             }else{
                 for(int i=0;i<lists.size();i++){
                     ShoppingCart shoppingCart = lists.get(i);
                     if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+//                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                 ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                ,"0","0","","","","","","","","2"));
+                                ,"0","0","","","","","","","","2", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
                     }
                 }
             }

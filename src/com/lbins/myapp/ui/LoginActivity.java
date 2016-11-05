@@ -192,6 +192,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("empType", member.getEmpType());
         save("is_card_emp", member.getIs_card_emp());
         save("lx_attribute_id", member.getLx_attribute_id());
+        save("level_zhe", member.getLevel_zhe());
 
         save("isLogin", "1");//1已经登录了  0未登录
 
