@@ -163,6 +163,7 @@
         <activity android:name=".ui.NoticesActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.AndMeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.PaySelectLqChongzhiActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
         <!--// *****************************高德地图sdk*******************************************-->
         <meta-data

@@ -321,7 +321,7 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
         }
     }
     private void showGoodsType() {
-        final Dialog picAddDialog = new Dialog(SearchGoodsByTypeActivity.this, R.style.dialog);
+        final Dialog picAddDialog = new Dialog(SearchGoodsByTypeActivity.this, R.style.spinner_Dialog);
         View picAddInflate = View.inflate(this, R.layout.select_type_dialog, null);
         ListView listView = (ListView) picAddInflate.findViewById(R.id.lstv);
         TextView title_msg = (TextView) picAddInflate.findViewById(R.id.title_msg);

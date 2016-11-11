@@ -61,6 +61,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private TextView mine_number;//我的账号
     private ImageView mine_erweima;//我的二维码
     private ImageView vip_type;//是否是vip
+    private TextView mine_mobile;//
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -98,6 +99,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mine_name = (TextView) view.findViewById(R.id.mine_name);
         mine_number = (TextView) view.findViewById(R.id.mine_number);
         mine_money = (TextView) view.findViewById(R.id.mine_money);
+        mine_mobile = (TextView) view.findViewById(R.id.mine_mobile);
         mine_erweima = (ImageView) view.findViewById(R.id.mine_erweima);
         vip_type = (ImageView) view.findViewById(R.id.vip_type);
 
@@ -287,7 +289,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     void initData(){
         imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-        mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+        mine_name.setText("昵称："+getGson().fromJson(getSp().getString("empName", ""), String.class));
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_number", ""), String.class))){
             mine_number.setText("账号："+getGson().fromJson(getSp().getString("emp_number", ""), String.class));
         }
@@ -297,7 +299,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("package_money", ""), String.class))){
             mine_money.setText("零钱:￥"+getGson().fromJson(getSp().getString("package_money", ""), String.class));
         }
-
+        mine_mobile.setText("手机："+ getGson().fromJson(getSp().getString("empMobile", ""), String.class));
         //判断是否vip
         if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
             //是定向卡会员
@@ -516,7 +518,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             String action = intent.getAction();
             if (action.equals("update_cover_success")) {
                 imageLoader.displayImage(getGson().fromJson(getSp().getString("empCover", ""), String.class), mine_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-                mine_name.setText(getGson().fromJson(getSp().getString("empName", ""), String.class));
+                mine_name.setText("昵称："+getGson().fromJson(getSp().getString("empName", ""), String.class));
+                mine_mobile.setText("手机："+ getGson().fromJson(getSp().getString("empMobile", ""), String.class));
             }
             if(action.equals("update_location_success")){
                 //更新当前城市

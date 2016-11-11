@@ -666,6 +666,8 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                     xmlStr =wxPayObj.getXmlStr();
                                     out_trade_no = wxPayObj.getOut_trade_no();
                                 }
+                                //删除购物车商品
+                                deleteCart();
                                 // 启动一个线程
                                 new Thread(PaySelectActivity.this).start();
                             } else {

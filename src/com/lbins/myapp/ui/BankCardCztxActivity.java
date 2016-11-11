@@ -75,19 +75,36 @@ public class BankCardCztxActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
-
+    BankObj bankObj ;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000 && resultCode == 10001 ){
-            BankObj bankObj = (BankObj) data.getExtras().get("bankObj");
+            bankObj = (BankObj) data.getExtras().get("bankObj");
+            ban_card.setText(bankObj.getBank_card());
         }
     }
 
     public void cztxAction(View view){
         if(StringUtil.isNullOrEmpty(money_cztx.getText().toString())){
-            showMsg(BankCardCztxActivity.this, "请输入充值/提现金额！");
+            showMsg(BankCardCztxActivity.this, "请输入充值金额！");
             return;
         }
+//        if(bankObj == null){
+//            showMsg(BankCardCztxActivity.this, "请选择银行卡！");
+//            return;
+//        }
+        if("0".equals(money_cztx.getText().toString())){
+            showMsg(BankCardCztxActivity.this, "请输入充值金额！");
+            return;
+        }
+        if(StringUtil.isNullOrEmpty(money_cztx.getText().toString().replaceAll("0",""))){
+            showMsg(BankCardCztxActivity.this, "请输入充值金额！");
+            return;
+        }
+        Intent intent = new Intent(BankCardCztxActivity.this, PaySelectLqChongzhiActivity.class);
+        intent.putExtra("jine", money_cztx.getText().toString());
+        startActivity(intent);
+        finish();
     }
 }

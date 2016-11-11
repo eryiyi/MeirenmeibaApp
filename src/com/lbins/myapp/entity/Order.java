@@ -298,7 +298,9 @@ public class Order implements Serializable{
         this.taxes = taxes;
     }
 
-    public Order(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount, String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes, String provinceId, String cityId, String areaId,String trade_type,String payable_amount_all,String pv_amount) {
+    public Order(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount,
+                 String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes,
+                 String provinceId, String cityId, String areaId,String trade_type,String payable_amount_all,String pv_amount) {
         this.goods_id = goods_id;
         this.emp_id = emp_id;
         this.seller_emp_id = seller_emp_id;

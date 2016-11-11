@@ -51,6 +51,7 @@ public class SetProfileActivity extends BaseActivity implements View.OnClickList
     private TextView nick;//
     private TextView sex;//
     private TextView birth;//
+    private TextView mobile;//
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     private String txpic = "";
@@ -72,12 +73,14 @@ public class SetProfileActivity extends BaseActivity implements View.OnClickList
         nick = (TextView) this.findViewById(R.id.nick);
         sex = (TextView) this.findViewById(R.id.sex);
         birth = (TextView) this.findViewById(R.id.birth);
+        mobile = (TextView) this.findViewById(R.id.mobile);
 
         mine_cover.setOnClickListener(this);
         this.findViewById(R.id.liner_set_profile_name).setOnClickListener(this);
         this.findViewById(R.id.liner_set_profile_nick).setOnClickListener(this);
         this.findViewById(R.id.liner_set_profile_sex).setOnClickListener(this);
         this.findViewById(R.id.liner_set_profile_birth).setOnClickListener(this);
+        this.findViewById(R.id.liner_set_profile_mobile).setOnClickListener(this);
 
         initData();
     }
@@ -101,6 +104,7 @@ public class SetProfileActivity extends BaseActivity implements View.OnClickList
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_birthday", ""), String.class))){
             birth.setText(getGson().fromJson(getSp().getString("emp_birthday", ""), String.class));
         }
+        mobile.setText(getGson().fromJson(getSp().getString("empMobile", ""), String.class));
     }
     @Override
     public void onClick(View view) {

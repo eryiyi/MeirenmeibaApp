@@ -12,8 +12,8 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
     public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
-//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-    public static final String INTERNAL = "http://192.168.0.224:8080/";
+    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -198,4 +198,10 @@ public class InternetURL {
     public static final String APP_NOTICE_DETAIL_LIST =  INTERNAL +"viewNotice.do";
     //获得店铺详情页底部的推荐商家
     public static final String APP_GET_TUIJIAN_DIANPU_LIST =  INTERNAL +"getPaihangDianpu.do";
+
+    //充值零钱
+    public static final String appLqPayWx = INTERNAL + "appLqPayWx.do";
+    public static final String appLqPayZfb = INTERNAL + "appLqPayZfb.do";
+    //app更新零钱充值
+    public static final String appUpdateLqCz = INTERNAL + "appUpdateLqCz.do";
 }

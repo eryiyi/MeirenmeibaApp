@@ -103,6 +103,7 @@ public class MineCartActivity extends BaseActivity implements View.OnClickListen
                 if(arrayList !=null && arrayList.size() > 0){
                     orderMakeView.putExtra("listsgoods",arrayList);
                     startActivity(orderMakeView);
+                    finish();
                 }else{
                     Toast.makeText(MineCartActivity.this,R.string.cart_error_one,Toast.LENGTH_SHORT).show();
                 }
