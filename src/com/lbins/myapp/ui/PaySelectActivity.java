@@ -738,12 +738,17 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void run() {
+        //微信服务端返回之后，调用这个方法
         String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
+        //根据返回的字符串和url 调用post方法处理
         byte[] buf = Util.httpPost(url, xmlStr);
+        //处理完成的值转换成字符串
         String content = new String(buf);
+        //字符串处理
         Map<String,String> xmlMap=decodeXml(content);
+        //构造微信的req对象
         PayReq req = new PayReq();
-
+        //解析xml就可以获得我们需要的值
         req.appId			= xmlMap.get("appid");
         req.partnerId		=  xmlMap.get("mch_id");
         req.prepayId		= xmlMap.get("prepay_id");
@@ -758,9 +763,9 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
         signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
         signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
-
+        //生成sign
         req.sign = genAppSign(signParams).toUpperCase();
-
+        //吊起微信支付窗口
         api.sendReq(req);
     }
 
