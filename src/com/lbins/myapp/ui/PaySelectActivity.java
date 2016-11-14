@@ -207,6 +207,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     WxPayObj wxPayObj;
 
     public void payAction(View view){
+        view.setClickable(false);
         switch (selectPayWay){
             case 0:
             {

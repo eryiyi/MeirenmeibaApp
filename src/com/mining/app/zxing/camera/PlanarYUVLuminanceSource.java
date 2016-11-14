@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera;
+package com.mining.app.zxing.camera;
 
 import android.graphics.Bitmap;
 import com.google.zxing.LuminanceSource;

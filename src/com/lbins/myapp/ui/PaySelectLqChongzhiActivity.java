@@ -175,6 +175,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
     WxPayObj wxPayObj;
 
     public void payAction(View view){
+        view.setClickable(false);
         switch (selectPayWay){
             case 0:
             {

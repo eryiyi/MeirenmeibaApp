@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera.decoding;
+package com.mining.app.zxing.decoding;
 
 import android.app.Activity;
 

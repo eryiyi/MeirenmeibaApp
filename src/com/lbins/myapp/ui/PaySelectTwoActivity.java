@@ -198,6 +198,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
             showMsg(PaySelectTwoActivity.this, "请输入金额！");
             return;
         }else {
+            view.setClickable(false);
             payScanObj.setPay_count(count_money.getText().toString());
             switch (selectPayWay){
                 case 0:

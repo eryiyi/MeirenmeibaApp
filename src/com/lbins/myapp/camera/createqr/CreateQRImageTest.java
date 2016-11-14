@@ -1,4 +1,4 @@
-package com.lbins.myapp.camera.util;
+package com.lbins.myapp.camera.createqr;
 
 import android.graphics.Bitmap;
 import com.google.zxing.BarcodeFormat;

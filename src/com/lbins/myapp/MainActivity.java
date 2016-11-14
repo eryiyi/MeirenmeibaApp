@@ -3,6 +3,8 @@ package com.lbins.myapp;
 import android.app.Dialog;
 import android.content.*;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,21 +16,24 @@ import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.camera.MipcaActivityCapture;
 import com.lbins.myapp.data.CardEmpData;
 import com.lbins.myapp.data.CityDATA;
+import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.db.RecordLogin;
 import com.lbins.myapp.entity.CardEmp;
 import com.lbins.myapp.entity.City;
 import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.entity.PayScanObj;
 import com.lbins.myapp.fragment.NearbyFragment;
 import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
-import com.lbins.myapp.ui.CaptureActivity;
 import com.lbins.myapp.ui.KefuTelActivity;
 import com.lbins.myapp.ui.LoginActivity;
+import com.lbins.myapp.ui.PaySelectTwoActivity;
 import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
@@ -461,9 +466,173 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onPause();
     }
 
+    private final static int SCANNIN_GREQUEST_CODE = 1;
+
     public void scanAction(View view){
         //扫描
-        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, MipcaActivityCapture.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
     }
+
+    PayScanObj payScanObj = new PayScanObj();//扫一扫付款对象
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    //扫描结果
+                    String url = bundle.getString("result");
+                    if(!StringUtil.isNullOrEmpty(url)){
+                        if(url.contains(InternetURL.APP_SHARE_REG_URL)){
+                            //推广注册
+                            //用默认浏览器打开扫描得到的地址
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            Uri content_url = Uri.parse(url);
+                            intent.setData(content_url);
+                            startActivity(intent);
+                        }
+                        if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                                "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                            //未登录
+                            showMsg(MainActivity.this, "请先登录！");
+                        } else {
+                            if(url.contains(InternetURL.SAVE_FAVOUR_URL)){
+                                //收藏店铺，加粉丝
+                                url = url+"&emp_id_favour="+ getGson().fromJson(getSp().getString("empId", ""), String.class);
+                                saveFavour(url);
+                            }
+                            if(url.contains(InternetURL.GET_GET_GOODS_URN)){
+                                String emp_id = url.substring(url.indexOf("=")).replace("=","");
+                                //有偿消费
+                                payScanObj.setEmp_id(emp_id);
+                                payScanObj.setTitle("扫码消费_有偿消费");
+                                //弹框提示输入金额
+                                Intent intent = new Intent(MainActivity.this, PaySelectTwoActivity.class);
+                                intent.putExtra("payScanObj", payScanObj);
+                                startActivity(intent);
+                            }
+                            if(url.contains(InternetURL.GET_GET_DXK_GOODS_URN)){
+                                if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                                    //是定向卡会员
+                                    //无偿消费
+                                    String emp_id = url.substring(url.indexOf("=")).replace("=", "");
+                                    //插入一个订单-定向卡订单
+                                    saveDxkOrder(emp_id);
+                                }else {
+                                    //不是定向卡会员
+                                    showMsg(MainActivity.this, "您不是定向卡会员，不能扫描！");
+                                }
+                            }
+                        }
+                    }else {
+                        showMsg(MainActivity.this, "扫描没有结果，请检查二维码！");
+                    }
+                }
+                break;
+        }
+    }
+
+
+    //收藏店铺
+    void saveFavour(String url){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(MainActivity.this, "收藏店铺成功！");
+                            } else if(data.getCode() == 2){
+                                showMsg(MainActivity.this, "已经收藏了！");
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(MainActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    //保存订单 定向卡的
+    void saveDxkOrder(final String emp_id){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_DXK_ORDER_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (data.getCode() == 200) {
+                                showMsg(MainActivity.this, "订单已生成，等待管理员审核！");
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));//这个是买家的
+                params.put("seller_emp_id", emp_id);//这个是卖家的
+                params.put("payable_amount","0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 }

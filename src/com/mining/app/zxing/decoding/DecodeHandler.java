@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera.decoding;
+package com.mining.app.zxing.decoding;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +24,9 @@ import android.util.Log;
 import com.google.zxing.*;
 import com.google.zxing.common.HybridBinarizer;
 import com.lbins.myapp.R;
-import com.lbins.myapp.camera.CameraManager;
-import com.lbins.myapp.camera.PlanarYUVLuminanceSource;
-import com.lbins.myapp.ui.CaptureActivity;
+import com.lbins.myapp.camera.MipcaActivityCapture;
+import com.mining.app.zxing.camera.CameraManager;
+import com.mining.app.zxing.camera.PlanarYUVLuminanceSource;
 
 import java.util.Hashtable;
 
@@ -34,10 +34,10 @@ final class DecodeHandler extends Handler {
 
   private static final String TAG = DecodeHandler.class.getSimpleName();
 
-  private final CaptureActivity activity;
+  private final MipcaActivityCapture activity;
   private final MultiFormatReader multiFormatReader;
 
-  DecodeHandler(CaptureActivity activity, Hashtable<DecodeHintType, Object> hints) {
+  DecodeHandler(MipcaActivityCapture activity, Hashtable<DecodeHintType, Object> hints) {
     multiFormatReader = new MultiFormatReader();
     multiFormatReader.setHints(hints);
     this.activity = activity;
@@ -67,7 +67,18 @@ final class DecodeHandler extends Handler {
   private void decode(byte[] data, int width, int height) {
     long start = System.currentTimeMillis();
     Result rawResult = null;
-    PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(data, width, height);
+    
+    //modify here
+    byte[] rotatedData = new byte[data.length];
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++)
+            rotatedData[x * height + height - y - 1] = data[x + y * width];
+    }
+    int tmp = width; // Here we are swapping, that's the difference to #11
+    width = height;
+    height = tmp;
+    
+    PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(rotatedData, width, height);
     BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
     try {
       rawResult = multiFormatReader.decodeWithState(bitmap);

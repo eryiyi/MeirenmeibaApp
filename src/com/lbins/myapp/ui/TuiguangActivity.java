@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.camera.util.CreateQRImageTest;
+import com.lbins.myapp.camera.createqr.CreateQRImageTest;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;

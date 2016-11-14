@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera;
+package com.mining.app.zxing.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
 final class CameraConfigurationManager {
@@ -74,6 +75,11 @@ final class CameraConfigurationManager {
     setFlash(parameters);
     setZoom(parameters);
     //setSharpness(parameters);
+    //modify here
+    
+//    camera.setDisplayOrientation(90);
+    //¼æÈÝ2.1
+    setDisplayOrientation(camera, 90);
     camera.setParameters(parameters);
   }
 
@@ -257,24 +263,26 @@ final class CameraConfigurationManager {
     }
   }
 
-  /*
-  private void setSharpness(Camera.Parameters parameters) {
+	public static int getDesiredSharpness() {
+		return DESIRED_SHARPNESS;
+	}
+	
+	/**
+	 * compatible  1.6
+	 * @param camera
+	 * @param angle
+	 */
+	protected void setDisplayOrientation(Camera camera, int angle){  
+        Method downPolymorphic;  
+        try  
+        {  
+            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });  
+            if (downPolymorphic != null)  
+                downPolymorphic.invoke(camera, new Object[] { angle });  
+        }  
+        catch (Exception e1)  
+        {  
+        }  
+   }  
 
-    int desiredSharpness = DESIRED_SHARPNESS;
-
-    String maxSharpnessString = parameters.get("sharpness-max");
-    if (maxSharpnessString != null) {
-      try {
-        int maxSharpness = Integer.parseInt(maxSharpnessString);
-        if (desiredSharpness > maxSharpness) {
-          desiredSharpness = maxSharpness;
-        }
-      } catch (NumberFormatException nfe) {
-        Log.w(TAG, "Bad sharpness-max: " + maxSharpnessString);
-      }
-    }
-
-    parameters.set("sharpness", desiredSharpness);
-  }
-   */
 }

@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera.decoding;
+package com.mining.app.zxing.decoding;
 
 /**
  * This class provides the constants to use when sending an Intent to Barcode Scanner.
  * These strings are effectively API and cannot be changed.
- *
- * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class Intents {
   private Intents() {

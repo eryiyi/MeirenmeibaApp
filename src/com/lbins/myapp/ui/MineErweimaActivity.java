@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.camera.util.CreateQRImageTest;
+import com.lbins.myapp.camera.createqr.CreateQRImageTest;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lbins.myapp.camera;
+package com.mining.app.zxing.camera;
 
 import android.os.IBinder;
 import android.util.Log;
@@ -51,6 +51,18 @@ final class FlashlightManager {
   }
 
   private FlashlightManager() {
+  }
+
+  /**
+   * 控制相机闪光灯开关
+   */
+  //FIXME
+  static void enableFlashlight() {
+    setFlashlight(false);
+  }
+
+  static void disableFlashlight() {
+    setFlashlight(false);
   }
 
   private static Object getHardwareService() {
@@ -127,14 +139,6 @@ final class FlashlightManager {
       Log.w(TAG, "Unexpected error while invoking " + method, re);
       return null;
     }
-  }
-
-  static void enableFlashlight() {
-    setFlashlight(true);
-  }
-
-  static void disableFlashlight() {
-    setFlashlight(false);
   }
 
   private static void setFlashlight(boolean active) {

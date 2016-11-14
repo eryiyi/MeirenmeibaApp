@@ -189,6 +189,7 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
     WxPayObj wxPayObj;
 
     public void payAction(View view){
+        view.setClickable(false);
         switch (selectPayWay){
             case 0:
             {

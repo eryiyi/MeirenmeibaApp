@@ -16,7 +16,7 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.camera.util.CreateQRImageTest;
+import com.lbins.myapp.camera.createqr.CreateQRImageTest;
 import com.lbins.myapp.data.ShoppingAddressSingleDATA;
 import com.lbins.myapp.entity.OrderVo;
 import com.lbins.myapp.entity.ShoppingAddress;
