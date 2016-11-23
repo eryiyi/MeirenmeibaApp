@@ -37,7 +37,7 @@ public class RegSuccessActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_success_activity);
         member = (Member) getIntent().getExtras().get("member");
-        this.findViewById(R.id.back).setOnClickListener(this);
+        this.findViewById(R.id.back).setVisibility(View.GONE);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("注册");

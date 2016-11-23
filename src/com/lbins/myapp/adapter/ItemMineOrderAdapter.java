@@ -108,7 +108,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     break;
                 case 2:
                     holder.item_status.setText("等待卖家发货");
-                    holder.button_one.setVisibility(View.VISIBLE);
+                    holder.button_one.setVisibility(View.GONE);
                     holder.button_two.setVisibility(View.GONE);
                     holder.button_three.setVisibility(View.GONE);
                     holder.button_four.setVisibility(View.GONE);

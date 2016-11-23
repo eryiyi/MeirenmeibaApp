@@ -29,6 +29,8 @@ public class InternetURL {
 
     //更新密码
     public static final String UPDATE_PWR__URL = INTERNAL + "resetPass.do";
+    //通过手机号找回密码
+    public static final String FIND_PWR__URL = INTERNAL + "findPwrByMobile.do";
     //更新头像
     public static final String UPDATE_INFO_COVER_URL = INTERNAL + "modifyMember.do";
     //更改性别

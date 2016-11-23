@@ -239,7 +239,7 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
 
     public void findAction(View view){
         //找回账号密码
-        Intent intent = new Intent(RegOneActivity.this, FindPwrSelectActivity.class);
+        Intent intent = new Intent(RegOneActivity.this, FindPwrMobileActivity.class);
         startActivity(intent);
     }
 

@@ -88,6 +88,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private TextView money_one;
     private TextView money_two;
     private TextView btn_money;
+    private TextView goods_count;
 
     private String emp_id_dianpu;//店铺用户ID
     private String goods_id;//商品ID
@@ -174,6 +175,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         sale_num = (TextView) headLiner.findViewById(R.id.sale_num);
         rate_comment = (TextView) headLiner.findViewById(R.id.rate_comment);
         comment_count = (TextView) headLiner.findViewById(R.id.comment_count);
+        goods_count = (TextView) headLiner.findViewById(R.id.goods_count);
 
         dp_title = (TextView) headLiner.findViewById(R.id.dp_title);
         dp_distance = (TextView) headLiner.findViewById(R.id.dp_distance);
@@ -579,7 +581,9 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                                 if (Integer.parseInt(code) == 200) {
                                     PaopaoGoodsSingleData data = getGson().fromJson(s, PaopaoGoodsSingleData.class);
                                     paopaoGoods = data.getData();
-                                    initDataGoods();
+                                    if(paopaoGoods != null){
+                                        initDataGoods();
+                                    }
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -713,6 +717,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
         }
         sale_num.setText(paopaoGoods.getGoods_count_sale()==null?"0":paopaoGoods.getGoods_count_sale());
+        goods_count.setText(paopaoGoods.getCount()==null?"":paopaoGoods.getCount());
     }
 
 

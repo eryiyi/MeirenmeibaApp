@@ -119,6 +119,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                         case 5:
                                             showMsg(LoginActivity.this, "请输入密码");
                                             break;
+                                        case 6:
+                                            showMsg(LoginActivity.this, "注册时密码为空，您不能登录！请重新注册");
+                                            break;
                                     }
                                 }
                             } catch (JSONException e) {
@@ -199,6 +202,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void findAction(View view){
+        //找回账号密码
+        Intent intent = new Intent(LoginActivity.this, FindPwrMobileActivity.class);
+        startActivity(intent);
     }
 
 }
