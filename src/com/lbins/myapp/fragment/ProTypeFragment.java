@@ -1,5 +1,6 @@
 package com.lbins.myapp.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.data.MinePackageData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.MinePackage;
+import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -64,8 +66,20 @@ public class ProTypeFragment extends BaseFragment {
 		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(list !=null){
+					if(list.size() > i){
+						GoodsType goodsType1 = list.get(i);
+						if(goodsType1 != null){
+							Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+							intent.putExtra("typeId", goodsType1.getTypeId());
+							intent.putExtra("typeName", goodsType1.getTypeName());
+							intent.putExtra("keyContent", "");
+							startActivity(intent);
+						}
+					}
+				}
+
 			}
 		});
 
