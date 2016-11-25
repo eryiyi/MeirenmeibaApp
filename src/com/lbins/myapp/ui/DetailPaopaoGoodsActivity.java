@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.*;
 import com.amap.api.maps.model.LatLng;
 import com.android.volley.AuthFailureError;
@@ -33,6 +34,7 @@ import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.ContentListView;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -52,8 +54,9 @@ import java.util.Map;
  * Created by zhl on 2016/9/16.
  * 商品详情
  */
-public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnClickListener,OnClickContentItemListener {
-    private PullToRefreshListView lstv;
+public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnClickListener,OnClickContentItemListener,ContentListView.OnRefreshListener,
+        ContentListView.OnLoadListener {
+    private ContentListView lstv;
     private ItemCommentAdapter adapterComment;
     private List<GoodsComment> listComments = new ArrayList<GoodsComment>();
     private boolean IS_REFRESH = true;
@@ -99,6 +102,8 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private Button foot_order;
     private TextView foot_goods;
 
+    private WebView webview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +122,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         //获取商品详情
         getDetailGoods();
         //获取商品评论
-        getComment();
+        loadData(ContentListView.REFRESH);
         //查询商品的好评度和消费评价数量
         getDetailComment();
     }
@@ -131,37 +136,14 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         btn_favour.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         headLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detail_paopao_goods_header, null);
-        lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
-        ListView listView = lstv.getRefreshableView();
-
-        listView.addHeaderView(headLiner);
+        lstv = (ContentListView) this.findViewById(R.id.lstv);
 
         adapterComment = new ItemCommentAdapter(listComments, DetailPaopaoGoodsActivity.this);
-        lstv.setMode(PullToRefreshBase.Mode.BOTH);
-        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = true;
-                pageIndex = 1;
-                getComment();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = false;
-                pageIndex++;
-                getComment();
-            }
-        });
         lstv.setAdapter(adapterComment);
+        lstv.addHeaderView(headLiner);
+        lstv.setOnRefreshListener(this);
+        lstv.setOnLoadListener(this);
         adapterComment.setOnClickContentItemListener(this);
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -187,6 +169,11 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         money_one = (TextView) headLiner.findViewById(R.id.money_one);
         money_two = (TextView) headLiner.findViewById(R.id.money_two);
         btn_money = (TextView) headLiner.findViewById(R.id.btn_money);
+        webview = (WebView) headLiner.findViewById(R.id.webview);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setDefaultTextEncodingName("utf-8");
+        webview.getSettings().setDomStorageEnabled(true);
+
         headLiner.findViewById(R.id.liner_address).setOnClickListener(this);
         headLiner.findViewById(R.id.comment_liner).setOnClickListener(this);
         foot_cart = (Button) this.findViewById(R.id.foot_cart);
@@ -197,6 +184,25 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         foot_goods.setOnClickListener(this);
 
     }
+
+    /**
+     * 加载数据监听实现
+     */
+    @Override
+    public void onLoad() {
+        pageIndex++;
+        loadData(ContentListView.LOAD);
+    }
+
+    /**
+     * 刷新数据监听实现
+     */
+    @Override
+    public void onRefresh() {
+        pageIndex = 1;
+        loadData(ContentListView.REFRESH);
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -717,29 +723,33 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
         }
         sale_num.setText(paopaoGoods.getGoods_count_sale()==null?"0":paopaoGoods.getGoods_count_sale());
-        goods_count.setText(paopaoGoods.getCount()==null?"":paopaoGoods.getCount());
+        goods_count.setText(paopaoGoods.getCount()==null ? "" : paopaoGoods.getCount());
+
+        webview.loadUrl(InternetURL.appGoodsContent+"?id="+paopaoGoods.getId());
     }
 
 
     //获得评论
-    void getComment(){
+    void loadData(final int currentid){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_GOODS_COMMENT_LISTS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
+                        lstv.onRefreshComplete();
+                        lstv.onLoadComplete();
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     GoodsCommentData data = getGson().fromJson(s, GoodsCommentData.class);
-                                    if(IS_REFRESH ){
+                                    if (ContentListView.REFRESH == currentid) {
                                         listComments.clear();
                                     }
                                     listComments.addAll(data.getData());
-                                    lstv.onRefreshComplete();
+                                    lstv.setResultSize(data.getData().size());
                                     adapterComment.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();

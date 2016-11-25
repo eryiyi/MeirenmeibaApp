@@ -12,8 +12,8 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
     public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
-    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-//    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+    public static final String INTERNAL = "http://192.168.0.224:8080/";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 
@@ -206,4 +206,12 @@ public class InternetURL {
     public static final String appLqPayZfb = INTERNAL + "appLqPayZfb.do";
     //app更新零钱充值
     public static final String appUpdateLqCz = INTERNAL + "appUpdateLqCz.do";
+    //商品详情内容
+    public static final String appGoodsContent = INTERNAL + "paopaogoods/toGoodsContent.do";
+
+
+    //获得商品分类-- 小分类
+    //获得热门分类  is_hot = 1
+    public static final String GET_GOODS_SMALL_TYPE_URL = INTERNAL + "appGetGoodsTypeSmall.do";
+
 }

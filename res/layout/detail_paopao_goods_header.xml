@@ -259,7 +259,7 @@
                   android:layout_height="0.1dp"></View>
             <WebView android:layout_width="match_parent"
                      android:id="@+id/webview"
-                     android:layout_height="wrap_content">
+                     android:layout_height="match_parent">
             </WebView>
             <View android:layout_width="match_parent"
                   android:background="@color/gray"

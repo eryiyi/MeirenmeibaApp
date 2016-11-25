@@ -224,7 +224,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                     if(goodsType != null){
                         if("0".equals(goodsType.getTypeId())){
                             //更多
-                            Intent intent = new Intent(getActivity(), MoreGoodsTypeActivity.class);
+                            Intent intent = new Intent(getActivity(), SearchMoreTypeActivity.class);
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);

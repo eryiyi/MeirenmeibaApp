@@ -18,11 +18,15 @@
 
     <TextView android:layout_width="wrap_content"
               android:text="跳过"
+              android:background="@color/white"
               android:id="@+id/skip"
               android:layout_alignParentRight="true"
-              android:padding="20dp"
+              android:layout_alignParentBottom="true"
+              android:layout_marginBottom="20dp"
+              android:layout_marginRight="20dp"
+              android:padding="16dp"
               android:textSize="14sp"
-              android:textColor="@color/text_color_two"
+              android:textColor="@color/red"
               android:layout_height="wrap_content"/>
 
 </RelativeLayout>
