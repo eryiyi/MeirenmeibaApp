@@ -27,5 +27,6 @@
     <orderEntry type="library" name="open_sdk_r5756" level="project" />
     <orderEntry type="library" name="AMap3DMap_4.1.1_AMapNavi_1.9.3_AMapSearch_3.5.0_AMapLocation_3.0.0_20161019" level="project" />
     <orderEntry type="library" name="zxing" level="project" />
+    <orderEntry type="library" name="umeng-analytics-v6.0.4" level="project" />
   </component>
 </module>

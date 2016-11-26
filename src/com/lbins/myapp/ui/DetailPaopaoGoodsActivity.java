@@ -854,7 +854,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 
 
     void share() {
-        new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+        new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.ALIPAY,SHARE_MEDIA.SINA,SHARE_MEDIA.SMS,SHARE_MEDIA.EMAIL)
                 .setShareboardclickCallback(shareBoardlistener)
                 .open();
     }

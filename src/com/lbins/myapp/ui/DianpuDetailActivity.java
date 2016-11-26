@@ -174,6 +174,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         });
+        title.setText("店铺详情");
     }
 
     @Override

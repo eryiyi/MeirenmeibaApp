@@ -28,8 +28,10 @@
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/open_sdk_r5756.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/pushservice-5.2.0.12.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/umeng-analytics-v6.0.4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/umeng_social_sdk.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/utdid4all-1.0.4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/custom_dialog_frame.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_bottom.xml" charset="UTF-8" />
@@ -64,6 +66,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/address_select.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_normal.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/appitem_del_btn_pressed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cancel_new_version.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cansaiguize.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_add.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/cart_jian.png" charset="UTF-8" />
@@ -95,11 +98,11 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/sm_v4.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/tel_order.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/top_star_p.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/update_new_version.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/xiazai.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/analyze_empty_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_pop_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_pop_pressed.9.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/btn_back_gray_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_press_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_gray_shape.xml" charset="UTF-8" />
@@ -276,6 +279,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/custom_progress_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/delete_pop_view.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/detail_order_activity.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/dialog_new_version.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/gallery_url.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />

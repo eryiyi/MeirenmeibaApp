@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.upload.MultiPartStringRequest;
 import com.lbins.myapp.widget.CustomProgressDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.util.Map;
@@ -34,10 +35,13 @@ public class BaseActivity extends FragmentActivity {
     protected int mScreenWidth;
     protected int mScreenHeight;
 
+    private Context mContext;
+    private final String mPageName = "AnalyticsHome";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mContext = this;
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         /**
          * 获取屏幕宽度和高度
@@ -48,6 +52,17 @@ public class BaseActivity extends FragmentActivity {
         mScreenHeight = metric.heightPixels;
 
         ActivityTack.getInstanse().addActivity(this);
+
+        MobclickAgent.setDebugMode(true);
+        // SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+        // 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+        MobclickAgent.openActivityDurationTrack(false);
+        // MobclickAgent.setAutoLocation(true);
+        // MobclickAgent.setSessionContinueMillis(1000);
+        // MobclickAgent.startWithConfigure(
+        // new UMAnalyticsConfig(mContext, "4f83c5d852701564c0000011", "Umeng",
+        // EScenarioType.E_UM_NORMAL));
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
     /**
@@ -82,10 +97,14 @@ public class BaseActivity extends FragmentActivity {
 
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
     }
 
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
     }
 
     public void onStop() {

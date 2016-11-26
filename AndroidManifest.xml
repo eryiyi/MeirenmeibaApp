@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.lbins.myapp"
-          android:versionCode="1"
-          android:versionName="1.0">
+          android:versionCode="2"
+          android:versionName="1.1">
     <uses-sdk android:minSdkVersion="14"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -284,6 +284,10 @@
                 android:value="57e721f067e58ef935001a22" >
         </meta-data>
 
+        <meta-data
+                android:name="UMENG_CHANNEL"
+                android:value="Umeng">
+        </meta-data>
 
         <!-- QQ、QQ空间所需权限 -->
         <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>

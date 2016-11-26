@@ -2,6 +2,8 @@ package com.lbins.myapp;
 
 import android.app.Dialog;
 import android.content.*;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,12 +22,10 @@ import com.lbins.myapp.camera.MipcaActivityCapture;
 import com.lbins.myapp.data.CardEmpData;
 import com.lbins.myapp.data.CityDATA;
 import com.lbins.myapp.data.SuccessData;
+import com.lbins.myapp.data.VersionUpdateObjData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.db.RecordLogin;
-import com.lbins.myapp.entity.CardEmp;
-import com.lbins.myapp.entity.City;
-import com.lbins.myapp.entity.LxAd;
-import com.lbins.myapp.entity.PayScanObj;
+import com.lbins.myapp.entity.*;
 import com.lbins.myapp.fragment.NearbyFragment;
 import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.ShangchengFragment;
@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 showMsgDialog();
             }
         }
+        checkVersion();
     }
 
     private void showMsgDialog() {
@@ -637,5 +638,100 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         getRequestQueue().add(request);
     }
 
+    VersionUpdateObj versionUpdateObj;
+
+    public void checkVersion() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.CHECK_VERSION_CODE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    VersionUpdateObjData data = getGson().fromJson(s, VersionUpdateObjData.class);
+                                    versionUpdateObj = data.getData();
+                                    if("true".equals(versionUpdateObj.getFlag())){
+                                        showVersionDialog();
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_version_code", getV());
+                params.put("mm_version_package", "com.Lbins.Mlt");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+    String getV(){
+        try {
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            return info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private void showVersionDialog() {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.dialog_new_version, null);
+        ImageView btn_sure = (ImageView) picAddInflate.findViewById(R.id.btn_sure);
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //更新
+                final Uri uri = Uri.parse(versionUpdateObj.getDurl());
+                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        ImageView btn_cancel = (ImageView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
 
 }
