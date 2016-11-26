@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="SocialSDK_alipay">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_alipay.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_douban.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_email.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_QQ_Simplify.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_renren.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_Sina_Simplify.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_sms.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

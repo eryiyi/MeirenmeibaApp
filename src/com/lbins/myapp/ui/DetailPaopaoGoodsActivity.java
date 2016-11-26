@@ -1,20 +1,16 @@
 package com.lbins.myapp.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
-import android.text.format.DateUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.*;
 import android.webkit.WebView;
 import android.widget.*;
 import com.amap.api.maps.model.LatLng;
@@ -25,19 +21,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.*;
+import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
+import com.lbins.myapp.adapter.GoodsDetailViewPagerAdapter;
+import com.lbins.myapp.adapter.ItemCommentAdapter;
+import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.*;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.*;
-import com.lbins.myapp.library.PullToRefreshBase;
-import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ContentListView;
 import com.lbins.myapp.widget.MenuPopMenu;
-import com.lbins.myapp.widget.SelectPhoPopWindow;
 import com.lbins.myapp.widget.TelPopWindow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -46,12 +42,14 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,11 +116,23 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 
     private WebView webview;
 
+    private UMShareListener mShareListener;
+    private ShareAction mShareAction;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_paopao_goods_activity);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.umeng_blue));
+
+        }
+        mShareListener = new CustomShareListener(this);
+
         emp_id_dianpu = getIntent().getExtras().getString("emp_id_dianpu");
         goods_id = getIntent().getExtras().getString("goods_id");
 
@@ -852,54 +862,6 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
         getRequestQueue().add(request);
     }
 
-
-    void share() {
-        new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.ALIPAY,SHARE_MEDIA.SINA,SHARE_MEDIA.SMS,SHARE_MEDIA.EMAIL)
-                .setShareboardclickCallback(shareBoardlistener)
-                .open();
-    }
-
-    private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
-
-        @Override
-        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-            UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
-            String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
-            String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
-            new ShareAction(DetailPaopaoGoodsActivity.this).setPlatform(share_media).setCallback(umShareListener)
-                    .withText(content)
-                    .withTitle(title)
-                    .withTargetUrl((InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId()))
-                    .withMedia(image)
-                    .share();
-        }
-    };
-
-    private UMShareListener umShareListener = new UMShareListener() {
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(DetailPaopaoGoodsActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(DetailPaopaoGoodsActivity.this).onActivityResult(requestCode, resultCode, data);
-    }
-
-
-
     CommentNumber commentNumber;
     //获得商评论总数和好评度
     void getDetailComment(){
@@ -976,12 +938,106 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                     break;
                 case 1:
                 {
-                    share();
+                    String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
+                    String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
+                    UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
+                    String url = InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId();
+
+                     /*无自定按钮的分享面板*/
+                    mShareAction = new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(
+                            SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
+                            SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                            SHARE_MEDIA.ALIPAY,
+                            SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL,
+                            SHARE_MEDIA.MORE)
+                            .withText(content)
+                            .withTitle(title)
+                            .withTargetUrl(url)
+                            .withMedia(image)
+                            .setCallback(mShareListener);
+
+                    ShareBoardConfig config = new ShareBoardConfig();
+                    config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
+                    config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
+                    mShareAction.open(config);
                 }
                     break;
             }
         }
     }
 
+    private static class CustomShareListener implements UMShareListener {
+
+        private WeakReference<DetailPaopaoGoodsActivity> mActivity;
+
+        private CustomShareListener(DetailPaopaoGoodsActivity activity) {
+            mActivity = new WeakReference(activity);
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+
+            if (platform.name().equals("WEIXIN_FAVORITE")) {
+                Toast.makeText(mActivity.get(), platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+            } else {
+                if (platform!= SHARE_MEDIA.MORE&&platform!=SHARE_MEDIA.SMS
+                        &&platform!=SHARE_MEDIA.EMAIL
+                        &&platform!=SHARE_MEDIA.FLICKR
+                        &&platform!=SHARE_MEDIA.FOURSQUARE
+                        &&platform!=SHARE_MEDIA.TUMBLR
+                        &&platform!=SHARE_MEDIA.POCKET
+                        &&platform!=SHARE_MEDIA.PINTEREST
+                        &&platform!=SHARE_MEDIA.LINKEDIN
+                        &&platform!=SHARE_MEDIA.INSTAGRAM
+                        &&platform!=SHARE_MEDIA.GOOGLEPLUS
+                        &&platform!=SHARE_MEDIA.YNOTE
+                        &&platform!=SHARE_MEDIA.EVERNOTE){
+                    Toast.makeText(mActivity.get(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            if (platform!= SHARE_MEDIA.MORE&&platform!=SHARE_MEDIA.SMS
+                    &&platform!=SHARE_MEDIA.EMAIL
+                    &&platform!=SHARE_MEDIA.FLICKR
+                    &&platform!=SHARE_MEDIA.FOURSQUARE
+                    &&platform!=SHARE_MEDIA.TUMBLR
+                    &&platform!=SHARE_MEDIA.POCKET
+                    &&platform!=SHARE_MEDIA.PINTEREST
+                    &&platform!=SHARE_MEDIA.LINKEDIN
+                    &&platform!=SHARE_MEDIA.INSTAGRAM
+                    &&platform!=SHARE_MEDIA.GOOGLEPLUS
+                    &&platform!=SHARE_MEDIA.YNOTE
+                    &&platform!=SHARE_MEDIA.EVERNOTE){
+                Toast.makeText(mActivity.get(), platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+                if (t != null) {
+                    Log.d("throw", "throw:" + t.getMessage());
+                }
+            }
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 屏幕横竖屏切换时避免出现window leak的问题
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mShareAction.close();
+    }
 
 }

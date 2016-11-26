@@ -1,10 +1,8 @@
 <component name="libraryTable">
   <library name="SocialSDK_email">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/umeng_social_sdk.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

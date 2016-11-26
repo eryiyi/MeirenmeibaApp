@@ -24,6 +24,7 @@ import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.util.Utils;
+import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
