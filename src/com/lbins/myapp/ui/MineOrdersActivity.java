@@ -261,7 +261,7 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                         Intent comment = new Intent(this, PublishGoodCommentActivity.class);
                         comment.putExtra("goods_id", orderVoTmp.getGoods_id());
                         comment.putExtra("order_no", orderVoTmp.getOrder_no());
-                        comment.putExtra("emp_id", (orderVoTmp.getEmp_id()==null?"":orderVoTmp.getEmp_id()));//商品所有者
+                        comment.putExtra("emp_id", (orderVoTmp.getSeller_emp_id()==null?"":orderVoTmp.getSeller_emp_id()));//商品所有者
                         startActivity(comment);
                     }
                 }else {

@@ -117,7 +117,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
             {
                 if (orderVo != null && !StringUtil.isNullOrEmpty(orderVo.getGoods_id()) && !StringUtil.isNullOrEmpty(orderVo.getEmp_id())) {
                     Intent goodsdetail = new Intent(DetailOrderActivity.this, DetailPaopaoGoodsActivity.class);
-                    goodsdetail.putExtra("emp_id_dianpu", orderVo.getEmp_id());
+                    goodsdetail.putExtra("emp_id_dianpu", orderVo.getSeller_emp_id());
                     goodsdetail.putExtra("goods_id", orderVo.getGoods_id());
                     startActivity(goodsdetail);
                 }

@@ -11,7 +11,7 @@
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:id="@+id/ad"
-                    android:layout_height="150dp">
+                    android:layout_height="300dp">
                 <android.support.v4.view.ViewPager
                         android:id="@+id/viewpager"
                         android:layout_width="match_parent"
@@ -39,11 +39,22 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:padding="9dp"
+                            android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题"
+                          android:layout_marginLeft="8dp"
+                          android:textColor="@color/text_color"
+                          android:lineSpacingMultiplier="1.2"
+                          android:id="@+id/goods_title"
+                          android:layout_height="wrap_content"/>
+            </RelativeLayout>
            <RelativeLayout android:layout_width="match_parent"
                            android:layout_marginTop="6dp"
                            android:layout_height="wrap_content">
                <TextView android:layout_width="wrap_content"
-                         android:textSize="18sp"
+                         android:textSize="16sp"
                          android:id="@+id/money_one"
                          android:textStyle="bold"
                          android:drawablePadding="8dp"
@@ -52,7 +63,7 @@
                          android:padding="8dp"
                          android:layout_height="wrap_content"/>
                <TextView android:layout_width="wrap_content"
-                         android:textSize="14sp"
+                         android:textSize="13sp"
                          android:layout_toRightOf="@+id/money_one"
                          android:id="@+id/money_two"
                          android:layout_marginTop="12dp"
@@ -63,7 +74,7 @@
                          android:layout_height="wrap_content"/>
                <TextView android:layout_width="wrap_content"
                          android:id="@+id/btn_money"
-                         android:padding="8dp"
+                         android:padding="6dp"
                          android:layout_marginRight="12dp"
                          android:layout_alignParentRight="true"
                          android:textColor="@color/white"
@@ -118,7 +129,6 @@
                           android:layout_toLeftOf="@+id/sale_num"
                           android:layout_height="wrap_content"/>
             </RelativeLayout>
-
 
             <View android:layout_width="match_parent"
                   android:background="@color/red"
@@ -187,14 +197,22 @@
                                 android:layout_below="@+id/liner_one"
                                 android:id="@+id/relate_one"
                                 android:layout_height="wrap_content">
+                    <ImageView android:layout_width="100dp"
+                               android:id="@+id/dianpu_cover"
+                               android:scaleType="fitXY"
+                               android:src="@drawable/no_pic"
+                               android:layout_height="60dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:textColor="@color/text_color"
-                              android:textSize="16sp"
+                              android:textSize="15sp"
+                              android:layout_marginLeft="3dp"
+                              android:layout_toRightOf="@+id/dianpu_cover"
                               android:id="@+id/dp_title"
                               android:layout_height="wrap_content"/>
                     <ImageView android:layout_width="wrap_content"
                                android:layout_below="@+id/dp_title"
                                android:id="@+id/dp_star"
+                               android:layout_toRightOf="@+id/dianpu_cover"
                                android:layout_marginTop="5dp"
                                android:layout_marginLeft="3dp"
                                android:src="@drawable/star_five"
@@ -220,8 +238,8 @@
                               android:textSize="12sp"
                               android:id="@+id/dp_distance"
                               android:layout_marginTop="5dp"
-                              android:layout_below="@+id/dp_title"
-                              android:layout_toLeftOf="@+id/dp_tel"
+                              android:layout_below="@+id/dp_tel"
+                              android:layout_alignParentRight="true"
                               android:textColor="@color/text_color"
                               android:layout_height="wrap_content"/>
                 </RelativeLayout>
@@ -267,5 +285,14 @@
                   android:layout_height="0.1dp"></View>
         </LinearLayout>
 
-
+    <View android:layout_width="match_parent"
+          android:background="@color/red"
+          android:layout_height="0.1dp"></View>
+    <TextView android:layout_width="wrap_content"
+              android:text="宝贝评价"
+              android:textSize="15sp"
+              android:layout_marginLeft="8dp"
+              android:textColor="@color/text_color"
+              android:padding="3dp"
+              android:layout_height="wrap_content"/>
 </LinearLayout>

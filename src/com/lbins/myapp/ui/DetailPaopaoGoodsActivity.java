@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -22,9 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.AdViewPagerAdapter;
-import com.lbins.myapp.adapter.ItemCommentAdapter;
-import com.lbins.myapp.adapter.OnClickContentItemListener;
+import com.lbins.myapp.adapter.*;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.*;
@@ -35,6 +36,11 @@ import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.DateUtil;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ContentListView;
+import com.lbins.myapp.widget.MenuPopMenu;
+import com.lbins.myapp.widget.SelectPhoPopWindow;
+import com.lbins.myapp.widget.TelPopWindow;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -45,6 +51,7 @@ import com.umeng.socialize.utils.ShareBoardlistener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,22 +61,26 @@ import java.util.Map;
  * Created by zhl on 2016/9/16.
  * 商品详情
  */
-public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnClickListener,OnClickContentItemListener,ContentListView.OnRefreshListener,
+public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMenu.OnItemClickListener,View.OnClickListener,OnClickContentItemListener,ContentListView.OnRefreshListener,
         ContentListView.OnLoadListener {
+
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+
     private ContentListView lstv;
     private ItemCommentAdapter adapterComment;
     private List<GoodsComment> listComments = new ArrayList<GoodsComment>();
     private boolean IS_REFRESH = true;
     private int pageIndex = 1;
 
-    private TextView title;
     private ImageView btn_favour;
     private ImageView btn_share;
     //header
     LinearLayout headLiner;
+    LinearLayout footLiner;
     //轮播广告
     private ViewPager viewpager;
-    private AdViewPagerAdapter adapterAd;
+    private GoodsDetailViewPagerAdapter adapterAd;
     private LinearLayout viewGroup;
     private ImageView dot, dots[];
     private Runnable runnable;
@@ -87,11 +98,13 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private TextView dp_count;
     private ImageView dp_star;
     private ImageView dp_tel;
+    private ImageView dianpu_cover;
     private TextView dp_address;
     private TextView money_one;
     private TextView money_two;
     private TextView btn_money;
     private TextView goods_count;
+    private TextView goods_title;
 
     private String emp_id_dianpu;//店铺用户ID
     private String goods_id;//商品ID
@@ -101,6 +114,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     private Button foot_cart;
     private Button foot_order;
     private TextView foot_goods;
+    private TextView btn_more_comment;
 
     private WebView webview;
 
@@ -128,20 +142,24 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     }
 
     private void initView() {
+        arrayMenu.add("收藏");
+        arrayMenu.add("分享");
+
         this.findViewById(R.id.back).setOnClickListener(this);
-        title = (TextView) this.findViewById(R.id.title);
-        title.setText("商品详情");
         btn_favour = (ImageView) this.findViewById(R.id.btn_favour);
         btn_share = (ImageView) this.findViewById(R.id.btn_share);
-        btn_favour.setOnClickListener(this);
+
+//        btn_favour.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         headLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detail_paopao_goods_header, null);
+        footLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detail_goods_footer, null);
         lstv = (ContentListView) this.findViewById(R.id.lstv);
 
         adapterComment = new ItemCommentAdapter(listComments, DetailPaopaoGoodsActivity.this);
 
         lstv.setAdapter(adapterComment);
         lstv.addHeaderView(headLiner);
+        lstv.addFooterView(footLiner);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
         adapterComment.setOnClickContentItemListener(this);
@@ -151,19 +169,22 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             }
         });
 
-
+        btn_more_comment = (TextView) footLiner.findViewById(R.id.btn_more_comment);
+        btn_more_comment.setOnClickListener(this);
         btn_sst = (TextView) headLiner.findViewById(R.id.btn_sst);
         btn_gqt = (TextView) headLiner.findViewById(R.id.btn_gqt);
         sale_num = (TextView) headLiner.findViewById(R.id.sale_num);
         rate_comment = (TextView) headLiner.findViewById(R.id.rate_comment);
         comment_count = (TextView) headLiner.findViewById(R.id.comment_count);
         goods_count = (TextView) headLiner.findViewById(R.id.goods_count);
+        goods_title = (TextView) headLiner.findViewById(R.id.goods_title);
 
         dp_title = (TextView) headLiner.findViewById(R.id.dp_title);
         dp_distance = (TextView) headLiner.findViewById(R.id.dp_distance);
         dp_count = (TextView) headLiner.findViewById(R.id.dp_count);
         dp_star = (ImageView) headLiner.findViewById(R.id.dp_star);
         dp_tel = (ImageView) headLiner.findViewById(R.id.dp_tel);
+        dianpu_cover = (ImageView) headLiner.findViewById(R.id.dianpu_cover);
         dp_tel.setOnClickListener(this);
         dp_address = (TextView) headLiner.findViewById(R.id.dp_address);
         money_one = (TextView) headLiner.findViewById(R.id.money_one);
@@ -216,12 +237,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 favour();
             }
             break;
-            case R.id.btn_share:
-            {
-                //分享
-                share();
-            }
-            break;
+
             case R.id.dp_tel:
             {
                 //电话点击事件
@@ -331,6 +347,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 }
                 break;
             case R.id.foot_goods:
+            case R.id.btn_share:
                 //进入购物车
                 Intent cartView = new Intent(DetailPaopaoGoodsActivity.this, MineCartActivity.class);
                 startActivity(cartView);
@@ -353,6 +370,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             }
             break;
             case R.id.comment_liner:
+            case R.id.btn_more_comment:
             {
                 //评论列表
                 Intent intent = new Intent(DetailPaopaoGoodsActivity.this, CommentListGoodsActivity.class);
@@ -364,37 +382,32 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         }
     }
 
+    private TelPopWindow telPopWindow;
 
     private void showMsgDialog() {
-        final Dialog picAddDialog = new Dialog(DetailPaopaoGoodsActivity.this, R.style.dialog);
-        View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
-        final TextView cont = (TextView) picAddInflate.findViewById(R.id.cont);
-        cont.setText("确定拨打电话？");
-        btn_sure.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
-                DetailPaopaoGoodsActivity.this.startActivity(intent);
-                picAddDialog.dismiss();
-            }
-        });
-
-        //举报取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
-        picAddDialog.setContentView(picAddInflate);
-        picAddDialog.show();
+        telPopWindow = new TelPopWindow(DetailPaopaoGoodsActivity.this, itemsOnClick);
+        //显示窗口
+        telPopWindow.showAtLocation(this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            telPopWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.btn_sure: {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
+                    DetailPaopaoGoodsActivity.this.startActivity(intent);
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    };
+
     private void initViewPager() {
-        adapterAd = new AdViewPagerAdapter(DetailPaopaoGoodsActivity.this);
+        adapterAd = new GoodsDetailViewPagerAdapter(DetailPaopaoGoodsActivity.this);
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
         viewpager = (ViewPager) this.findViewById(R.id.viewpager);
@@ -413,7 +426,6 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         };
         viewHandler.postDelayed(runnable, autoChangeTime);
     }
-
 
     // 初始化dot视图
     private void initDot() {
@@ -520,8 +532,6 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
     public void onClickContentItem(int position, int flag, Object object) {
 
     }
-
-
 
     //获得店铺详情
     void getDetailDianpu(){
@@ -668,6 +678,9 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
             }
             dp_address.setText(managerInfo.getCompany_address()==null?"":managerInfo.getCompany_address());
             dp_count.setText(managerInfo.getCompany_star()+"分");
+            if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_pic())){
+                imageLoader.displayImage(managerInfo.getCompany_pic(), dianpu_cover, MeirenmeibaAppApplication.options, animateFirstListener);
+            }
         }else {
             dp_title.setText("平台自营");
             dp_star.setVisibility(View.GONE);
@@ -712,7 +725,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         initViewPager();
         money_one.setText("￥" + paopaoGoods.getSellPrice());
 
-        money_two.setText("门市价：￥"+paopaoGoods.getMarketPrice());
+        money_two.setText("价格:￥"+paopaoGoods.getMarketPrice());
         money_two.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
 
 
@@ -722,9 +735,9 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         }else{
             btn_money.setText("￥"+paopaoGoods.getSellPrice() +"  限时抢购");
         }
-        sale_num.setText(paopaoGoods.getGoods_count_sale()==null?"0":paopaoGoods.getGoods_count_sale());
-        goods_count.setText(paopaoGoods.getCount()==null ? "" : paopaoGoods.getCount());
-
+        sale_num.setText("销量:"+(paopaoGoods.getGoods_count_sale()==null?"0":paopaoGoods.getGoods_count_sale()));
+        goods_count.setText("库存:"+(paopaoGoods.getCount()==null ? "" : paopaoGoods.getCount()));
+        goods_title.setText(paopaoGoods.getName()==null?"":paopaoGoods.getName());
         webview.loadUrl(InternetURL.appGoodsContent+"?id="+paopaoGoods.getId());
     }
 
@@ -751,6 +764,11 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                                     listComments.addAll(data.getData());
                                     lstv.setResultSize(data.getData().size());
                                     adapterComment.notifyDataSetChanged();
+                                    if(listComments != null && listComments.size() > 0){
+                                        btn_more_comment.setVisibility(View.VISIBLE);
+                                    }else{
+                                        btn_more_comment.setVisibility(View.GONE);
+                                    }
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -772,6 +790,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("goodsId", goods_id);
                 params.put("page", String.valueOf(pageIndex));
+                params.put("size", "2");
                 return params;
             }
 
@@ -796,10 +815,8 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
                         if (StringUtil.isJson(s)) {
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
-                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
                                 Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_success, Toast.LENGTH_SHORT).show();
                             }else if(data.getCode() == 2){
-                                btn_favour.setImageDrawable(getResources().getDrawable(R.drawable.top_star_p));
                                 Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_one, Toast.LENGTH_SHORT).show();
                             }else {
                                 Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.goods_favour_error_two, Toast.LENGTH_SHORT).show();
@@ -935,5 +952,36 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements View.OnCl
         };
         getRequestQueue().add(request);
     }
+
+
+    private MenuPopMenu menu;
+    List<String> arrayMenu = new ArrayList<>();
+
+
+    //弹出顶部主菜单
+    public void onTopMenuPopupButtonClick(View view) {
+        //顶部右侧按钮
+        menu = new MenuPopMenu(DetailPaopaoGoodsActivity.this, arrayMenu);
+        menu.setOnItemClickListener(this);
+        menu.showAsDropDown(view);
+    }
+    @Override
+    public void onItemClick(int index, String str) {
+        if("000".equals(str)){
+            switch (index) {
+                case 0:
+                {
+                    favour();
+                }
+                    break;
+                case 1:
+                {
+                    share();
+                }
+                    break;
+            }
+        }
+    }
+
 
 }

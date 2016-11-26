@@ -9,13 +9,13 @@
                     android:id="@+id/relate_one"
                     android:padding="3dp"
                     android:layout_height="wrap_content">
-        <ImageView android:layout_width="30dp"
+        <ImageView android:layout_width="28dp"
                    android:id="@+id/item_cart_select"
                    android:padding="3dp"
                    android:src="@drawable/cart_selected"
-                   android:layout_height="30dp"/>
+                   android:layout_height="28dp"/>
         <com.lbins.myapp.widget.CircleImageView
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:id="@+id/item_cart_cover"
                 android:layout_marginLeft="6dp"
                 android:layout_toRightOf="@+id/item_cart_select"
