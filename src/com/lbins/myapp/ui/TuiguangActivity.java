@@ -1,6 +1,7 @@
 package com.lbins.myapp.ui;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +17,12 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.utils.ShareBoardlistener;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by zhl on 2016/8/30.
@@ -34,6 +39,7 @@ public class TuiguangActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tuiguang_activity);
+        mShareListener = new CustomShareListener(this);
         urlErweima = InternetURL.APP_SHARE_REG_URL+"?emp_id=" +getGson().fromJson(getSp().getString("empId", ""), String.class);
         bitmap = CreateQRImageTest.createQRImage(urlErweima);
         initView();
@@ -53,6 +59,10 @@ public class TuiguangActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    private UMShareListener mShareListener;
+    private ShareAction mShareAction;
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -62,55 +72,127 @@ public class TuiguangActivity extends BaseActivity implements View.OnClickListen
             case R.id.right_btn:
             {
                 //分享
-                share();
+                String title =  getGson().fromJson(getSp().getString("empName", ""), String.class)+"邀请您注册美人美吧";
+                String content = " 美人美吧，源于一个美好的愿望，我们要将美送到千家万户，我们希望所有的女性都美丽，我们能让所有女性都变美丽，我们能让所有女性都美丽，美人！美吧！";
+                UMImage image = new UMImage(TuiguangActivity.this, getGson().fromJson(getSp().getString("empCover", ""), String.class));
+                     /*无自定按钮的分享面板*/
+                mShareAction = new ShareAction(TuiguangActivity.this).setDisplayList(
+                        SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
+                        SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                        SHARE_MEDIA.ALIPAY,
+                        SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL,
+                        SHARE_MEDIA.MORE)
+                        .withText(content)
+                        .withTitle(title)
+                        .withTargetUrl(urlErweima)
+                        .withMedia(image)
+                        .setCallback(mShareListener);
+
+                ShareBoardConfig config = new ShareBoardConfig();
+                config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
+                config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
+                mShareAction.open(config);
             }
                 break;
         }
     }
 
-    void share() {
-        new ShareAction(TuiguangActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                .setShareboardclickCallback(shareBoardlistener)
-                .open();
-    }
 
-    private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
+    private static class CustomShareListener implements UMShareListener {
 
-        @Override
-        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-            UMImage image = new UMImage(TuiguangActivity.this, getGson().fromJson(getSp().getString("empCover", ""), String.class));
-            String title =  getGson().fromJson(getSp().getString("empName", ""), String.class)+"邀请您注册美人美吧";
-            String content = " 美人美吧，源于一个美好的愿望，我们要将美送到千家万户，我们希望所有的女性都美丽，我们能让所有女性都变美丽，我们能让所有女性都美丽，美人！美吧！";
-            new ShareAction(TuiguangActivity.this).setPlatform(share_media).setCallback(umShareListener)
-                    .withText(content)
-                    .withTitle(title)
-                    .withTargetUrl(urlErweima)
-                    .withMedia(image)
-                    .share();
+        private WeakReference<DetailPaopaoGoodsActivity> mActivity;
+
+        private CustomShareListener(TuiguangActivity activity) {
+            mActivity = new WeakReference(activity);
         }
-    };
 
-    private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(TuiguangActivity.this, platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
+
+            if (platform.name().equals("WEIXIN_FAVORITE")) {
+                Toast.makeText(mActivity.get(), platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+            } else {
+                if (platform!= SHARE_MEDIA.MORE&&platform!=SHARE_MEDIA.SMS
+                        &&platform!=SHARE_MEDIA.EMAIL
+                        &&platform!=SHARE_MEDIA.FLICKR
+                        &&platform!=SHARE_MEDIA.FOURSQUARE
+                        &&platform!=SHARE_MEDIA.TUMBLR
+                        &&platform!=SHARE_MEDIA.POCKET
+                        &&platform!=SHARE_MEDIA.PINTEREST
+                        &&platform!=SHARE_MEDIA.LINKEDIN
+                        &&platform!=SHARE_MEDIA.INSTAGRAM
+                        &&platform!=SHARE_MEDIA.GOOGLEPLUS
+                        &&platform!=SHARE_MEDIA.YNOTE
+                        &&platform!=SHARE_MEDIA.EVERNOTE){
+                    Toast.makeText(mActivity.get(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+                }
+
+            }
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(TuiguangActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            if (platform!= SHARE_MEDIA.MORE&&platform!=SHARE_MEDIA.SMS
+                    &&platform!=SHARE_MEDIA.EMAIL
+                    &&platform!=SHARE_MEDIA.FLICKR
+                    &&platform!=SHARE_MEDIA.FOURSQUARE
+                    &&platform!=SHARE_MEDIA.TUMBLR
+                    &&platform!=SHARE_MEDIA.POCKET
+                    &&platform!=SHARE_MEDIA.PINTEREST
+                    &&platform!=SHARE_MEDIA.LINKEDIN
+                    &&platform!=SHARE_MEDIA.INSTAGRAM
+                    &&platform!=SHARE_MEDIA.GOOGLEPLUS
+                    &&platform!=SHARE_MEDIA.YNOTE
+                    &&platform!=SHARE_MEDIA.EVERNOTE){
+                Toast.makeText(mActivity.get(), platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+                if (t != null) {
+                    Log.d("throw", "throw:" + t.getMessage());
+                }
+            }
+
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(TuiguangActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
-    };
+    }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(TuiguangActivity.this).onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
+
+    /**
+     * 屏幕横竖屏切换时避免出现window leak的问题
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mShareAction.close();
+    }
+
+//    void share() {
+//        new ShareAction(TuiguangActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+//                .setShareboardclickCallback(shareBoardlistener)
+//                .open();
+//    }
+//
+//    private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
+//
+//        @Override
+//        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+//            UMImage image = new UMImage(TuiguangActivity.this, getGson().fromJson(getSp().getString("empCover", ""), String.class));
+//            String title =  getGson().fromJson(getSp().getString("empName", ""), String.class)+"邀请您注册美人美吧";
+//            String content = " 美人美吧，源于一个美好的愿望，我们要将美送到千家万户，我们希望所有的女性都美丽，我们能让所有女性都变美丽，我们能让所有女性都美丽，美人！美吧！";
+//            new ShareAction(TuiguangActivity.this).setPlatform(share_media).setCallback(umShareListener)
+//                    .withText(content)
+//                    .withTitle(title)
+//                    .withTargetUrl(urlErweima)
+//                    .withMedia(image)
+//                    .share();
+//        }
+//    };
+
 
 }

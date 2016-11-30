@@ -162,6 +162,7 @@
         <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.PaySelectLqChongzhiActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.SearchMoreTypeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.SelectLxClassActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".camera.MipcaActivityCapture" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
 
         <!--// *****************************高德地图sdk*******************************************-->

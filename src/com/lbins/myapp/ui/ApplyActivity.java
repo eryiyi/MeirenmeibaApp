@@ -1,6 +1,10 @@
 package com.lbins.myapp.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,6 +35,8 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
     private EditText shanghuming;//商户名
     private CheckBox checkbox;
 
+    private TextView lx_class;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +47,8 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         title = (TextView) this.findViewById(R.id.title);
         title.setText("申请入驻");
         shanghuming = (EditText) this.findViewById(R.id.shanghuming);
+        lx_class = (TextView) this.findViewById(R.id.lx_class);
+        lx_class.setOnClickListener(this);
         checkbox =  (CheckBox) this.findViewById(R.id.checkbox);
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("ruzhu_apply", ""), String.class))){
             shanghuming.setText(getGson().fromJson(getSp().getString("ruzhu_apply", ""), String.class));
@@ -53,6 +61,13 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
             case R.id.back:
                 finish();
                 break;
+            case R.id.lx_class:
+            {
+                //店铺分类
+                Intent intent = new Intent(ApplyActivity.this, SelectLxClassActivity.class);
+                startActivityForResult(intent, 1000);
+            }
+                break;
         }
     }
 
@@ -61,13 +76,41 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
             showMsg(ApplyActivity.this, "请输入你的店铺名称！");
             return;
         }
-
+        if(StringUtil.isNullOrEmpty(lx_class_id)){
+            showMsg(ApplyActivity.this, "请选择店铺分类！");
+            return;
+        }
         progressDialog = new CustomProgressDialog(ApplyActivity.this, "正在加载中",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         upDianpu();
     }
+
+    private String lx_class_id;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            // 根据上面发送过去的请求吗来区别
+            switch (resultCode) {
+                case 1001:
+                {
+                    lx_class_id = data.getStringExtra("cloud_caoping_guige_id");
+                    String cloud_caoping_guige_cont = data.getStringExtra("cloud_caoping_guige_cont");
+                    if(!StringUtil.isNullOrEmpty(cloud_caoping_guige_cont)){
+                        lx_class.setText(cloud_caoping_guige_cont);
+                    }
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
 
     public void upDianpu(){
         StringRequest request = new StringRequest(
@@ -110,6 +153,7 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("company_name", shanghuming.getText().toString());
+                params.put("lx_class_id", lx_class_id);
                 params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
                 if(checkbox.isChecked() && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
                     params.put("lat_company", MeirenmeibaAppApplication.latStr);

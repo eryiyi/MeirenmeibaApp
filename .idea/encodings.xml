@@ -7,13 +7,8 @@
     <file url="file://$PROJECT_DIR$/libs/MobTools.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Msc.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQZone_3.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_QQ_Simplify.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_Sina_Simplify.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeChat_Simplify.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_1.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_2.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_Full.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_WeiXin_Full.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_alipay.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/SocialSDK_douban.jar" charset="UTF-8" />
@@ -37,14 +32,11 @@
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/libammsdk.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/libammsdk.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/libapshare.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/open_sdk_r5756.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/pushservice-5.2.0.12.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/umeng-analytics-v6.0.4.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/umeng_social_sdk.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/utdid4all-1.0.4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/custom_dialog_frame.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_bottom.xml" charset="UTF-8" />
@@ -152,7 +144,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_action_back_normal.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_action_back_selected.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_alipay.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_alipay.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_button.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_normal.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_at_selected.png" charset="UTF-8" />
@@ -259,12 +250,10 @@
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tx_off.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_tx_on.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wechat.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wechat.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wechat_gray.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_whatsapp.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_whatsapp_gray.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_window_shadow_pad.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wxcircle.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wxcircle.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_wxcircle_gray.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/umeng_socialize_x_button.png" charset="UTF-8" />
@@ -313,6 +302,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/item_album_chance.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_cancel_pop_window.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_cart_adapter.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_cp_guige.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_dialog_camera.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_favour.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_goods_comment.xml" charset="UTF-8" />
@@ -415,6 +405,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemIndexGoodsGridviewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemKefuTelAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemLxClassAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineAddressAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemMineOrderAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
@@ -455,6 +446,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/DianPuFavour.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/KefuTel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/LxClass.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Notice.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Order.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/OrderVo.java" charset="UTF-8" />

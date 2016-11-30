@@ -214,4 +214,8 @@ public class InternetURL {
     //获得热门分类  is_hot = 1
     public static final String GET_GOODS_SMALL_TYPE_URL = INTERNAL + "appGetGoodsTypeSmall.do";
 
+
+    //入驻选择商家要入住的分类
+    public static final String appGetLxClass = INTERNAL + "appGetLxClass.do";
+
 }

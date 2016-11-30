@@ -12,6 +12,7 @@
 
     <LinearLayout android:layout_width="match_parent"
                   android:padding="12dp"
+                  android:orientation="vertical"
                   android:layout_height="wrap_content">
         <EditText android:layout_width="match_parent"
                   android:hint="输入您的店铺名称"
@@ -24,6 +25,17 @@
                   android:textSize="15sp"
                   android:layout_toRightOf="@+id/mobile_msg"
                   android:layout_height="match_parent"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_marginTop="8dp"
+                  android:id="@+id/lx_class"
+                  android:textColor="@color/text_color"
+                  android:text="点此选择您的店铺分类"
+                  android:background="@drawable/btn_white_shape"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:padding="15dp"
+                  android:layout_height="wrap_content"/>
+
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="horizontal"

@@ -88,6 +88,7 @@ public class ItemTuijianDianpusAdapter extends BaseAdapter {
                 holder.distance_km.setText(distance + "km");
             }
             int start_company = Integer.parseInt(cell.getCompany_star()==null?"0":cell.getCompany_star());
+            holder.txt_count.setText(start_company+"分");
             if(start_company >=0 && start_company<0.5){
                 holder.icon_star.setImageDrawable(mContect.getResources().getDrawable(R.drawable.start_half));
             }
