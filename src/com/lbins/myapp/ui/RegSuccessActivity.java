@@ -29,8 +29,7 @@ import java.util.Map;
 public class RegSuccessActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
     private TextView zhanghao;//成功账号
-    private EditText pwr_one;
-    private EditText pwr_two;
+
     private Member member;//用户 注册的新用户
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,7 @@ public class RegSuccessActivity extends BaseActivity implements View.OnClickList
         title = (TextView) this.findViewById(R.id.title);
         title.setText("注册");
         zhanghao = (TextView) this.findViewById(R.id.zhanghao);
-        pwr_one = (EditText) this.findViewById(R.id.pwr_one);
-        pwr_two = (EditText) this.findViewById(R.id.pwr_two);
+
         if(member != null){
             zhanghao.setText(member.getEmp_number());
         }
@@ -59,24 +57,10 @@ public class RegSuccessActivity extends BaseActivity implements View.OnClickList
     }
 
     public void pwrAction(View view){
-        if(StringUtil.isNullOrEmpty(pwr_one.getText().toString())){
-            showMsg(RegSuccessActivity.this, "请输入6到18位密码");
-            return;
-        }
-        if(pwr_one.getText().toString().length() > 18 || pwr_one.getText().toString().length() < 6){
-            showMsg(RegSuccessActivity.this, "请输入6到18位密码");
-            return;
-        }
-        if(StringUtil.isNullOrEmpty(pwr_two.getText().toString())){
-            showMsg(RegSuccessActivity.this, "请输入确认密码");
-            return;
-        }
-        if(!pwr_one.getText().toString().equals(pwr_two.getText().toString())){
-            showMsg(RegSuccessActivity.this, "两次输入密码不一致");
-            return;
-        }
-
-        updatePwr();
+//        updatePwr();
+        Intent intent = new Intent(RegSuccessActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void updatePwr() {
@@ -123,7 +107,7 @@ public class RegSuccessActivity extends BaseActivity implements View.OnClickList
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("empId", member.getEmpId());
-                params.put("rePass",pwr_one.getText().toString());
+//                params.put("rePass",pwr_one.getText().toString());
                 return params;
             }
 

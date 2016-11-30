@@ -777,7 +777,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                                 if(i<4){
                                                     listsAdsTwo.add(listAds.get(i));
                                                 }
-                                                if(i>4){
+                                                if(i>=4){
                                                     listsAdsThree.add(listAds.get(i));
                                                 }
                                             }

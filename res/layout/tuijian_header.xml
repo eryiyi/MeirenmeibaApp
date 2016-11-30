@@ -62,18 +62,17 @@
             android:horizontalSpacing="1dip"
             android:numColumns="2"
             android:verticalSpacing="1dip"
-            android:padding="4dip"/>
+            android:padding="1dip"/>
 
     <com.lbins.myapp.widget.ClassifyGridview
             android:id="@+id/gridv_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:horizontalSpacing="1dip"
             android:numColumns="2"
             android:verticalSpacing="1dip"
-            android:padding="4dip"/>
+            android:padding="1dip"/>
 
 
 </LinearLayout>

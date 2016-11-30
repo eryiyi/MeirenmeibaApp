@@ -109,9 +109,6 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-
-
-
     public void upDianpu(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,

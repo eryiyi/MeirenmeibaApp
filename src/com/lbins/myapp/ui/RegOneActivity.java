@@ -57,7 +57,8 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
     //短信读取
     private SMSBroadcastReceiver mSMSBroadcastReceiver;
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
-
+    private EditText pwr_one;
+    private EditText pwr_two;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +115,8 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         emp_up_mobile = (EditText) this.findViewById(R.id.emp_up_mobile);
         card = (EditText) this.findViewById(R.id.card);
         this.findViewById(R.id.liner_one).setOnClickListener(this);
+        pwr_one = (EditText) this.findViewById(R.id.pwr_one);
+        pwr_two = (EditText) this.findViewById(R.id.pwr_two);
     }
 
     @Override
@@ -152,6 +155,22 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
             showMsg(RegOneActivity.this, "请输入验证码！");
             return;
         }
+        if(StringUtil.isNullOrEmpty(pwr_one.getText().toString())){
+            showMsg(RegOneActivity.this, "请输入6到18位密码");
+            return;
+        }
+        if(pwr_one.getText().toString().length() > 18 || pwr_one.getText().toString().length() < 6){
+            showMsg(RegOneActivity.this, "请输入6到18位密码");
+            return;
+        }
+        if(StringUtil.isNullOrEmpty(pwr_two.getText().toString())){
+            showMsg(RegOneActivity.this, "请输入确认密码");
+            return;
+        }
+        if(!pwr_one.getText().toString().equals(pwr_two.getText().toString())){
+            showMsg(RegOneActivity.this, "两次输入密码不一致");
+            return;
+        }
         progressDialog = new CustomProgressDialog(RegOneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
@@ -175,6 +194,8 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
                                     MemberData data = getGson().fromJson(s, MemberData.class);
                                     Member member = data.getData();
                                     if(member != null){
+                                        save("empMobile", mobile.getText().toString());
+                                        save("empPass", pwr_one.getText().toString());
                                         Intent intent = new Intent(RegOneActivity.this, RegSuccessActivity.class);
                                         intent.putExtra("member", member);
                                         startActivity(intent);
@@ -224,6 +245,7 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
                 }else{
                     params.put("emp_up_mobile", "10000000000");
                 }
+                params.put("empPass",pwr_one.getText().toString());
                 return params;
             }
 

@@ -12,7 +12,7 @@ import com.lbins.myapp.base.BaseActivity;
  * 定向卡详情
  */
 public class DxkDetailActivity extends BaseActivity implements View.OnClickListener {
-    private TextView title;
+//    private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +21,22 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        this.findViewById(R.id.back).setOnClickListener(this);
-        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
-        title = (TextView) this.findViewById(R.id.title);
-        title.setText("定向卡详情");
+//        this.findViewById(R.id.back).setOnClickListener(this);
+//        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
+//        title = (TextView) this.findViewById(R.id.title);
+//        title.setText("定向卡详情");
+        this.findViewById(R.id.btn_dxk).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.back:
-                finish();
+            case R.id.btn_dxk:
+//                finish();
+            {
+                Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
+                startActivity(intent);
+            }
                 break;
         }
     }
