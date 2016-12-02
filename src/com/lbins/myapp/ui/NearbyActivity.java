@@ -1,7 +1,10 @@
 package com.lbins.myapp.ui;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
@@ -43,11 +46,13 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     private static boolean IS_REFRESH = true;
     private EditText keywords;
     private ImageView search_null;
+    private String lx_class_id="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_activity);
+        lx_class_id = getIntent().getExtras().getString("lx_class_id");
         initView();
 
         progressDialog = new CustomProgressDialog(NearbyActivity.this, "正在加载中",R.anim.custom_dialog_frame);
@@ -192,6 +197,9 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 if(!StringUtil.isNullOrEmpty(keywords.getText().toString())){
                     params.put("cont", keywords.getText().toString());
                 }
+                if(!StringUtil.isNullOrEmpty(lx_class_id)){
+                    params.put("lx_class_id", lx_class_id);
+                }
                 return params;
             }
 
@@ -213,4 +221,32 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
+
+    public void scanAction(View view){
+
+        Intent intent = new Intent(NearbyActivity.this, SelectMoreClassTypeActivity.class);
+        startActivityForResult(intent, 1000);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            // 根据上面发送过去的请求吗来区别
+            switch (resultCode) {
+                case 1001:
+                {
+                    lx_class_id = data.getStringExtra("cloud_caoping_guige_id");
+                    String cloud_caoping_guige_cont = data.getStringExtra("cloud_caoping_guige_cont");
+                    if(!StringUtil.isNullOrEmpty(cloud_caoping_guige_cont)){
+//                        guige.setText(cloud_caoping_guige_cont);
+                    }
+                    initData();
+                }
+                break;
+            }
+        }
+    }
+
 }

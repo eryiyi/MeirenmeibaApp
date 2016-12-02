@@ -77,7 +77,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private List<LxAd> listsAd = new ArrayList<LxAd>();
 
     //分类
-    private IndexTypeAdapter adaptertype;
+    private GoodsTypeIndexAdapter adaptertype;
     ClassifyGridview gridv_one;//商品分类
 
     //商品分类
@@ -147,7 +147,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     //商城分类
     private void initViewType() {
         gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
-        adaptertype = new IndexTypeAdapter(listGoodsType, getActivity());
+        adaptertype = new GoodsTypeIndexAdapter(listGoodsType, getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -157,7 +157,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                     if(goodsType != null){
                         if("0".equals(goodsType.getTypeId())){
                             //更多
-                            Intent intent = new Intent(getActivity(), MoreGoodsTypeActivity.class);
+                            Intent intent = new Intent(getActivity(), SearchMoreTypeActivity.class);
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);

@@ -116,6 +116,7 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
                     intent.putExtra("listsSelect", listsSelect);
                     intent.putExtra("shoppingAddress", shoppingAddress);
                     startActivity(intent);
+                    finish();
                 }else{
                     order_sure.setClickable(true);
                     Toast.makeText(OrderMakeActivity.this, R.string.no_address_error, Toast.LENGTH_SHORT).show();

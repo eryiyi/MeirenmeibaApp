@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxClass;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -19,9 +20,9 @@ import java.util.List;
 /**
  * 市场分类
  */
-public class IndexTypeAdapter extends BaseAdapter {
+public class GoodsTypeIndexAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<LxClass> goodstypes;
+    private List<GoodsType> goodstypes;
     private Context mContext;
 
     private OnClickContentItemListener onClickContentItemListener;
@@ -33,7 +34,7 @@ public class IndexTypeAdapter extends BaseAdapter {
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
 
-    public IndexTypeAdapter(List<LxClass> goodstypes, Context mContext) {
+    public GoodsTypeIndexAdapter(List<GoodsType> goodstypes, Context mContext) {
         this.goodstypes = goodstypes;
         this.mContext = mContext;
     }
@@ -64,11 +65,17 @@ public class IndexTypeAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final LxClass cell = goodstypes.get(position);//获得元素
+        final GoodsType cell = goodstypes.get(position);//获得元素
         if (cell != null) {
-            imageLoader.displayImage(cell.getLx_class_cover(), holder.goodstype_item_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-            holder.goodstype_item_title.setText(cell.getLx_class_name());
+            if("0".equals(cell.getTypeId())){
+                holder.goodstype_item_cover.setImageDrawable(mContext.getResources().getDrawable(R.drawable.more_type));
+                holder.goodstype_item_title.setText("更多");
+            }else {
+                imageLoader.displayImage(cell.getTypeCover(), holder.goodstype_item_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+                holder.goodstype_item_title.setText(cell.getTypeName());
+            }
         }
+
         return convertView;
     }
 

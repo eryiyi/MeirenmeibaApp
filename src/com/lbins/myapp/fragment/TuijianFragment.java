@@ -31,9 +31,11 @@ import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.data.LxAdData;
+import com.lbins.myapp.data.LxClassData;
 import com.lbins.myapp.data.PaihangObjData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.entity.LxClass;
 import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
@@ -95,6 +97,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
     //商品分类
     public static List<GoodsType> listGoodsType = new ArrayList<GoodsType>();
+    private List<LxClass>  listClasses = new ArrayList<LxClass>();
+
 
     private ImageView big_middle_ad;//中部大广告位
 
@@ -124,6 +128,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
         //查询商品分类
         getGoodsType();
+        getLxClass();
 
         //定位地址
         initLocation();
@@ -214,23 +219,21 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     //商城分类
     private void initViewType() {
         gridv_one = (ClassifyGridview) headLiner.findViewById(R.id.gridv_one);
-        adaptertype = new IndexTypeAdapter(listGoodsType,getActivity());
+        adaptertype = new IndexTypeAdapter(listClasses,getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(listGoodsType.size()>(position)){
-                    GoodsType goodsType = listGoodsType.get(position);
+                if(listClasses.size()>(position)){
+                    LxClass goodsType = listClasses.get(position);
                     if(goodsType != null){
-                        if("0".equals(goodsType.getTypeId())){
+                        if("更多".equals(goodsType.getLx_class_name())){
                             //更多
-                            Intent intent = new Intent(getActivity(), SearchMoreTypeActivity.class);
+                            Intent intent = new Intent(getActivity(), MoreClassTypeActivity.class);
                             startActivity(intent);
                         }else{
-                            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-                            intent.putExtra("typeId", goodsType.getTypeId());
-                            intent.putExtra("typeName", goodsType.getTypeName());
-                            intent.putExtra("keyContent", "");
+                            Intent intent = new Intent(getActivity(), NearbyActivity.class);
+                            intent.putExtra("lx_class_id", goodsType.getLx_class_id());
                             startActivity(intent);
                         }
                     }
@@ -550,21 +553,21 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                 int code1 = jo.getInt("code");
                                 if (code1 == 200) {
                                     GoodsTypeData data = getGson().fromJson(s, GoodsTypeData.class);
-                                    listGoodsType.clear();
                                     List<GoodsType> listsgoodstype = new ArrayList<GoodsType>();
                                     listsgoodstype.clear();
                                     listsgoodstype.addAll(data.getData());
-                                    if(listsgoodstype != null){
-                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
-                                            listGoodsType.add(listsgoodstype.get(i));
-                                        }
-                                    }
-                                    GoodsType goodsType = new GoodsType();
-                                    goodsType.setTypeId("0");
-                                    goodsType.setTypeName("更多");
-                                    goodsType.setTypeIsUse("0");
-                                    listGoodsType.add(goodsType);
-                                    adaptertype.notifyDataSetChanged();
+                                    listGoodsType.addAll(listsgoodstype);
+//                                    if(listsgoodstype != null){
+//                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
+//                                            listGoodsType.add(listsgoodstype.get(i));
+//                                        }
+//                                    }
+//                                    GoodsType goodsType = new GoodsType();
+//                                    goodsType.setTypeId("0");
+//                                    goodsType.setTypeName("更多");
+//                                    goodsType.setTypeIsUse("0");
+//                                    listGoodsType.add(goodsType);
+//                                    adaptertype.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
@@ -825,4 +828,65 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         };
         getRequestQueue().add(request);
     }
+
+
+
+    private void getLxClass() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.appGetLxClass,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                int code1 = jo.getInt("code");
+                                if (code1 == 200) {
+                                    LxClassData data = getGson().fromJson(s, LxClassData.class);
+                                    listClasses.clear();
+                                    listClasses.addAll(data.getData());
+                                    adaptertype.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("f_lx_class_id", "0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 }
