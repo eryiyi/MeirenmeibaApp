@@ -127,6 +127,7 @@ public class MoreClassTypeActivity extends BaseActivity implements View.OnClickL
                             Intent intent = new Intent(MoreClassTypeActivity.this, NearbyActivity.class);
                             intent.putExtra("lx_class_id", goodsType.getLx_class_id());
                             startActivity(intent);
+                            finish();
                         }
                     }
                 }
