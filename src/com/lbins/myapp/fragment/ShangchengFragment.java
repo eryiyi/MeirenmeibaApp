@@ -222,22 +222,8 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     PaopaoGoodsData data = getGson().fromJson(s, PaopaoGoodsData.class);
-//                                    if (IS_REFRESH) {
-                                        listsgoods.clear();
-//                                    }
+                                    listsgoods.clear();
                                     listsgoods.addAll(data.getData());
-//                                    if (data != null && data.getData() != null) {
-//                                        for (RecordMsg recordMsg : data.getData()) {
-//                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-//                                            if (recordMsgLocal != null) {
-//                                                //已经存在了 不需要插入了
-//                                            } else {
-//                                                DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
-//                                            }
-//
-//                                        }
-//                                    }
-//                                    lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();

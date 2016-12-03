@@ -64,7 +64,9 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
             case R.id.lx_class:
             {
                 //店铺分类
-                Intent intent = new Intent(ApplyActivity.this, SelectLxClassActivity.class);
+//                Intent intent = new Intent(ApplyActivity.this, SelectLxClassActivity.class);
+//                startActivityForResult(intent, 1000);
+                Intent intent = new Intent(ApplyActivity.this, SearchMoreClassActivitySelect.class);
                 startActivityForResult(intent, 1000);
             }
                 break;
@@ -91,6 +93,22 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == 1000){
+//            // 根据上面发送过去的请求吗来区别
+//            switch (resultCode) {
+//                case 1001:
+//                {
+//                    lx_class_id = data.getStringExtra("cloud_caoping_guige_id");
+//                    String cloud_caoping_guige_cont = data.getStringExtra("cloud_caoping_guige_cont");
+//                    if(!StringUtil.isNullOrEmpty(cloud_caoping_guige_cont)){
+//                        lx_class.setText(cloud_caoping_guige_cont);
+//                    }
+//                }
+//                break;
+//                default:
+//                    break;
+//            }
+//        }
         if(requestCode == 1000){
             // 根据上面发送过去的请求吗来区别
             switch (resultCode) {
@@ -103,10 +121,9 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                     }
                 }
                 break;
-                default:
-                    break;
             }
         }
+
     }
 
     public void upDianpu(){

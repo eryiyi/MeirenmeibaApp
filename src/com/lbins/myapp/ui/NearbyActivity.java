@@ -48,11 +48,21 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     private ImageView search_null;
     private String lx_class_id="";
 
+    private TextView btn_all;
+    private TextView btn_nearby;
+    private TextView btn_paixu;
+    private TextView btn_val;
+
+    private String typeName = "";
+
+    private TextView btn_scan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_activity);
         lx_class_id = getIntent().getExtras().getString("lx_class_id");
+        typeName = getIntent().getExtras().getString("typeName");
         initView();
 
         progressDialog = new CustomProgressDialog(NearbyActivity.this, "正在加载中",R.anim.custom_dialog_frame);
@@ -64,6 +74,26 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
+        btn_scan = (TextView) this.findViewById(R.id.btn_scan);
+        btn_scan.setOnClickListener(this);
+        btn_all = (TextView) this.findViewById(R.id.btn_all);
+        btn_nearby = (TextView) this.findViewById(R.id.btn_nearby);
+        btn_paixu = (TextView) this.findViewById(R.id.btn_paixu);
+        btn_val = (TextView) this.findViewById(R.id.btn_val);
+        if(!StringUtil.isNullOrEmpty(typeName)){
+            btn_all.setText(typeName);
+        }
+        btn_all.setTextColor(getResources().getColor(R.color.red));
+        btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+        btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+        btn_val.setTextColor(getResources().getColor(R.color.text_color));
+
+
+        btn_all.setOnClickListener(this);
+        btn_nearby.setOnClickListener(this);
+        btn_paixu.setOnClickListener(this);
+        btn_val.setOnClickListener(this);
+
         search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
         keywords = (EditText) this.findViewById(R.id.keywords);
@@ -83,7 +113,6 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-//                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                 initData();
             }
 
@@ -187,18 +216,34 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
-                    params.put("lat_company", MeirenmeibaAppApplication.latStr);
-                }
-                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
-                    params.put("lng_company", MeirenmeibaAppApplication.lngStr);
-                }
+//                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
+//                    params.put("lat_company", MeirenmeibaAppApplication.latStr);
+//                }
+//                if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
+//                    params.put("lng_company", MeirenmeibaAppApplication.lngStr);
+//                }
                 params.put("page", String.valueOf(pageIndex));
                 if(!StringUtil.isNullOrEmpty(keywords.getText().toString())){
                     params.put("cont", keywords.getText().toString());
                 }
                 if(!StringUtil.isNullOrEmpty(lx_class_id)){
                     params.put("lx_class_id", lx_class_id);
+                }
+                if(tmpNearby == 1){
+                    if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
+                        params.put("lat_company", MeirenmeibaAppApplication.latStr);
+                    }
+                    if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
+                        params.put("lng_company", MeirenmeibaAppApplication.lngStr);
+                    }
+                }
+
+                if(tmpNearby == 2){
+                    params.put("is_time", "1");
+                }
+
+                if(tmpNearby == 3){
+                    params.put("is_count", "1");
                 }
                 return params;
             }
@@ -213,20 +258,70 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         getRequestQueue().add(request);
     }
 
+    private int tmpNearby = 0;
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btn_all:
+            {
+                //全部点击
+                btn_all.setTextColor(getResources().getColor(R.color.red));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 0;
+                Intent intent = new Intent(NearbyActivity.this, SearchMoreClassActivitySelect.class);
+                startActivityForResult(intent, 1000);
+            }
+            break;
+            case R.id.btn_nearby:
+            {
+                //附近点击
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.red));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 1;
+                initData();
+            }
+            break;
+            case R.id.btn_paixu:
+            {
+                //最新排序
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.red));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.text_color));
+                tmpNearby = 2;
+                initData();
+            }
+            break;
+            case R.id.btn_val:
+            {
+                //销量
+                btn_all.setTextColor(getResources().getColor(R.color.text_color));
+                btn_paixu.setTextColor(getResources().getColor(R.color.text_color));
+                btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
+                btn_val.setTextColor(getResources().getColor(R.color.red));
+                tmpNearby = 3;
+                initData();
+            }
+            break;
             case R.id.back:
                 finish();
                 break;
+            case R.id.btn_scan:
+            {
+                keywords.setText("");
+                tmpNearby = 0;
+                lx_class_id = "";
+                pageIndex = 1;
+                IS_REFRESH = true;
+                btn_all.setText("全部");
+                initData();
+            }
+                break;
         }
-    }
-
-    public void scanAction(View view){
-
-        Intent intent = new Intent(NearbyActivity.this, SelectMoreClassTypeActivity.class);
-        startActivityForResult(intent, 1000);
-
     }
 
     @Override
@@ -240,7 +335,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                     lx_class_id = data.getStringExtra("cloud_caoping_guige_id");
                     String cloud_caoping_guige_cont = data.getStringExtra("cloud_caoping_guige_cont");
                     if(!StringUtil.isNullOrEmpty(cloud_caoping_guige_cont)){
-//                        guige.setText(cloud_caoping_guige_cont);
+                        btn_all.setText(cloud_caoping_guige_cont);
                     }
                     initData();
                 }

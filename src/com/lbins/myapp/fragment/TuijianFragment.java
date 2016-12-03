@@ -228,8 +228,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                     LxClass goodsType = listClasses.get(position);
                     if(goodsType != null){
                         if("更多".equals(goodsType.getLx_class_name())){
-                            //更多
-                            Intent intent = new Intent(getActivity(), MoreClassTypeActivity.class);
+                            Intent intent = new Intent(getActivity(), SearchMoreClassActivity.class);
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(getActivity(), NearbyActivity.class);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +18,17 @@ import com.google.gson.Gson;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
+import com.lbins.myapp.adapter.GridClassViewAdapter;
 import com.lbins.myapp.adapter.GridViewAdapter;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
-import com.lbins.myapp.data.MinePackageData;
-import com.lbins.myapp.data.PaopaoGoodsData;
+import com.lbins.myapp.data.LxClassData;
 import com.lbins.myapp.entity.GoodsType;
-import com.lbins.myapp.entity.MinePackage;
+import com.lbins.myapp.entity.LxClass;
+import com.lbins.myapp.ui.NearbyActivity;
 import com.lbins.myapp.ui.SearchGoodsByTypeActivity;
+import com.lbins.myapp.ui.SearchMoreClassActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -38,12 +39,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProTypeFragment extends BaseFragment {
+public class ProClassFragment extends BaseFragment {
 
-	private ArrayList<GoodsType> list = new ArrayList<GoodsType>();
+	private ArrayList<LxClass> list = new ArrayList<LxClass>();
 	private GridView gridView;
-	private GridViewAdapter adapter;
-	private GoodsType goodsType;
+	private GridClassViewAdapter adapter;
+	private LxClass goodsType;
 	private TextView toptype;
 	private ImageView icon;
 
@@ -57,15 +58,15 @@ public class ProTypeFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.fragment_pro_type, null);
 		gridView = (GridView) view.findViewById(R.id.listView);
 		int index = getArguments().getInt("index");
-		goodsType = TuijianFragment.listGoodsType.get(index);
+		goodsType = SearchMoreClassActivity.list.get(index);
 		toptype = (TextView) view.findViewById(R.id.toptype);
 		icon = (ImageView) view.findViewById(R.id.icon);
 		if(goodsType != null){
-			toptype.setText(goodsType.getTypeName());
-			imageLoader.displayImage(goodsType.getTypeCover(), icon, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+			toptype.setText(goodsType.getLx_class_name());
+			imageLoader.displayImage(goodsType.getLx_class_cover(), icon, MeirenmeibaAppApplication.txOptions, animateFirstListener);
 		}
 		GetTypeList();
-		adapter = new GridViewAdapter(getActivity(), list);
+		adapter = new GridClassViewAdapter(getActivity(), list);
 		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -73,12 +74,10 @@ public class ProTypeFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				if(list !=null){
 					if(list.size() > i){
-						GoodsType goodsType1 = list.get(i);
+						LxClass goodsType1 = list.get(i);
 						if(goodsType1 != null){
-							Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-							intent.putExtra("typeId", goodsType1.getTypeId());
-							intent.putExtra("typeName", goodsType1.getTypeName());
-							intent.putExtra("keyContent", "");
+							Intent intent = new Intent(getActivity(), NearbyActivity.class);
+							intent.putExtra("lx_class_id", goodsType1.getLx_class_id());
 							startActivity(intent);
 						}
 					}
@@ -93,7 +92,7 @@ public class ProTypeFragment extends BaseFragment {
 	private void GetTypeList() {
 			StringRequest request = new StringRequest(
 					Request.Method.POST,
-					InternetURL.GET_GOODS_SMALL_TYPE_URL,
+					InternetURL.appGetLxClass,
 					new Response.Listener<String>() {
 						@Override
 						public void onResponse(String s) {
@@ -105,7 +104,7 @@ public class ProTypeFragment extends BaseFragment {
 										list.clear();
 										Gson gson = getGson();
 										if(gson != null){
-											GoodsTypeData data = gson.fromJson(s, GoodsTypeData.class);
+											LxClassData data = gson.fromJson(s, LxClassData.class);
 											list.addAll(data.getData());
 											adapter.notifyDataSetChanged();
 										}
@@ -130,9 +129,7 @@ public class ProTypeFragment extends BaseFragment {
 				@Override
 				protected Map<String, String> getParams() throws AuthFailureError {
 					Map<String, String> params = new HashMap<String, String>();
-					params.put("is_hot", "");
-					params.put("type_isuse", "0");
-					params.put("type_id", goodsType.getTypeId());
+					params.put("f_lx_class_id", goodsType.getLx_class_id());
 					return params;
 				}
 

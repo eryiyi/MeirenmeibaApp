@@ -20,7 +20,6 @@
                   android:textColor="@color/white"
                   android:layout_centerVertical="true"
                   android:layout_height="40dp"/>
-
         <EditText android:layout_width="match_parent"
                   android:layout_marginTop="8dp"
                   android:layout_marginRight="50dp"
@@ -37,23 +36,67 @@
                   android:paddingRight="12dp"
                   android:textColor="@color/text_color_two"
                   android:layout_height="match_parent"/>
-        <ImageView android:layout_width="wrap_content"
-                   android:src="@drawable/foot_shangcheng"
+        <TextView android:layout_width="wrap_content"
                    android:padding="12dp"
-                   android:onClick="scanAction"
+                   android:textColor="@color/white"
+                   android:text="清空"
                    android:id="@+id/btn_scan"
                    android:layout_centerVertical="true"
                    android:layout_alignParentRight="true"
                    android:layout_height="wrap_content"/>
     </RelativeLayout>
-
-
+    <LinearLayout android:layout_width="match_parent"
+                  android:padding="8dp"
+                  android:background="@color/white"
+                  android:orientation="horizontal"
+                  android:layout_height="50dp">
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="全部"
+                  android:id="@+id/btn_all"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+        <View android:layout_width="0.1dp"
+              android:background="@color/gray"
+              android:layout_height="30dp"></View>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="附近"
+                  android:id="@+id/btn_nearby"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+        <View android:layout_width="0.1dp"
+              android:background="@color/gray"
+              android:layout_height="30dp"></View>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="最新"
+                  android:id="@+id/btn_paixu"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+        <View android:layout_width="0.1dp"
+              android:background="@color/gray"
+              android:layout_height="30dp"></View>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="销量"
+                  android:id="@+id/btn_val"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+    </LinearLayout>
     <RelativeLayout android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_height="wrap_content">
-
         <ImageView android:layout_width="match_parent"
                    android:src="@drawable/no_pic"
                    android:id="@+id/search_null"
@@ -73,6 +116,4 @@
                 android:headerDividersEnabled="false"
                 android:smoothScrollbar="true"/>
     </RelativeLayout>
-
-
 </LinearLayout>

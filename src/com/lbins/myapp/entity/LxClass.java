@@ -10,6 +10,15 @@ public class LxClass {
     private String lx_class_cover;
     private String top_number;
     private String is_del;
+    private String f_lx_class_id;
+
+    public String getF_lx_class_id() {
+        return f_lx_class_id;
+    }
+
+    public void setF_lx_class_id(String f_lx_class_id) {
+        this.f_lx_class_id = f_lx_class_id;
+    }
 
     public String getIs_del() {
         return is_del;

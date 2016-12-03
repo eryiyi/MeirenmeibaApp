@@ -143,9 +143,6 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 }
             }
         });
-
-
-
     }
 
      private TextWatcher watcher = new TextWatcher() {

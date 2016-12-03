@@ -1,29 +1,36 @@
 package com.lbins.myapp.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.GoodsTypeData;
-import com.lbins.myapp.entity.GoodsType;
-import com.lbins.myapp.fragment.ProTypeFragment;
-import com.lbins.myapp.fragment.TuijianFragment;
+import com.lbins.myapp.data.LxClassData;
+import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.entity.LxClass;
+import com.lbins.myapp.fragment.ProClassFragment;
+import com.lbins.myapp.fragment.ProClassFragmentSelect;
 import com.lbins.myapp.util.StringUtil;
+import com.lbins.myapp.widget.ViewPageItemView;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -34,10 +41,10 @@ import java.util.Map;
 /**
  * Created by zhl on 2016/8/30.
  */
-public class SearchMoreTypeActivity extends BaseActivity implements View.OnClickListener {
+public class SearchMoreClassActivitySelect extends BaseActivity implements View.OnClickListener {
     private TextView title;
 
-    private List<GoodsType> list = new ArrayList<GoodsType>();
+    public static List<LxClass> list = new ArrayList<LxClass>();
     private TextView[] tvList;
     private View[] views;
     private LayoutInflater inflater;
@@ -58,7 +65,7 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("全部分类");
+        title.setText("商家分类");
         scrollView = (ScrollView) findViewById(R.id.tools_scrlllview);
         shopAdapter = new ShopAdapter(getSupportFragmentManager());
         inflater = LayoutInflater.from(this);
@@ -76,7 +83,7 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
     private void getGoodsType() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_GOODS_TYPE_URL,
+                InternetURL.appGetLxClass,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -85,7 +92,7 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
                                 JSONObject jo = new JSONObject(s);
                                 int code1 = jo.getInt("code");
                                 if (code1 == 200) {
-                                    GoodsTypeData data = getGson().fromJson(s, GoodsTypeData.class);
+                                    LxClassData data = getGson().fromJson(s, LxClassData.class);
                                     if(data != null){
                                         list.clear();
                                         list.addAll(data.getData());
@@ -95,14 +102,14 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(SearchMoreTypeActivity.this, jo.getString("message"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SearchMoreClassActivitySelect.this, jo.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
                         } else {
-                            Toast.makeText(SearchMoreTypeActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SearchMoreClassActivitySelect.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if(progressDialog != null){
                             progressDialog.dismiss();
@@ -115,13 +122,14 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
                         if(progressDialog != null){
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(SearchMoreTypeActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchMoreClassActivitySelect.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("f_lx_class_id", "0");
                 return params;
             }
 
@@ -148,7 +156,7 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
             view.setId(i);
             view.setOnClickListener(toolsItemListener);
             TextView textView = (TextView) view.findViewById(R.id.text);
-            textView.setText(list.get(i).getTypeName());
+            textView.setText(list.get(i).getLx_class_name());
             toolsLayout.addView(view);
             tvList[i] = textView;
             views[i] = view;
@@ -211,7 +219,7 @@ public class SearchMoreTypeActivity extends BaseActivity implements View.OnClick
 
         @Override
         public Fragment getItem(int index) {
-            Fragment fragment = new ProTypeFragment();
+            Fragment fragment = new ProClassFragmentSelect();
             Bundle bundle = new Bundle();
             bundle.putInt("index", index);
             fragment.setArguments(bundle);

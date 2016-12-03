@@ -169,6 +169,8 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
             case R.id.right_btn:
             {
                 Intent intent = new Intent(getActivity(), NearbyActivity.class);
+                intent.putExtra("lx_class_id", "");
+                intent.putExtra("typeName", "全部");
                 startActivity(intent);
             }
                 break;
