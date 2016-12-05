@@ -80,7 +80,7 @@ public class MineFavoursActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mine_favours_xml);
         initView();
-        progressDialog = new CustomProgressDialog(MineFavoursActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(MineFavoursActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

@@ -23,7 +23,7 @@
 
         <EditText android:layout_width="match_parent"
                   android:layout_marginTop="8dp"
-                  android:layout_marginRight="15dp"
+                  android:layout_marginRight="50dp"
                   android:layout_toRightOf="@+id/back"
                   android:singleLine="true"
                   android:id="@+id/keywords"
@@ -37,6 +37,14 @@
                   android:paddingRight="12dp"
                   android:textColor="@color/text_color_two"
                   android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+                  android:padding="12dp"
+                  android:textColor="@color/white"
+                  android:text="清空"
+                  android:id="@+id/btn_scan"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_height="wrap_content"/>
     </RelativeLayout>
     <LinearLayout android:layout_width="match_parent"
                   android:padding="8dp"

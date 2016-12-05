@@ -65,7 +65,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         typeName = getIntent().getExtras().getString("typeName");
         initView();
 
-        progressDialog = new CustomProgressDialog(NearbyActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -328,7 +328,6 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000){
-            // 根据上面发送过去的请求吗来区别
             switch (resultCode) {
                 case 1001:
                 {

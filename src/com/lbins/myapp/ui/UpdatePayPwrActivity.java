@@ -65,7 +65,7 @@ public class UpdatePayPwrActivity extends BaseActivity implements View.OnClickLi
             return;
         }
 
-        progressDialog = new CustomProgressDialog(UpdatePayPwrActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(UpdatePayPwrActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

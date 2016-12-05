@@ -87,7 +87,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
 
         initView(savedInstanceState);
 
-        progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(getActivity(), "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -266,7 +266,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                     final LatLng latLngTmp = new LatLng(Double.valueOf(emp.getLat_company()), Double.valueOf(emp.getLng_company()));
                     markerOption.position(latLngTmp);
 
-                    markerOption.title(emp.getCompany_name()).snippet(emp.getCompany_name());
+                    markerOption.title(emp.getCompany_name()).snippet(emp.getCompany_address());
                     markerOption.draggable(true);
 
 //                    final ImageView imageView = (ImageView) view.findViewById(R.id.location_map);

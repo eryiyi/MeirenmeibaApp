@@ -49,7 +49,7 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.comment_list_goods_activity);
         id = getIntent().getExtras().getString("id");
         initView();
-        progressDialog = new CustomProgressDialog(CommentListDianpuActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(CommentListDianpuActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

@@ -171,7 +171,7 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
             showMsg(RegOneActivity.this, "两次输入密码不一致");
             return;
         }
-        progressDialog = new CustomProgressDialog(RegOneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(RegOneActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

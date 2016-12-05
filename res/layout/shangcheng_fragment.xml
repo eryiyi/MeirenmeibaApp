@@ -58,7 +58,7 @@
                               android:gravity="center"
                               android:layout_height="wrap_content">
                     <ImageView android:layout_width="50dp"
-                               android:src="@drawable/cat_chongzhi"
+                               android:src="@drawable/sc_car"
                                android:layout_height="50dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="购物车"
@@ -75,7 +75,7 @@
                               android:gravity="center"
                               android:layout_height="wrap_content">
                     <ImageView android:layout_width="50dp"
-                               android:src="@drawable/cat_chongzhi"
+                               android:src="@drawable/sc_chongzhi"
                                android:layout_height="50dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="充值"
@@ -92,7 +92,7 @@
                               android:gravity="center"
                               android:layout_height="wrap_content">
                     <ImageView android:layout_width="50dp"
-                               android:src="@drawable/cat_chongzhi"
+                               android:src="@drawable/sc_order"
                                android:layout_height="50dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="订单"

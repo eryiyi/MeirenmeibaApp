@@ -91,7 +91,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 //版本更新
                 Resources res = getBaseContext().getResources();
                 String message = res.getString(R.string.check_new_version).toString();
-                progressDialog = new CustomProgressDialog(SetActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+                progressDialog = new CustomProgressDialog(SetActivity.this, "",R.anim.custom_dialog_frame);
                 progressDialog.setCancelable(true);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();

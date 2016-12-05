@@ -90,7 +90,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
         emp_id_dianpu = getIntent().getExtras().getString("emp_id_dianpu");
         initView();
 
-        progressDialog = new CustomProgressDialog(DianpuDetailActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(DianpuDetailActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

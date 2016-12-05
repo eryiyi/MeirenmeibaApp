@@ -69,7 +69,7 @@ public class BankCardsActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
-        progressDialog = new CustomProgressDialog(BankCardsActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(BankCardsActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

@@ -57,7 +57,7 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
         lists = (List<ShoppingCart>) getIntent().getExtras().get("listsgoods");
         initView();
 
-        progressDialog = new CustomProgressDialog(OrderMakeActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(OrderMakeActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

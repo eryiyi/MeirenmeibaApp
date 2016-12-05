@@ -242,6 +242,10 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 
             case R.id.dp_tel:
             {
+                if(managerInfo == null){
+                    showMsg(DetailPaopaoGoodsActivity.this, "店铺不存在，请检查店铺信息！");
+                    return;
+                }
                 //电话点击事件
                 if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
                     showMsgDialog();
@@ -251,6 +255,10 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             }
             break;
             case R.id.foot_cart:
+                if(paopaoGoods == null){
+                    showMsg(DetailPaopaoGoodsActivity.this, "商品不存在，请检查商品信息！");
+                    return;
+                }
                 //购物车
                 if("1".equals(paopaoGoods.getIs_dxk())){
                     //是定向卡商品
@@ -297,6 +305,10 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 }
                 break;
             case R.id.foot_order:
+                if(paopaoGoods == null){
+                    showMsg(DetailPaopaoGoodsActivity.this, "商品不存在，请检查商品信息！");
+                    return;
+                }
                 if("0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
                     showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
                     return;

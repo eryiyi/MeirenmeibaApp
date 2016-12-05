@@ -55,7 +55,7 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.mine_count_activity);
         initView();
 
-        progressDialog = new CustomProgressDialog(MineCountActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(MineCountActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

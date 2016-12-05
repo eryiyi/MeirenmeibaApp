@@ -273,7 +273,7 @@ public class MobileUpdateActivity extends BaseActivity implements View.OnClickLi
             showMsg(MobileUpdateActivity.this, "请输入验证码！");
             return;
         }
-        progressDialog = new CustomProgressDialog(MobileUpdateActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(MobileUpdateActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

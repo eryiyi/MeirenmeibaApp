@@ -49,7 +49,7 @@ public class MoreDianpuPaopaoGoodsActivity extends BaseActivity implements View.
         setContentView(R.layout.more_dianpu_paopao_goods_activity);
         emp_id_dianpu = getIntent().getExtras().getString("emp_id_dianpu");
         initView();
-        progressDialog = new CustomProgressDialog(MoreDianpuPaopaoGoodsActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(MoreDianpuPaopaoGoodsActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

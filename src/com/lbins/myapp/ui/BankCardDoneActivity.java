@@ -66,7 +66,7 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
 
         initView();
 
-        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -220,7 +220,7 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
             return;
         }
 
-        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(BankCardDoneActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

@@ -47,7 +47,7 @@ public class MineConsumptionActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mine_consumption_activity);
         initView();
-        progressDialog = new CustomProgressDialog(MineConsumptionActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(MineConsumptionActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

@@ -132,7 +132,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                     Toast.makeText(this, "请选择评价星级！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressDialog = new CustomProgressDialog(PublishGoodCommentActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+                progressDialog = new CustomProgressDialog(PublishGoodCommentActivity.this, "",R.anim.custom_dialog_frame);
                 progressDialog.setCancelable(true);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();

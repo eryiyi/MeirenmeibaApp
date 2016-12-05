@@ -234,7 +234,7 @@ public class FindPwrMobileActivity extends BaseActivity implements View.OnClickL
             showMsg(FindPwrMobileActivity.this, "两次输入密码不一致");
             return;
         }
-        progressDialog = new CustomProgressDialog(FindPwrMobileActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(FindPwrMobileActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

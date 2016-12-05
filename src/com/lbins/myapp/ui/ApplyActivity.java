@@ -82,7 +82,7 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
             showMsg(ApplyActivity.this, "请选择店铺分类！");
             return;
         }
-        progressDialog = new CustomProgressDialog(ApplyActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(ApplyActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

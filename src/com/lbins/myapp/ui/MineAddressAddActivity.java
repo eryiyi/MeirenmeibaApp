@@ -95,7 +95,7 @@ public class MineAddressAddActivity extends BaseActivity implements View.OnClick
                     return;
                 }
 
-                progressDialog = new CustomProgressDialog(MineAddressAddActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+                progressDialog = new CustomProgressDialog(MineAddressAddActivity.this, "",R.anim.custom_dialog_frame);
                 progressDialog.setCancelable(true);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();

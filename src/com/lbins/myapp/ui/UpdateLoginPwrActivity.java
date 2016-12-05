@@ -79,7 +79,7 @@ public class UpdateLoginPwrActivity extends BaseActivity implements View.OnClick
             showMsg(UpdateLoginPwrActivity.this, "您输入的密码有误！请输入正确的原始密码！");
             return;
         }
-        progressDialog = new CustomProgressDialog(UpdateLoginPwrActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(UpdateLoginPwrActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();

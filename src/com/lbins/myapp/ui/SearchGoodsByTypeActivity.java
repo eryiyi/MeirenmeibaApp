@@ -56,6 +56,7 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
     private TextView btn_val;
 
     private String keyContent;
+    private TextView btn_scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
         if(!StringUtil.isNullOrEmpty(keyContent)){
             keywords.setText(keyContent);
         }
-        progressDialog = new CustomProgressDialog(SearchGoodsByTypeActivity.this, "正在加载中",R.anim.custom_dialog_frame);
+        progressDialog = new CustomProgressDialog(SearchGoodsByTypeActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -81,6 +82,8 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
         btn_nearby = (TextView) this.findViewById(R.id.btn_nearby);
         btn_paixu = (TextView) this.findViewById(R.id.btn_paixu);
         btn_val = (TextView) this.findViewById(R.id.btn_val);
+        btn_scan = (TextView) this.findViewById(R.id.btn_scan);
+        btn_scan.setOnClickListener(this);
 
         if(!StringUtil.isNullOrEmpty(typeName)){
             btn_all.setText(typeName);
@@ -230,10 +233,12 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
-                params.put("typeId", typeId);
-
-                params.put("cont", keywords.getText().toString());
-
+                if(!StringUtil.isNullOrEmpty(typeId)){
+                    params.put("typeId", typeId);
+                }
+                if(!StringUtil.isNullOrEmpty(keywords.getText().toString())){
+                    params.put("cont", keywords.getText().toString());
+                }
                 if(tmpNearby == 1){
                     if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr)){
                         params.put("lat_company", MeirenmeibaAppApplication.latStr);
@@ -312,6 +317,17 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.red));
                 tmpNearby = 3;
+                initData();
+            }
+            break;
+            case R.id.btn_scan:
+            {
+                keywords.setText("");
+                tmpNearby = 0;
+                typeId = "";
+                pageIndex = 1;
+                IS_REFRESH = true;
+                btn_all.setText("全部");
                 initData();
             }
             break;
