@@ -5,12 +5,12 @@ package com.lbins.myapp.entity;
  */
 public class LxClass {
     private String lx_class_id;
-    private String lx_class_name;
-    private String lx_class_content;
-    private String lx_class_cover;
+    private String lx_class_name;//分类名字
+    private String lx_class_content;//分类描述
+    private String lx_class_cover;//分类图片
     private String top_number;
-    private String is_del;
-    private String f_lx_class_id;
+    private String is_del;//是否可用 0是 1否
+    private String f_lx_class_id;//父ID
 
     public String getF_lx_class_id() {
         return f_lx_class_id;
