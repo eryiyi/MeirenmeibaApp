@@ -235,8 +235,14 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 break;
             case R.id.btn_favour:
             {
-                //收藏
-                favour();
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                } else {
+                    //收藏
+                    favour();
+                }
             }
             break;
 
@@ -255,6 +261,12 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             }
             break;
             case R.id.foot_cart:
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                    return;
+                }
                 if(paopaoGoods == null){
                     showMsg(DetailPaopaoGoodsActivity.this, "商品不存在，请检查商品信息！");
                     return;
@@ -305,6 +317,12 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 }
                 break;
             case R.id.foot_order:
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                    return;
+                }
                 if(paopaoGoods == null){
                     showMsg(DetailPaopaoGoodsActivity.this, "商品不存在，请检查商品信息！");
                     return;
@@ -362,6 +380,12 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 break;
             case R.id.foot_goods:
             case R.id.btn_share:
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                    return;
+                }
                 //进入购物车
                 Intent cartView = new Intent(DetailPaopaoGoodsActivity.this, MineCartActivity.class);
                 startActivity(cartView);
@@ -386,6 +410,12 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             case R.id.comment_liner:
             case R.id.btn_more_comment:
             {
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                    return;
+                }
                 //评论列表
                 Intent intent = new Intent(DetailPaopaoGoodsActivity.this, CommentListGoodsActivity.class);
                 intent.putExtra("id", goods_id);
@@ -943,33 +973,45 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             switch (index) {
                 case 0:
                 {
-                    favour();
+                    if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                            "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                        //未登录
+                        showMsg(DetailPaopaoGoodsActivity.this, "请先登录！");
+                        return;
+                    }else {
+                        favour();
+                    }
                 }
                     break;
                 case 1:
                 {
-                    String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
-                    String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
-                    UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
-                    String url = InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId();
+                    if(paopaoGoods != null){
+                        String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
+                        String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
+                        UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
+                        String url = InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId();
 
                      /*无自定按钮的分享面板*/
-                    mShareAction = new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(
-                            SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
-                            SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
-                            SHARE_MEDIA.ALIPAY,
-                            SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL,
-                            SHARE_MEDIA.MORE)
-                            .withText(content)
-                            .withTitle(title)
-                            .withTargetUrl(url)
-                            .withMedia(image)
-                            .setCallback(mShareListener);
+                        mShareAction = new ShareAction(DetailPaopaoGoodsActivity.this).setDisplayList(
+                                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
+                                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                                SHARE_MEDIA.ALIPAY,
+                                SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL,
+                                SHARE_MEDIA.MORE)
+                                .withText(content)
+                                .withTitle(title)
+                                .withTargetUrl(url)
+                                .withMedia(image)
+                                .setCallback(mShareListener);
 
-                    ShareBoardConfig config = new ShareBoardConfig();
-                    config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
-                    config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
-                    mShareAction.open(config);
+                        ShareBoardConfig config = new ShareBoardConfig();
+                        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
+                        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
+                        mShareAction.open(config);
+                    }else {
+                        showMsg(DetailPaopaoGoodsActivity.this, "商品不存在，请检查！");
+                    }
+
                 }
                     break;
             }

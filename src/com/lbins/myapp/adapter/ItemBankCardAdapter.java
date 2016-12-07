@@ -75,7 +75,7 @@ public class ItemBankCardAdapter extends BaseAdapter {
             holder.bank_name.setText(cell.getBank_name()==null?"":cell.getBank_name());
             holder.bank_kaihu_name.setText(cell.getBank_kaihu_name()==null?"":cell.getBank_kaihu_name());
             holder.bank_mobile.setText(cell.getBank_mobile()==null?"":cell.getBank_mobile());
-
+            holder.btn_select.setVisibility(View.VISIBLE);
             holder.btn_select.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

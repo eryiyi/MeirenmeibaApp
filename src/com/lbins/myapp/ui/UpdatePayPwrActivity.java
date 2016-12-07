@@ -3,6 +3,7 @@ package com.lbins.myapp.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -27,8 +28,11 @@ import java.util.Map;
  */
 public class UpdatePayPwrActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
+    private EditText pwr_one;
     private EditText pwr_two;
     private EditText pwr_three;
+    private LinearLayout liner_one;//原始密码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +42,15 @@ public class UpdatePayPwrActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("设置");
+        liner_one = (LinearLayout) this.findViewById(R.id.liner_one);
+        pwr_one = (EditText) this.findViewById(R.id.pwr_one);
         pwr_two = (EditText) this.findViewById(R.id.pwr_two);
         pwr_three = (EditText) this.findViewById(R.id.pwr_three);
+        //判断是否第一次设置支付密码
+        if(StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class))){
+            //第一次
+            liner_one.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -51,6 +62,17 @@ public class UpdatePayPwrActivity extends BaseActivity implements View.OnClickLi
         }
     }
     public void updatePayPwrAction(View view){
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class))){
+            //说明不是第一次
+            if(StringUtil.isNullOrEmpty(pwr_one.getText().toString())){
+                showMsg(UpdatePayPwrActivity.this, "请输入原始支付密码");
+                return;
+            }
+            if(!getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class).equals(pwr_one.getText().toString())){
+                showMsg(UpdatePayPwrActivity.this, "请输入正确的原始支付密码");
+            }
+        }
+
         if(StringUtil.isNullOrEmpty(pwr_two.getText().toString())){
             showMsg(UpdatePayPwrActivity.this, "请输入支付密码");
             return;
@@ -62,6 +84,10 @@ public class UpdatePayPwrActivity extends BaseActivity implements View.OnClickLi
 
         if(!pwr_three.getText().toString().equals(pwr_two.getText().toString())){
             showMsg(UpdatePayPwrActivity.this, "两次输入密码不一致！！");
+            return;
+        }
+        if(pwr_one.getText().toString().equals(pwr_two.getText().toString())){
+            showMsg(UpdatePayPwrActivity.this, "新密码不能和原来的密码一致！！");
             return;
         }
 

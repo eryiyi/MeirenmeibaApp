@@ -105,8 +105,8 @@
             </LinearLayout>
             <Button android:layout_width="match_parent"
                     android:textSize="18sp"
+                    android:id="@+id/btn_pay_lq"
                     android:layout_marginTop="15dp"
-                    android:onClick="payAction"
                     android:text="去支付"
                     android:layout_marginRight="35dp"
                     android:layout_marginLeft="35dp"

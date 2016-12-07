@@ -1,5 +1,6 @@
 package com.lbins.myapp.ui;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.alipay.sdk.app.PayTask;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -116,6 +115,8 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
 
+    private Button btn_pay_lq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +145,8 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         check_btn_wx.setOnClickListener(this);
         check_btn_ali.setOnClickListener(this);
         check_btn_ling.setOnClickListener(this);
+        btn_pay_lq = (Button) this.findViewById(R.id.btn_pay_lq);
+        btn_pay_lq.setOnClickListener(this);
     }
 
     //计算金额总的
@@ -200,102 +203,151 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 selectPayWay = 2;
             }
             break;
+            case R.id.btn_pay_lq:
+            {
+                btn_pay_lq.setClickable(false);
+                switch (selectPayWay){
+                    case 0:
+                    {
+                        //微信
+                        //先传值给服务端
+                        if(lists != null && lists.size() > 0){
+                            if(shoppingAddress != null){
+                                for(int i=0;i<lists.size();i++){
+                                    ShoppingCart shoppingCart = lists.get(i);
+                                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+                                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                                ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1",String.valueOf(payable_amount_all) ,String.valueOf(pv_amount)));
+                                    }
+                                }
+                            }else {
+                                for(int i=0;i<lists.size();i++){
+                                    ShoppingCart shoppingCart = lists.get(i);
+                                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+                                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                                ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                                ,"0","0","","","","","","","","1", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                    }
+                                }
+                            }
+
+                        }
+                        SGform.setList(listOrders);
+                        if(listOrders!=null && listOrders.size() > 0){
+                            //传值给服务端
+                            goToPayWeixin();
+                        }
+                    }
+                    break;
+                    case 1:
+                    {
+                        //先传值给服务端
+                        if(lists != null && lists.size() > 0){
+                            if(shoppingAddress != null){
+                                for(int i=0;i<lists.size();i++){
+                                    ShoppingCart shoppingCart = lists.get(i);
+                                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
+                                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                                ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0",String.valueOf(payable_amount_all),String.valueOf(pv_amount)));
+                                    }
+                                }
+                            }else{
+                                for(int i=0;i<lists.size();i++){
+                                    ShoppingCart shoppingCart = lists.get(i);
+                                    if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
+                                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
+                                        Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
+                                        listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
+                                                ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
+                                                ,"0","0","","","","","","","","0", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                    }
+                                }
+                            }
+                        }
+                        SGform.setList(listOrders);
+                        //支付宝
+                        if(listOrders!=null && listOrders.size() > 0){
+                            //传值给服务端
+                            sendOrderToServer();
+                        }
+                    }
+                    break;
+                    case 2:
+                    {
+                        if(StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class))){
+                            //如果支付密码为空
+                            btn_pay_lq.setClickable(true);
+                            Intent intent = new Intent(PaySelectActivity.this, UpdatePayPwrActivity.class);
+                            startActivity(intent);
+                            return;
+                        }else {
+                            btn_pay_lq.setClickable(true);
+                            //输入支付密码
+                            showMsgDialog();
+                        }
+
+                    }
+                    break;
+                }
+            }
+                break;
         }
     }
 
     String xmlStr = "";
     WxPayObj wxPayObj;
 
-    public void payAction(View view){
-        view.setClickable(false);
-        switch (selectPayWay){
-            case 0:
-            {
-                //微信
-                //先传值给服务端
-                if(lists != null && lists.size() > 0){
-                    if(shoppingAddress != null){
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1",String.valueOf(payable_amount_all) ,String.valueOf(pv_amount)));
-                            }
-                        }
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(PaySelectActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_pay_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final EditText cont = (EditText) picAddInflate.findViewById(R.id.cont);
+        cont.setHint("请输入支付密码");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(StringUtil.isNullOrEmpty(cont.getText().toString())){
+                    showMsg(PaySelectActivity.this, "请输入支付密码");
+                }else {
+                    if(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class).equals(cont.getText().toString())){
+                        //等于
+                        picAddDialog.dismiss();
+                        //零钱支付
+                        getLingqian();
                     }else {
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","1", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
-                            }
-                        }
-                    }
-
-                }
-                SGform.setList(listOrders);
-                if(listOrders!=null && listOrders.size() > 0){
-                    //传值给服务端
-                    goToPayWeixin();
-                }
-            }
-                break;
-            case 1:
-            {
-                //先传值给服务端
-                if(lists != null && lists.size() > 0){
-                    if(shoppingAddress != null){
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
-
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0",String.valueOf(payable_amount_all),String.valueOf(pv_amount)));
-                            }
-                        }
-                    }else{
-                        for(int i=0;i<lists.size();i++){
-                            ShoppingCart shoppingCart = lists.get(i);
-                            if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
-                                Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
-                                Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
-
-                                listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
-                                        ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                        ,"0","0","","","","","","","","0", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
-                            }
-                        }
+                        showMsg(PaySelectActivity.this, "请输入正确的支付密码");
                     }
                 }
-                SGform.setList(listOrders);
-                //支付宝
-                if(listOrders!=null && listOrders.size() > 0){
-                    //传值给服务端
-                    sendOrderToServer();
-                }
             }
-                break;
-            case 2:
-            {
-                //零钱支付
-                getLingqian();
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
             }
-                break;
-        }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
+
 
     private MinePackage minePackage;//我的钱包
     //获得钱包

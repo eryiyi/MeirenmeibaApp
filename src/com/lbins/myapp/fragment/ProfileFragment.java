@@ -128,163 +128,170 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.mine_cover:
-            {
-                //头像点击
-                ShowPickDialog();
-            }
-                break;
-            case R.id.liner_profile_unpay:
-            {
-                //未付款
-                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
-                intent.putExtra("status", "1");
-                startActivity(intent);
-            }
-            break;
-            case R.id.liner_profile_ungetgoods:
-            {
-                //待收货
-                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
-                intent.putExtra("status", "2");
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_uncomment:
-            {
-                //待评价
-                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
-                intent.putExtra("status", "5");
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_unback:
-            {
-                //退款退回
-                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
-                intent.putExtra("status", "7");
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_order:
-            {
-                //我的订单
-                Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
-                intent.putExtra("status", "");
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_comment:
-            {
-                //我的点评
-                Intent intent = new Intent(getActivity(), MineCommentActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_favour:
-            {
-                //我的收藏
-                Intent intent = new Intent(getActivity(), MineFavoursActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_cart:
-            {
-                //我的购物车
-                Intent intent = new Intent(getActivity(), MineCartActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_packget:
-            {
-                //我的钱包
-                Intent intent = new Intent(getActivity(),   MinePackageActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_meet:
-            {
-                //我的预约
-            }
-                break;
-            case R.id.liner_profile_fensi:
-            {
-                //粉丝
-                Intent intent = new Intent(getActivity(),   MineFensiActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_count:
-            {
-                //积分
-                Intent intent = new Intent(getActivity(),   MineCountActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_ad:
-            {
-                //推广
-                Intent intent = new Intent(getActivity(), TuiguangActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.liner_profile_set:
-            {
-                //我的设置
-                Intent setV =  new Intent(getActivity(), SetActivity.class);
-                startActivity(setV);
-            }
-                break;
-            case R.id.liner_profile_ruzhu:
-            {
-                //我的入驻
-                Intent intent = new Intent(getActivity(), ApplyDianpuActivity.class);
-                startActivity(intent);
-            }
-            break;
-            case R.id.liner_profile_dianjia:
-            {
-                //我是店家
-                if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
-                    Intent intent = new Intent(getActivity(), DianpuDetailActivity.class);
-                    intent.putExtra("emp_id_dianpu", getGson().fromJson(getSp().getString("empId", ""), String.class));
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getActivity(), "您不是店家，请先入驻！", Toast.LENGTH_SHORT).show();
+        if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+            //未登录
+            Toast.makeText(getActivity(), "请登录！", Toast.LENGTH_SHORT).show();
+        }else {
+            switch (view.getId()){
+                case R.id.mine_cover:
+                {
+                    //头像点击
+                    ShowPickDialog();
                 }
-
-            }
                 break;
-            case R.id.liner_profile_liulan:
-            {
-                //我的浏览
-                Intent intent = new Intent(getActivity(), MineBrowsingActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.right_btn:
-            {
-                //客服
-                Intent intent = new Intent(getActivity(), KefuTelActivity.class);
-                startActivity(intent);
-            }
-                break;
-            case R.id.mine_erweima:
-            {
-
-                //我是店家
-                if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
-                    //二维码
-                    Intent intent = new Intent(getActivity(), MineErweimaActivity.class);
+                case R.id.liner_profile_unpay:
+                {
+                    //未付款
+                    Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "1");
                     startActivity(intent);
-                }else{
-                    Toast.makeText(getActivity(), "您不是店家，请先入驻才能生成二维码！", Toast.LENGTH_SHORT).show();
                 }
-            }
+                break;
+                case R.id.liner_profile_ungetgoods:
+                {
+                    //待收货
+                    Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "2");
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_uncomment:
+                {
+                    //待评价
+                    Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "5");
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_unback:
+                {
+                    //退款退回
+                    Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "7");
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_order:
+                {
+                    //我的订单
+                    Intent intent = new Intent(getActivity(), MineOrdersActivity.class);
+                    intent.putExtra("status", "");
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_comment:
+                {
+                    //我的点评
+                    Intent intent = new Intent(getActivity(), MineCommentActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_favour:
+                {
+                    //我的收藏
+                    Intent intent = new Intent(getActivity(), MineFavoursActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_cart:
+                {
+                    //我的购物车
+                    Intent intent = new Intent(getActivity(), MineCartActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_packget:
+                {
+                    //我的钱包
+                    Intent intent = new Intent(getActivity(),   MinePackageActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_meet:
+                {
+                    //我的预约
+                }
+                break;
+                case R.id.liner_profile_fensi:
+                {
+                    //粉丝
+                    Intent intent = new Intent(getActivity(),   MineFensiActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_count:
+                {
+                    //积分
+                    Intent intent = new Intent(getActivity(),   MineCountActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_ad:
+                {
+                    //推广
+                    Intent intent = new Intent(getActivity(), TuiguangActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_set:
+                {
+                    //我的设置
+                    Intent setV =  new Intent(getActivity(), SetActivity.class);
+                    startActivity(setV);
+                }
+                break;
+                case R.id.liner_profile_ruzhu:
+                {
+                    //我的入驻
+                    Intent intent = new Intent(getActivity(), ApplyDianpuActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.liner_profile_dianjia:
+                {
+                    //我是店家
+                    if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
+                        Intent intent = new Intent(getActivity(), DianpuDetailActivity.class);
+                        intent.putExtra("emp_id_dianpu", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getActivity(), "您不是店家，请先入驻！", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                break;
+                case R.id.liner_profile_liulan:
+                {
+                    //我的浏览
+                    Intent intent = new Intent(getActivity(), MineBrowsingActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.right_btn:
+                {
+                    //客服
+                    Intent intent = new Intent(getActivity(), KefuTelActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.mine_erweima:
+                {
+
+                    //我是店家
+                    if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
+                        //二维码
+                        Intent intent = new Intent(getActivity(), MineErweimaActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getActivity(), "您不是店家，请先入驻才能生成二维码！", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
 
+            }
         }
+
     }
 
     void initData(){

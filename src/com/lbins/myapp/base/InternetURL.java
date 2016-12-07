@@ -13,8 +13,11 @@ public class InternetURL {
     public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
 //    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-    public static final String INTERNAL = "http://114.215.41.142:8080/";
 //    public static final String INTERNAL = "http://192.168.0.224:8080/";
+
+
+    public static final String INTERNAL = "http://114.215.41.142:8080/";
+
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
 

@@ -296,9 +296,7 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                 }
             }
         });
-
     }
-
 
     //推荐首页商品查询
     void initData() {

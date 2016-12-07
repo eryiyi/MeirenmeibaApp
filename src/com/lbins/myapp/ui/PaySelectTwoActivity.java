@@ -1,5 +1,6 @@
 package com.lbins.myapp.ui;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.alipay.sdk.app.PayTask;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -115,6 +113,8 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
 
+    private Button btn_pay_lq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +144,8 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         check_btn_wx.setOnClickListener(this);
         check_btn_ali.setOnClickListener(this);
         check_btn_ling.setOnClickListener(this);
+        btn_pay_lq = (Button) this.findViewById(R.id.btn_pay_lq);
+        btn_pay_lq.setOnClickListener(this);
     }
 
     //计算金额总的
@@ -187,61 +189,160 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
                 selectPayWay = 2;
             }
             break;
+            case R.id.btn_pay_lq:
+            {
+                btn_pay_lq.setClickable(false);
+                if(StringUtil.isNullOrEmpty(count_money.getText().toString())){
+                    showMsg(PaySelectTwoActivity.this, "请输入金额！");
+                    btn_pay_lq.setClickable(true);
+                    return;
+                }else {
+                    view.setClickable(false);
+                    payScanObj.setPay_count(count_money.getText().toString());
+                    switch (selectPayWay){
+                        case 0:
+                        {
+                            //微信
+                            //先传值给服务端
+                            if(payScanObj != null ){
+                                listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+                                        ,"", "1", payScanObj.getPay_count()
+                                        ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0"));
+                            }
+                            SGform.setList(listOrders);
+                            if(listOrders!=null && listOrders.size() > 0){
+                                //传值给服务端
+                                goToPayWeixin();
+                            }
+                        }
+                        break;
+                        case 1:
+                        {
+                            //先传值给服务端
+                            if(payScanObj != null){
+                                listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+                                        ,"", "1", payScanObj.getPay_count()
+                                        ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0"));
+                            }
+                            SGform.setList(listOrders);
+                            //支付宝
+                            if(listOrders!=null && listOrders.size() > 0){
+                                //传值给服务端
+                                sendOrderToServer();
+                            }
+                        }
+                        break;
+                        case 2:
+                        {
+                            if(StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class))){
+                                //如果支付密码为空
+                                btn_pay_lq.setClickable(true);
+                                Intent intent = new Intent(PaySelectTwoActivity.this, UpdatePayPwrActivity.class);
+                                startActivity(intent);
+                                return;
+                            }else {
+                                btn_pay_lq.setClickable(true);
+                                //输入支付密码
+                                showMsgDialog();
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+                break;
         }
     }
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(PaySelectTwoActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_pay_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final EditText cont = (EditText) picAddInflate.findViewById(R.id.cont);
+        cont.setHint("请输入支付密码");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(StringUtil.isNullOrEmpty(cont.getText().toString())){
+                    showMsg(PaySelectTwoActivity.this, "请输入支付密码");
+                }else {
+                    if(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class).equals(cont.getText().toString())){
+                        //等于
+                        picAddDialog.dismiss();
+                        //零钱支付
+                        getLingqian();
+                    }else {
+                        showMsg(PaySelectTwoActivity.this, "请输入正确的支付密码");
+                    }
+                }
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 
     String xmlStr = "";
     WxPayObj wxPayObj;
-
-    public void payAction(View view){
-        if(StringUtil.isNullOrEmpty(count_money.getText().toString())){
-            showMsg(PaySelectTwoActivity.this, "请输入金额！");
-            return;
-        }else {
-            view.setClickable(false);
-            payScanObj.setPay_count(count_money.getText().toString());
-            switch (selectPayWay){
-                case 0:
-                {
-                    //微信
-                    //先传值给服务端
-                    if(payScanObj != null ){
-                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
-                                ,"", "1", payScanObj.getPay_count()
-                                ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0"));
-                    }
-                    SGform.setList(listOrders);
-                    if(listOrders!=null && listOrders.size() > 0){
-                        //传值给服务端
-                        goToPayWeixin();
-                    }
-                }
-                break;
-                case 1:
-                {
-                    //先传值给服务端
-                    if(payScanObj != null){
-                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
-                                ,"", "1", payScanObj.getPay_count()
-                                ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0"));
-                    }
-                    SGform.setList(listOrders);
-                    //支付宝
-                    if(listOrders!=null && listOrders.size() > 0){
-                        //传值给服务端
-                        sendOrderToServer();
-                    }
-                }
-                break;
-                case 2:
-                {
-                    //零钱支付
-                    getLingqian();
-                }
-                    break;
-            }
-        }
-    }
+//
+//    public void payAction(View view){
+//        if(StringUtil.isNullOrEmpty(count_money.getText().toString())){
+//            showMsg(PaySelectTwoActivity.this, "请输入金额！");
+//            return;
+//        }else {
+//            view.setClickable(false);
+//            payScanObj.setPay_count(count_money.getText().toString());
+//            switch (selectPayWay){
+//                case 0:
+//                {
+//                    //微信
+//                    //先传值给服务端
+//                    if(payScanObj != null ){
+//                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+//                                ,"", "1", payScanObj.getPay_count()
+//                                ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0"));
+//                    }
+//                    SGform.setList(listOrders);
+//                    if(listOrders!=null && listOrders.size() > 0){
+//                        //传值给服务端
+//                        goToPayWeixin();
+//                    }
+//                }
+//                break;
+//                case 1:
+//                {
+//                    //先传值给服务端
+//                    if(payScanObj != null){
+//                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
+//                                ,"", "1", payScanObj.getPay_count()
+//                                ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0"));
+//                    }
+//                    SGform.setList(listOrders);
+//                    //支付宝
+//                    if(listOrders!=null && listOrders.size() > 0){
+//                        //传值给服务端
+//                        sendOrderToServer();
+//                    }
+//                }
+//                break;
+//                case 2:
+//                {
+//                    //零钱支付
+//                    getLingqian();
+//                }
+//                    break;
+//            }
+//        }
+//    }
 
     private MinePackage minePackage;//我的钱包
     //获得钱包

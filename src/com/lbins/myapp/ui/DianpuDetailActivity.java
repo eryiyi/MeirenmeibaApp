@@ -203,8 +203,17 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.btn_favour:
             {
-                //收藏
-                saveFavour();
+
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DianpuDetailActivity.this, "请先登录！");
+                    return;
+                }else {
+                    //收藏
+                    saveFavour();
+                }
+
             }
                 break;
             case R.id.btn_share:
@@ -231,10 +240,17 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.comment_liner:
             {
-                //评论列表
-                Intent intent = new Intent(DianpuDetailActivity.this, CommentListDianpuActivity.class);
-                intent.putExtra("id", emp_id_dianpu);
-                startActivity(intent);
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    showMsg(DianpuDetailActivity.this, "请先登录！");
+                    return;
+                }else {
+                    //评论列表
+                    Intent intent = new Intent(DianpuDetailActivity.this, CommentListDianpuActivity.class);
+                    intent.putExtra("id", emp_id_dianpu);
+                    startActivity(intent);
+                }
             }
                 break;
         }

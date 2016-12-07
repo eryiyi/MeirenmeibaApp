@@ -19,6 +19,7 @@ import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.entity.Member;
+import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.util.Utils;
 import com.lbins.myapp.widget.CustomProgressDialog;
@@ -69,23 +70,37 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         startActivity(intent);
     }
 
+    boolean isMobileNet, isWifiNet;
+
     public void loginAction(View view){
-        //登录
-        if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入手机号");
-            return;
-        }
-        if(StringUtil.isNullOrEmpty(pwr.getText().toString())){
-            showMsg(LoginActivity.this ,"请输入密码");
-            return;
+        try {
+            isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
+            isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
+            if (!isMobileNet && !isWifiNet) {
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                //登录
+                if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
+                    showMsg(LoginActivity.this ,"请输入手机号");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty(pwr.getText().toString())){
+                    showMsg(LoginActivity.this ,"请输入密码");
+                    return;
+                }
+
+                progressDialog = new CustomProgressDialog(LoginActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog.setCancelable(true);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
+                login();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        progressDialog = new CustomProgressDialog(LoginActivity.this, "",R.anim.custom_dialog_frame);
-        progressDialog.setCancelable(true);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
 
-        login();
     }
 
     private void login() {

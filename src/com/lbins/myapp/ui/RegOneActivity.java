@@ -175,8 +175,8 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         progressDialog.setCancelable(true);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
-//        SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
-        reg();
+        SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
+//        reg();
     }
 
     private void reg() {
