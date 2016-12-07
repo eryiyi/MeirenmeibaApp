@@ -670,7 +670,10 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", goods_id);
-                params.put("empid", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empId", ""), String.class))){
+                    params.put("empid", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                }
+
                 return params;
             }
 
