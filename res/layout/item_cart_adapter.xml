@@ -22,7 +22,6 @@
                 android:src="@drawable/ic_launcher"
                 android:layout_height="30dp"/>
         <TextView android:layout_width="wrap_content"
-                  android:text="张三的店"
                   android:textSize="14sp"
                   android:padding="6dp"
                   android:id="@+id/item_cart_nickname"
@@ -63,11 +62,9 @@
               android:gravity="center_vertical"
               android:lineSpacingMultiplier="1.2"
               android:layout_toRightOf="@+id/item_cart_pic"
-              android:text="里是商品标题品标题里品标里是商品标题里是商品标题品标题这里是商品标题这里是商品标题"
               android:maxHeight="40dp"
               android:layout_height="wrap_content"/>
     <TextView android:layout_width="wrap_content"
-              android:text="￥8923.00"
               android:layout_marginTop="8dp"
               android:id="@+id/item_cart_price"
               android:textSize="16sp"
@@ -87,7 +84,6 @@
                    android:id="@+id/item_cart_jian"
                    android:layout_height="wrap_content"/>
         <TextView android:layout_width="wrap_content"
-                  android:text="100"
                   android:layout_marginLeft="10dp"
                   android:layout_marginRight="10dp"
                   android:id="@+id/item_cart_num"

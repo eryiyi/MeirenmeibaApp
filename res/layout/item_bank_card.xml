@@ -7,7 +7,6 @@
               android:layout_height="wrap_content">
 
     <TextView android:layout_width="wrap_content"
-              android:text="*************8357"
               android:layout_weight="1"
               android:padding="6dp"
               android:gravity="center_vertical"
@@ -27,14 +26,12 @@
                android:layout_height="wrap_content"/>
 
     <TextView android:layout_width="wrap_content"
-              android:text="中国农业银行"
               android:id="@+id/bank_name"
               android:layout_marginLeft="6dp"
               android:layout_below="@+id/card"
               android:textColor="@color/text_color"
               android:layout_height="wrap_content"/>
     <TextView android:layout_width="wrap_content"
-              android:text="13181038186"
               android:id="@+id/bank_mobile"
               android:layout_alignParentRight="true"
               android:layout_marginLeft="6dp"
@@ -42,7 +39,6 @@
               android:textColor="@color/text_color"
               android:layout_height="wrap_content"/>
     <TextView android:layout_width="wrap_content"
-              android:text="中国农业银行惠民支行"
               android:id="@+id/bank_kaihu_name"
               android:layout_marginTop="5dp"
               android:layout_marginLeft="6dp"

@@ -74,7 +74,11 @@ public class ItemIndexGoodsGridviewAdapter extends BaseAdapter {
         PaopaoGoods cell = lists.get(position);
         if (cell != null) {
             imageLoader.displayImage(cell.getCover(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
-            holder.name.setText(cell.getName());
+            String nameStr = cell.getName()==null?"":cell.getName();
+            if(nameStr.length()>20){
+                nameStr = nameStr.substring(0,19);
+            }
+            holder.name.setText(nameStr);
             holder.money_one.setText("￥" + cell.getSellPrice());
             holder.icon_baoyou.setText(cell.getMarketPrice());
             holder.icon_baoyou.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线

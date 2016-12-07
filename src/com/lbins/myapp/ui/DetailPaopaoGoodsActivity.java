@@ -562,7 +562,11 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                                 if (Integer.parseInt(code) == 200) {
                                     ManagerInfoSingleData data = getGson().fromJson(s, ManagerInfoSingleData.class);
                                     managerInfo = data.getData();
-                                    initData();
+                                    if(managerInfo != null){
+                                        initData();
+                                    }else {
+                                        Toast.makeText(DetailPaopaoGoodsActivity.this, "店铺信息尚未完善，逛逛其他店铺吧", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -613,6 +617,8 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                                     paopaoGoods = data.getData();
                                     if(paopaoGoods != null){
                                         initDataGoods();
+                                    }else {
+                                        Toast.makeText(DetailPaopaoGoodsActivity.this, "商品信息暂未维护，请稍后重试！", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(DetailPaopaoGoodsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();

@@ -9,39 +9,22 @@
             <!--android:layout_alignParentBottom="true"-->
             <!--android:layout_height="wrap_content"-->
             <!--layout="@layout/top_liner"/>-->
-    <ImageView android:layout_width="match_parent"
-               android:scaleType="centerCrop"
-               android:id="@+id/btn_dxk"
-               android:background="@drawable/dxk_detail_t"
-               android:layout_height="match_parent"/>
 
-
-    <!--<com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"-->
-                                              <!--android:layout_height="match_parent">-->
-        <!--<LinearLayout android:layout_width="match_parent"-->
-                      <!--android:orientation="vertical"-->
-                     <!---->
-                      <!--android:layout_height="match_parent">-->
-            <!--&lt;!&ndash;<ImageView android:layout_width="match_parent"&ndash;&gt;-->
-                       <!--&lt;!&ndash;android:src="@drawable/dxk_detail"&ndash;&gt;-->
-                       <!--&lt;!&ndash;android:layout_height="wrap_content"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;<TextView android:layout_width="match_parent"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:lineSpacingMultiplier="1.4"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:padding="8dp"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:textColor="@color/text_color"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:textSize="16sp"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:text="美人美吧定向卡，是美人美吧尊贵会员，可享受美人美吧加盟店提供的各项免费服务。\n目前已包含的服务种类包括\n免费美容美甲\n免费咖啡饮品\n没费汽车水洗\n让您的投入物超所值。"&ndash;&gt;-->
-                      <!--&lt;!&ndash;android:layout_height="wrap_content"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Button android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:padding="12dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:background="@drawable/btn_red_shape"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:textSize="16sp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:onClick="dxkAction"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_gravity="center_horizontal"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:text="选购定向卡"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="wrap_content"/>&ndash;&gt;-->
-        <!--</LinearLayout>-->
-    <!--</com.lbins.myapp.widget.ReboundScrollView>-->
+    <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
+        <RelativeLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <ImageView android:layout_width="match_parent"
+                       android:scaleType="centerCrop"
+                       android:id="@+id/btn_dxk"
+                       android:background="@drawable/dxk_detail_t"
+                       android:layout_height="match_parent"/>
+            <TextView android:layout_width="180dp"
+                      android:id="@+id/btn_click"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentBottom="true"
+                      android:layout_height="40dp"/>
+        </RelativeLayout>
+    </com.lbins.myapp.widget.ReboundScrollView>
 </LinearLayout>

@@ -213,6 +213,7 @@ public class MinePackageActivity extends BaseActivity implements View.OnClickLis
                 //充值提现
                 Intent intent = new Intent(MinePackageActivity.this, BankCardCztxActivity.class);
                 startActivity(intent);
+                finish();
             }
             break;
             case R.id.liner_profile_bank_card:

@@ -267,7 +267,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-//                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                 initData();
             }
 
@@ -843,8 +842,21 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                 int code1 = jo.getInt("code");
                                 if (code1 == 200) {
                                     LxClassData data = getGson().fromJson(s, LxClassData.class);
+
                                     listClasses.clear();
-                                    listClasses.addAll(data.getData());
+                                    List<LxClass> listsgoodstype = new ArrayList<LxClass>();
+                                    listsgoodstype.clear();
+                                    listsgoodstype.addAll(data.getData());
+                                    if(listsgoodstype != null){
+                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
+                                            listClasses.add(listsgoodstype.get(i));
+                                        }
+                                    }
+                                    LxClass goodsType = new LxClass();
+                                    goodsType.setF_lx_class_id("0");
+                                    goodsType.setLx_class_name("更多");
+                                    goodsType.setIs_del("0");
+                                    listClasses.add(goodsType);
                                     adaptertype.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();

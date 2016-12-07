@@ -66,8 +66,13 @@ public class IndexTypeAdapter extends BaseAdapter {
         }
         final LxClass cell = goodstypes.get(position);//获得元素
         if (cell != null) {
-            imageLoader.displayImage(cell.getLx_class_cover(), holder.goodstype_item_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-            holder.goodstype_item_title.setText(cell.getLx_class_name());
+            if("更多".equals(cell.getLx_class_name())){
+                holder.goodstype_item_cover.setImageDrawable(mContext.getResources().getDrawable(R.drawable.more_type));
+                holder.goodstype_item_title.setText("更多");
+            }else {
+                imageLoader.displayImage(cell.getLx_class_cover(), holder.goodstype_item_cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+                holder.goodstype_item_title.setText(cell.getLx_class_name());
+            }
         }
         return convertView;
     }

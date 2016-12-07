@@ -7,7 +7,6 @@
               android:gravity="center"
               android:background="@drawable/btn_white_shape">
     <TextView android:layout_width="match_parent"
-              android:text="山东省"
               android:id="@+id/province_title"
               android:textColor="#414141"
               android:textSize="12dp"

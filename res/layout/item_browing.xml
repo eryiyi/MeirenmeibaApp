@@ -14,7 +14,6 @@
             android:layout_height="120dp"/>
 
     <TextView android:layout_width="wrap_content"
-              android:text="韩俊熙家泡菜"
               android:layout_marginLeft="8dp"
               android:layout_centerVertical="true"
               android:layout_marginTop="8dp"

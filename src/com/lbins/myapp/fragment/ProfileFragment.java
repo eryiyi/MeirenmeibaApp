@@ -528,6 +528,10 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 //更新零钱
                 getPackage();
             }
+            if(action.equals("pay_chongzhi_success")){
+                //更新零钱
+                getPackage();
+            }
         }
     };
 
@@ -578,6 +582,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         myIntentFilter.addAction("update_cover_success");
         myIntentFilter.addAction("update_location_success");//更新选择的城市
         myIntentFilter.addAction("update_mine_package_success");//更新零钱
+        myIntentFilter.addAction("pay_chongzhi_success");//更新零钱
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

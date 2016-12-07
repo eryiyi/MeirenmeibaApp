@@ -25,17 +25,18 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
 //        this.findViewById(R.id.right_btn).setVisibility(View.GONE);
 //        title = (TextView) this.findViewById(R.id.title);
 //        title.setText("定向卡详情");
-        this.findViewById(R.id.btn_dxk).setOnClickListener(this);
+//        this.findViewById(R.id.btn_dxk).setOnClickListener(this);
+        this.findViewById(R.id.btn_click).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_dxk:
-//                finish();
+            case R.id.btn_click:
             {
                 Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
                 break;
         }

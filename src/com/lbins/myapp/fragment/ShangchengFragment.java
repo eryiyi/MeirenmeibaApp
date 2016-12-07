@@ -14,6 +14,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,9 @@ import com.lbins.myapp.data.LxAdData;
 import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxAd;
+import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.entity.PaopaoGoods;
+import com.lbins.myapp.library.*;
 import com.lbins.myapp.ui.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
@@ -61,11 +64,11 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private TextView location;
     private EditText keywords;
 
-    private ClassifyGridview lstv;
+    private PullToRefreshHeadGridView lstv;
     private ItemIndexGoodsGridviewAdapter adapter;
     List<PaopaoGoods> listsgoods = new ArrayList<PaopaoGoods>();
-//    private int pageIndex = 1;
-//    private static boolean IS_REFRESH = true;
+    private int pageIndex = 1;
+    private static boolean IS_REFRESH = true;
 
     //轮播广告
     private ViewPager viewpager;
@@ -146,7 +149,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     };
     //商城分类
     private void initViewType() {
-        gridv_one = (ClassifyGridview) view.findViewById(R.id.gridv_one);
+        gridv_one = (ClassifyGridview) headLiner.findViewById(R.id.gridv_one);
         adaptertype = new GoodsTypeIndexAdapter(listGoodsType, getActivity());
         gridv_one.setAdapter(adaptertype);
         gridv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -173,24 +176,59 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         gridv_one.setSelector(new ColorDrawable(Color.TRANSPARENT));
     }
 
+    private LinearLayout headLiner;
+
     private void initView() {
-        view.findViewById(R.id.btn_cart).setOnClickListener(this);
-        view.findViewById(R.id.btn_cz).setOnClickListener(this);
-        view.findViewById(R.id.btn_order).setOnClickListener(this);
+        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.shangcheng_header, null);
+
+        headLiner.findViewById(R.id.btn_cart).setOnClickListener(this);
+        headLiner.findViewById(R.id.btn_cz).setOnClickListener(this);
+        headLiner.findViewById(R.id.btn_order).setOnClickListener(this);
+
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
         keywords = (EditText) view.findViewById(R.id.keywords);
         keywords.addTextChangedListener(watcher);
-        img_new = (ImageView) view.findViewById(R.id.img_new);
-        img_tehui = (ImageView) view.findViewById(R.id.img_tehui);
+
+        img_new = (ImageView) headLiner.findViewById(R.id.img_new);
+        img_tehui = (ImageView) headLiner.findViewById(R.id.img_tehui);
         img_new.setOnClickListener(this);
         img_tehui.setOnClickListener(this);
-        lstv = (ClassifyGridview) view.findViewById(R.id.lstv);
+        lstv = (PullToRefreshHeadGridView) view.findViewById(R.id.lstv);
 
+        lstv.setMode(PullToRefreshBase.Mode.BOTH);
+//        lstv.setAdapter(null);
+        HeaderGridView lv = lstv.getRefreshableView();
+        lv.setNumColumns(2);
+
+        lv.addHeaderView(headLiner);
         adapter = new ItemIndexGoodsGridviewAdapter(listsgoods, getActivity());
-        lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
         lstv.setAdapter(adapter);
+        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<HeaderGridView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<HeaderGridView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = true;
+                pageIndex = 1;
+                initData();
+                lstv.onRefreshComplete();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<HeaderGridView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = false;
+                pageIndex++;
+                initData();
+                lstv.onRefreshComplete();
+            }
+        });
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -204,8 +242,9 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
             }
         });
 
-        view.findViewById(R.id.btn_first_more).setOnClickListener(this);
-        view.findViewById(R.id.btn_tehui_more).setOnClickListener(this);
+
+        headLiner.findViewById(R.id.btn_first_more).setOnClickListener(this);
+        headLiner.findViewById(R.id.btn_tehui_more).setOnClickListener(this);
     }
 
 
@@ -222,8 +261,11 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     PaopaoGoodsData data = getGson().fromJson(s, PaopaoGoodsData.class);
-                                    listsgoods.clear();
+                                    if (IS_REFRESH) {
+                                        listsgoods.clear();
+                                    }
                                     listsgoods.addAll(data.getData());
+                                    lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
@@ -232,19 +274,19 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                 e.printStackTrace();
                             }
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        lstv.onRefreshComplete();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("index", String.valueOf(1));
+                params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
                 return params;
@@ -364,7 +406,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         adapterAd = new ShangchengAdViewPagerAdapter(getActivity());
         adapterAd.change(listsAd);
         adapterAd.setOnClickContentItemListener(this);
-        viewpager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewpager = (ViewPager) headLiner.findViewById(R.id.viewpager);
         viewpager.setAdapter(adapterAd);
         viewpager.setOnPageChangeListener(myOnPageChangeListener);
         initDot();
@@ -384,7 +426,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
     // 初始化dot视图
     private void initDot() {
-        viewGroup = (LinearLayout) view.findViewById(R.id.viewGroup);
+        viewGroup = (LinearLayout) headLiner.findViewById(R.id.viewGroup);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 20, 20);

@@ -359,6 +359,10 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 Intent orderView =  new Intent(PaySelectLqChongzhiActivity.this, MinePackageActivity.class);
                                 startActivity(orderView);
+                                //
+                                Intent intent1 = new Intent("pay_chongzhi_success");
+                                sendBroadcast(intent1);
+
                                 finish();
                             } else {
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
@@ -391,6 +395,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
         };
         getRequestQueue().add(request);
     }
+
     //--------------------zhifubao -------------------
     //----------------微信---------------
     public void goToPayWeixin(){
@@ -447,6 +452,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
         };
         getRequestQueue().add(request);
     }
+
     public Map<String,String> decodeXml(String content) {
         try {
             Map<String, String> xml = new HashMap<String, String>();
