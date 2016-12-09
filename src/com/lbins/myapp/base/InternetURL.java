@@ -220,4 +220,7 @@ public class InternetURL {
     //入驻选择商家要入住的分类
     public static final String appGetLxClass = INTERNAL + "appGetLxClass.do";
 
+    //我的粉丝列表
+    public static final String APP_GET_MIEN_FENSI_URL = INTERNAL +   "listMineEmps.do";
+
 }

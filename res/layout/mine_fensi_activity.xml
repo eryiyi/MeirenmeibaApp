@@ -18,7 +18,7 @@
                     android:layout_height="wrap_content">
 
         <ImageView android:layout_width="match_parent"
-                   android:src="@drawable/no_pic"
+                   android:src="@drawable/no_data"
                    android:id="@+id/search_null"
                    android:visibility="gone"
                    android:layout_centerInParent="true"

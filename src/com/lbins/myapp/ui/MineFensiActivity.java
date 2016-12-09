@@ -13,8 +13,9 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemFensiAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.DianPuFavourData;
-import com.lbins.myapp.entity.DianPuFavour;
+import com.lbins.myapp.data.MemberData;
+import com.lbins.myapp.data.MembersData;
+import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.util.StringUtil;
@@ -33,7 +34,7 @@ public class MineFensiActivity extends BaseActivity implements View.OnClickListe
     private TextView title;
     private PullToRefreshListView lstv;
     private ItemFensiAdapter adapter;
-    List<DianPuFavour> lists = new ArrayList<DianPuFavour>();
+    List<Member> lists = new ArrayList<Member>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
     private ImageView search_null;
@@ -105,12 +106,12 @@ public class MineFensiActivity extends BaseActivity implements View.OnClickListe
     private void getData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.APP_GET_FAVOUR_DIANPU_URL,
+                InternetURL.APP_GET_MIEN_FENSI_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
-                            DianPuFavourData data = getGson().fromJson(s, DianPuFavourData.class);
+                            MembersData data = getGson().fromJson(s, MembersData.class);
                             if (data.getCode() == 200) {
                                 if (IS_REFRESH) {
                                     lists.clear();

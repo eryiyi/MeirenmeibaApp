@@ -19,7 +19,7 @@
                         android:gravity="center_vertical"
                         android:layout_gravity="center_vertical"
                         android:layout_height="50dp">
-            <TextView android:layout_width="wrap_content"
+            <TextView android:layout_width="80dp"
                       android:text="手机号:"
                       android:layout_centerVertical="true"
                       android:id="@+id/mobile_msg"
@@ -46,7 +46,7 @@
                       android:layout_gravity="center_vertical"
                       android:orientation="horizontal"
                       android:layout_height="50dp">
-            <TextView android:layout_width="wrap_content"
+            <TextView android:layout_width="80dp"
                       android:text="密码:"
                       android:layout_centerVertical="true"
                       android:textSize="16sp"

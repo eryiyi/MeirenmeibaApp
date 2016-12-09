@@ -1,5 +1,6 @@
 package com.lbins.myapp.ui;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -382,13 +383,56 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
             switch (v.getId()) {
                 case R.id.sure:
                 {
-                    //确认收货
-                    sureOrder();
+                    if(StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class))){
+                        //如果支付密码为空
+                        Intent intent = new Intent(MineOrdersActivity.this, UpdatePayPwrActivity.class);
+                        startActivity(intent);
+                        return;
+                    }else {
+                        //输入支付密码
+                        showMsgDialog();
+                    }
                 }
                 break;
             }
         }
     };
+
+    private void showMsgDialog() {
+        final Dialog picAddDialog = new Dialog(MineOrdersActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.msg_pay_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final EditText cont = (EditText) picAddInflate.findViewById(R.id.cont);
+        cont.setHint("请输入支付密码");
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(StringUtil.isNullOrEmpty(cont.getText().toString())){
+                    showMsg(MineOrdersActivity.this, "请输入支付密码");
+                }else {
+                    if(getGson().fromJson(getSp().getString("emp_pay_pass", ""), String.class).equals(cont.getText().toString())){
+                        //等于
+                        picAddDialog.dismiss();
+                        //确认收货
+                        sureOrder();
+                    }else {
+                        showMsg(MineOrdersActivity.this, "请输入正确的支付密码");
+                    }
+                }
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
 
     private View.OnClickListener itemsOnClickThree = new View.OnClickListener() {
 

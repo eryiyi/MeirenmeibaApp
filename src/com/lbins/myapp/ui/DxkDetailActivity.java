@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.util.StringUtil;
 
 /**
  * Created by zhl on 2016/8/30.
@@ -34,16 +35,20 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_click:
             {
-                Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
-                startActivity(intent);
-                finish();
+                if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                        "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+                    //未登录
+                    Intent intent =  new Intent(DxkDetailActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
                 break;
         }
     }
 
-    public void dxkAction(View v){
-        Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
-        startActivity(intent);
-    }
 }

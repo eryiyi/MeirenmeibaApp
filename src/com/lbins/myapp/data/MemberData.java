@@ -1,5 +1,6 @@
 package com.lbins.myapp.data;
 
+
 import com.lbins.myapp.entity.Member;
 
 /**

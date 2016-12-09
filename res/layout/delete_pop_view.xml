@@ -21,6 +21,8 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:layout_below="@+id/title"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:text="取消"
             android:id="@+id/btn_cancle"
             android:textColor="@color/red"
@@ -30,6 +32,7 @@
           android:id="@+id/line_one"
           android:layout_below="@+id/btn_cancle"
           android:layout_marginTop="10dp"
+          android:layout_marginBottom="20dp"
           android:layout_marginLeft="20dp"
           android:layout_marginRight="20dp"
           android:background="@color/gray"/>
@@ -38,6 +41,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:text="确定"
+            android:layout_marginBottom="20dp"
             android:layout_below="@+id/line_one"
             android:id="@+id/btn_sure"
             android:textColor="@color/red"
@@ -47,6 +51,6 @@
           android:layout_marginLeft="20dp"
           android:layout_below="@+id/btn_sure"
           android:layout_marginRight="20dp"
-          android:layout_marginBottom="10dp"
+          android:layout_marginBottom="20dp"
           android:background="@color/gray"/>
 </RelativeLayout>

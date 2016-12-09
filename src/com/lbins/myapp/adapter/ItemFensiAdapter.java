@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.entity.DianPuFavour;
+import com.lbins.myapp.entity.Member;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ItemFensiAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<DianPuFavour> lists;
+    private List<Member> lists;
     private Context mContect;
     Resources res;
 
@@ -36,7 +36,7 @@ public class ItemFensiAdapter extends BaseAdapter {
     }
 
 
-    public ItemFensiAdapter(List<DianPuFavour> lists, Context mContect) {
+    public ItemFensiAdapter(List<Member> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -68,10 +68,10 @@ public class ItemFensiAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        DianPuFavour cell = lists.get(position);
+        Member cell = lists.get(position);
         if (cell != null) {
-            imageLoader.displayImage(cell.getEmp_cover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-            holder.name.setText(cell.getEmp_name()==null?"":cell.getEmp_name());
+            imageLoader.displayImage(cell.getEmpCover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            holder.name.setText(cell.getEmpName()==null?"":cell.getEmpName());
         }
 
         return convertView;

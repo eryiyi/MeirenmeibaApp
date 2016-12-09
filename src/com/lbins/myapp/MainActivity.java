@@ -34,6 +34,7 @@ import com.lbins.myapp.fragment.ProfileFragment;
 import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
+import com.lbins.myapp.ui.DxkDetailActivity;
 import com.lbins.myapp.ui.KefuTelActivity;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.ui.PaySelectTwoActivity;
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             btn_sure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, KefuTelActivity.class);
+                    Intent intent = new Intent(MainActivity.this, DxkDetailActivity.class);
                     startActivity(intent);
                     picAddDialog.dismiss();
                 }

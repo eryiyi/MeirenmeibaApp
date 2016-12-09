@@ -184,6 +184,8 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
     private List<Order> listOrders = new ArrayList<Order>();//订单集合 --传给服务器
 
     public void payAction(View view){
+        listOrders.clear();
+        SGform = new OrdersForm();
         switch (selectPayWay){
             case 0:
             {
