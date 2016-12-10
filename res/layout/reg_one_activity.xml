@@ -182,14 +182,15 @@
                           android:orientation="horizontal"
                           android:layout_gravity="center"
                           android:gravity="center"
-                          android:id="@+id/liner_one"
                           android:padding="8dp"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="20dp"
-                           android:src="@drawable/checkbox_checked"
+                           android:id="@+id/check_box"
+                           android:src="@drawable/checkbox_nocheck"
                            android:layout_height="20dp"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="注册协议"
+                          android:id="@+id/liner_one"
                           android:textColor="@color/blue"
                           android:layout_marginLeft="8dp"
                           android:layout_height="wrap_content"/>

@@ -27,6 +27,7 @@
 
     <Button android:layout_width="match_parent"
             android:text="立即入驻"
+            android:id="@+id/btn_one"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:onClick="ruzhuAction"

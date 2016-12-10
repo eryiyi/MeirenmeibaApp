@@ -105,7 +105,7 @@ public class MineConsumptionActivity extends BaseActivity implements View.OnClic
     }
 
     void initDataPackage(){
-        countJb.setText("现有美币："+ (minePackage.getPackage_money()==null?"":minePackage.getPackage_money()));
+        countJb.setText("消费积分："+ (minePackage.getPackage_money()==null?"":minePackage.getPackage_money()));
     }
 
     private void initView() {

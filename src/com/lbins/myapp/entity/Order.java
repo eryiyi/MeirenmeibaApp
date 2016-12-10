@@ -35,7 +35,7 @@ public class Order implements Serializable{
     private String areaId;
     private String trade_type;
     private String is_return;//是否退货完成 0否 1是（卖家已处理）
-    private String is_dxk_order;//是否0元订单； 默认0否  1是
+    private String is_dxk_order;//是否0元订单； 默认0否  1是 2是充值定向卡会员
     private String is_comment;//是否评价； 默认0否  1是
 
     private String payable_amount_all;//没打折之前的金额
@@ -300,7 +300,7 @@ public class Order implements Serializable{
 
     public Order(String goods_id, String emp_id, String seller_emp_id, String address_id, String goods_count, String payable_amount,
                  String distribution_type, String distribution_status, String postscript, String invoice, String invoice_title, String taxes,
-                 String provinceId, String cityId, String areaId,String trade_type,String payable_amount_all,String pv_amount) {
+                 String provinceId, String cityId, String areaId,String trade_type,String payable_amount_all,String pv_amount, String is_dxk_order) {
         this.goods_id = goods_id;
         this.emp_id = emp_id;
         this.seller_emp_id = seller_emp_id;
@@ -319,6 +319,7 @@ public class Order implements Serializable{
         this.trade_type = trade_type;
         this.payable_amount_all = payable_amount_all;
         this.pv_amount = pv_amount;
+        this.is_dxk_order = is_dxk_order;
     }
 
 }

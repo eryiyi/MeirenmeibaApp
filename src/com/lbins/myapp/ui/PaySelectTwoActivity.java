@@ -207,7 +207,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
                             if(payScanObj != null ){
                                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
                                         ,"", "1", payScanObj.getPay_count()
-                                        ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0"));
+                                        ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0", "0"));
                             }
                             SGform.setList(listOrders);
                             if(listOrders!=null && listOrders.size() > 0){
@@ -222,7 +222,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
                             if(payScanObj != null){
                                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
                                         ,"", "1", payScanObj.getPay_count()
-                                        ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0"));
+                                        ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0", "0"));
                             }
                             SGform.setList(listOrders);
                             //支付宝
@@ -405,7 +405,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         if(payScanObj != null){
             listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
                     ,"", "1", payScanObj.getPay_count()
-                    ,"0","0","","","","","","","","2", payScanObj.getPay_count(), "0"));
+                    ,"0","0","","","","","","","","2", payScanObj.getPay_count(), "0", "0"));
         }
         SGform.setList(listOrders);
         //支付宝

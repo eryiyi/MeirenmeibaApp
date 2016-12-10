@@ -387,6 +387,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AlbumGridViewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AnimateFirstDisplayListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/DxkViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/GoodsDetailViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/GoodsTypeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/GoodsTypeIndexAdapter.java" charset="UTF-8" />

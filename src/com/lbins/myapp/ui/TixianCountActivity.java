@@ -120,7 +120,7 @@ public class TixianCountActivity extends BaseActivity implements View.OnClickLis
         money_count = (TextView) this.findViewById(R.id.money_count);
         ban_card = (TextView) this.findViewById(R.id.ban_card);
         money_cztx = (EditText) this.findViewById(R.id.money_cztx);
-        title.setText("积分提现");
+        title.setText("通用积分提现");
         this.findViewById(R.id.liner_card).setOnClickListener(this);
         btn_card = (Button) this.findViewById(R.id.btn_card);
         btn_card.setOnClickListener(this);

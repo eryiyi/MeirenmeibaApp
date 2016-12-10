@@ -221,7 +221,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                         Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
                                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                                 ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1",String.valueOf(payable_amount_all) ,String.valueOf(pv_amount)));
+                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"1",String.valueOf(payable_amount_all) ,String.valueOf(pv_amount), "0"));
                                     }
                                 }
                             }else {
@@ -233,7 +233,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                                         Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
                                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                                 ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                                ,"0","0","","","","","","","","1", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                                ,"0","0","","","","","","","","1", String.valueOf(payable_amount_all), String.valueOf(pv_amount), "0"));
                                     }
                                 }
                             }
@@ -260,7 +260,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
                                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                                 ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0",String.valueOf(payable_amount_all),String.valueOf(pv_amount)));
+                                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"0",String.valueOf(payable_amount_all),String.valueOf(pv_amount), "0"));
                                     }
                                 }
                             }else{
@@ -273,7 +273,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
                                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                                 ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                                ,"0","0","","","","","","","","0", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                                ,"0","0","","","","","","","","0", String.valueOf(payable_amount_all), String.valueOf(pv_amount), "0"));
                                     }
                                 }
                             }
@@ -420,7 +420,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                 ,shoppingAddress.getAddress_id(), shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"2", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                ,"0","0","","","","",shoppingAddress.getProvince(),shoppingAddress.getCity(),shoppingAddress.getArea(),"2", String.valueOf(payable_amount_all), String.valueOf(pv_amount), "0"));
                     }
                 }
             }else{
@@ -434,7 +434,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
 
                         listOrders.add(new Order(shoppingCart.getGoods_id(), getGson().fromJson(getSp().getString("empId", ""), String.class), shoppingCart.getEmp_id()
                                 ,"", shoppingCart.getGoods_count(), String.valueOf(payable_amount)
-                                ,"0","0","","","","","","","","2", String.valueOf(payable_amount_all), String.valueOf(pv_amount)));
+                                ,"0","0","","","","","","","","2", String.valueOf(payable_amount_all), String.valueOf(pv_amount), "0"));
                     }
                 }
             }

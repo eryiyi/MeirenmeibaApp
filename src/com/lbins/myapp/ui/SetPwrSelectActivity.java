@@ -25,6 +25,7 @@ public class SetPwrSelectActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.liner_set_pwr_one).setOnClickListener(this);
         this.findViewById(R.id.liner_set_pwr_two).setOnClickListener(this);
         this.findViewById(R.id.liner_set_pwr_three).setOnClickListener(this);
+        this.findViewById(R.id.liner_set_pwr_mobile).setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +52,12 @@ public class SetPwrSelectActivity extends BaseActivity implements View.OnClickLi
             {
                 //支付密码
                 Intent intent = new Intent(SetPwrSelectActivity.this, UpdatePayPwrActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.liner_set_pwr_mobile:
+            {
+                Intent intent = new Intent(SetPwrSelectActivity.this, FindPwrMobileActivity.class);
                 startActivity(intent);
             }
             break;

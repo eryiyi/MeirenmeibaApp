@@ -182,7 +182,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                 //微信
                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), ""
                         ,"", "0", jine
-                        ,"0","0","","","","","","","","1",jine ,"0"));
+                        ,"0","0","","","","","","","","1",jine ,"0", "0"));
                 SGform.setList(listOrders);
                 if(listOrders!=null && listOrders.size() > 0){
                     //传值给服务端
@@ -195,7 +195,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                 //支付宝
                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), ""
                         ,"", "0", jine
-                        ,"0","0","","","","","","","","0", jine, "0"));
+                        ,"0","0","","","","","","","","0", jine, "0", "0"));
                 SGform.setList(listOrders);
                 if(listOrders!=null && listOrders.size() > 0){
                     //传值给服务端

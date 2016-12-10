@@ -10,10 +10,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -59,6 +56,10 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
     private EditText pwr_one;
     private EditText pwr_two;
+
+    private ImageView check_box;
+
+    private int tmpSelect = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,8 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         this.findViewById(R.id.liner_one).setOnClickListener(this);
         pwr_one = (EditText) this.findViewById(R.id.pwr_one);
         pwr_two = (EditText) this.findViewById(R.id.pwr_two);
+        check_box = (ImageView) this.findViewById(R.id.check_box);
+        check_box.setOnClickListener(this);
     }
 
     @Override
@@ -139,6 +142,18 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
                 //注册协议
                 Intent intent = new Intent(RegOneActivity.this, RegistMsgActivity.class);
                 startActivity(intent);
+            }
+                break;
+            case R.id.check_box:
+            {
+                //判断是否选中
+                if(tmpSelect == 0){
+                    tmpSelect = 1;
+                    check_box.setImageDrawable(res.getDrawable(R.drawable.checkbox_checked));
+                }else {
+                    tmpSelect = 0;
+                    check_box.setImageDrawable(res.getDrawable(R.drawable.checkbox_nocheck));
+                }
             }
                 break;
 
@@ -169,6 +184,10 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         }
         if(!pwr_one.getText().toString().equals(pwr_two.getText().toString())){
             showMsg(RegOneActivity.this, "两次输入密码不一致");
+            return;
+        }
+        if(tmpSelect == 0){
+            showMsg(RegOneActivity.this, "请阅读注册协议");
             return;
         }
         progressDialog = new CustomProgressDialog(RegOneActivity.this, "",R.anim.custom_dialog_frame);

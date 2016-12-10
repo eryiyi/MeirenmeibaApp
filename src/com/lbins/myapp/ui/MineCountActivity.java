@@ -72,7 +72,7 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
         right_btn.setVisibility(View.VISIBLE);
         right_btn.setText("提现");
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("我的积分");
+        title.setText("通用积分");
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         adapter = new ItemCountRecordAdapter(lists, MineCountActivity.this);
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
@@ -200,7 +200,7 @@ public class MineCountActivity extends BaseActivity implements View.OnClickListe
                             if (data.getCode() == 200) {
                                 count = data.getData();
                                 if(count != null){
-                                    countJf.setText("现有积分:￥"+count.getCount());
+                                    countJf.setText("通用积分:￥"+count.getCount());
                                 }
                             } else {
                                 Toast.makeText(MineCountActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();

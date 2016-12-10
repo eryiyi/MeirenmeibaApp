@@ -254,8 +254,10 @@ public class FindPwrMobileActivity extends BaseActivity implements View.OnClickL
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
-                                    showMsg(FindPwrMobileActivity.this, "操作成功，请登录！");
-                                    ActivityTack.getInstanse().popUntilActivity(LoginActivity.class);
+                                    showMsg(FindPwrMobileActivity.this, "操作成功，请重新登录！");
+                                    Intent intent = new Intent(FindPwrMobileActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+//                                    ActivityTack.getInstanse().popUntilActivity(LoginActivity.class);
                                 }else {
                                     switch (Integer.parseInt(code)){
                                         case 1:

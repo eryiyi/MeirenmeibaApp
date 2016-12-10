@@ -4,11 +4,11 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <!--<include-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--layout="@layout/top_liner"/>-->
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_liner"/>
 
     <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
                                               android:layout_height="match_parent">

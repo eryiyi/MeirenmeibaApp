@@ -144,6 +144,12 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
         check_btn_ling.setOnClickListener(this);
         btn_pay_lq = (Button) this.findViewById(R.id.btn_pay_lq);
         btn_pay_lq.setOnClickListener(this);
+//        if(orderVo != null && !StringUtil.isNullOrEmpty(orderVo.getIs_dxk_order()) && "2".equals(orderVo.getIs_dxk_order())){
+//            //是定向卡开通订单
+//            this.findViewById(R.id.liner_pay_lq).setVisibility(View.GONE);
+//        }else {
+//            this.findViewById(R.id.liner_pay_lq).setVisibility(View.VISIBLE);
+//        }
     }
 
     //计算金额总的

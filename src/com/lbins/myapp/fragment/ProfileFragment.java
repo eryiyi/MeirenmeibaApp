@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -71,6 +72,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private String pics = "";
     private static final File PHOTO_CACHE_DIR = new File(Environment.getExternalStorageDirectory() + "/liangxun/PhotoCache");
 
+    private LinearLayout liner_profile_ruzhu;//我要入驻
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +127,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         view.findViewById(R.id.liner_profile_ruzhu).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_dianjia).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_liulan).setOnClickListener(this);
+        liner_profile_ruzhu = (LinearLayout) view.findViewById(R.id.liner_profile_ruzhu);
     }
 
     @Override
@@ -304,7 +308,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             mine_type.setText(getGson().fromJson(getSp().getString("levelName", ""), String.class));
         }
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("package_money", ""), String.class))){
-            mine_money.setText("零钱:￥"+getGson().fromJson(getSp().getString("package_money", ""), String.class));
+            mine_money.setText("消费积分:￥"+getGson().fromJson(getSp().getString("package_money", ""), String.class));
         }
         mine_mobile.setText("手机："+ getGson().fromJson(getSp().getString("empMobile", ""), String.class));
         //判断是否vip
@@ -314,6 +318,12 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         }else {
             vip_type.setVisibility(View.GONE);
         }
+        if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
+            liner_profile_ruzhu.setVisibility(View.GONE);
+        }else{
+            liner_profile_ruzhu.setVisibility(View.VISIBLE);
+        }
+
     }
 
     // 选择相册，相机
@@ -555,7 +565,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                             if (data.getCode() == 200) {
                                 MinePackage minePackage = data.getData();
                                 if(minePackage != null){
-                                    mine_money.setText("零钱:￥" + minePackage.getPackage_money());
+                                    mine_money.setText("消费积分:￥" + minePackage.getPackage_money());
                                 }
                             }
                         }

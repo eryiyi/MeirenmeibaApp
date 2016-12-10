@@ -193,7 +193,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                 //先传值给服务端
                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), InternetURL.DEFAULT_EMP_ID
                         ,"", "1", dxkMoneyObj.getMoney()
-                        ,"0","0","","","","","","","","1",dxkMoneyObj.getMoney(), "0"));
+                        ,"0","0","","","","","","","","1",dxkMoneyObj.getMoney(), "0","2"));
                 SGform.setList(listOrders);
                 if(listOrders!=null && listOrders.size() > 0){
                     //传值给服务端
@@ -206,7 +206,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                 //先传值给服务端
                 listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), InternetURL.DEFAULT_EMP_ID
                         ,"", "1", dxkMoneyObj.getMoney()
-                        ,"0","0","","","","","","","","0", dxkMoneyObj.getMoney(), "0"));
+                        ,"0","0","","","","","","","","0", dxkMoneyObj.getMoney(), "0","2"));
                 SGform.setList(listOrders);
                 //支付宝
                 if(listOrders!=null && listOrders.size() > 0){

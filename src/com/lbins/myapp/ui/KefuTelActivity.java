@@ -52,7 +52,7 @@ public class KefuTelActivity extends BaseActivity implements View.OnClickListene
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("客服中心");
+        title.setText("客服QQ");
 
         lstv = (ListView) this.findViewById(R.id.lstv);
         adapter = new ItemKefuTelAdapter(lists, KefuTelActivity.this);
@@ -62,8 +62,10 @@ public class KefuTelActivity extends BaseActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 KefuTel goodsAddress = lists.get(i);
                 if(goodsAddress != null && !StringUtil.isNullOrEmpty(goodsAddress.getMm_tel())){
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + goodsAddress.getMm_tel()));
-                    startActivity(intent);
+//                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + goodsAddress.getMm_tel()));
+//                    startActivity(intent);
+                    String url="mqqwpa://im/chat?chat_type=wpa&uin="+goodsAddress.getMm_tel();
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                 }
             }
         });

@@ -54,7 +54,7 @@
                                         android:layout_marginLeft="8dp"
                                         android:layout_height="wrap_content">
                             <TextView android:layout_width="wrap_content"
-                                      android:text="余额"
+                                      android:text="消费积分"
                                       android:textStyle="bold"
                                       android:id="@+id/txt_one"
                                       android:textColor="@color/white"
@@ -110,7 +110,7 @@
                           android:background="@drawable/btn_gray_shape"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
-                          android:text="可用美币"
+                          android:text="消费积分"
                           android:textSize="18sp"
                           android:textStyle="bold"
                           android:layout_gravity="center"
@@ -139,7 +139,7 @@
                           android:background="@drawable/btn_gray_shape"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
-                          android:text="可用积分"
+                          android:text="通用积分"
                           android:textSize="18sp"
                           android:textStyle="bold"
                           android:layout_gravity="center"
