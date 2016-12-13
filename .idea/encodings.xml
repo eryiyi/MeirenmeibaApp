@@ -54,8 +54,6 @@
     <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_slide_in_from_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/umeng_socialize_slide_out_from_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/color/popup_menu_text.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/dizhi.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-hdpi/more_type.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_light_bar_bg_pad.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_nav_bar_bg_pad.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-hdpi/umeng_socialize_oauth_check_off.png" charset="UTF-8" />
@@ -85,8 +83,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotc.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotn.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/download_pic.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dxk_detail_t.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/load.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_0.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_1.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_2.png" charset="UTF-8" />
@@ -95,9 +91,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_5.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_6.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_7.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_one.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_three.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_two.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/msg_order.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/order_tel.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/order_tx.png" charset="UTF-8" />
@@ -105,7 +98,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/star.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/tel_order.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/top_star_p.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/update_new_version.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/xiazai.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/analyze_empty_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_pop_item.xml" charset="UTF-8" />

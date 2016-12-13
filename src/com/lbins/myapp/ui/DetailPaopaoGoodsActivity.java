@@ -187,6 +187,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
         dp_star = (ImageView) headLiner.findViewById(R.id.dp_star);
         dp_tel = (ImageView) headLiner.findViewById(R.id.dp_tel);
         dianpu_cover = (ImageView) headLiner.findViewById(R.id.dianpu_cover);
+        dianpu_cover.setOnClickListener(this);
         dp_tel.setOnClickListener(this);
         dp_address = (TextView) headLiner.findViewById(R.id.dp_address);
         money_one = (TextView) headLiner.findViewById(R.id.money_one);
@@ -422,6 +423,19 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 startActivity(intent);
             }
             break;
+            case R.id.dianpu_cover:
+            {
+                //店铺点击
+                if(!StringUtil.isNullOrEmpty(emp_id_dianpu)){
+                    Intent intent = new Intent(DetailPaopaoGoodsActivity.this, DianpuDetailActivity.class);
+                    intent.putExtra("emp_id_dianpu", emp_id_dianpu);
+                    startActivity(intent);
+                }else {
+                    showMsg(DetailPaopaoGoodsActivity.this, "店铺ID不存在！逛逛其他店铺吧");
+                }
+
+            }
+                break;
 
         }
     }

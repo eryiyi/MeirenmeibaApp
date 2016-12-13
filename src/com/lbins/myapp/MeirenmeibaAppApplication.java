@@ -209,15 +209,19 @@ public class MeirenmeibaAppApplication extends Application {
     }
 
 
-    private static MeirenmeibaAppApplication instance;
+//    private static MeirenmeibaAppApplication instance;
 
-    // 构造方法
-    // 实例化一次
+//    // 构造方法
+//    // 实例化一次
+//    public synchronized static MeirenmeibaAppApplication getInstance() {
+//        if (null == instance) {
+//            instance = new MeirenmeibaAppApplication();
+//        }
+//        return instance;
+//    }
+
     public synchronized static MeirenmeibaAppApplication getInstance() {
-        if (null == instance) {
-            instance = new MeirenmeibaAppApplication();
-        }
-        return instance;
+        return application;
     }
 
     // add Activity

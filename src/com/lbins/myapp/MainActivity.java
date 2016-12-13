@@ -5,15 +5,11 @@ import android.content.*;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +31,6 @@ import com.lbins.myapp.fragment.ShangchengFragment;
 import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.ui.DxkDetailActivity;
-import com.lbins.myapp.ui.KefuTelActivity;
 import com.lbins.myapp.ui.LoginActivity;
 import com.lbins.myapp.ui.PaySelectTwoActivity;
 import com.lbins.myapp.util.DateUtil;
@@ -559,15 +554,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
-                            SuccessData data = getGson().fromJson(s, SuccessData.class);
-                            if (data.getCode() == 200) {
-                                showMsg(MainActivity.this, "收藏店铺成功！");
-                            } else if(data.getCode() == 2){
-                                showMsg(MainActivity.this, "已经收藏了！");
+
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    showMsg(MainActivity.this, "收藏店铺成功！");
+                                }else if(Integer.parseInt(code1) == 2){
+                                    showMsg(MainActivity.this, "已经收藏了！");
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            else {
-                                Toast.makeText(MainActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
-                            }
+
+
                         } else {
                             Toast.makeText(MainActivity.this, "收藏店铺失败,请重新扫描！", Toast.LENGTH_SHORT).show();
                         }
@@ -605,13 +605,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
-                            SuccessData data = getGson().fromJson(s, SuccessData.class);
-                            if (data.getCode() == 200) {
-                                showMsg(MainActivity.this, "订单已生成，等待管理员审核！");
+
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    showMsg(MainActivity.this, "订单已生成，等待管理员审核！");
+                                }else if(Integer.parseInt(code1) == 2){
+                                    showMsg(MainActivity.this, "登录状态已过期，请重新登录！");
+                                } else if(Integer.parseInt(code1) == 3){
+                                    showMsg(MainActivity.this, "卖家店铺不存在，请确认后重试！");
+                                } else if(Integer.parseInt(code1) == 4){
+                                    showMsg(MainActivity.this, "今天已经下过订单了，换一家试试吧！");
+                                }else{
+                                    Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            else {
-                                Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
-                            }
+
                         } else {
                             Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
                         }
