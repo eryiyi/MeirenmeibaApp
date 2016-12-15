@@ -239,7 +239,11 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("goodsId", record_uuid);
+                if(!StringUtil.isNullOrEmpty(record_uuid)){
+                    params.put("goodsId", record_uuid);
+                }else{
+                    params.put("goodsId", "0");
+                }
                 params.put("empId", getGson().fromJson(getSp().getString("empId", ""), String.class));
                 params.put("fplempid", "");//父评论人
                 params.put("fplid", "");
