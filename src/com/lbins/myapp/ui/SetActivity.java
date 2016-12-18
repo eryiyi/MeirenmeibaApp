@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zhl on 2016/8/30.
@@ -209,7 +210,8 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     public void quiteAction(View view){
         //退出
         save("empPass", "");
-        ActivityTack.getInstanse().exit(SetActivity.this);
+        ActivityTack.getInstanse().qiehuan(SetActivity.this);
+
     }
 
 }

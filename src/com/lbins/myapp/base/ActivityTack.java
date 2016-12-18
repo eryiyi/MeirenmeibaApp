@@ -2,6 +2,8 @@ package com.lbins.myapp.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import com.lbins.myapp.ui.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -79,5 +81,19 @@ public class ActivityTack {
             Activity activity = iterator.next();
             popActivity(activity);
         }
+    }
+
+    /**
+     * 切换账号
+     *
+     * @param context
+     */
+    public void qiehuan(Context context) {
+        while (activityList.size() > 0) {
+            Activity activity = activityList.remove(activityList.size() - 1);
+            activity.finish();
+        }
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
     }
 }

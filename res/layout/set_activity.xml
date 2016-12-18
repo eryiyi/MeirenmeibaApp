@@ -213,7 +213,7 @@
 
     </LinearLayout>
     <Button android:layout_width="match_parent"
-            android:text="退 出"
+            android:text="切换账号"
             android:padding="12dp"
             android:textStyle="bold"
             android:layout_marginTop="25dp"
