@@ -30,7 +30,9 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.FensiCountData;
 import com.lbins.myapp.data.MinePackageData;
+import com.lbins.myapp.entity.FensiCount;
 import com.lbins.myapp.entity.MinePackage;
 import com.lbins.myapp.ui.*;
 import com.lbins.myapp.upload.CommonUtil;
@@ -74,6 +76,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     private LinearLayout liner_profile_ruzhu;//我要入驻
 
+    private TextView mine_fensi_count;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +90,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         res = getActivity().getResources();
         initView();
         initData();
+        //获得我的粉丝总数量
+        getFensiCount();
         return view;
     }
+
 
     void initView(){
         view.findViewById(R.id.back).setVisibility(View.GONE);
@@ -128,6 +135,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         view.findViewById(R.id.liner_profile_dianjia).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_liulan).setOnClickListener(this);
         liner_profile_ruzhu = (LinearLayout) view.findViewById(R.id.liner_profile_ruzhu);
+
+        mine_fensi_count = (TextView) view.findViewById(R.id.mine_fensi_count);
     }
 
     @Override
@@ -593,6 +602,48 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         };
         getRequestQueue().add(request);
     }
+
+    public void getFensiCount(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.MINE_FENSI_COUNT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            FensiCountData data = getGson().fromJson(s, FensiCountData.class);
+                            if (data.getCode() == 200) {
+                                FensiCount minePackage = data.getData();
+                                if(minePackage != null){
+                                    mine_fensi_count.setText(minePackage.getCountFensi()==null?"0":minePackage.getCountFensi());
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
     //注册广播
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();

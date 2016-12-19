@@ -327,6 +327,8 @@
                           android:drawablePadding="15dp"
                           android:layout_gravity="center"
                           android:gravity="center"
+                          android:text="0"
+                          android:id="@+id/mine_fensi_count"
                           android:layout_marginRight="5dp"
                           android:drawableRight="@drawable/in"
                           android:textColor="@color/text_color_two"

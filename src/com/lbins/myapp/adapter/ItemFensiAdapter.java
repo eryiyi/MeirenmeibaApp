@@ -64,6 +64,7 @@ public class ItemFensiAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_fensi, null);
             holder.cover = (ImageView) convertView.findViewById(R.id.cover);
             holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.floor = (TextView) convertView.findViewById(R.id.floor);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -72,6 +73,7 @@ public class ItemFensiAdapter extends BaseAdapter {
         if (cell != null) {
             imageLoader.displayImage(cell.getEmpCover(), holder.cover, MeirenmeibaAppApplication.txOptions, animateFirstListener);
             holder.name.setText(cell.getEmpName()==null?"":cell.getEmpName());
+            holder.floor.setText("#"+String.valueOf(position+1));
         }
 
         return convertView;
@@ -79,6 +81,7 @@ public class ItemFensiAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView cover;
+        TextView floor;
         TextView name;
     }
 }
