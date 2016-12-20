@@ -12,9 +12,9 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
     public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
-//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+    public static final String INTERNAL = "http://157j1274e3.iask.in/";
 //    public static final String INTERNAL = "http://192.168.0.224:8080/";
-    public static final String INTERNAL = "http://114.215.41.142:8080/";
+//    public static final String INTERNAL = "http://114.215.41.142:8080/";
 
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
@@ -226,4 +226,6 @@ public class InternetURL {
     //粉丝数量统计
     public static final String MINE_FENSI_COUNT = INTERNAL +   "MineFensiCount.do";
 
+    //通过手机号重设支付密码
+    public static final String FIND_PWR_PAY__URL = INTERNAL + "findPwrPayByMobile.do";
 }

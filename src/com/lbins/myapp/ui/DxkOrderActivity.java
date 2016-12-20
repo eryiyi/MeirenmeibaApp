@@ -66,7 +66,8 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
-                    PayResult payResult = new PayResult((String) msg.obj);
+//                    PayResult payResult = new PayResult((String) msg.obj);
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
                     // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
                     String resultInfo = payResult.getResult();
                     String resultStatus = payResult.getResultStatus();
@@ -444,7 +445,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
      * call alipay sdk pay. 调用SDK支付
      *
      */
-    public void pay(OrderInfoAndSign orderInfoAndSign) {
+    public void pay(final OrderInfoAndSign orderInfoAndSign) {
 
         // 完整的符合支付宝参数规范的订单信息
         final String payInfo = orderInfoAndSign.getOrderInfo() + "&sign=\"" + orderInfoAndSign.getSign() + "\"&"
@@ -455,9 +456,17 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void run() {
                 // 构造PayTask 对象
+//                PayTask alipay = new PayTask(DxkOrderActivity.this);
+//                // 调用支付接口，获取支付结果
+//                String result = alipay.pay(payInfo);
+//
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
                 PayTask alipay = new PayTask(DxkOrderActivity.this);
-                // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo);
+                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Log.i("msp", result.toString());
 
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
@@ -471,41 +480,6 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         payThread.start();
     }
 
-    /**
-     * check whether the device has authentication alipay account.
-     * 查询终端设备是否存在支付宝认证账户
-     *
-     */
-    public void check(View v) {
-        Runnable checkRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask payTask = new PayTask(DxkOrderActivity.this);
-                // 调用查询接口，获取查询结果
-                boolean isExist = payTask.checkAccountIfExist();
-
-                Message msg = new Message();
-                msg.what = SDK_CHECK_FLAG;
-                msg.obj = isExist;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        Thread checkThread = new Thread(checkRunnable);
-        checkThread.start();
-    }
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * get the sign type we use. 获取签名方式
@@ -514,8 +488,6 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
     public String getSignType() {
         return "sign_type=\"RSA\"";
     }
-
-
 
     //--------------------zhifubao -------------------
     //----------------微信---------------
@@ -758,14 +730,17 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         getRequestQueue().add(request);
     }
 
-
+    int tmpS = 0;
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
-                updateMineOrder();
+                if(tmpS == 0){
+                    tmpS =1;
+                    updateMineOrder();
+                }
             }
         }
     };

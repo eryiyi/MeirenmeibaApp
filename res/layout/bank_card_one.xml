@@ -26,8 +26,8 @@
                       android:layout_marginLeft="15dp"
                       android:layout_height="wrap_content"/>
             <EditText android:layout_width="match_parent"
-                      android:layout_marginLeft="8dp"
-                      android:layout_marginRight="8dp"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp"
                       android:textSize="16sp"
                       android:numeric="integer"
                       android:padding="8dp"
@@ -35,16 +35,20 @@
                       android:background="@drawable/et_bule_bg"
                       android:hint="请输入银行卡卡号"
                       android:layout_height="wrap_content"/>
+
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="vertical"
-                          android:padding="8dp"
-                          android:layout_marginTop="8dp"
+                          android:padding="12dp"
                           android:background="@color/white"
                           android:layout_height="wrap_content">
+                <View android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:layout_height="0.1dp"></View>
                 <RelativeLayout android:layout_width="match_parent"
                                 android:gravity="center_vertical"
+                                android:padding="8dp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_height="50dp">
+                                android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:text="手机号:"
                               android:layout_centerVertical="true"
@@ -53,7 +57,7 @@
                               android:textColor="@color/text_color"
                               android:layout_height="wrap_content"/>
                     <EditText android:layout_width="match_parent"
-                              android:hint="输入登录用的手机号"
+                              android:hint="输入手机号"
                               android:singleLine="true"
                               android:textSize="15sp"
                               android:layout_marginLeft="8dp"
@@ -71,7 +75,8 @@
                               android:gravity="center_vertical"
                               android:layout_gravity="center_vertical"
                               android:orientation="horizontal"
-                              android:layout_height="50dp">
+                              android:padding="12dp"
+                              android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:text="姓名:"
                               android:layout_centerVertical="true"
@@ -94,8 +99,9 @@
                 <LinearLayout android:layout_width="match_parent"
                               android:gravity="center_vertical"
                               android:layout_gravity="center_vertical"
+                              android:padding="12dp"
                               android:orientation="horizontal"
-                              android:layout_height="50dp">
+                              android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:text="银行:"
                               android:layout_centerVertical="true"
@@ -119,7 +125,8 @@
                               android:gravity="center_vertical"
                               android:layout_gravity="center_vertical"
                               android:orientation="horizontal"
-                              android:layout_height="50dp">
+                              android:padding="12dp"
+                              android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:text="开户行:"
                               android:layout_centerVertical="true"

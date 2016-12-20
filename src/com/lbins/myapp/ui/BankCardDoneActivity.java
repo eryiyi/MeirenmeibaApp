@@ -172,13 +172,17 @@ public class BankCardDoneActivity extends BaseActivity implements View.OnClickLi
             case R.id.back:
                 finish();
                 break;
-            case R.id.btn_card:
-                //验证码获得
-                if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
-                    showMsg(BankCardDoneActivity.this, "请输入手机号！");
-                    return;
-                }
-                break;
+//            case R.id.btn_card:
+//                //验证码获得
+//                if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
+//                    showMsg(BankCardDoneActivity.this, "请输入手机号！");
+//                    return;
+//                }
+//                if(!mobile.getText().toString().equals(getGson().fromJson(getSp().getString("empMobile", ""), String.class))){
+//                    showMsg(BankCardDoneActivity.this, "请输入您登陆该账户的手机号码！");
+//                    return;
+//                }
+//                break;
             case R.id.btn_one:
             {
                 //绑定
