@@ -649,9 +649,9 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                             if (data.getCode() == 200) {
                                 Toast.makeText(PaySelectActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
-                                Intent orderView =  new Intent(PaySelectActivity.this, MineOrdersActivity.class);
-                                orderView.putExtra("status", "");
-                                startActivity(orderView);
+//                                Intent orderView =  new Intent(PaySelectActivity.this, MineOrdersActivity.class);
+//                                orderView.putExtra("status", "");
+//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(PaySelectActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();

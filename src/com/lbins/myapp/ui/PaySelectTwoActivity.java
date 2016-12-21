@@ -616,9 +616,9 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
                                 Toast.makeText(PaySelectTwoActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
                                 //跳转到订单列表
-                                Intent orderView =  new Intent(PaySelectTwoActivity.this, MineOrdersActivity.class);
-                                orderView.putExtra("status", "");
-                                startActivity(orderView);
+//                                Intent orderView =  new Intent(PaySelectTwoActivity.this, MineOrdersActivity.class);
+//                                orderView.putExtra("status", "");
+//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();

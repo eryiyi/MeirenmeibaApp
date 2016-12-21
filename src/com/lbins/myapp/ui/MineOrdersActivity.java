@@ -377,7 +377,6 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
     };
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClickTwo = new View.OnClickListener() {
-
         public void onClick(View v) {
             orderCancelPopWindowTwo.dismiss();
             switch (v.getId()) {

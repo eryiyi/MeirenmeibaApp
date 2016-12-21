@@ -367,12 +367,11 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
-                                Intent orderView =  new Intent(PaySelectLqChongzhiActivity.this, MinePackageActivity.class);
-                                startActivity(orderView);
-                                //
                                 Intent intent1 = new Intent("pay_chongzhi_success");
                                 sendBroadcast(intent1);
 
+//                                Intent orderView =  new Intent(PaySelectLqChongzhiActivity.this, MinePackageActivity.class);
+//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
@@ -526,6 +525,7 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
     private long genTimeStamp() {
         return System.currentTimeMillis() / 1000;
     }
+
     StringBuffer sb=new StringBuffer();;
 
     private String genAppSign(List<NameValuePair> params) {
@@ -544,7 +544,6 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         return appSign;
     }
-
 
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {

@@ -81,7 +81,6 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(DxkOrderActivity.this, "支付结果确认中",
                                     Toast.LENGTH_SHORT).show();
-
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(DxkOrderActivity.this, "支付失败",
@@ -694,9 +693,9 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                             if (data.getCode() == 200) {
                                 Toast.makeText(DxkOrderActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 //跳转到订单列表
-                                Intent orderView =  new Intent(DxkOrderActivity.this, MineOrdersActivity.class);
-                                orderView.putExtra("status", "");
-                                startActivity(orderView);
+//                                Intent orderView =  new Intent(DxkOrderActivity.this, MineOrdersActivity.class);
+//                                orderView.putExtra("status", "");
+//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(DxkOrderActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
@@ -730,17 +729,13 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         getRequestQueue().add(request);
     }
 
-    int tmpS = 0;
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
-                if(tmpS == 0){
-                    tmpS =1;
-                    updateMineOrder();
-                }
+                updateMineOrder();
             }
         }
     };

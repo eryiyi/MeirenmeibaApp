@@ -40,7 +40,15 @@ public class Order implements Serializable{
 
     private String payable_amount_all;//没打折之前的金额
     private String pv_amount;//商品的pv在订单中的总和 这是返利用到的（商品pv,pv即利润）
+    private String order_cont;
 
+    public String getOrder_cont() {
+        return order_cont;
+    }
+
+    public void setOrder_cont(String order_cont) {
+        this.order_cont = order_cont;
+    }
 
     public String getPayable_amount_all() {
         return payable_amount_all;
