@@ -8,12 +8,12 @@ public class InternetURL {
     public static final String APP_MOB_KEY = "171c439f201e8";
     public static final String APP_MOB_SCRECT = "dc2a8e43e9498e9454f4c13297c8bed2";
 
-    public static final String WEIXIN_APPID = "wx9769250919c81901";
-    public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
-    public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
+    public static final String WEIXIN_APPID = "wxa86f64fcca9f3806";
+    public static final String WEIXIN_SECRET = "13473ea7a46ba9238cf1ecaa6cad26ae";
+    public static final  String WX_API_KEY="13473ea7a46ba9238cf1ecaa6cad26a1";
 
-    public static final String INTERNAL = "http://157j1274e3.iask.in/";
-//    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+    public static final String INTERNAL = "http://192.168.0.224:8080/";
 //    public static final String INTERNAL = "http://114.215.41.142:8080/";
 
     //多媒体文件上传接口
@@ -228,4 +228,11 @@ public class InternetURL {
 
     //通过手机号重设支付密码
     public static final String FIND_PWR_PAY__URL = INTERNAL + "findPwrPayByMobile.do";
+
+    //获得店铺评论列表
+    public static final String appGetDianpuComment = INTERNAL + "appGetDianpuComment.do";
+    //保存店铺评论
+    public static final String saveDianpuComment = INTERNAL + "saveDianpuComment.do";
+    //删除店铺评论
+    public static final String deleteDianpuComment = INTERNAL + "deleteDianpuComment.do";
 }

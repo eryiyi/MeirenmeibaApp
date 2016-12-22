@@ -58,7 +58,7 @@ public class Publish_mood_GridView_Adapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String path = dataList.get(position);
-        if (path.contains("camera_default")) {
+        if (path.equals("camera_default")) {
             viewHolder.imageview.setImageResource(R.drawable.addphoto_button_pressed);
         } else {
             imageLoader.displayImage("file://" + path, viewHolder.imageview, MeirenmeibaAppApplication.options);

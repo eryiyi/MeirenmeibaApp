@@ -47,10 +47,9 @@ import java.util.Map;
  * Time: 14:51
  * 类的功能、说明写在此处.
  */
-public class PublishGoodCommentActivity extends BaseActivity implements View.OnClickListener {
-    private String record_uuid;
-    private String emp_id;
+public class PublishDianpuCommentActivity extends BaseActivity implements View.OnClickListener {
     private String order_no;
+    private String emp_id_seller;
 
     private String cont;
     /**
@@ -77,9 +76,8 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.publish_comment_xml);
-        emp_id = getIntent().getExtras().getString("emp_id");
-        record_uuid = getIntent().getExtras().getString("goods_id");
         order_no = getIntent().getExtras().getString("order_no");
+        emp_id_seller = getIntent().getExtras().getString("emp_id_seller");
         initView();
     }
 
@@ -90,7 +88,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
         right_btn.setText("确定");
         right_btn.setOnClickListener(this);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("添加评论");
+        title.setText("添加店铺评论");
         et_sendmessage = (EditText) this.findViewById(R.id.face_content);
         dataList.add("camera_default");
         publish_moopd_gridview_image = (NoScrollGridView) this.findViewById(R.id.publish_moopd_gridview_image);
@@ -105,7 +103,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                 if (path.equals("camera_default")) {
                     showSelectImageDialog();
                 } else {
-                    Intent intent = new Intent(PublishGoodCommentActivity.this, ImageDelActivity.class);
+                    Intent intent = new Intent(PublishDianpuCommentActivity.this, ImageDelActivity.class);
                     intent.putExtra("position", position);
                     intent.putExtra("path", dataList.get(position));
                     startActivityForResult(intent, CommonDefine.DELETE_IMAGE);
@@ -136,7 +134,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                     Toast.makeText(this, "请选择评价星级！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressDialog = new CustomProgressDialog(PublishGoodCommentActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog = new CustomProgressDialog(PublishDianpuCommentActivity.this, "",R.anim.custom_dialog_frame);
                 progressDialog.setCancelable(true);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();
@@ -153,7 +151,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                         files.put("file", f);
                         Map<String, String> params = new HashMap<String, String>();
                         CommonUtil.addPutUploadFileRequest(
-                                PublishGoodCommentActivity.this,
+                                PublishDianpuCommentActivity.this,
                                 InternetURL.UPLOAD_FILE,
                                 files,
                                 params,
@@ -207,22 +205,22 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
         }
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.PUBLISH_GOODS_COMMNENT_URL,
+                InternetURL.saveDianpuComment,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
-                        if (progressDialog != null) {
-                            progressDialog.dismiss();
-                        }
                         if (StringUtil.isJson(s)) {
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
-                                Toast.makeText(PublishGoodCommentActivity.this, "添加评论成功！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PublishDianpuCommentActivity.this, "添加评论成功！", Toast.LENGTH_SHORT).show();
                                 Intent intent1 = new Intent("add_goods_comment_success");
                                 intent1.putExtra("order_no", order_no);
                                 sendBroadcast(intent1);
                                 finish();
                             }
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
                         }
                     }
                 },
@@ -232,29 +230,18 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(PublishGoodCommentActivity.this, "添加评论失败！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PublishDianpuCommentActivity.this, "添加评论失败！", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                if(!StringUtil.isNullOrEmpty(record_uuid)){
-                    params.put("goodsId", record_uuid);
-                }else{
-                    params.put("goodsId", "0");
-                }
-                params.put("empId", getGson().fromJson(getSp().getString("empId", ""), String.class));
-                params.put("fplempid", "");//父评论人
-                params.put("fplid", "");
-                params.put("content", cont);
-                if(!StringUtil.isNullOrEmpty(emp_id)){
-                    params.put("goodsEmpId", emp_id);//商品所有者
-                }else {
-                    params.put("goodsEmpId", "");//商品所有者
-                }
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));
+                params.put("emp_id_seller", emp_id_seller);
+                params.put("dianpu_comment_cont", cont);
                 if(!StringUtil.isNullOrEmpty(String.valueOf(filePath))){
-                    params.put("comment_pic", String.valueOf(filePath));
+                    params.put("dianpu_comment_pic", String.valueOf(filePath));
                 }
                 params.put("starNumber", String.valueOf((int)startNumber.getRating()));
                 return params;
@@ -272,7 +259,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
 
     // 选择相册，相机
     private void showSelectImageDialog() {
-        deleteWindow = new SelectPhoPopWindow(PublishGoodCommentActivity.this, itemsOnClick);
+        deleteWindow = new SelectPhoPopWindow(PublishDianpuCommentActivity.this, itemsOnClick);
         //显示窗口
         deleteWindow.showAtLocation(this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
@@ -300,7 +287,7 @@ public class PublishGoodCommentActivity extends BaseActivity implements View.OnC
                 }
                 break;
                 case R.id.mapstorage: {
-                    Intent intent = new Intent(PublishGoodCommentActivity.this, AlbumActivity.class);
+                    Intent intent = new Intent(PublishDianpuCommentActivity.this, AlbumActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putStringArrayList("dataList", getIntentArrayList(dataList));
                     bundle.putString("editContent", et_sendmessage.getText().toString());

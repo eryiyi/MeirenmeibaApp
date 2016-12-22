@@ -9,30 +9,40 @@
             android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
             layout="@layout/top_liner"/>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="15dp"
+                  android:background="@color/white"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:layout_height="50dp">
 
-        <ImageView android:layout_width="match_parent"
-                   android:src="@drawable/no_data"
-                   android:id="@+id/search_null"
-                   android:visibility="gone"
-                   android:layout_centerInParent="true"
-                   android:layout_height="wrap_content"/>
-        <com.lbins.myapp.library.PullToRefreshListView
-                android:id="@+id/lstv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:cacheColorHint="#00000000"
-                android:divider="#19000000"
-                android:dividerHeight="0.5dp"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false"
-                android:smoothScrollbar="true"/>
-    </RelativeLayout>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="商品"
+                  android:id="@+id/btn_one"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/red"
+                  android:layout_height="50dp"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="店铺"
+                  android:id="@+id/btn_two"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/text_color"
+                  android:layout_height="50dp"/>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#000000"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"/>
 
 </LinearLayout>

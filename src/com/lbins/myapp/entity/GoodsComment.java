@@ -17,6 +17,15 @@ public class GoodsComment {
     private String cover;//评论人头像
     private String fNickName;//父评论者昵称
     private String starNumber;//评论星级
+    private String goods_name;
+
+    public String getGoods_name() {
+        return goods_name;
+    }
+
+    public void setGoods_name(String goods_name) {
+        this.goods_name = goods_name;
+    }
 
     public String getStarNumber() {
         return starNumber;

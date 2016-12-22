@@ -232,8 +232,8 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (listsgoods.size() > position ) {
-                    PaopaoGoods paopaoGoods = listsgoods.get(position );
+                if (listsgoods.size() > (position-2) ) {
+                    PaopaoGoods paopaoGoods = listsgoods.get(position -2);
                     Intent intent  = new Intent(getActivity(), DetailPaopaoGoodsActivity.class);
                     intent.putExtra("emp_id_dianpu", paopaoGoods.getEmpId());
                     intent.putExtra("goods_id", paopaoGoods.getId());

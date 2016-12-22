@@ -266,7 +266,14 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                         startActivity(comment);
                     }
                 }else {
-                    showMsg(MineOrdersActivity.this, "该商品暂不支持评论！");
+//                    showMsg(MineOrdersActivity.this, "该商品暂不支持评论！");
+                    if(!StringUtil.isNullOrEmpty(orderVoTmp.getSeller_emp_id())){
+                        Intent comment = new Intent(this, PublishDianpuCommentActivity.class);
+                        comment.putExtra("emp_id_seller", orderVoTmp.getSeller_emp_id());
+                        comment.putExtra("order_no", orderVoTmp.getOrder_no());
+                        startActivity(comment);
+                    }
+
                 }
                 break;
             case 6:

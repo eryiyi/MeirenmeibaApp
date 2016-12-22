@@ -190,12 +190,18 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
             showMsg(RegOneActivity.this, "请阅读注册协议");
             return;
         }
-        progressDialog = new CustomProgressDialog(RegOneActivity.this, "",R.anim.custom_dialog_frame);
-        progressDialog.setCancelable(true);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-        SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
-//        reg();
+        if(!StringUtil.isNullOrEmpty(emp_up_mobile.getText().toString())){
+            //说明存在推荐人
+            checkUpEmp();
+        }else{
+            progressDialog = new CustomProgressDialog(RegOneActivity.this, "",R.anim.custom_dialog_frame);
+            progressDialog.setCancelable(true);
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
+            SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
+//                                    reg();
+        }
+
     }
 
     private void reg() {
@@ -421,6 +427,71 @@ public class RegOneActivity extends BaseActivity implements View.OnClickListener
         //注销短信监听广播
         this.unregisterReceiver(mSMSBroadcastReceiver);
     }
+
+
+    void checkUpEmp() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_EMP_MOBILE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    //说明上级手机号存在
+                                    progressDialog = new CustomProgressDialog(RegOneActivity.this, "",R.anim.custom_dialog_frame);
+                                    progressDialog.setCancelable(true);
+                                    progressDialog.setIndeterminate(true);
+                                    progressDialog.show();
+                                    SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
+//                                    reg();
+                                } else {
+                                    //说明上级手机号不存在
+                                    showMsg(RegOneActivity.this, "推荐人手机号不存在");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            //说明上级手机号不存在
+                            showMsg(RegOneActivity.this, "推荐人手机号不存在");
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        //说明上级手机号不存在
+                        showMsg(RegOneActivity.this, "推荐人手机号不存在");
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_mobile", emp_up_mobile.getText().toString());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 
 
 }
