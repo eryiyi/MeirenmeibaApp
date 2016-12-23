@@ -11,10 +11,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemCommentAdapter;
+import com.lbins.myapp.adapter.ItemDianpuCommentAdapter;
 import com.lbins.myapp.adapter.OnClickContentItemListener;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.DianpuCommentData;
 import com.lbins.myapp.data.GoodsCommentData;
+import com.lbins.myapp.entity.DianpuComment;
 import com.lbins.myapp.entity.GoodsComment;
 import com.lbins.myapp.library.PullToRefreshBase;
 import com.lbins.myapp.library.PullToRefreshListView;
@@ -36,18 +39,18 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
     private TextView title;
     private ImageView no_result;
     private PullToRefreshListView lstv;
-    private ItemCommentAdapter adapterComment;
-    private List<GoodsComment> listComments = new ArrayList<GoodsComment>();
+    private ItemDianpuCommentAdapter adapterComment;
+    private List<DianpuComment> listComments = new ArrayList<DianpuComment>();
     private boolean IS_REFRESH = true;
     private int pageIndex = 1;
 
-    private String id;//商品ID
+    private String emp_id_seller;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_list_goods_activity);
-        id = getIntent().getExtras().getString("id");
+        emp_id_seller = getIntent().getExtras().getString("emp_id_seller");
         initView();
         progressDialog = new CustomProgressDialog(CommentListDianpuActivity.this, "",R.anim.custom_dialog_frame);
         progressDialog.setCancelable(true);
@@ -60,12 +63,12 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("商品评论列表");
+        title.setText("店铺评论列表");
         no_result = (ImageView) this.findViewById(R.id.no_result);
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
 
 
-        adapterComment = new ItemCommentAdapter(listComments, CommentListDianpuActivity.this);
+        adapterComment = new ItemDianpuCommentAdapter(listComments, CommentListDianpuActivity.this);
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -103,7 +106,7 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
     void getComment(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_DIANPU_COMMENT_LISTS,
+                InternetURL.appGetDianpuComment,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -112,7 +115,7 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
-                                    GoodsCommentData data = getGson().fromJson(s, GoodsCommentData.class);
+                                    DianpuCommentData data = getGson().fromJson(s, DianpuCommentData.class);
                                     if(IS_REFRESH ){
                                         listComments.clear();
                                     }
@@ -151,7 +154,7 @@ public class CommentListDianpuActivity extends BaseActivity implements View.OnCl
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("emp_id_dianpu", id);
+                params.put("emp_id_seller", emp_id_seller);
                 params.put("page", String.valueOf(pageIndex));
                 return params;
             }

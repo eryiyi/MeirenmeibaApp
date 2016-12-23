@@ -248,7 +248,7 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 }else {
                     //评论列表
                     Intent intent = new Intent(DianpuDetailActivity.this, CommentListDianpuActivity.class);
-                    intent.putExtra("id", emp_id_dianpu);
+                    intent.putExtra("emp_id_seller", emp_id_dianpu);
                     startActivity(intent);
                 }
             }

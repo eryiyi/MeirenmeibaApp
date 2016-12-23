@@ -18,9 +18,9 @@ public class InternetURL {
     public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
     public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
-    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+//    public static final String INTERNAL = "http://157j1274e3.iask.in/";
 //    public static final String INTERNAL = "http://192.168.0.224:8080/";
-//    public static final String INTERNAL = "http://114.215.41.142:8080/";
+    public static final String INTERNAL = "http://114.215.41.142:8080/";
 
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
@@ -189,6 +189,8 @@ public class InternetURL {
     public static final String GET_COMMENT_ALL_URN = INTERNAL + "appGetCountComment.do";
     //获得店铺详情页好评度和消费评价总数
     public static final String GET_COMMENT_ALL_DIANPU_URN = INTERNAL + "appGetCountCommentDianpu.do";
+
+
     //零钱支付方式(购物车生成订单 付款  直接购买的时候)
     public static final String SEND_ORDER_TOSERVER_LQ = INTERNAL + "orderSaveLq.do";
     //零钱支付方式 -- 单个付款--（我的订单，没支付的订单，去付款的时候）
@@ -196,7 +198,7 @@ public class InternetURL {
     //订单评价之后 更新订单状态
     public static final String UPDATE_ORDER_COMMENT =INTERNAL +  "orderUpdateComment.do";
     //查询店铺的评论列表
-    public static final String GET_DIANPU_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
+//    public static final String GET_DIANPU_COMMENT_LISTS = INTERNAL + "listGoodsComment.do";
     //定向卡要充值的金额
     public static final String GET_DXK_CHONGZHI_MONEY = INTERNAL + "appToChongzhiDxk.do";
     //定向卡充值之后 更新订单和充值卡记录
