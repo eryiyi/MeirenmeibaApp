@@ -93,6 +93,8 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
         no_address = (TextView) this.findViewById(R.id.no_address);
         no_address.setVisibility(View.GONE);
         no_address.setOnClickListener(this);
+
+        this.findViewById(R.id.liner_two).setOnClickListener(this);
     }
 
     @Override
@@ -124,6 +126,7 @@ public class OrderMakeActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.select_location:
             case R.id.no_address:
+            case R.id.liner_two:
                 Intent selectAddressView = new Intent(OrderMakeActivity.this, SelectAddressActivity.class);
                 if(shoppingAddress != null){
                     selectAddressView.putExtra("address_id", shoppingAddress.getAddress_id());
