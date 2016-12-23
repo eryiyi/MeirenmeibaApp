@@ -64,6 +64,8 @@ public class MineCommentActivity extends BaseActivity implements View.OnClickLis
     private static boolean IS_REFRESH2 = true;
     private ImageView search_null2;
 
+    private TextView title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class MineCommentActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
+        title = (TextView) this.findViewById(R.id.title);
+        title.setText("我的点评");
         btn_one= (TextView) this.findViewById(R.id.btn_one);
         btn_two= (TextView) this.findViewById(R.id.btn_two);
 

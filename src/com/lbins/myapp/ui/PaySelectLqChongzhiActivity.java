@@ -281,21 +281,12 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                 + getSignType();
 
         Runnable payRunnable = new Runnable() {
-
             @Override
             public void run() {
                 // 构造PayTask 对象
-//                PayTask alipay = new PayTask(PaySelectLqChongzhiActivity.this);
-//                // 调用支付接口，获取支付结果
-//                String result = alipay.pay(payInfo);
-//
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
 
                 PayTask alipay = new PayTask(PaySelectLqChongzhiActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Map<String, String> result = alipay.payV2(payInfo, true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();
@@ -308,42 +299,6 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
-    }
-
-    /**
-     * check whether the device has authentication alipay account.
-     * 查询终端设备是否存在支付宝认证账户
-     *
-     */
-//    public void check(View v) {
-//        Runnable checkRunnable = new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                // 构造PayTask 对象
-//                PayTask payTask = new PayTask(PaySelectLqChongzhiActivity.this);
-//                // 调用查询接口，获取查询结果
-//                boolean isExist = payTask.checkAccountIfExist();
-//
-//                Message msg = new Message();
-//                msg.what = SDK_CHECK_FLAG;
-//                msg.obj = isExist;
-//                mHandler.sendMessage(msg);
-//            }
-//        };
-//
-//        Thread checkThread = new Thread(checkRunnable);
-//        checkThread.start();
-//    }
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
 
     /**

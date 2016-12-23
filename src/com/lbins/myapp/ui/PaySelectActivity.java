@@ -583,25 +583,16 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
     public void pay(final OrderInfoAndSign orderInfoAndSign) {
 
         // 完整的符合支付宝参数规范的订单信息
-//        final String payInfo = orderInfoAndSign.getOrderInfo() + "&sign=\"" + orderInfoAndSign.getSign() + "\"&"
-//                + getSignType();
+        final String payInfo = orderInfoAndSign.getOrderInfo() + "&sign=\"" + orderInfoAndSign.getSign() + "\"&"
+                + getSignType();
 
         Runnable payRunnable = new Runnable() {
 
             @Override
             public void run() {
 //                // 构造PayTask 对象
-//                PayTask alipay = new PayTask(PaySelectActivity.this);
-//                // 调用支付接口，获取支付结果
-//                String result = alipay.pay(payInfo);
-//
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
-
                 PayTask alipay = new PayTask(PaySelectActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Map<String, String> result = alipay.payV2(payInfo, true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();
@@ -616,16 +607,6 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         payThread.start();
     }
 
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * get the sign type we use. 获取签名方式

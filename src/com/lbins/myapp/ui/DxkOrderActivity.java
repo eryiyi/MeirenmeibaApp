@@ -75,6 +75,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                     if (TextUtils.equals(resultStatus, "9000")) {
 //                        Toast.makeText(OrderMakeActivity.this, "支付成功",
 //                                Toast.LENGTH_SHORT).show();
+                        updateMineOrder();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -450,21 +451,14 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         final String payInfo = orderInfoAndSign.getOrderInfo() + "&sign=\"" + orderInfoAndSign.getSign() + "\"&"
                 + getSignType();
 
+
         Runnable payRunnable = new Runnable() {
 
             @Override
             public void run() {
                 // 构造PayTask 对象
-//                PayTask alipay = new PayTask(DxkOrderActivity.this);
-//                // 调用支付接口，获取支付结果
-//                String result = alipay.pay(payInfo);
-//
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
                 PayTask alipay = new PayTask(DxkOrderActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Map<String, String> result = alipay.payV2(payInfo, true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();

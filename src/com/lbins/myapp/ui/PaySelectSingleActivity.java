@@ -412,18 +412,8 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void run() {
-                // 构造PayTask 对象
-//                PayTask alipay = new PayTask(PaySelectSingleActivity.this);
-//                // 调用支付接口，获取支付结果
-//                String result = alipay.pay(payInfo);
-//
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
-
                 PayTask alipay = new PayTask(PaySelectSingleActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Map<String, String> result = alipay.payV2(payInfo, true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();
@@ -436,17 +426,6 @@ public class PaySelectSingleActivity extends BaseActivity implements View.OnClic
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
-    }
-
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
 
     /**

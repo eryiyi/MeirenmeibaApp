@@ -97,9 +97,16 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void ruzhuAction(View view){
-        Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
-        startActivity(intent);
-        finish();
+        if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
+                "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
+            //未登录
+            showMsg(DxkDetailActivity.this, "请先登录！");
+        } else {
+            Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 }

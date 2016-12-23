@@ -62,7 +62,6 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
-//                    PayResult payResult = new PayResult((String) msg.obj);
                     PayResult payResult = new PayResult((Map<String, String>) msg.obj);
                     // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
                     String resultInfo = payResult.getResult();
@@ -294,56 +293,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
 
     String xmlStr = "";
     WxPayObj wxPayObj;
-//
-//    public void payAction(View view){
-//        if(StringUtil.isNullOrEmpty(count_money.getText().toString())){
-//            showMsg(PaySelectTwoActivity.this, "请输入金额！");
-//            return;
-//        }else {
-//            view.setClickable(false);
-//            payScanObj.setPay_count(count_money.getText().toString());
-//            switch (selectPayWay){
-//                case 0:
-//                {
-//                    //微信
-//                    //先传值给服务端
-//                    if(payScanObj != null ){
-//                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
-//                                ,"", "1", payScanObj.getPay_count()
-//                                ,"0","0","","","","","","","","1", payScanObj.getPay_count(), "0"));
-//                    }
-//                    SGform.setList(listOrders);
-//                    if(listOrders!=null && listOrders.size() > 0){
-//                        //传值给服务端
-//                        goToPayWeixin();
-//                    }
-//                }
-//                break;
-//                case 1:
-//                {
-//                    //先传值给服务端
-//                    if(payScanObj != null){
-//                        listOrders.add(new Order("", getGson().fromJson(getSp().getString("empId", ""), String.class), payScanObj.getEmp_id()
-//                                ,"", "1", payScanObj.getPay_count()
-//                                ,"0","0","","","","","","","","0", payScanObj.getPay_count(), "0"));
-//                    }
-//                    SGform.setList(listOrders);
-//                    //支付宝
-//                    if(listOrders!=null && listOrders.size() > 0){
-//                        //传值给服务端
-//                        sendOrderToServer();
-//                    }
-//                }
-//                break;
-//                case 2:
-//                {
-//                    //零钱支付
-//                    getLingqian();
-//                }
-//                    break;
-//            }
-//        }
-//    }
+
 
     private MinePackage minePackage;//我的钱包
     //获得钱包
@@ -494,7 +444,6 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
                                 //已经生成订单，等待支付，下面去支付
                                 out_trade_no= data.getData().getOut_trade_no();
                                 pay(data.getData());//调用支付接口
-//                                updateMineOrder();
                             }else if(data.getCode() == 2){
                                 Toast.makeText(PaySelectTwoActivity.this, R.string.order_error_three, Toast.LENGTH_SHORT).show();
                                 finish();
@@ -557,18 +506,8 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void run() {
-                // 构造PayTask 对象
-//                PayTask alipay = new PayTask(PaySelectTwoActivity.this);
-//                // 调用支付接口，获取支付结果
-//                String result = alipay.pay(payInfo);
-//
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
-
                 PayTask alipay = new PayTask(PaySelectTwoActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfoAndSign.getOrderInfo(), true);
+                Map<String, String> result = alipay.payV2(payInfo, true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();
@@ -581,16 +520,6 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
-    }
-
-    /**
-     * get the sdk version. 获取SDK版本号
-     *
-     */
-    public void getSDKVersion() {
-        PayTask payTask = new PayTask(this);
-        String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
 
     /**
