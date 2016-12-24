@@ -68,6 +68,7 @@ public class ItemGoodsAdapter extends BaseAdapter {
             holder.money_one = (TextView) convertView.findViewById(R.id.money_one);
             holder.money_two = (TextView) convertView.findViewById(R.id.money_two);
             holder.sale_num = (TextView) convertView.findViewById(R.id.sale_num);
+            holder.typeName = (TextView) convertView.findViewById(R.id.typeName);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -80,6 +81,7 @@ public class ItemGoodsAdapter extends BaseAdapter {
             holder.money_two.setText("￥"+cell.getMarketPrice());
             holder.money_two.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
             holder.sale_num.setText("已售:"+cell.getGoods_count_sale());
+            holder.typeName.setText(cell.getType_name()==null?"":cell.getType_name());
         }
         return convertView;
     }
@@ -90,5 +92,6 @@ public class ItemGoodsAdapter extends BaseAdapter {
         TextView money_one;
         TextView money_two;
         TextView sale_num;
+        TextView typeName;
     }
 }

@@ -43,6 +43,25 @@ public class ManagerInfo {
     private String emp_name;
     private String type_name;
 
+    private String lx_class_name;
+    private String lx_class_cover;
+
+    public String getLx_class_name() {
+        return lx_class_name;
+    }
+
+    public void setLx_class_name(String lx_class_name) {
+        this.lx_class_name = lx_class_name;
+    }
+
+    public String getLx_class_cover() {
+        return lx_class_cover;
+    }
+
+    public void setLx_class_cover(String lx_class_cover) {
+        this.lx_class_cover = lx_class_cover;
+    }
+
     public String getType_name() {
         return type_name;
     }

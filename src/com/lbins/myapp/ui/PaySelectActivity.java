@@ -817,7 +817,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
-                updateMineOrder();
+//                updateMineOrder();
             }
         }
     };

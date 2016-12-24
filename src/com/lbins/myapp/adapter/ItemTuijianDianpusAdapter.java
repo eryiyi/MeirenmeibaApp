@@ -80,7 +80,7 @@ public class ItemTuijianDianpusAdapter extends BaseAdapter {
         if (cell != null) {
             imageLoader.displayImage(cell.getCompany_pic(), holder.cover, MeirenmeibaAppApplication.options, animateFirstListener);
             holder.name.setText(cell.getCompany_name());
-            holder.typename.setText(cell.getType_name());
+            holder.typename.setText(cell.getType_name()==null?(cell.getLx_class_name()==null?"":cell.getLx_class_name()):cell.getType_name());
             if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr) && !StringUtil.isNullOrEmpty(cell.getLat_company())&& !StringUtil.isNullOrEmpty(cell.getLng_company()) ){
                 LatLng latLng = new LatLng(Double.valueOf(MeirenmeibaAppApplication.latStr), Double.valueOf(MeirenmeibaAppApplication.lngStr));
                 LatLng latLng1 = new LatLng(Double.valueOf(cell.getLat_company()), Double.valueOf(cell.getLng_company()));

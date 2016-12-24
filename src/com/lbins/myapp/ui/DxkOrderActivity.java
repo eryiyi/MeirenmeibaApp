@@ -729,7 +729,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
-                updateMineOrder();
+//                updateMineOrder();
             }
         }
     };

@@ -55,9 +55,9 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 				//调用逻辑处理
 				Intent intent1 = new Intent("pay_wx_success");
 				sendBroadcast(intent1);
-				Intent intent  = new Intent(WXPayEntryActivity.this, MineOrdersActivity.class);
-				intent.putExtra("status", "");
-				startActivity(intent);
+//				Intent intent  = new Intent(WXPayEntryActivity.this, MineOrdersActivity.class);
+//				intent.putExtra("status", "");
+//				startActivity(intent);
 				finish();
 //				ActivityTack.getInstanse().popUntilActivity(OrderMakeActivity.class);
 			}else {

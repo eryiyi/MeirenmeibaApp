@@ -35,7 +35,7 @@ public class Order implements Serializable{
     private String areaId;
     private String trade_type;//0支付宝  1微信 2零钱
     private String is_return;//是否退货完成 0否 1是（卖家已处理）
-    private String is_dxk_order;//是否0元订单； 默认0否  1是  2是充值定向卡会员
+    private String is_dxk_order;//； 默认0普通订单  1是0元订单  2是充值定向卡会员
     private String is_comment;//是否评价； 默认0否  1是
 
     private String payable_amount_all;//没打折之前的金额

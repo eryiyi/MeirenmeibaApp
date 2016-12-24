@@ -725,7 +725,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
-                updateMineOrder();
+//                updateMineOrder();
             }
         }
     };

@@ -22,7 +22,7 @@
                       android:hint="请输入金额,单位元"
                       android:singleLine="true"
                       android:textStyle="bold"
-                      android:numeric="integer"
+                      android:numeric="decimal"
                       android:id="@+id/count_money"
                       android:textSize="25sp"
                       android:textColor="@color/red"

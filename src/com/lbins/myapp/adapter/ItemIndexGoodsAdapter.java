@@ -68,6 +68,7 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
             holder.money_one = (TextView) convertView.findViewById(R.id.money_one);
             holder.money_two = (TextView) convertView.findViewById(R.id.money_two);
             holder.sale_num = (TextView) convertView.findViewById(R.id.sale_num);
+            holder.typeName = (TextView) convertView.findViewById(R.id.typeName);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -91,5 +92,6 @@ public class ItemIndexGoodsAdapter extends BaseAdapter {
         TextView money_one;
         TextView money_two;
         TextView sale_num;
+        TextView typeName;
     }
 }
