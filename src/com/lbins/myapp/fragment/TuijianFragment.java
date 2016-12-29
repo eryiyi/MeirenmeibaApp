@@ -101,8 +101,10 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
 
     private ImageView big_middle_ad;//中部大广告位
+    private ImageView big_middle_ad_dxk;//定向卡
 
     LxAd lxAdMiddle;//中间广告轮播图
+    LxAd lxAdMiddleDxk;//定向卡广告
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +127,8 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         getAdsOne();
         //查询中部广告
         getAdsTwo();
+        //定向卡广告
+        getAdsFour();
 
         //查询商品分类
         getGoodsType();
@@ -255,8 +259,10 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tuijian_header, null);
 
+        big_middle_ad_dxk = (ImageView) headLiner.findViewById(R.id.big_middle_ad_dxk);
         big_middle_ad = (ImageView) headLiner.findViewById(R.id.big_middle_ad);
         big_middle_ad.setOnClickListener(this);
+        big_middle_ad_dxk.setOnClickListener(this);
         adapter = new ItemIndexGoodsAdapter(listsgoods, getActivity());
 
         final ListView listView = lstv.getRefreshableView();
@@ -397,6 +403,13 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 //                    startActivity(intent);
 //                }
                 Intent intent = new Intent(getActivity(), DxkDetailActivity.class);
+                startActivity(intent);
+            }
+                break;
+            case R.id.big_middle_ad_dxk:
+            {
+                //定向卡商家
+                Intent intent = new Intent(getActivity(), DxkDianpuActivity.class);
                 startActivity(intent);
             }
                 break;
@@ -745,6 +758,67 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("ad_type", "2");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    void getAdsFour() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LIST_TYPE_LISTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    LxAdData data = getGson().fromJson(s, LxAdData.class);
+                                    if(data != null && data.getData().size() > 0){
+                                        List<LxAd> lxAds = data.getData();
+                                        if(lxAds != null && lxAds.size()>0){
+                                            lxAdMiddleDxk= lxAds.get(0);
+                                            if(lxAdMiddleDxk != null){
+                                                imageLoader.displayImage((lxAdMiddleDxk.getAd_pic()), big_middle_ad_dxk, MeirenmeibaAppApplication.options, animateFirstListener);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ad_type", "7");
                 return params;
             }
 

@@ -323,9 +323,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         //判断是否vip
         if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
             //是定向卡会员
-            vip_type.setVisibility(View.VISIBLE);
+//            vip_type.setVisibility(View.VISIBLE);
+            vip_type.setImageDrawable(res.getDrawable(R.drawable.svip));
         }else {
-            vip_type.setVisibility(View.GONE);
+//            vip_type.setVisibility(View.GONE);
+            vip_type.setImageDrawable(res.getDrawable(R.drawable.svip_gray));
         }
         if("1".equals(getGson().fromJson(getSp().getString("empType", ""), String.class))){
             liner_profile_ruzhu.setVisibility(View.GONE);

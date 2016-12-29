@@ -97,6 +97,23 @@
                            android:layout_gravity="center_vertical"
                            android:layout_height="wrap_content"/>
             </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:padding="8dp"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="20dp"
+                           android:id="@+id/check_box"
+                           android:src="@drawable/checkbox_nocheck"
+                           android:layout_height="20dp"/>
+                <TextView android:layout_width="wrap_content"
+                          android:text="美人美吧协议"
+                          android:id="@+id/liner_one"
+                          android:textColor="@color/blue"
+                          android:layout_marginLeft="8dp"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
             <Button android:layout_width="match_parent"
                     android:textSize="18sp"
                     android:layout_marginTop="15dp"

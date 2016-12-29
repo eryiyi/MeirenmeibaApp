@@ -45,6 +45,15 @@ public class ManagerInfo {
 
     private String lx_class_name;
     private String lx_class_cover;
+    private String company_yyzz;
+
+    public String getCompany_yyzz() {
+        return company_yyzz;
+    }
+
+    public void setCompany_yyzz(String company_yyzz) {
+        this.company_yyzz = company_yyzz;
+    }
 
     public String getLx_class_name() {
         return lx_class_name;

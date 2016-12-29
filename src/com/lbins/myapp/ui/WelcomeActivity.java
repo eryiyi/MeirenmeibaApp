@@ -77,7 +77,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         try {
             // 3秒后跳转到登录界面
             Thread.sleep(1500);
-            SharedPreferences.Editor editor = getSp().edit();
+//            SharedPreferences.Editor editor = getSp().edit();
 //            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
 //            if (isFirstRun) {
 //                editor.putBoolean("isFirstRun", false);

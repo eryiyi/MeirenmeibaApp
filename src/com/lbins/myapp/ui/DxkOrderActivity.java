@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -112,12 +113,15 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
 
-    
+    private ImageView check_box;
+    private Resources res;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dxk_order_activity);
         registerBoradcastReceiver();
+        res = getResources();
         //微信支付
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, InternetURL.WEIXIN_APPID, false);
@@ -139,9 +143,13 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
         check_btn_wx.setOnClickListener(this);
         check_btn_ali.setOnClickListener(this);
         check_btn_ling.setOnClickListener(this);
+        this.findViewById(R.id.liner_one).setOnClickListener(this);
+        check_box = (ImageView) this.findViewById(R.id.check_box);
+        check_box.setOnClickListener(this);
     }
 
 
+    private int tmpSelect = 0;
     private int selectPayWay = 0;//0微信 1支付宝  2零钱
     @Override
     public void onClick(View view) {
@@ -176,6 +184,25 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                 selectPayWay = 2;
             }
             break;
+            case R.id.liner_one:
+            {
+                //注册协议
+                Intent intent = new Intent(DxkOrderActivity.this, RegistMsgActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.check_box:
+            {
+                //判断是否选中
+                if(tmpSelect == 0){
+                    tmpSelect = 1;
+                    check_box.setImageDrawable(res.getDrawable(R.drawable.checkbox_checked));
+                }else {
+                    tmpSelect = 0;
+                    check_box.setImageDrawable(res.getDrawable(R.drawable.checkbox_nocheck));
+                }
+            }
+            break;
         }
     }
 
@@ -185,6 +212,10 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
     private List<Order> listOrders = new ArrayList<Order>();//订单集合 --传给服务器
 
     public void payAction(View view){
+        if(tmpSelect == 0){
+            showMsg(DxkOrderActivity.this, "请阅读注册协议");
+            return;
+        }
         listOrders.clear();
         SGform = new OrdersForm();
         switch (selectPayWay){

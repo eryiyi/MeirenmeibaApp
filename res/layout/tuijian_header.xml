@@ -64,6 +64,13 @@
             android:verticalSpacing="1dip"
             android:padding="1dip"/>
 
+    <ImageView android:layout_width="match_parent"
+               android:src="@drawable/no_pic"
+               android:layout_marginTop="8dp"
+               android:id="@+id/big_middle_ad_dxk"
+               android:scaleType="centerCrop"
+               android:layout_height="130dp"/>
+
     <com.lbins.myapp.widget.ClassifyGridview
             android:id="@+id/gridv_three"
             android:layout_width="match_parent"
