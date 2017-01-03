@@ -108,7 +108,7 @@
                            android:src="@drawable/checkbox_nocheck"
                            android:layout_height="20dp"/>
                 <TextView android:layout_width="wrap_content"
-                          android:text="美人美吧协议"
+                          android:text="定向卡服务协议"
                           android:id="@+id/liner_one"
                           android:textColor="@color/blue"
                           android:layout_marginLeft="8dp"

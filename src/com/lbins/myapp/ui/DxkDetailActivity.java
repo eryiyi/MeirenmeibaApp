@@ -23,12 +23,12 @@ import org.json.JSONObject;
 public class DxkDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
 
-    private static final int PICTURE_COUNT = 5;
+    private static final int PICTURE_COUNT = 4;
 
     private static final int[] PICTURE_RESOURCES = {R.drawable.dxk_icon_001,
-            R.drawable.dxk_icon_002, R.drawable.dxk_icon_003, R.drawable.dxk_icon_004, R.drawable.dxk_icon_005};
+            R.drawable.dxk_icon_002, R.drawable.dxk_icon_003, R.drawable.dxk_icon_004};
 
-    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片", "第四张图片", "第五张图片"};
+    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片", "第四张图片"};
     private JSONArray jsonArray;
     private ViewPager viewPager;
     private DxkViewPageAdapter adapter;

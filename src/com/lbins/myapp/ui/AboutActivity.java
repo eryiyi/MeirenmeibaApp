@@ -33,7 +33,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
     private TextView skip;
     private Resources res;
-
+    MyTimer myTimer = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
                 editor.commit();
             } else {
                 //不是第一次执行
-                MyTimer myTimer = new MyTimer(5000, 1000);
+                myTimer = new MyTimer(5000, 1000);
                 myTimer.start();
             }
     }
@@ -68,6 +68,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
             skip.setText("跳过");
             Intent main = new Intent(AboutActivity.this, MainActivity.class);
             startActivity(main);
+            finish();
         }
 
         @Override
@@ -121,11 +122,15 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.skip:
             {
-                Intent main = new Intent(AboutActivity.this, MainActivity.class);
-                startActivity(main);
-                finish();
+                myTimer.cancel();
+                myTimer.onFinish();
             }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

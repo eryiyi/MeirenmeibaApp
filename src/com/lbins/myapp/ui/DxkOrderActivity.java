@@ -186,8 +186,7 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
             break;
             case R.id.liner_one:
             {
-                //注册协议
-                Intent intent = new Intent(DxkOrderActivity.this, RegistMsgActivity.class);
+                Intent intent = new Intent(DxkOrderActivity.this, DxkMsgActivity.class);
                 startActivity(intent);
             }
             break;
