@@ -106,7 +106,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void showMsgDialog() {
-
             final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
             View picAddInflate = View.inflate(this, R.layout.msg_dialog, null);
             TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
@@ -132,6 +131,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             picAddDialog.setContentView(picAddInflate);
             picAddDialog.show();
     }
+
     CardEmp cardEmp;//定向卡会还详情
     public void getCardEmp(){
         StringRequest request = new StringRequest(
@@ -214,9 +214,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-
     private List<LxAd> lxads = new ArrayList<LxAd>();
-
 
     private void initView() {
         foot_one = (ImageView) this.findViewById(R.id.foot_one);
@@ -416,15 +414,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         getRequestQueue().add(request);
     }
 
-
-
-
     @Override
     protected void onDestroy() {
         unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
-
 
     //for receive customer msg from jpush server
     private MessageReceiver mMessageReceiver;
@@ -455,14 +449,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-
     public static boolean isForeground = false;
     @Override
     public void onResume() {
         isForeground = true;
         super.onResume();
     }
-
 
     @Override
     public void onPause() {
@@ -473,9 +465,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private final static int SCANNIN_GREQUEST_CODE = 1;
 
     public void scanAction(View view){
-        //扫描
-//        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-//        startActivity(intent);
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, MipcaActivityCapture.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -543,7 +532,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
         }
     }
-
 
     //收藏店铺
     void saveFavour(String url){

@@ -324,9 +324,6 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
                                 Intent intent1 = new Intent("pay_chongzhi_success");
                                 sendBroadcast(intent1);
-
-//                                Intent orderView =  new Intent(PaySelectLqChongzhiActivity.this, MinePackageActivity.class);
-//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(PaySelectLqChongzhiActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
@@ -507,6 +504,9 @@ public class PaySelectLqChongzhiActivity extends BaseActivity implements View.On
             String action = intent.getAction();
             if (action.equals("pay_wx_success")) {
 //                updateMineOrder();
+                Intent intent1 = new Intent("pay_chongzhi_success");
+                sendBroadcast(intent1);
+                finish();
             }
         }
     };
