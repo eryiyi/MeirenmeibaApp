@@ -8,29 +8,35 @@ import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AboutViewPageAdapter;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.LoadPicData;
+import com.lbins.myapp.entity.LoadPic;
+import com.lbins.myapp.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener{
-    private static final int PICTURE_COUNT = 4;
-
-    private static final int[] PICTURE_RESOURCES = {R.drawable.loading_one,
-            R.drawable.loading_two, R.drawable.loading_three, R.drawable.loading_four};
-
-    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片","第四张图片"};
-    private JSONArray jsonArray;
+    private JSONArray jsonArray = new JSONArray();;
     private ViewPager viewPager;
     private AboutViewPageAdapter adapter;
-    private ImageView[] circles = new ImageView[PICTURE_RESOURCES.length];
-
+    ArrayList<String> pics = new ArrayList<String>();
     private TextView skip;
     private Resources res;
     MyTimer myTimer = null;
@@ -39,22 +45,32 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_viewpage);
+        pics = getIntent().getExtras().getStringArrayList("picsStr");
         res = getResources();
 
-        initLoadData();
+        for (int i = 0; i < pics.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("resourceId", pics.get(i));
+                jsonObject.put("title", pics.get(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject);
+        }
         initView();
 
         boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
-            if (isFirstRun) {
-                //第一次执行
-                SharedPreferences.Editor editor = getSp().edit();
-                editor.putBoolean("isFirstRun", false);
-                editor.commit();
-            } else {
-                //不是第一次执行
-                myTimer = new MyTimer(5000, 1000);
-                myTimer.start();
-            }
+        if (isFirstRun) {
+            //第一次执行
+            SharedPreferences.Editor editor = getSp().edit();
+            editor.putBoolean("isFirstRun", false);
+            editor.commit();
+        } else {
+            //不是第一次执行
+            myTimer = new MyTimer(6000, 1000);
+            myTimer.start();
+        }
     }
 
     class MyTimer extends CountDownTimer {
@@ -79,20 +95,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
 
 
-    private void initLoadData() {
-        jsonArray = new JSONArray();
-        for (int i = 0; i < PICTURE_COUNT; i++) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("resourceId", PICTURE_RESOURCES[i]);
-                jsonObject.put("title", PICTURE_TITLE[i]);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            jsonArray.put(jsonObject);
-        }
-    }
-
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpage);
         adapter = new AboutViewPageAdapter(AboutActivity.this, jsonArray);
@@ -104,10 +106,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
             @Override
             public void onPageSelected(int position) {
-                for (int j = 0; j < circles.length; j++) {
-                }
             }
-
             @Override
             public void onPageScrollStateChanged(int i) {
 

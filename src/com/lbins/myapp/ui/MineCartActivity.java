@@ -177,6 +177,8 @@ public class MineCartActivity extends BaseActivity implements View.OnClickListen
             }
             countPrice.setText(getResources().getString(R.string.countPrices) + df.format(doublePrices).toString());
         }
+        String titleStr = getResources().getString(R.string.mine_cart_title);
+        title.setText(String.format(titleStr, lists.size()));
     }
 
 

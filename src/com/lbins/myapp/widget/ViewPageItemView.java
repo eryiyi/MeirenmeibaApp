@@ -11,7 +11,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
+import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,31 +62,23 @@ public class ViewPageItemView extends FrameLayout {
     private void initView(Context context) {
         View view = LayoutInflater.from(context).inflate(
                 R.layout.viewpage_itemview, null);
-
         imageView = (ImageView) view.findViewById(R.id.imageView);
-//        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-
         addView(view);
     }
 
     // 填充数据
     public void setData(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
+        String resourceId = jsonObject.optString("resourceId");
 
-        try {
-            int resourceId = jsonObject.getInt("resourceId");
-            String title = jsonObject.optString("title");
-
-            if(imageView != null){
-                imageView.setImageResource(resourceId);
-            }
-
-//            tvTitle.setText(title);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(imageView != null){
+            imageLoader.displayImage(resourceId, imageView, MeirenmeibaAppApplication.options, animateFirstListener);
         }
 
     }
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+
 
     // 资源回收
     public void recycle() {
@@ -100,14 +96,9 @@ public class ViewPageItemView extends FrameLayout {
 
     // 重新加载资源
     public void reload() {
-        try {
-            int resourceId = jsonObject.getInt("resourceId");
-            if(imageView != null){
-                imageView.setImageResource(resourceId);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String resourceId = jsonObject.optString("resourceId");
+        if(imageView != null){
+            imageLoader.displayImage(resourceId, imageView, MeirenmeibaAppApplication.options, animateFirstListener);
         }
     }
 

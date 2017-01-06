@@ -243,4 +243,6 @@ public class InternetURL {
     public static final String saveDianpuComment = INTERNAL + "saveDianpuComment.do";
     //删除店铺评论
     public static final String deleteDianpuComment = INTERNAL + "deleteDianpuComment.do";
+    // 获得欢迎页广告列表
+    public static final String appGetLoadPics = INTERNAL + "appGetLoadPics.do";
 }

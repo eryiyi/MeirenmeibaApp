@@ -306,6 +306,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/item_grid_detail_image.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_img_del.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_kefu_tel_adapter.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/item_load_ad_one.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_mine_order_adapter.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_mood_bq.xml" charset="UTF-8" />
@@ -376,6 +377,7 @@
     <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_whatsapp_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_ynote_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/umeng_update_string.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutAdAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdOneAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
@@ -445,6 +447,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/DianPuFavour.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/KefuTel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/LoadPic.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/LxClass.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Notice.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/entity/Order.java" charset="UTF-8" />

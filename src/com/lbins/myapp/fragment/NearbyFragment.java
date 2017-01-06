@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.SpannableString;
-import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,9 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -33,13 +34,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.adapter.ItemTuijianDianpusAdapter;
 import com.lbins.myapp.base.BaseFragment;
 import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.ManagerInfoData;
 import com.lbins.myapp.entity.ManagerInfo;
-import com.lbins.myapp.library.PullToRefreshBase;
-import com.lbins.myapp.library.PullToRefreshListView;
 import com.lbins.myapp.ui.DianpuDetailActivity;
 import com.lbins.myapp.ui.LocationCityActivity;
 import com.lbins.myapp.ui.NearbyActivity;
@@ -63,8 +61,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
 
     private TextView location;
     private EditText keywords;
-
-//    private LinearLayout headLiner;
 
     private MapView mapView;
     private AMap aMap;
@@ -94,6 +90,19 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         //定位地址
         initLocation();
         initData();
+
+        //添加自己的位置
+        if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.latStr) && !StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.lngStr)){
+            LatLng latLng = new LatLng(Double.valueOf(MeirenmeibaAppApplication.latStr), Double.valueOf(MeirenmeibaAppApplication.lngStr));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+
+//            BitmapDescriptor bitmapDescriptor = new BitmapDescriptor(new Bitmap());
+
+//            markerOptions.icon()
+            aMap.addMarker(markerOptions);
+        }
+
         return view;
     }
 
@@ -120,7 +129,6 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
         location.setOnClickListener(this);
         keywords = (EditText) view.findViewById(R.id.keywords);
 
-//        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.three_header, null);
         mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         view.findViewById(R.id.right_btn).setOnClickListener(this);
@@ -176,6 +184,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
                 break;
         }
     }
+
     void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -254,10 +263,7 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
      * 在地图上添加marker
      */
     public void addMarkersToMap() {
-        // 文字显示标注，可以设置显示内容，位置，字体大小颜色，背景色旋转角度
         ArrayList<MarkerOptions> markerOptionlst = new ArrayList<MarkerOptions>();
-//        TextView textView= (TextView) view.findViewById(R.id.location_map);
-
         if(listsDianpu != null){
             for(ManagerInfo emp:listsDianpu){
                 markerOption = new MarkerOptions();
@@ -268,36 +274,10 @@ public class NearbyFragment extends BaseFragment implements View.OnClickListener
 
                     markerOption.title(emp.getCompany_name()).snippet(emp.getCompany_address());
                     markerOption.draggable(true);
-
-//                    final ImageView imageView = (ImageView) view.findViewById(R.id.location_map);
-//                    imageLoader.displayImage(emp.getMm_emp_cover(), imageView, GuirenApplication.txOptions, new AnimateFirstDisplayListener(){
-//                        @Override
-//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                            super.onLoadingComplete(imageUri, view, loadedImage);
-//
-//                            Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-//                            markerOption.icon(
-//                            BitmapDescriptorFactory.fromBitmap(bitmap));
-//
-//                        }
-//                    });
-                    // 将Marker设置为贴地显示，可以双指下拉看效果
-//                    textView.setText(emp.getMm_emp_nickname());
-//                    textView.setTextSize(8.0f);
-//                    textView.setPadding(3,3,3,6);
-//                    textView.setTextColor(getResources().getColor(R.color.white));
-//                    textView.setDrawingCacheEnabled(false);
-//                    textView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//                    textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight()*2);
-//                    Bitmap bitmap = textView.getDrawingCache();
-//                    markerOption.icon(
-//                            BitmapDescriptorFactory.fromBitmap(bitmap));
-
                     markerOption.setFlat(true);
                     markerOption.icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                     markerOptionlst.add(markerOption);
-//                    aMap.addMarker(markerOption);
                 }
 
             }

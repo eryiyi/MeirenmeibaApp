@@ -1,7 +1,6 @@
 package com.lbins.myapp.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import com.amap.api.location.AMapLocation;
@@ -20,18 +19,17 @@ import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.LoadPicData;
 import com.lbins.myapp.data.MemberData;
+import com.lbins.myapp.entity.LoadPic;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.util.Utils;
-import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zhl on 2016/8/30.
@@ -66,10 +64,9 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         //启动定位
         mlocationClient.startLocation();
 
-
         save("isLogin", "0");//1已经登录了  0未登录
-        // 启动一个线程
-        new Thread(WelcomeActivity.this).start();
+
+        getData();
     }
 
     @Override
@@ -77,31 +74,19 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         try {
             // 3秒后跳转到登录界面
             Thread.sleep(1500);
-//            SharedPreferences.Editor editor = getSp().edit();
-//            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
-//            if (isFirstRun) {
-//                editor.putBoolean("isFirstRun", false);
-//                editor.commit();
-//                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
-//                startActivity(loadIntent);
-//                finish();
-//            } else {
-                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
-                        !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))) {
-                    login();
-                } else {
-                    Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
-                    startActivity(loadIntent);
-                    finish();
-//                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-//                    finish();
-                }
-//            }
+            if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empMobile", ""), String.class)) &&
+                    !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("empPass", ""), String.class))) {
+                login();
+            } else {
+                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+                loadIntent.putExtra("picsStr", picsStr);
+                startActivity(loadIntent);
+                finish();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
     private void login() {
         StringRequest request = new StringRequest(
@@ -199,14 +184,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
 
         save("isLogin", "1");//1已经登录了  0未登录
 
-//        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
         Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+        loadIntent.putExtra("picsStr", picsStr);
         startActivity(loadIntent);
         finish();
     }
-
 
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
@@ -293,4 +275,65 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         getRequestQueue().add(request);
     }
 
+    List<LoadPic> pics = new ArrayList<LoadPic>();
+    ArrayList<String> picsStr = new ArrayList<String>();
+
+    private void getData() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.appGetLoadPics,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            LoadPicData data = getGson().fromJson(s, LoadPicData.class);
+                            if (data.getCode() == 200) {
+                                pics.clear();
+                                pics.addAll(data.getData());
+                                if(pics != null){
+                                    for(LoadPic loadPic: pics){
+                                        picsStr.add(loadPic.getLoad_pic());
+                                    }
+                                }
+                                // 启动一个线程
+                                new Thread(WelcomeActivity.this).start();
+                            } else {
+                                // 启动一个线程
+                                new Thread(WelcomeActivity.this).start();
+                            }
+                        } else {
+                            // 启动一个线程
+                            new Thread(WelcomeActivity.this).start();
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                        // 启动一个线程
+                        new Thread(WelcomeActivity.this).start();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }
