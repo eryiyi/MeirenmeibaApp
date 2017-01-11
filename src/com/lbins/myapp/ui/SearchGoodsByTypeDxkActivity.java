@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -97,7 +99,25 @@ public class SearchGoodsByTypeDxkActivity extends BaseActivity implements View.O
         btn_val.setOnClickListener(this);
 
         keywords = (EditText) this.findViewById(R.id.keywords);
-        keywords.addTextChangedListener(watcher);
+        keywords.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode==KeyEvent.KEYCODE_ENTER) {
+                    //修改回车键功能
+                    // 先隐藏键盘
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(
+                                    SearchGoodsByTypeDxkActivity.this
+                                            .getCurrentFocus()
+                                            .getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    initData();
+
+                }
+                return false;
+            }
+        });
+
         search_null = (ImageView) this.findViewById(R.id.search_null);
         this.findViewById(R.id.back).setOnClickListener(this);
 
@@ -145,26 +165,26 @@ public class SearchGoodsByTypeDxkActivity extends BaseActivity implements View.O
         });
     }
 
-     private TextWatcher watcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            initData();
-        }
-    };
+//     private TextWatcher watcher = new TextWatcher() {
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            // TODO Auto-generated method stub
+//
+//        }
+//
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count,
+//                                      int after) {
+//            // TODO Auto-generated method stub
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//            initData();
+//        }
+//    };
 
 
     void initData() {

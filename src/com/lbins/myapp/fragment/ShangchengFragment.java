@@ -123,30 +123,31 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     }
 
 
-    private TextWatcher watcher = new TextWatcher() {
+//    private TextWatcher watcher = new TextWatcher() {
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            // TODO Auto-generated method stub
+//
+//        }
+//
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count,
+//                                      int after) {
+//            // TODO Auto-generated method stub
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+//            intent.putExtra("typeId", "");
+//            intent.putExtra("typeName", "");
+//            intent.putExtra("keyContent", keywords.getText().toString());
+//            startActivity(intent);
+//        }
+//    };
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-            intent.putExtra("typeId", "");
-            intent.putExtra("typeName", "");
-            intent.putExtra("keyContent", keywords.getText().toString());
-            startActivity(intent);
-        }
-    };
     //商城分类
     private void initViewType() {
         gridv_one = (ClassifyGridview) headLiner.findViewById(R.id.gridv_one);
@@ -164,9 +165,9 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-                            intent.putExtra("typeId", goodsType.getTypeId());
-                            intent.putExtra("typeName", goodsType.getTypeName());
-                            intent.putExtra("keyContent", "");
+                            intent.putExtra("typeId", "");
+                            intent.putExtra("typeName", "");
+                            intent.putExtra("keyContent", keywords.getText().toString());
                             startActivity(intent);
                         }
                     }
@@ -188,7 +189,26 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         location = (TextView) view.findViewById(R.id.location);
         location.setOnClickListener(this);
         keywords = (EditText) view.findViewById(R.id.keywords);
-        keywords.addTextChangedListener(watcher);
+//        keywords.addTextChangedListener(watcher);
+
+        keywords.setOnFocusChangeListener(new android.view.View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+                    intent.putExtra("typeId", "");
+                    intent.putExtra("typeName", "");
+                    intent.putExtra("keyContent", keywords.getText().toString());
+                    startActivity(intent);
+                    keywords.clearFocus();//失去焦点
+                } else {
+                    // 此处为失去焦点时的处理内容
+                }
+            }
+        });
+
 
         img_new = (ImageView) headLiner.findViewById(R.id.img_new);
         img_tehui = (ImageView) headLiner.findViewById(R.id.img_tehui);

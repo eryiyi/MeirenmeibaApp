@@ -34,6 +34,7 @@
                   android:layout_centerVertical="true"
                   android:drawableRight="@drawable/search_mine"
                   android:paddingRight="12dp"
+                  android:imeOptions="actionSearch"
                   android:textColor="@color/text_color_two"
                   android:layout_height="match_parent"/>
         <TextView android:layout_width="wrap_content"
