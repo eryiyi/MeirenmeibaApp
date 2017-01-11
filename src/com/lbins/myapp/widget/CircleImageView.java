@@ -198,7 +198,7 @@ public class CircleImageView extends ImageView {
         mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2, (mBorderRect.width() - mBorderWidth) / 2);
 
         mDrawableRect.set(mBorderWidth, mBorderWidth, mBorderRect.width() - mBorderWidth, mBorderRect.height() - mBorderWidth);
-        mDrawableRadius = Math.min(Float.valueOf(String.valueOf(mDrawableRect.height() / 1.5)), Float.valueOf(String.valueOf(mDrawableRect.width() / 1.5)));
+        mDrawableRadius = Math.min(mDrawableRect.height() / 2, mDrawableRect.width() / 2);
 
         updateShaderMatrix();
         invalidate();

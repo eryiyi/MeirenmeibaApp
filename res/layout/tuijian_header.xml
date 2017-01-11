@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             android:horizontalSpacing="0dip"
             android:numColumns="4"
@@ -49,7 +49,7 @@
 
     <ImageView android:layout_width="match_parent"
                android:src="@drawable/no_pic"
-               android:layout_marginTop="8dp"
+               android:layout_marginTop="5dp"
                android:id="@+id/big_middle_ad"
                android:scaleType="centerCrop"
                android:layout_height="130dp"/>
@@ -64,13 +64,6 @@
             android:verticalSpacing="1dip"
             android:padding="1dip"/>
 
-    <ImageView android:layout_width="match_parent"
-               android:src="@drawable/no_pic"
-               android:layout_marginTop="8dp"
-               android:id="@+id/big_middle_ad_dxk"
-               android:scaleType="centerCrop"
-               android:layout_height="130dp"/>
-
     <com.lbins.myapp.widget.ClassifyGridview
             android:id="@+id/gridv_three"
             android:layout_width="match_parent"
@@ -80,6 +73,11 @@
             android:numColumns="2"
             android:verticalSpacing="1dip"
             android:padding="1dip"/>
-
+    <ImageView android:layout_width="match_parent"
+               android:src="@drawable/no_pic"
+               android:layout_marginTop="8dp"
+               android:id="@+id/big_middle_ad_dxk"
+               android:scaleType="centerCrop"
+               android:layout_height="130dp"/>
 
 </LinearLayout>

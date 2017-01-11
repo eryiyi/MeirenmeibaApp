@@ -377,7 +377,6 @@
     <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_whatsapp_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/umeng_socialize_ynote_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/umeng_update_string.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutAdAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AboutViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdOneAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/AdViewPagerAdapter.java" charset="UTF-8" />
@@ -523,6 +522,7 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/util/StringUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/util/TimeUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/util/Utils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/CircleImageView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/CircleImageView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ClassifyGridview.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/widget/ContentListView.java" charset="UTF-8" />
