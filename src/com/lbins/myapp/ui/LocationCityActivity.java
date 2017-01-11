@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.SlideCityAdapter;
 import com.lbins.myapp.base.BaseActivity;
@@ -37,6 +38,8 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
     private List<City> listEmps = new ArrayList<City>();
     private List<City> listEmpsAll = new ArrayList<City>();
     SlideCityAdapter adapter;
+    private LinearLayout liner_location;
+    private TextView mine_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,20 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
+        liner_location = (LinearLayout) this.findViewById(R.id.liner_location);
+        mine_location = (TextView) this.findViewById(R.id.mine_location);
+        liner_location.setOnClickListener(this);
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("location_city", ""), String.class))){
+            //说明用户自己选择了城市
+            mine_location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
+        }else {
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationCityName)){
+                mine_location.setText(MeirenmeibaAppApplication.locationCityName);
+            }else {
+                mine_location.setText("郑州");
+                liner_location.setVisibility(View.GONE);
+            }
+        }
 
 
     }
@@ -129,6 +146,23 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+            case R.id.liner_location:
+            {
+
+                save("location_city", mine_location.getText().toString());
+                if(listEmps != null){
+                    for(City city:listEmps){
+                        if(city.getCityName().equals(mine_location.getText().toString())){
+                            save("location_city_id", city.getCityid());
+                            break;
+                        }
+                    }
+                }
+                Intent intent1 = new Intent("update_location_success");
+                sendBroadcast(intent1);
+                finish();
+            }
                 break;
         }
     }

@@ -643,8 +643,8 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
             //说明用户自己选择了城市
             location.setText(getGson().fromJson(getSp().getString("location_city", ""), String.class));
         }else {
-            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationAreaName)){
-                location.setText(MeirenmeibaAppApplication.locationAreaName);
+            if(!StringUtil.isNullOrEmpty(MeirenmeibaAppApplication.locationCityName)){
+                location.setText(MeirenmeibaAppApplication.locationCityName);
             }else {
                 location.setText("郑州");
             }

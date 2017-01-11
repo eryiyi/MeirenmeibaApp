@@ -40,7 +40,27 @@
                   android:layout_height="match_parent"/>
 
     </RelativeLayout>
-
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:background="@color/white"
+                  android:id="@+id/liner_location"
+                  android:padding="12dp"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:text="当前城市"
+                  android:layout_weight="1"
+                  android:textSize="16sp"
+                  android:textColor="@color/text_color"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="郑州"
+                  android:layout_marginRight="8dp"
+                  android:textSize="16sp"
+                  android:id="@+id/mine_location"
+                  android:textColor="@color/text_color"
+                  android:layout_marginLeft="8dp"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
     <FrameLayout
                  android:layout_width="match_parent"
                  android:layout_height="match_parent">
