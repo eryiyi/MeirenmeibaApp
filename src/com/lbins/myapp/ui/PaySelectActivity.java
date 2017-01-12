@@ -149,6 +149,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
         btn_pay_lq = (Button) this.findViewById(R.id.btn_pay_lq);
         btn_pay_lq.setOnClickListener(this);
     }
+    private int selectPayWay = 0;//0微信 1支付宝  2零钱
 
     //计算金额总的
     void toCalculate(){
@@ -165,12 +166,45 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 }
             }
             payable_amount = doublePricesAll*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
-            count_money.setText(getResources().getString(R.string.countPrices) + df.format(payable_amount).toString() );
             count_money_all.setText("原价："+ df.format(doublePricesAll).toString() );
             count_money_all.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
+            switch (selectPayWay){
+                case 0:
+                case 1:
+                {
+                    count_money.setText(getResources().getString(R.string.countPrices) + df.format(payable_amount).toString() );
+                }
+                    break;
+                case 2:
+                {
+                    //零钱支付需要计算折扣
+                    doublePricesAll = 0.0;
+                    payable_amount = 0.0;
+
+                    for(int i=0; i<lists.size() ;i++){
+                        ShoppingCart shoppingCart = lists.get(i);
+                        if(shoppingCart.getIs_select() .equals("0")){
+                            //默认是选中的
+                            if("1".equals(shoppingCart.getIs_zhekou()) && !StringUtil.isNullOrEmpty(shoppingCart.getZhekou_number()) && !"0".equals(shoppingCart.getZhekou_number())){
+                                doublePricesAll = doublePricesAll + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count()) * Double.parseDouble(shoppingCart.getZhekou_number())*0.1;
+                            }else {
+                                doublePricesAll = doublePricesAll + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
+                            }
+
+                        }
+                    }
+                    payable_amount = doublePricesAll*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
+
+                    count_money.setText(getResources().getString(R.string.countPrices) + df.format(payable_amount).toString());
+                }
+                    break;
+            }
+
         }
     }
-    private int selectPayWay = 0;//0微信 1支付宝  2零钱
+
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -184,6 +218,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
                 check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
                 selectPayWay = 0;
+                toCalculate();
             }
                 break;
             case R.id.check_btn_ali:
@@ -193,6 +228,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
                 check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
                 selectPayWay = 1;
+                toCalculate();
             }
             break;
             case R.id.check_btn_ling:
@@ -202,6 +238,7 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                 check_btn_ali.setImageDrawable(getResources().getDrawable(R.drawable.cart_selectno));
                 check_btn_ling.setImageDrawable(getResources().getDrawable(R.drawable.cart_selected));
                 selectPayWay = 2;
+                toCalculate();
             }
             break;
             case R.id.btn_pay_lq:
@@ -415,7 +452,15 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                     if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
 //                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
 
-                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+//                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double payable_amount_all = 0.0;
+                        //默认是选中的
+                        if("1".equals(shoppingCart.getIs_zhekou()) && !StringUtil.isNullOrEmpty(shoppingCart.getZhekou_number()) && !"0".equals(shoppingCart.getZhekou_number())){
+                            payable_amount_all = Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count()) * Double.parseDouble(shoppingCart.getZhekou_number())*0.1;
+                        }else {
+                            payable_amount_all = Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
+                        }
+
                         Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
                         Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
 
@@ -429,7 +474,15 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                     ShoppingCart shoppingCart = lists.get(i);
                     if(shoppingCart!=null && shoppingCart.getIs_select().equals("0")){
 //                        Double payable_amount = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
-                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+//                        Double payable_amount_all = Double.valueOf(shoppingCart.getSell_price())*Integer.parseInt(shoppingCart.getGoods_count());
+                        Double payable_amount_all = 0.0;
+                        //默认是选中的
+                        if("1".equals(shoppingCart.getIs_zhekou()) && !StringUtil.isNullOrEmpty(shoppingCart.getZhekou_number()) && !"0".equals(shoppingCart.getZhekou_number())){
+                            payable_amount_all = Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count()) * Double.parseDouble(shoppingCart.getZhekou_number())*0.1;
+                        }else {
+                            payable_amount_all = Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
+                        }
+
                         Double pv_amount = Double.valueOf(shoppingCart.getPv_prices()==null?"0":shoppingCart.getPv_prices())*Integer.parseInt(shoppingCart.getGoods_count());
                         Double payable_amount = payable_amount_all*((Double.parseDouble(getGson().fromJson(getSp().getString("level_zhe", ""), String.class)) * 0.1));
 

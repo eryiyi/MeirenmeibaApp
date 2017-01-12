@@ -33,6 +33,8 @@ public class ShoppingCart implements Serializable{
     private String is_zhiying;
     private String is_select;
     private String pv_prices;
+    private String is_zhekou;
+    private String zhekou_number;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -51,7 +53,7 @@ public class ShoppingCart implements Serializable{
         this.cartid = cartid;
     }
 
-    public ShoppingCart(String cartid, String goods_id, String emp_id, String manager_id, String emp_name, String emp_cover, String goods_name, String goods_cover, String sell_price, String marketPrice, String goods_count, String dateline, String is_zhiying, String is_select, String pv_prices) {
+    public ShoppingCart(String cartid, String goods_id, String emp_id, String manager_id, String emp_name, String emp_cover, String goods_name, String goods_cover, String sell_price, String marketPrice, String goods_count, String dateline, String is_zhiying, String is_select, String pv_prices, String is_zhekou, String zhekou_number) {
         this.cartid = cartid;
         this.goods_id = goods_id;
         this.emp_id = emp_id;
@@ -67,12 +69,30 @@ public class ShoppingCart implements Serializable{
         this.is_zhiying = is_zhiying;
         this.is_select = is_select;
         this.pv_prices = pv_prices;
+        this.is_zhekou = is_zhekou;
+        this.zhekou_number = zhekou_number;
     }
 
     /** called by internal mechanisms, do not call yourself. */
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getShoppingCartDao() : null;
+    }
+
+    public String getIs_zhekou() {
+        return is_zhekou;
+    }
+
+    public void setIs_zhekou(String is_zhekou) {
+        this.is_zhekou = is_zhekou;
+    }
+
+    public String getZhekou_number() {
+        return zhekou_number;
+    }
+
+    public void setZhekou_number(String zhekou_number) {
+        this.zhekou_number = zhekou_number;
     }
 
     /** Not-null value. */

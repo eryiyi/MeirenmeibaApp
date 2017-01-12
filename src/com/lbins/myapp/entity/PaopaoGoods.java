@@ -42,6 +42,25 @@ public class PaopaoGoods {
     private String goods_cover1;
     private String goods_cover2;
 
+    private String is_zhekou;//是否支持折扣 0否 1是
+    private String zhekou_number;//折扣
+
+    public String getIs_zhekou() {
+        return is_zhekou;
+    }
+
+    public void setIs_zhekou(String is_zhekou) {
+        this.is_zhekou = is_zhekou;
+    }
+
+    public String getZhekou_number() {
+        return zhekou_number;
+    }
+
+    public void setZhekou_number(String zhekou_number) {
+        this.zhekou_number = zhekou_number;
+    }
+
     public String getIs_dxk() {
         return is_dxk;
     }

@@ -37,6 +37,8 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         public final static Property Is_zhiying = new Property(12, String.class, "is_zhiying", false, "IS_ZHIYING");
         public final static Property Is_select = new Property(13, String.class, "is_select", false, "IS_SELECT");
         public final static Property Pv_prices = new Property(14, String.class, "pv_prices", false, "PV_PRICES");
+        public final static Property Is_zhekou = new Property(15, String.class, "is_zhekou", false, "IZ_ZHEKOU");
+        public final static Property Zhekou_number = new Property(16, String.class, "zhekou_number", false, "ZHEKOU_NUMBER");
     };
 
     private DaoSession daoSession;
@@ -69,7 +71,9 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
                 "'DATELINE' TEXT," + // 11: dateline
                 "'IS_ZHIYING' TEXT," + // 12: is_zhiying
                 "'IS_SELECT' TEXT," +
-                "'PV_PRICES' TEXT);"); // 13: is_select
+                "'PV_PRICES' TEXT," +
+                "'IZ_ZHEKOU' TEXT," +
+                "'ZHEKOU_NUMBER' TEXT);"); // 13: is_select
     }
 
     /** Drops the underlying database table. */
@@ -149,6 +153,17 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         if (pv_prices != null) {
             stmt.bindString(15, pv_prices);
         }
+
+        String is_zhekou = entity.getIs_zhekou();
+        if (is_zhekou != null) {
+            stmt.bindString(16, is_zhekou);
+        }
+
+        String zhekou_number = entity.getZhekou_number();
+        if (zhekou_number != null) {
+            stmt.bindString(17, zhekou_number);
+        }
+
     }
 
     @Override
@@ -181,7 +196,9 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // dateline
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // is_zhiying
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // is_select
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // pv_prices
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // pv_prices
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // is_zhekou
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // zhekou_number
         );
         return entity;
     }
@@ -204,6 +221,8 @@ public class ShoppingCartDao extends AbstractDao<ShoppingCart, String> {
         entity.setIs_zhiying(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setIs_select(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setPv_prices(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPv_prices(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setPv_prices(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
      }
     
     /** @inheritdoc */
