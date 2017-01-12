@@ -245,4 +245,6 @@ public class InternetURL {
     public static final String deleteDianpuComment = INTERNAL + "deleteDianpuComment.do";
     // 获得欢迎页广告列表
     public static final String appGetLoadPics = INTERNAL + "appGetLoadPics.do";
+    //获得定向卡广告列表
+    public static final String appGetDxkAds = INTERNAL + "appGetDxkAds.do";
 }

@@ -7,14 +7,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.DxkViewPageAdapter;
 import com.lbins.myapp.adapter.RuzhuViewPageAdapter;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.DxkAdData;
+import com.lbins.myapp.data.LoadPicData;
+import com.lbins.myapp.entity.DxkAd;
+import com.lbins.myapp.entity.LoadPic;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhl on 2016/8/30.
@@ -23,16 +37,17 @@ import org.json.JSONObject;
 public class DxkDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
 
-    private static final int PICTURE_COUNT = 4;
-
-    private static final int[] PICTURE_RESOURCES = {R.drawable.dxk_icon_001,
-            R.drawable.dxk_icon_002, R.drawable.dxk_icon_003, R.drawable.dxk_icon_004};
-
-    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片", "第四张图片"};
+//    private static final int PICTURE_COUNT = 4;
+//
+//    private static final int[] PICTURE_RESOURCES = {R.drawable.dxk_icon_001,
+//            R.drawable.dxk_icon_002, R.drawable.dxk_icon_003, R.drawable.dxk_icon_004};
+//
+//    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片", "第四张图片"};
     private JSONArray jsonArray;
     private ViewPager viewPager;
     private DxkViewPageAdapter adapter;
-    private ImageView[] circles = new ImageView[PICTURE_RESOURCES.length];
+//    private ImageView[] circles = new ImageView[PICTURE_RESOURCES.length];
+    ArrayList<String> pics = new ArrayList<String>();
 
     private Button btn_one;
 
@@ -40,18 +55,68 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.apply_dianpu_activity);
-        initLoadData();
-        initView();
+        getData();
     }
 
+    ArrayList<DxkAd> picData = new ArrayList<DxkAd>();
+    private void getData() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.appGetDxkAds,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            DxkAdData data = getGson().fromJson(s, DxkAdData.class);
+                            if (data.getCode() == 200) {
+                                picData.clear();
+                                picData.addAll(data.getData());
+                                if(picData != null){
+                                    for(DxkAd loadPic: picData){
+                                        pics.add(loadPic.getDxk_ad_pic());
+                                    }
+                                    initLoadData();
+                                    initView();
+                                }
+                            }
+                        }
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if(progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 
     private void initLoadData() {
         jsonArray = new JSONArray();
-        for (int i = 0; i < PICTURE_COUNT; i++) {
+        for (int i = 0; i < pics.size(); i++) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("resourceId", PICTURE_RESOURCES[i]);
-                jsonObject.put("title", PICTURE_TITLE[i]);
+                jsonObject.put("resourceId", pics.get(i));
+                jsonObject.put("title", pics.get(i));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -74,7 +139,7 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onPageSelected(int position) {
-                for (int j = 0; j < circles.length; j++) {
+                for (int j = 0; j < pics.size(); j++) {
                 }
             }
 

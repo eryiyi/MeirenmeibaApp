@@ -64,10 +64,10 @@ public class DxkViewPageAdapter extends PagerAdapter {
                 public void onClick(View v) {
                     Intent intent = null;
                     switch (position) {
-                        case 3:
-                            Intent main = new Intent(context, DxkOrderActivity.class);
-                            context.startActivity(main);
-                            break;
+//                        case 3:
+//                            Intent main = new Intent(context, DxkOrderActivity.class);
+//                            context.startActivity(main);
+//                            break;
                     }
                 }
             });

@@ -121,8 +121,10 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.skip:
             {
-                myTimer.cancel();
-                myTimer.onFinish();
+                if(myTimer != null){
+                    myTimer.cancel();
+                    myTimer.onFinish();
+                }
             }
                 break;
         }
