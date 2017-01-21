@@ -1,5 +1,6 @@
 package com.lbins.myapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -92,12 +93,19 @@ public class MoreDianpuPaopaoGoodsActivity extends BaseActivity implements View.
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (lists.size() > position -2) {
+                if (listsgoods.size() > (position-1) ) {
+                    PaopaoGoods paopaoGoods = listsgoods.get(position-1);
+                    if(paopaoGoods != null){
+                        Intent intent = new Intent(MoreDianpuPaopaoGoodsActivity.this, DetailPaopaoGoodsActivity.class);
+                        intent.putExtra("emp_id_dianpu", paopaoGoods.getEmpId());
+                        intent.putExtra("goods_id", paopaoGoods.getId());
+                        startActivity(intent);
+                    }
 //                    lists.get(position - 2).setIs_read("1");
 //                    adapter.notifyDataSetChanged();
 //                    recordVO = lists.get(position - 2);
 //                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-//                }
+                }
             }
         });
     }

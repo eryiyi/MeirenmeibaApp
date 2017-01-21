@@ -75,7 +75,7 @@
             android:padding="1dip"/>
     <ImageView android:layout_width="match_parent"
                android:src="@drawable/no_pic"
-               android:layout_marginTop="8dp"
+               android:layout_marginTop="1dp"
                android:id="@+id/big_middle_ad_dxk"
                android:scaleType="centerCrop"
                android:layout_height="130dp"/>

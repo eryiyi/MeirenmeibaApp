@@ -45,7 +45,7 @@
               android:textColor="@color/text_color"
               android:textSize="12sp"
               android:lineSpacingMultiplier="1.2"
-              android:text="河南美人美吧网络科技有限公司 版权所有 \nCopyright 2015-2022 JiaWang All Right Reserved"
+              android:text="河南美人美吧网络科技有限公司 版权所有 \nCopyright 2015-2022 Meirenmeiba All Right Reserved"
               android:layout_gravity="center_horizontal"
               android:layout_height="wrap_content"/>
 </LinearLayout>

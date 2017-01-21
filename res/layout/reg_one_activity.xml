@@ -144,13 +144,13 @@
                               android:padding="8dp"
                               android:layout_height="50dp">
                     <TextView android:layout_width="wrap_content"
-                              android:text="推荐人:"
+                              android:text="邀请人:"
                               android:layout_centerVertical="true"
                               android:textSize="16sp"
                               android:textColor="@color/text_color"
                               android:layout_height="wrap_content"/>
                     <EditText android:layout_width="match_parent"
-                              android:hint="请输入推荐人手机号"
+                              android:hint="请输入邀请人手机号"
                               android:layout_marginLeft="8dp"
                               android:id="@+id/emp_up_mobile"
                               android:textSize="15sp"

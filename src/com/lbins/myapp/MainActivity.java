@@ -78,9 +78,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         //如果是第一次启动 去加载城市数据
         SharedPreferences.Editor editor = getSp().edit();
-        boolean isFirstRun = getSp().getBoolean("isFirstRunCity", true);
+        boolean isFirstRun = getSp().getBoolean("isFirstRunCity3", true);
         if (isFirstRun) {
-            editor.putBoolean("isFirstRunCity", false);
+            editor.putBoolean("isFirstRunCity3", false);
             editor.commit();
             new Thread(new Runnable() {
                 @Override

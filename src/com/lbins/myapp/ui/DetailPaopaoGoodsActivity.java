@@ -1012,7 +1012,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 {
                     if(paopaoGoods != null){
                         String title =  paopaoGoods.getName()==null?"":paopaoGoods.getName();
-                        String content = paopaoGoods.getCont()==null?"":paopaoGoods.getCont();
+                        String content = paopaoGoods.getName()==null?"":paopaoGoods.getName();
                         UMImage image = new UMImage(DetailPaopaoGoodsActivity.this, paopaoGoods.getCover());
                         String url = InternetURL.SHARE_GOODS_DETAIL_URL + "?id=" + paopaoGoods.getId();
 
