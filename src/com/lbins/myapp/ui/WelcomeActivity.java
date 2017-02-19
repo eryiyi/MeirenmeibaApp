@@ -181,6 +181,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable,AMapLocati
         save("lx_attribute_id", member.getLx_attribute_id());
 
         save("level_zhe", member.getLevel_zhe());
+        save("is_card", member.getIs_card());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

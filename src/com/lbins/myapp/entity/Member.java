@@ -38,7 +38,15 @@ public class Member implements Serializable{
     private String is_card_emp;//定向卡会员 0否 1是  能购买零元商品
     private String lx_attribute_id;//分销等级0是普通会员 没有返利
     private String level_zhe;//折扣百分比
+    private String is_card;//是否是定向卡商家 默认0否  1是
 
+    public String getIs_card() {
+        return is_card;
+    }
+
+    public void setIs_card(String is_card) {
+        this.is_card = is_card;
+    }
 
     public String getLevel_zhe() {
         return level_zhe;

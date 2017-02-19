@@ -241,14 +241,17 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                         if("更多".equals(goodsType.getLx_class_name())){
                             Intent intent = new Intent(getActivity(), SearchMoreClassActivity.class);
                             startActivity(intent);
-                        }else if("免费".equals(goodsType.getLx_class_name())){
-                            //免费产品
-                            Intent intent = new Intent(getActivity(), SearchGoodsByTypeDxkActivity.class);
-                            startActivity(intent);
                         }
+//                        else if("免费".equals(goodsType.getLx_class_name())){
+//                            //免费产品
+//                            Intent intent = new Intent(getActivity(), SearchGoodsByTypeDxkActivity.class);
+//                            startActivity(intent);
+//                        }
                         else{
                             Intent intent = new Intent(getActivity(), NearbyActivity.class);
-                            intent.putExtra("lx_class_id", goodsType.getLx_class_id());
+//                            intent.putExtra("lx_class_id", goodsType.getLx_class_id());
+                            intent.putExtra("lx_class_id", "");
+                            intent.putExtra("typeName", "");
                             startActivity(intent);
                         }
                     }

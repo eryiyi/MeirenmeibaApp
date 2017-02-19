@@ -85,7 +85,7 @@ public class MineErweimaActivity extends BaseActivity implements View.OnClickLis
         view2 = inflater.inflate(R.layout.erweima_two, null);
         view3 = inflater.inflate(R.layout.erweima_three, null);
 
-        if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+        if("1".equals(getGson().fromJson(getSp().getString("is_card", ""), String.class))){
             views.add(view1);
             views.add(view2);
         }else {

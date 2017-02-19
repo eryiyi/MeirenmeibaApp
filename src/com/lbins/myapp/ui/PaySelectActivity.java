@@ -186,7 +186,8 @@ public class PaySelectActivity extends BaseActivity implements View.OnClickListe
                         if(shoppingCart.getIs_select() .equals("0")){
                             //默认是选中的
                             if("1".equals(shoppingCart.getIs_zhekou()) && !StringUtil.isNullOrEmpty(shoppingCart.getZhekou_number()) && !"0".equals(shoppingCart.getZhekou_number())){
-                                doublePricesAll = doublePricesAll + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count()) * Double.parseDouble(shoppingCart.getZhekou_number())*0.1;
+                                doublePricesAll = doublePricesAll +
+                                        Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count()) * Double.parseDouble(shoppingCart.getZhekou_number())*0.1;
                             }else {
                                 doublePricesAll = doublePricesAll + Double.parseDouble(shoppingCart.getSell_price()) * Double.parseDouble(shoppingCart.getGoods_count());
                             }

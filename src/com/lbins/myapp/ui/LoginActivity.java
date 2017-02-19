@@ -214,6 +214,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("level_zhe", member.getLevel_zhe());
 
         save("isLogin", "1");//1已经登录了  0未登录
+        save("is_card", member.getIs_card());
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
