@@ -41,6 +41,24 @@ public class Order implements Serializable{
     private String payable_amount_all;//没打折之前的金额
     private String pv_amount;//商品的pv在订单中的总和 这是返利用到的（商品pv,pv即利润）
     private String order_cont;
+    private String kuaidi_company_code;//快递公司代码 如果没有发快递 默认为0
+    private String kuaidi_order;//快递单号
+
+    public String getKuaidi_company_code() {
+        return kuaidi_company_code;
+    }
+
+    public void setKuaidi_company_code(String kuaidi_company_code) {
+        this.kuaidi_company_code = kuaidi_company_code;
+    }
+
+    public String getKuaidi_order() {
+        return kuaidi_order;
+    }
+
+    public void setKuaidi_order(String kuaidi_order) {
+        this.kuaidi_order = kuaidi_order;
+    }
 
     public String getOrder_cont() {
         return order_cont;

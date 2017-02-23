@@ -63,6 +63,10 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
 
     private ImageView erweima_order;//卖家扫一扫
 
+    private LinearLayout liner_wuliu;
+    private TextView kuaid_company;
+    private TextView kuaidi_order;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,9 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
+        liner_wuliu = (LinearLayout) this.findViewById(R.id.liner_wuliu);
+        kuaid_company = (TextView) this.findViewById(R.id.kuaid_company);
+        kuaidi_order = (TextView) this.findViewById(R.id.kuaidi_order);
         title = (TextView) this.findViewById(R.id.title);
         title.setText("订单详情");
         this.findViewById(R.id.back).setOnClickListener(this);
@@ -105,6 +112,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
 
         erweima_order = (ImageView) this.findViewById(R.id.erweima_order);
         erweima_order.setOnClickListener(this);
+        this.findViewById(R.id.btn_kuaidi).setOnClickListener(this);
     }
 
     @Override
@@ -143,6 +151,17 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 }
             }
                 break;
+            case R.id.btn_kuaidi:
+            {
+                //快递单号查询
+                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                    String strurl = "https://m.kuaidi100.com/index_all.html?type="+orderVo.getKuaidi_company_code()+"&postid="+orderVo.getKuaidi_order();
+                    Intent intent = new Intent(DetailOrderActivity.this, WebViewActivity.class);
+                    intent.putExtra("strurl",strurl);
+                    startActivity(intent);
+                }
+            }
+                break;
         }
     }
 
@@ -158,6 +177,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
                     datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
                 }
+                liner_wuliu.setVisibility(View.GONE);
                 break;
             case 2:
                 order_status.setText("等待卖家发货");
@@ -174,12 +194,15 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(bitmap != null){
                     erweima_order.setImageBitmap(bitmap);
                 }
+                liner_wuliu.setVisibility(View.GONE);
                 break;
             case 3:
                 order_status.setText("订单已取消");
+                liner_wuliu.setVisibility(View.GONE);
                 break;
             case 4:
                 order_status.setText("订单已作废");
+                liner_wuliu.setVisibility(View.GONE);
                 break;
             case 5:
                 order_status.setText("订单已完成");
@@ -198,6 +221,16 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getCompletion_time())){
                     datetime.append("\n" + "完成时间:" + orderVo.getCompletion_time());
                 }
+                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                    liner_wuliu.setVisibility(View.VISIBLE);
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
+                        kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
+                        kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                    }
+                }
+
                 break;
             case 6:
                 order_status.setText("卖家已发货");
@@ -209,6 +242,15 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 }
                 if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
                     datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
+                }
+                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                    liner_wuliu.setVisibility(View.VISIBLE);
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
+                        kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
+                        kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                    }
                 }
                 break;
             case 7:
@@ -226,6 +268,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
                     datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
                 }
+                liner_wuliu.setVisibility(View.GONE);
                 break;
         }
 
@@ -235,7 +278,7 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
         item_content.setText(orderVo.getGoodsTitle()==null?"":orderVo.getGoodsTitle());
         item_prices.setText(getResources().getString(R.string.money) + (orderVo.getGoodsPrice()==null?"":orderVo.getGoodsPrice()));
         item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), (orderVo.getGoods_count()==null?"":orderVo.getGoods_count())));
-        item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount()==null?"":orderVo.getPayable_amount())));
+        item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount() == null ? "" : orderVo.getPayable_amount())));
         order_dateline.setText(datetime);
 
         if("1".equals(orderVo.getIs_dxk_order())){

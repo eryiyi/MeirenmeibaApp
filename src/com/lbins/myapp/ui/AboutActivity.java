@@ -125,6 +125,8 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
                     myTimer.cancel();
                     myTimer.onFinish();
                 }
+                Intent intent = new Intent(AboutActivity.this, MainActivity.class);
+                startActivity(intent);
             }
                 break;
         }
