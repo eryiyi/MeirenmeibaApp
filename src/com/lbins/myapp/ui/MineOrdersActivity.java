@@ -286,6 +286,21 @@ public class MineOrdersActivity extends BaseActivity implements View.OnClickList
                 showTuihuo();
             }
                 break;
+            case 8:
+            {
+                //物流
+                if(orderVoTmp != null){
+                    if(!StringUtil.isNullOrEmpty(orderVoTmp.getKuaidi_order())){
+                        String strurl = "https://m.kuaidi100.com/index_all.html?type="+orderVoTmp.getKuaidi_company_code()+"&postid="+orderVoTmp.getKuaidi_order();
+                        Intent intent = new Intent(MineOrdersActivity.this, WebViewActivity.class);
+                        intent.putExtra("strurl",strurl);
+                        startActivity(intent);
+                    }else{
+                        showMsg(MineOrdersActivity.this, "暂无物流信息！");
+                    }
+                }
+            }
+                break;
         }
     }
     //取订单

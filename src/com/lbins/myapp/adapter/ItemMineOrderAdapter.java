@@ -77,6 +77,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
             holder.button_six = (TextView) convertView.findViewById(R.id.button_six);
             holder.item_dateline = (TextView) convertView.findViewById(R.id.item_dateline);
             holder.button_seven = (TextView) convertView.findViewById(R.id.button_seven);//退货
+            holder.button_wuliu = (TextView) convertView.findViewById(R.id.button_wuliu);//物流
             holder.relative_one = (RelativeLayout) convertView.findViewById(R.id.relative_one);
             convertView.setTag(holder);
         } else {
@@ -105,6 +106,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
                     holder.button_seven.setVisibility(View.GONE);
+                    holder.button_wuliu.setVisibility(View.GONE);
                     break;
                 case 2:
                     holder.item_status.setText("等待卖家发货");
@@ -114,6 +116,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_four.setVisibility(View.GONE);
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
+                    holder.button_wuliu.setVisibility(View.GONE);
                     holder.button_seven.setVisibility(View.VISIBLE);
                     break;
                 case 3:
@@ -125,6 +128,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.VISIBLE);
                     holder.button_seven.setVisibility(View.GONE);
+                    holder.button_wuliu.setVisibility(View.GONE);
                     break;
                 case 4:
                     holder.item_status.setText("作废订单");
@@ -135,6 +139,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     holder.button_five.setVisibility(View.GONE);
                     holder.button_six.setVisibility(View.GONE);
                     holder.button_seven.setVisibility(View.GONE);
+                    holder.button_wuliu.setVisibility(View.GONE);
                     break;
                 case 5:
                     holder.item_status.setText("交易完成");
@@ -152,6 +157,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                 case 6:
                     holder.item_status.setText("等待买家收货");
                     holder.button_one.setVisibility(View.VISIBLE);
+                    holder.button_wuliu.setVisibility(View.VISIBLE);
                     holder.button_two.setVisibility(View.GONE);
                     holder.button_three.setVisibility(View.GONE);
                     holder.button_four.setVisibility(View.GONE);
@@ -242,6 +248,12 @@ public class ItemMineOrderAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 7, null);
                 }
             });
+            holder.button_wuliu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickContentItemListener.onClickContentItem(position, 8, null);
+                }
+            });
         }
         return convertView;
     }
@@ -263,6 +275,7 @@ public class ItemMineOrderAdapter extends BaseAdapter {
         TextView button_six;//删除订单
         TextView item_dateline;//下单时间
         TextView button_seven;//退货
+        TextView button_wuliu;//物流信息
         RelativeLayout relative_one;
     }
 }

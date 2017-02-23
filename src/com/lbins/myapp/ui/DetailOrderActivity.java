@@ -159,6 +159,8 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                     Intent intent = new Intent(DetailOrderActivity.this, WebViewActivity.class);
                     intent.putExtra("strurl",strurl);
                     startActivity(intent);
+                }else{
+                    showMsg(DetailOrderActivity.this, "暂无物流信息！");
                 }
             }
                 break;
