@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,17 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+import com.android.volley.*;
+import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.SlideCityAdapter;
 import com.lbins.myapp.base.BaseActivity;
+import com.lbins.myapp.base.InternetURL;
+import com.lbins.myapp.data.CityDATA;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.entity.City;
+import com.lbins.myapp.pinyin.PinyinComparator;
 import com.lbins.myapp.pinyin.SideBar;
 import com.lbins.myapp.util.StringUtil;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zhl on 2016/9/14.
@@ -48,10 +54,90 @@ public class LocationCityActivity extends BaseActivity implements View.OnClickLi
         mWindowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 
         initView();
-        listEmpsAll.addAll(DBHelper.getInstance(LocationCityActivity.this).getCityList());//全部城市
-        listEmps.addAll(listEmpsAll);//城市列表
+        //判断是否有城市列表
+        List<City> citys = DBHelper.getInstance(LocationCityActivity.this).getCityList();
+        if(citys !=null && citys.size() > 0 ){
+            listEmpsAll.addAll(DBHelper.getInstance(LocationCityActivity.this).getCityList());//全部城市
+            listEmps.addAll(listEmpsAll);//城市列表
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getCitys();
+                }
+            }).start();
+        }
+
         adapter.notifyDataSetChanged();
     }
+
+    void getCitys(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SELECT_CITY_ADDRESS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    CityDATA data = getGson().fromJson(s, CityDATA.class);
+
+                                    listEmpsAll.addAll(data.getData());//全部城市
+                                    listEmps.addAll(listEmpsAll);//城市列表
+
+//                                    Collections.sort(listEmps, new PinyinComparator());
+                                    //处理数据，需要的话保存到数据库
+                                    if (listEmps != null) {
+                                        Collections.sort(listEmps, new PinyinComparator());
+                                        DBHelper.getInstance(LocationCityActivity.this).saveCityList(listEmps);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(LocationCityActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("areaid", "");
+//                params.put("cityName", keywords.getText().toString());
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        getRequestQueue().add(request);
+    }
+
 
     private void initView() {
         keywords = (EditText) this.findViewById(R.id.keywords);

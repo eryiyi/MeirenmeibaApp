@@ -91,6 +91,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     getCitys();
                 }
             }).start();
+        }else{
+
         }
 
         if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
