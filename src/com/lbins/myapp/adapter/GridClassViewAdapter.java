@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.lbins.myapp.R;
-import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxClass;
 
 import java.util.ArrayList;

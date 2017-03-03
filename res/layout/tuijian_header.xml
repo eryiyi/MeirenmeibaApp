@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <RelativeLayout
@@ -14,27 +13,18 @@
                 android:layout_height="match_parent">
         </android.support.v4.view.ViewPager>
         <LinearLayout
+                android:id="@+id/viewGroup"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="3dp"
                 android:paddingTop="3dp">
-            <LinearLayout
-                    android:id="@+id/viewGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:paddingBottom="1dp"
-                    android:paddingTop="1dp">
-            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
     <com.lbins.myapp.widget.ClassifyGridview
             android:id="@+id/gridv_one"
             android:layout_width="match_parent"
@@ -73,6 +63,7 @@
             android:numColumns="2"
             android:verticalSpacing="1dip"
             android:padding="1dip"/>
+
     <ImageView android:layout_width="match_parent"
                android:src="@drawable/no_pic"
                android:layout_marginTop="1dp"

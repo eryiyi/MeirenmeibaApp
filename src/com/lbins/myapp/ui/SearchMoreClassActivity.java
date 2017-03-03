@@ -19,12 +19,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.data.LxClassData;
-import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxClass;
 import com.lbins.myapp.fragment.ProClassFragment;
-import com.lbins.myapp.fragment.ProTypeFragment;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONObject;
 

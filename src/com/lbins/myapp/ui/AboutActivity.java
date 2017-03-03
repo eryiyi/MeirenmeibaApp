@@ -9,28 +9,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.lbins.myapp.MainActivity;
 import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AboutViewPageAdapter;
 import com.lbins.myapp.base.BaseActivity;
-import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.LoadPicData;
-import com.lbins.myapp.entity.LoadPic;
-import com.lbins.myapp.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener{
     private JSONArray jsonArray = new JSONArray();;
@@ -39,7 +26,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     ArrayList<String> pics = new ArrayList<String>();
     private TextView skip;
     private Resources res;
-    MyTimer myTimer = null;
+//    MyTimer myTimer = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,30 +55,30 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
             editor.commit();
         } else {
             //不是第一次执行
-            myTimer = new MyTimer(6000, 1000);
-            myTimer.start();
+//            myTimer = new MyTimer(6000, 1000);
+//            myTimer.start();
         }
     }
 
-    class MyTimer extends CountDownTimer {
-
-        public MyTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onFinish() {
-            skip.setText("跳过");
-            Intent main = new Intent(AboutActivity.this, MainActivity.class);
-            startActivity(main);
-            finish();
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            skip.setText("跳过" + millisUntilFinished / 1000 + "s");
-        }
-    }
+//    class MyTimer extends CountDownTimer {
+//
+//        public MyTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            skip.setText("跳过");
+//            Intent main = new Intent(AboutActivity.this, MainActivity.class);
+//            startActivity(main);
+//            finish();
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//            skip.setText("跳过" + millisUntilFinished / 1000 + "s");
+//        }
+//    }
 
 
 
@@ -121,10 +108,10 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.skip:
             {
-                if(myTimer != null){
-                    myTimer.cancel();
-                    myTimer.onFinish();
-                }
+//                if(myTimer != null){
+//                    myTimer.cancel();
+//                    myTimer.onFinish();
+//                }
                 Intent intent = new Intent(AboutActivity.this, MainActivity.class);
                 startActivity(intent);
             }

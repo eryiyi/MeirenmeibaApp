@@ -1,6 +1,5 @@
 package com.lbins.myapp.ui;
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;

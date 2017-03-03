@@ -4,25 +4,16 @@
               android:layout_height="150dp"
               android:background="@color/white"
               android:orientation="vertical">
-    <LinearLayout android:layout_width="280dp"
-                  android:layout_height="37dp"
-                  android:background="@drawable/jubao_shape"
 
-            >
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="match_parent"
+        <TextView android:layout_width="280dp"
+                  android:layout_height="37dp"
                   android:text="提示"
+                  android:background="@drawable/jubao_shape"
                   android:textColor="@color/white"
                   android:textSize="16sp"
                   android:textStyle="bold"
-                  android:gravity="center"
-                />
-    </LinearLayout>
+                  android:gravity="center"/>
 
-    <RelativeLayout android:layout_width="280dp"
-                    android:padding="8dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_height="wrap_content">
         <TextView
                 android:id="@+id/cont"
                 android:layout_height="wrap_content"
@@ -31,14 +22,14 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:textSize="14sp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="50dp"
                 android:gravity="center"
                 android:text="提示信息"
                 android:textColor="@color/red"/>
 
         <LinearLayout android:layout_width="280dp"
                       android:padding="3dp"
-                      android:layout_marginTop="3dp"
+                      android:layout_marginTop="8dp"
                       android:layout_centerHorizontal="true"
                       android:gravity="center_horizontal"
                       android:layout_below="@+id/cont"
@@ -65,7 +56,5 @@
                     android:text="取  消"
                     android:textColor="@color/white"/>
         </LinearLayout>
-
-    </RelativeLayout>
 
 </RelativeLayout>

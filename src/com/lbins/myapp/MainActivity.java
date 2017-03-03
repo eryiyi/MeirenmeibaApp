@@ -23,7 +23,6 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.camera.MipcaActivityCapture;
 import com.lbins.myapp.data.CardEmpData;
 import com.lbins.myapp.data.CityDATA;
-import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.data.VersionUpdateObjData;
 import com.lbins.myapp.db.DBHelper;
 import com.lbins.myapp.db.RecordLogin;

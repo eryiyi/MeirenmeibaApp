@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include
             android:id="@+id/home_item_photo"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/top_title_height"
             layout="@layout/top_liner_index"/>
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
-        <!--<com.lbins.myapp.library.PullToRefreshGridView-->
-                <!--android:id="@+id/lstv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:horizontalSpacing="0dip"-->
-                <!--android:numColumns="2"-->
-                <!--android:verticalSpacing="0dip"-->
-                <!--android:padding="4dip"/>-->
         <com.lbins.myapp.library.PullToRefreshHeadGridView
                 android:id="@+id/lstv"
                 android:fadingEdge="none"
@@ -41,6 +25,5 @@
                 android:layout_height="fill_parent"
                 >
         </com.lbins.myapp.library.PullToRefreshHeadGridView>>
-    </RelativeLayout>
 
 </LinearLayout>

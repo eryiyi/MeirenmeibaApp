@@ -1,12 +1,7 @@
 package com.lbins.myapp.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.View;

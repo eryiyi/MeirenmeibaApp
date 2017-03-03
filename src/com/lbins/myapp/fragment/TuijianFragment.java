@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,39 +137,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         initData();
         return view;
     }
-
-//    private TextWatcher watcher = new TextWatcher() {
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            // TODO Auto-generated method stub
-//            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-//            intent.putExtra("typeId", "");
-//            intent.putExtra("typeName", "");
-//            intent.putExtra("keyContent", keywords.getText().toString());
-//            startActivity(intent);
-//        }
-//
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count,
-//                                      int after) {
-//            // TODO Auto-generated method stub
-//            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-//            intent.putExtra("typeId", "");
-//            intent.putExtra("typeName", "");
-//            intent.putExtra("keyContent", keywords.getText().toString());
-//            startActivity(intent);
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-//            intent.putExtra("typeId", "");
-//            intent.putExtra("typeName", "");
-//            intent.putExtra("keyContent", keywords.getText().toString());
-//            startActivity(intent);
-//        }
-//    };
 
     //定位地址
     void initLocation(){

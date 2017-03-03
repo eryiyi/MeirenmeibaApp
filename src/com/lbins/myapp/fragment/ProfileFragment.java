@@ -74,9 +74,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private String pics = "";
     private static final File PHOTO_CACHE_DIR = new File(Environment.getExternalStorageDirectory() + "/liangxun/PhotoCache");
 
-    private LinearLayout liner_profile_ruzhu;//我要入驻
+    private TextView liner_profile_ruzhu;//我要入驻
 
-    private TextView mine_fensi_count;
+    private TextView liner_profile_fensi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         mine_cover.setOnClickListener(this);
         mine_erweima.setOnClickListener(this);
-        view.findViewById(R.id.liner_profile_unpay).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_ungetgoods).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_uncomment).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_unback).setOnClickListener(this);
@@ -134,9 +133,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         view.findViewById(R.id.liner_profile_ruzhu).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_dianjia).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_liulan).setOnClickListener(this);
-        liner_profile_ruzhu = (LinearLayout) view.findViewById(R.id.liner_profile_ruzhu);
+        liner_profile_ruzhu = (TextView) view.findViewById(R.id.liner_profile_ruzhu);
 
-        mine_fensi_count = (TextView) view.findViewById(R.id.mine_fensi_count);
+        liner_profile_fensi = (TextView) view.findViewById(R.id.liner_profile_fensi);
     }
 
     @Override
@@ -617,7 +616,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                             if (data.getCode() == 200) {
                                 FensiCount minePackage = data.getData();
                                 if(minePackage != null){
-                                    mine_fensi_count.setText(minePackage.getCountFensi()==null?"0":minePackage.getCountFensi());
+                                    liner_profile_fensi.setText("我的粉丝（"+(minePackage.getCountFensi()==null?"0":minePackage.getCountFensi())+"）");
                                 }
                             }
                         }

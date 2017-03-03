@@ -23,7 +23,6 @@ import com.lbins.myapp.util.HttpUtils;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.util.Utils;
 import com.lbins.myapp.widget.CustomProgressDialog;
-import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 

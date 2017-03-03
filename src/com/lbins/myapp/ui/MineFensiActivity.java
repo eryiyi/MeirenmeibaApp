@@ -13,7 +13,6 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.ItemFensiAdapter;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.MemberData;
 import com.lbins.myapp.data.MembersData;
 import com.lbins.myapp.entity.Member;
 import com.lbins.myapp.library.PullToRefreshBase;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.amap.api.maps.model.LatLng;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.entity.ManagerInfo;
 import com.lbins.myapp.entity.PaihangDianpu;
 import com.lbins.myapp.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;

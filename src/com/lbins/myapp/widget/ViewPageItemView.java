@@ -16,7 +16,6 @@ import com.lbins.myapp.R;
 import com.lbins.myapp.adapter.AnimateFirstDisplayListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ViewPageItemView extends FrameLayout {

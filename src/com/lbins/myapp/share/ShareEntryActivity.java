@@ -1,7 +1,5 @@
 package com.lbins.myapp.share;
 
-import android.app.Activity;
-
 import com.umeng.socialize.media.ShareCallbackActivity;
 
 /**

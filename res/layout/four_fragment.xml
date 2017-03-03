@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:id="@+id/main"
-              android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include
@@ -14,11 +13,14 @@
     <View android:layout_width="match_parent"
           android:background="@color/gray"
           android:layout_height="0.1dp"></View>
+
     <com.lbins.myapp.widget.ReboundScrollView android:layout_width="match_parent"
                                               android:layout_height="match_parent">
+
         <LinearLayout android:layout_width="match_parent"
                       android:orientation="vertical"
                       android:layout_height="match_parent">
+
             <RelativeLayout android:layout_width="match_parent"
                             android:background="@drawable/profile_bg"
                             android:layout_height="200dp">
@@ -43,7 +45,6 @@
                           android:textColor="@color/white"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_name"
-                          android:text="张三"
                           android:layout_toRightOf="@+id/mine_cover"
                           android:layout_height="wrap_content"/>
 
@@ -53,7 +54,6 @@
                           android:layout_toRightOf="@+id/mine_cover"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_type"
-                          android:text="黄金会员"
                           android:layout_height="wrap_content"/>
 
                 <ImageView android:layout_width="45dp"
@@ -68,7 +68,6 @@
                           android:layout_marginTop="5dp"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_number"
-                          android:text="565232"
                           android:textColor="@color/white"
                           android:layout_below="@+id/mine_name"
                           android:layout_height="wrap_content"/>
@@ -77,7 +76,6 @@
                           android:layout_marginTop="5dp"
                           android:layout_marginLeft="15dp"
                           android:id="@+id/mine_money"
-                          android:text="$500"
                           android:textColor="@color/white"
                           android:layout_below="@+id/mine_number"
                           android:layout_height="wrap_content"/>
@@ -90,93 +88,57 @@
                           android:textColor="@color/white"
                           android:layout_below="@+id/mine_money"
                           android:layout_height="wrap_content"/>
-
-
             </RelativeLayout>
+
             <LinearLayout android:layout_width="match_parent"
                           android:padding="8dp"
-                          android:background="#fafafa"
                           android:orientation="horizontal"
                           android:layout_height="wrap_content">
-                    <LinearLayout android:layout_width="wrap_content"
-                                  android:orientation="vertical"
-                                  android:layout_weight="1"
-                                  android:id="@+id/liner_profile_unpay"
-                                  android:layout_gravity="center"
-                                  android:gravity="center"
-                                  android:layout_height="wrap_content">
-                        <ImageView android:layout_width="wrap_content"
-                                   android:src="@drawable/profile_unpay"
-                                   android:id="@+id/profile_unpay"
-                                   android:layout_height="wrap_content"/>
-                        <TextView android:layout_width="wrap_content"
-                                  android:text="待付款"
-                                  android:textSize="12sp"
-                                  android:textColor="@color/text_color"
-                                  android:gravity="center"
-                                  android:layout_gravity="center"
-                                  android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                <LinearLayout android:layout_width="wrap_content"
-                              android:orientation="vertical"
+
+                <TextView android:layout_weight="1"
+                          android:layout_width="0dp"
+                          android:id="@+id/liner_profile_unpay"
+                          android:text="待付款"
+                          android:drawableTop="@drawable/profile_unpay"
+                          android:textSize="12sp"
+                          android:textColor="@color/text_color"
+                          android:gravity="center"
+                          android:layout_gravity="center"
+                          android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="0dp"
                               android:layout_weight="1"
-                              android:layout_gravity="center"
-                              android:id="@+id/liner_profile_ungetgoods"
-                              android:gravity="center"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile_ungetgoods"
-                               android:id="@+id/profile_ungetgoods"
-                               android:layout_height="wrap_content"/>
-                    <TextView android:layout_width="wrap_content"
                               android:text="待收货"
+                              android:drawableTop="@drawable/profile_ungetgoods"
                               android:textSize="12sp"
-                              android:layout_marginTop="3dp"
+                              android:id="@+id/liner_profile_ungetgoods"
                               android:textColor="@color/text_color"
                               android:gravity="center"
                               android:layout_gravity="center"
                               android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout android:layout_width="wrap_content"
-                              android:orientation="vertical"
-                              android:layout_weight="1"
-                              android:id="@+id/liner_profile_uncomment"
-                              android:layout_gravity="center"
-                              android:gravity="center"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile_uncomment"
-                               android:id="@+id/profile_uncomment"
-                               android:layout_height="wrap_content"/>
-                    <TextView android:layout_width="wrap_content"
+
+                    <TextView android:layout_width="0dp"
                               android:text="待评价"
-                              android:layout_marginTop="3dp"
-                              android:textSize="12sp"
-                              android:textColor="@color/text_color"
-                              android:gravity="center"
-                              android:layout_gravity="center"
-                              android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout android:layout_width="wrap_content"
-                              android:orientation="vertical"
                               android:layout_weight="1"
-                              android:id="@+id/liner_profile_unback"
-                              android:layout_gravity="center"
+                              android:drawableTop="@drawable/profile_uncomment"
+                              android:id="@+id/liner_profile_uncomment"
+                              android:textSize="12sp"
+                              android:textColor="@color/text_color"
                               android:gravity="center"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile_unback"
-                               android:id="@+id/profile_unback"
-                               android:layout_height="wrap_content"/>
-                    <TextView android:layout_width="wrap_content"
+                              android:layout_gravity="center"
+                              android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="0dp"
+                              android:layout_weight="1"
                               android:text="退款/退货"
-                              android:layout_marginTop="3dp"
+                              android:drawableTop="@drawable/profile_unback"
+                              android:id="@+id/liner_profile_unback"
                               android:textColor="@color/text_color"
                               android:gravity="center"
                               android:textSize="12sp"
                               android:layout_gravity="center"
                               android:layout_height="wrap_content"/>
-                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
@@ -197,7 +159,7 @@
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="查看全部订单"
-                          android:drawablePadding="15dp"
+                          android:drawablePadding="8dp"
                           android:layout_gravity="center"
                           android:gravity="center"
                           android:layout_marginRight="5dp"
@@ -209,56 +171,34 @@
 
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
-                          android:layout_marginTop="1.5dp"
-                          android:background="@color/white"
+                          android:layout_marginTop="5dp"
+                          android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginBottom="5dp"
                           android:layout_height="wrap_content">
-                <LinearLayout android:layout_width="0dp"
-                              android:layout_gravity="center"
-                              android:gravity="center|right"
-                              android:id="@+id/liner_profile_comment"
-                              android:padding="8dp"
-                              android:layout_weight="1"
-                              android:orientation="vertical"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile_comment"
-                               android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp"
-                              android:layout_weight="1"
-                              android:layout_gravity="center"
-                              android:gravity="center"
-                              android:id="@+id/liner_profile_favour"
-                              android:padding="8dp"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile_favour"
-                               android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp"
-                              android:layout_weight="1"
-                              android:id="@+id/liner_profile_cart"
-                              android:layout_gravity="center"
-                              android:gravity="center|left"
-                              android:padding="8dp"
-                              android:layout_height="wrap_content">
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/profile__cart"
-                               android:layout_height="wrap_content"/>
-
-                </LinearLayout>
+                <ImageView android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:id="@+id/liner_profile_comment"
+                           android:src="@drawable/profile_comment"
+                           android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:id="@+id/liner_profile_favour"
+                           android:src="@drawable/profile_favour"
+                           android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:id="@+id/liner_profile_cart"
+                           android:src="@drawable/profile__cart"
+                           android:layout_height="wrap_content"/>
             </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:layout_marginTop="8dp"
-                          android:id="@+id/liner_profile_packget"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+
+                <TextView android:layout_width="match_parent"
                           android:text="钱包"
+                          android:padding="8dp"
+                          android:background="@drawable/btn_white_shape"
+                          android:id="@+id/liner_profile_packget"
                           android:textSize="16sp"
                           android:paddingLeft="8dp"
                           android:drawablePadding="10dp"
@@ -266,58 +206,36 @@
                           android:gravity="center|left"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
+                          android:drawableRight="@drawable/in"
                           android:drawableLeft="@drawable/profile_packget"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:visibility="gone"
-                          android:layout_marginTop="8dp"
-                          android:id="@+id/liner_profile_meet"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+
+                <TextView android:layout_width="match_parent"
                           android:text="我的预约"
                           android:textSize="16sp"
+                          android:layout_marginTop="3dp"
+                          android:padding="8dp"
+                          android:background="@drawable/btn_white_shape"
+                          android:id="@+id/liner_profile_meet"
                           android:paddingLeft="8dp"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
                           android:gravity="center|left"
                           android:layout_weight="1"
+                          android:drawableRight="@drawable/in"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_meet"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
+
+                <TextView android:layout_width="match_parent"
+                          android:text="我的粉丝"
+                          android:textSize="16sp"
+                          android:paddingLeft="8dp"
                           android:padding="8dp"
                           android:layout_marginTop="3dp"
                           android:id="@+id/liner_profile_fensi"
                           android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
-                          android:text="我的粉丝"
-                          android:textSize="16sp"
-                          android:paddingLeft="8dp"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
                           android:gravity="center|left"
@@ -325,189 +243,113 @@
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_fensi"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:text="0"
-                          android:id="@+id/mine_fensi_count"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:visibility="gone"
-                          android:layout_marginTop="3dp"
-                          android:id="@+id/liner_profile_count"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+                <TextView android:layout_width="match_parent"
                           android:text="我的积分"
                           android:textSize="16sp"
+                          android:padding="8dp"
                           android:paddingLeft="8dp"
+                          android:layout_marginTop="3dp"
+                          android:id="@+id/liner_profile_count"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
                           android:gravity="center|left"
+                          android:background="@drawable/btn_white_shape"
                           android:layout_weight="1"
+                          android:drawableRight="@drawable/in"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_count"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:layout_marginTop="3dp"
-                          android:id="@+id/liner_profile_ad"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+
+                <TextView android:layout_width="match_parent"
                           android:text="我要推广"
+                          android:padding="8dp"
+                          android:id="@+id/liner_profile_ad"
+                          android:layout_marginTop="3dp"
                           android:textSize="16sp"
                           android:paddingLeft="8dp"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
+                          android:drawableRight="@drawable/in"
                           android:gravity="center|left"
+                          android:background="@drawable/btn_white_shape"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_ad"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:layout_marginTop="3dp"
-                          android:id="@+id/liner_profile_ruzhu"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+                <TextView android:layout_width="match_parent"
                           android:text="我要入驻"
                           android:textSize="16sp"
                           android:paddingLeft="8dp"
+                          android:padding="8dp"
+                          android:layout_marginTop="3dp"
+                          android:id="@+id/liner_profile_ruzhu"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
                           android:gravity="center|left"
+                          android:background="@drawable/btn_white_shape"
                           android:layout_weight="1"
+                          android:drawableRight="@drawable/in"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_ruzhu"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:layout_marginTop="3dp"
-                          android:id="@+id/liner_profile_dianjia"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+                <TextView android:layout_width="match_parent"
                           android:text="我是店家"
                           android:textSize="16sp"
                           android:paddingLeft="8dp"
+                          android:padding="8dp"
+                          android:drawableRight="@drawable/in"
+                          android:layout_marginTop="3dp"
+                          android:id="@+id/liner_profile_dianjia"
                           android:drawablePadding="10dp"
+                          android:background="@drawable/btn_white_shape"
                           android:layout_gravity="center"
                           android:gravity="center|left"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_dianjia"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
+
+
+                <TextView android:layout_width="match_parent"
+                          android:text="最近浏览"
+                          android:textSize="16sp"
+                          android:paddingLeft="8dp"
                           android:padding="8dp"
                           android:layout_marginTop="3dp"
                           android:id="@+id/liner_profile_liulan"
                           android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
-                          android:text="最近浏览"
-                          android:textSize="16sp"
-                          android:paddingLeft="8dp"
                           android:drawablePadding="10dp"
                           android:layout_gravity="center"
                           android:gravity="center|left"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
+                          android:drawableRight="@drawable/in"
                           android:drawableLeft="@drawable/profile_liulan"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="horizontal"
-                          android:padding="8dp"
-                          android:layout_marginTop="3dp"
-                          android:id="@+id/liner_profile_set"
-                          android:background="@drawable/btn_white_shape"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
+
+
+                <TextView android:layout_width="match_parent"
                           android:text="设置"
                           android:textSize="16sp"
+                          android:padding="8dp"
                           android:paddingLeft="8dp"
+                          android:layout_marginTop="3dp"
+                          android:background="@drawable/btn_white_shape"
+                          android:drawableRight="@drawable/in"
                           android:drawablePadding="10dp"
+                          android:id="@+id/liner_profile_set"
                           android:layout_gravity="center"
                           android:gravity="center|left"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
                           android:drawableLeft="@drawable/profile_set"
                           android:layout_height="wrap_content"/>
-                <TextView android:layout_width="wrap_content"
-                          android:drawablePadding="15dp"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:layout_marginRight="5dp"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color_two"
-                          android:textSize="13sp"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
+
         </LinearLayout>
     </com.lbins.myapp.widget.ReboundScrollView>
 

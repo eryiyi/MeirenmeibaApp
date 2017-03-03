@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
-import com.lbins.myapp.ui.MineOrdersActivity;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;

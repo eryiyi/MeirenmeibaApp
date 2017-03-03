@@ -1,6 +1,5 @@
 package com.lbins.myapp.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,13 +24,11 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.upload.CommonUtil;
 import com.lbins.myapp.util.CompressPhotoUtil;
-import com.lbins.myapp.util.FileUtils;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.CustomProgressDialog;
 import com.lbins.myapp.widget.SelectPhoPopWindow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 

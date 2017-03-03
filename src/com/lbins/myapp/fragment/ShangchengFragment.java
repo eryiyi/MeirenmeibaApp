@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +32,10 @@ import com.lbins.myapp.data.LxAdData;
 import com.lbins.myapp.data.PaopaoGoodsData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.entity.LxAd;
-import com.lbins.myapp.entity.PaihangObj;
 import com.lbins.myapp.entity.PaopaoGoods;
-import com.lbins.myapp.library.*;
+import com.lbins.myapp.library.HeaderGridView;
+import com.lbins.myapp.library.PullToRefreshBase;
+import com.lbins.myapp.library.PullToRefreshHeadGridView;
 import com.lbins.myapp.ui.*;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.ClassifyGridview;
@@ -107,6 +106,7 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
 
         //查询首发和特惠专区
         getAdsNew();
+
         getAdTehui();
 
         //轮播广告
@@ -121,32 +121,6 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         initData();
         return view;
     }
-
-
-//    private TextWatcher watcher = new TextWatcher() {
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            // TODO Auto-generated method stub
-//
-//        }
-//
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count,
-//                                      int after) {
-//            // TODO Auto-generated method stub
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-//            intent.putExtra("typeId", "");
-//            intent.putExtra("typeName", "");
-//            intent.putExtra("keyContent", keywords.getText().toString());
-//            startActivity(intent);
-//        }
-//    };
 
     //商城分类
     private void initViewType() {

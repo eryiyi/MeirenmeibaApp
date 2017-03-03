@@ -22,7 +22,6 @@ import com.lbins.myapp.base.InternetURL;
 import com.lbins.myapp.data.GoodsTypeData;
 import com.lbins.myapp.entity.GoodsType;
 import com.lbins.myapp.fragment.ProTypeFragment;
-import com.lbins.myapp.fragment.TuijianFragment;
 import com.lbins.myapp.util.StringUtil;
 import org.json.JSONObject;
 

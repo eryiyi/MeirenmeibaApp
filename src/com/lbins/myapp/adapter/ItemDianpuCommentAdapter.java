@@ -11,7 +11,6 @@ import android.widget.*;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
 import com.lbins.myapp.entity.DianpuComment;
-import com.lbins.myapp.entity.GoodsComment;
 import com.lbins.myapp.ui.GalleryUrlActivity;
 import com.lbins.myapp.util.StringUtil;
 import com.lbins.myapp.widget.PictureGridview;

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,12 +24,13 @@ import com.google.gson.Gson;
 import com.lbins.myapp.R;
 import com.lbins.myapp.base.BaseActivity;
 import com.lbins.myapp.base.InternetURL;
-import com.lbins.myapp.data.MinePackageData;
 import com.lbins.myapp.data.OrderInfoAndSignDATA;
 import com.lbins.myapp.data.SuccessData;
 import com.lbins.myapp.data.WxPayObjData;
 import com.lbins.myapp.db.DBHelper;
-import com.lbins.myapp.entity.*;
+import com.lbins.myapp.entity.Order;
+import com.lbins.myapp.entity.OrdersForm;
+import com.lbins.myapp.entity.WxPayObj;
 import com.lbins.myapp.pay.OrderInfoAndSign;
 import com.lbins.myapp.pay.PayResult;
 import com.lbins.myapp.util.StringUtil;
@@ -44,7 +44,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
-import java.text.DecimalFormat;
 import java.util.*;
 
 /**
