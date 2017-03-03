@@ -104,6 +104,45 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
     LxAd lxAdMiddle;//中间广告轮播图
     LxAd lxAdMiddleDxk;//定向卡广告
 
+    private Handler myHandler = new Handler()
+    {
+        public void handleMessage(android.os.Message msg)
+        {
+            switch (msg.what)
+            {
+                case 1:
+                {
+                    //广告一
+                    initViewAdOne();
+                    //广告二
+                    initViewAdTwo();
+                }
+                    break;
+                case 2:
+                {
+                    //轮播广告
+                    initViewPager();
+                }
+                    break;
+                case 3:
+                {
+                    imageLoader.displayImage((lxAdMiddle.getAd_pic()), big_middle_ad, MeirenmeibaAppApplication.options, animateFirstListener);
+                }
+                    break;
+                case 4:
+                {
+                    imageLoader.displayImage((lxAdMiddleDxk.getAd_pic()), big_middle_ad_dxk, MeirenmeibaAppApplication.options, animateFirstListener);
+                }
+                    break;
+                case 5:
+                {
+                    adaptertype.notifyDataSetChanged();
+                }
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,19 +156,28 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
         initView();
         //商城分类
         initViewType();
-        //广告一
-        getAdsThree();
 
-        //轮播广告
-        getAdsOne();
-        //查询中部广告
-        getAdsTwo();
-        //定向卡广告
-        getAdsFour();
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                //广告一
+                getAdsThree();
 
-        //查询商品分类
-        getGoodsType();
-        getLxClass();
+                //轮播广告
+                getAdsOne();
+                //查询中部广告
+                getAdsTwo();
+                //定向卡广告
+                getAdsFour();
+
+                //查询商品分类
+                getGoodsType();
+
+                getLxClass();
+            }
+        }).start();
 
         //定位地址
         initLocation();
@@ -154,7 +202,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
 
     //广告一
     private void initViewAdOne() {
-
         gridv_two = (ClassifyGridview) headLiner.findViewById(R.id.gridv_two);
         adapterAdTwo = new AdOneAdapter(listsAdsTwo,getActivity());
         gridv_two.setAdapter(adapterAdTwo);
@@ -321,17 +368,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                         listsgoods.clear();
                                     }
                                     listsgoods.addAll(data.getData());
-//                                    if (data != null && data.getData() != null) {
-//                                        for (RecordMsg recordMsg : data.getData()) {
-//                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-//                                            if (recordMsgLocal != null) {
-//                                                //已经存在了 不需要插入了
-//                                            } else {
-//                                                DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
-//                                            }
-//
-//                                        }
-//                                    }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else {
@@ -559,17 +595,6 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                     listsgoodstype.clear();
                                     listsgoodstype.addAll(data.getData());
                                     listGoodsType.addAll(listsgoodstype);
-//                                    if(listsgoodstype != null){
-//                                        for(int i=0;i<(listsgoodstype.size()<7?listsgoodstype.size():7);i++){
-//                                            listGoodsType.add(listsgoodstype.get(i));
-//                                        }
-//                                    }
-//                                    GoodsType goodsType = new GoodsType();
-//                                    goodsType.setTypeId("0");
-//                                    goodsType.setTypeName("更多");
-//                                    goodsType.setTypeIsUse("0");
-//                                    listGoodsType.add(goodsType);
-//                                    adaptertype.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
@@ -657,8 +682,12 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                         listsAd.clear();
                                         listsAd.addAll(data.getData());
                                     }
-                                    //轮播广告
-                                    initViewPager();
+                                    Message msg = Message.obtain();
+                                    msg.what = 2;
+                                    msg.obj = "Rowandjj";
+                                    myHandler.sendMessage(msg);
+
+
                                 } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -716,7 +745,10 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                         if(lxAds != null && lxAds.size()>0){
                                             lxAdMiddle= lxAds.get(0);
                                             if(lxAdMiddle != null){
-                                                imageLoader.displayImage((lxAdMiddle.getAd_pic()), big_middle_ad, MeirenmeibaAppApplication.options, animateFirstListener);
+                                                Message msg = Message.obtain();
+                                                msg.what = 3;
+                                                msg.obj = "Rowandjj";
+                                                myHandler.sendMessage(msg);
                                             }
                                         }
                                     }
@@ -777,7 +809,10 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                         if(lxAds != null && lxAds.size()>0){
                                             lxAdMiddleDxk= lxAds.get(0);
                                             if(lxAdMiddleDxk != null){
-                                                imageLoader.displayImage((lxAdMiddleDxk.getAd_pic()), big_middle_ad_dxk, MeirenmeibaAppApplication.options, animateFirstListener);
+                                                Message msg = Message.obtain();
+                                                msg.what = 4;
+                                                msg.obj = "Rowandjj";
+                                                myHandler.sendMessage(msg);
                                             }
                                         }
                                     }
@@ -849,10 +884,12 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                             }
                                         }
                                     }
-                                    //广告一
-                                    initViewAdOne();
-                                    //广告二
-                                    initViewAdTwo();
+
+                                    Message msg = Message.obtain();
+                                    msg.what = 1;
+                                    msg.obj = "Rowandjj";
+                                    myHandler.sendMessage(msg);
+
                                 } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -922,7 +959,11 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
                                     goodsType.setLx_class_name("更多");
                                     goodsType.setIs_del("0");
                                     listClasses.add(goodsType);
-                                    adaptertype.notifyDataSetChanged();
+
+                                    Message msg = Message.obtain();
+                                    msg.what = 5;
+                                    msg.obj = "Rowandjj";
+                                    myHandler.sendMessage(msg);
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
                                 }

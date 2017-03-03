@@ -90,6 +90,39 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
     private LxAd lxadNew;
     private LxAd lxadTehui;
 
+    private Handler myHandler = new Handler()
+    {
+        public void handleMessage(android.os.Message msg)
+        {
+            switch (msg.what)
+            {
+                case 1:
+                {
+                    imageLoader.displayImage(lxadNew.getAd_pic(), img_new, MeirenmeibaAppApplication.options, animateFirstListener);
+                }
+                break;
+                case 2:
+                {
+                    imageLoader.displayImage(lxadTehui.getAd_pic(), img_tehui, MeirenmeibaAppApplication.options, animateFirstListener);
+                }
+                    break;
+                case 3:
+                {
+                    //轮播广告
+                    initViewPager();
+                }
+                    break;
+                case 4:
+                {
+                    adaptertype.notifyDataSetChanged();
+                }
+                    break;
+            }
+        }
+    };
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,15 +137,20 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         //商城分类
         initViewType();
 
-        //查询首发和特惠专区
-        getAdsNew();
-
-        getAdTehui();
-
-        //轮播广告
-        getAdsOne();
-        //查询商品分类
-        getGoodsType();
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                //查询首发和特惠专区
+                getAdsNew();
+                getAdTehui();
+                //轮播广告
+                getAdsOne();
+                //查询商品分类
+                getGoodsType();
+            }
+        }).start();
 
         //定位城市
         initLocation();
@@ -562,7 +600,10 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                     goodsType.setTypeName("更多");
                                     goodsType.setTypeIsUse("0");
                                     listGoodsType.add(goodsType);
-                                    adaptertype.notifyDataSetChanged();
+                                    Message msg = Message.obtain();
+                                    msg.what = 4;
+                                    msg.obj = "Rowandjj";
+                                    myHandler.sendMessage(msg);
                                 } else {
                                     Toast.makeText(getActivity(), jo.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
@@ -665,8 +706,10 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                         listsAd.clear();
                                         listsAd.addAll(data.getData());
                                     }
-                                    //轮播广告
-                                    initViewPager();
+                                    Message msg = Message.obtain();
+                                    msg.what = 3;
+                                    msg.obj = "Rowandjj";
+                                    myHandler.sendMessage(msg);
                                 } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
@@ -706,7 +749,6 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
         getRequestQueue().add(request);
     }
 
-
     void getAdsNew() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -723,7 +765,10 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                     if(data != null && data.getData().size()>0){
                                         lxadNew = data.getData().get(0);
                                         if(lxadNew != null){
-                                            imageLoader.displayImage(lxadNew.getAd_pic(), img_new, MeirenmeibaAppApplication.options, animateFirstListener);
+                                            Message msg = Message.obtain();
+                                            msg.what = 1;
+                                            msg.obj = "Rowandjj";
+                                            myHandler.sendMessage(msg);
                                         }
 
                                     }
@@ -781,7 +826,10 @@ public class ShangchengFragment extends BaseFragment implements View.OnClickList
                                     if(data != null && data.getData().size()>0){
                                         lxadTehui = data.getData().get(0);
                                         if(lxadNew != null){
-                                            imageLoader.displayImage(lxadTehui.getAd_pic(), img_tehui, MeirenmeibaAppApplication.options, animateFirstListener);
+                                            Message msg = Message.obtain();
+                                            msg.what = 2;
+                                            msg.obj = "Rowandjj";
+                                            myHandler.sendMessage(msg);
                                         }
                                     }
                                 } else {
