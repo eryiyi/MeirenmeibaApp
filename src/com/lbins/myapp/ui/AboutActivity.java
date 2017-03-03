@@ -26,7 +26,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     ArrayList<String> pics = new ArrayList<String>();
     private TextView skip;
     private Resources res;
-//    MyTimer myTimer = null;
+    MyTimer myTimer = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
             }
             jsonArray.put(jsonObject);
         }
+
         initView();
 
         boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
@@ -55,32 +56,30 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
             editor.commit();
         } else {
             //不是第一次执行
-//            myTimer = new MyTimer(6000, 1000);
-//            myTimer.start();
+            myTimer = new MyTimer(6000, 1000);
+            myTimer.start();
         }
     }
 
-//    class MyTimer extends CountDownTimer {
-//
-//        public MyTimer(long millisInFuture, long countDownInterval) {
-//            super(millisInFuture, countDownInterval);
-//        }
-//
-//        @Override
-//        public void onFinish() {
-//            skip.setText("跳过");
-//            Intent main = new Intent(AboutActivity.this, MainActivity.class);
-//            startActivity(main);
-//            finish();
-//        }
-//
-//        @Override
-//        public void onTick(long millisUntilFinished) {
-//            skip.setText("跳过" + millisUntilFinished / 1000 + "s");
-//        }
-//    }
+    class MyTimer extends CountDownTimer {
 
+        public MyTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
 
+        @Override
+        public void onFinish() {
+            skip.setText("跳过");
+            Intent main = new Intent(AboutActivity.this, MainActivity.class);
+            startActivity(main);
+            finish();
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            skip.setText("跳过" + millisUntilFinished / 1000 + "s");
+        }
+    }
 
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpage);
@@ -108,10 +107,10 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.skip:
             {
-//                if(myTimer != null){
-//                    myTimer.cancel();
-//                    myTimer.onFinish();
-//                }
+                if(myTimer != null){
+                    myTimer.cancel();
+                    myTimer.onFinish();
+                }
                 Intent intent = new Intent(AboutActivity.this, MainActivity.class);
                 startActivity(intent);
             }

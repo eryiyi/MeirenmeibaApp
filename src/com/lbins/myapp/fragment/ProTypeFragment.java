@@ -3,6 +3,7 @@ package com.lbins.myapp.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,6 @@ public class ProTypeFragment extends BaseFragment {
 	private GoodsType goodsType;
 	private TextView toptype;
 	private ImageView icon;
-
 
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -141,4 +141,23 @@ public class ProTypeFragment extends BaseFragment {
 			};
 			getRequestQueue().add(request);
 	}
+
+	@Override
+	public void onStop() {
+		releaseImageViews();
+		super.onStop();
+	}
+
+	private void releaseImageViews() {
+		releaseImageView(icon);
+	}
+
+	private void releaseImageView(ImageView imageView) {
+		Drawable d = imageView.getDrawable();
+		if (d != null)
+			d.setCallback(null);
+		imageView.setImageDrawable(null);
+		imageView.setBackgroundDrawable(null);
+	}
+
 }

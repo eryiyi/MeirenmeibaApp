@@ -2,6 +2,7 @@ package com.lbins.myapp.ui;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
@@ -476,4 +477,22 @@ public class SearchGoodsByTypeActivity extends BaseActivity implements View.OnCl
         picAddDialog.show();
     }
 
+
+    @Override
+    public void onStop() {
+        releaseImageViews();
+        super.onStop();
+    }
+
+    private void releaseImageViews() {
+        releaseImageView(search_null);
+    }
+
+    private void releaseImageView(ImageView imageView) {
+        Drawable d = imageView.getDrawable();
+        if (d != null)
+            d.setCallback(null);
+        imageView.setImageDrawable(null);
+        imageView.setBackgroundDrawable(null);
+    }
 }

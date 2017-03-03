@@ -64,16 +64,10 @@ public class MeirenmeibaAppApplication extends Application {
         PlatformConfig.setQQZone("1105644219", "G0cagmHEkzXdMs0e");
 
         UMShareAPI.get(this);
-        //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
-        Config.DEBUG = true;
-        //微信 wx12342956d1cab4f9,a5ae111de7d9ea137e88a5e02c07c94d
-//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-        //豆瓣RENREN平台目前只能在服务器端配置
-        //新浪微博
+        Config.DEBUG = false;
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
         Config.REDIRECT_URL="http://sns.whalecloud.com/sina2/callback";
-        //易信
-        PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
+//        PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
 //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
         PlatformConfig.setAlipay("2088421395960317");
@@ -85,6 +79,7 @@ public class MeirenmeibaAppApplication extends Application {
     public static Context getContext() {
         return application;
     }
+
     /**
      * 获取自定义线程池
      *
@@ -208,39 +203,8 @@ public class MeirenmeibaAppApplication extends Application {
         return imageLoader;
     }
 
-
-//    private static MeirenmeibaAppApplication instance;
-
-//    // 构造方法
-//    // 实例化一次
-//    public synchronized static MeirenmeibaAppApplication getInstance() {
-//        if (null == instance) {
-//            instance = new MeirenmeibaAppApplication();
-//        }
-//        return instance;
-//    }
-
     public synchronized static MeirenmeibaAppApplication getInstance() {
         return application;
-    }
-
-    // add Activity
-    public void addActivity(Activity activity) {
-        mList.add(activity);
-    }
-
-    // 关闭每一个list内的activity
-    public void exit() {
-        try {
-            for (Activity activity : mList) {
-                if (activity != null)
-                    activity.finish();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            System.exit(0);
-        }
     }
 
 }

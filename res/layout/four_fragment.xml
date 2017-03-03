@@ -210,24 +210,6 @@
                           android:drawableLeft="@drawable/profile_packget"
                           android:layout_height="wrap_content"/>
 
-
-                <TextView android:layout_width="match_parent"
-                          android:text="我的预约"
-                          android:textSize="16sp"
-                          android:layout_marginTop="3dp"
-                          android:padding="8dp"
-                          android:background="@drawable/btn_white_shape"
-                          android:id="@+id/liner_profile_meet"
-                          android:paddingLeft="8dp"
-                          android:drawablePadding="10dp"
-                          android:layout_gravity="center"
-                          android:gravity="center|left"
-                          android:layout_weight="1"
-                          android:drawableRight="@drawable/in"
-                          android:textColor="@color/text_color"
-                          android:drawableLeft="@drawable/profile_meet"
-                          android:layout_height="wrap_content"/>
-
                 <TextView android:layout_width="match_parent"
                           android:text="我的粉丝"
                           android:textSize="16sp"
@@ -241,6 +223,7 @@
                           android:gravity="center|left"
                           android:layout_weight="1"
                           android:textColor="@color/text_color"
+                          android:drawableRight="@drawable/in"
                           android:drawableLeft="@drawable/profile_fensi"
                           android:layout_height="wrap_content"/>
 

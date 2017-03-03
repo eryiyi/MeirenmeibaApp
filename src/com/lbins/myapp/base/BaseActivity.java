@@ -12,18 +12,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.google.gson.Gson;
 import com.lbins.myapp.MeirenmeibaAppApplication;
 import com.lbins.myapp.R;
-import com.lbins.myapp.upload.MultiPartStringRequest;
 import com.lbins.myapp.widget.CustomProgressDialog;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.File;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -64,14 +59,7 @@ public class BaseActivity extends FragmentActivity {
         ActivityTack.getInstanse().addActivity(this);
 
         MobclickAgent.setDebugMode(true);
-        // SDK在统计Fragment时，需要关闭Activity自带的页面统计，
-        // 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
         MobclickAgent.openActivityDurationTrack(false);
-        // MobclickAgent.setAutoLocation(true);
-        // MobclickAgent.setSessionContinueMillis(1000);
-        // MobclickAgent.startWithConfigure(
-        // new UMAnalyticsConfig(mContext, "4f83c5d852701564c0000011", "Umeng",
-        // EScenarioType.E_UM_NORMAL));
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
@@ -172,32 +160,6 @@ public class BaseActivity extends FragmentActivity {
             progressDialog.dismiss();
         }
         super.onDestroy();
-    }
-
-    public void addPutUploadFileRequest(final String url,
-                                        final Map<String, File> files, final Map<String, String> params,
-                                        final Response.Listener<String> responseListener, final Response.ErrorListener errorListener,
-                                        final Object tag) {
-        if (null == url || null == responseListener) {
-            return;
-        }
-
-        MultiPartStringRequest multiPartRequest = new MultiPartStringRequest(
-                Request.Method.POST, url, responseListener, errorListener) {
-
-            @Override
-            public Map<String, File> getFileUploads() {
-                return files;
-            }
-
-            @Override
-            public Map<String, String> getStringUploads() {
-                return params;
-            }
-
-        };
-
-        getRequestQueue().add(multiPartRequest);
     }
 
 }

@@ -125,7 +125,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         view.findViewById(R.id.liner_profile_favour).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_cart).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_packget).setOnClickListener(this);
-        view.findViewById(R.id.liner_profile_meet).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_fensi).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_count).setOnClickListener(this);
         view.findViewById(R.id.liner_profile_ad).setOnClickListener(this);
@@ -220,11 +219,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     startActivity(intent);
                 }
                 break;
-                case R.id.liner_profile_meet:
-                {
-                    //我的预约
-                }
-                break;
                 case R.id.liner_profile_fensi:
                 {
                     //粉丝
@@ -256,7 +250,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 case R.id.liner_profile_ruzhu:
                 {
                     //我的入驻
-                    Intent intent = new Intent(getActivity(), ApplyDianpuActivity.class);
+                    Intent intent = new Intent(getActivity(), DxkDetailActivity.class);
                     startActivity(intent);
                 }
                 break;

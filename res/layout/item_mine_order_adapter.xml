@@ -7,11 +7,9 @@
                 android:layout_height="wrap_content">
     <com.lbins.myapp.widget.CircleImageView
             android:layout_width="30dp"
-            android:src="@drawable/ic_launcher"
             android:id="@+id/item_head"
             android:layout_height="30dp"/>
     <TextView android:layout_width="wrap_content"
-              android:text="琪之手造"
               android:textColor="@color/text_color"
               android:textSize="14sp"
               android:gravity="center"
@@ -22,7 +20,6 @@
     <TextView android:layout_width="wrap_content"
               android:id="@+id/item_status"
               android:gravity="center"
-              android:text="物流运输中"
               android:layout_alignParentRight="true"
               android:textColor="@color/red"
               android:layout_height="30dp"/>
@@ -34,7 +31,6 @@
                     android:background="@color/gray"
                     android:layout_height="wrap_content">
         <ImageView android:layout_width="60dp"
-                   android:src="@drawable/ic_launcher"
                    android:id="@+id/item_pic"
                    android:layout_height="60dp"/>
         <TextView android:layout_width="wrap_content"
@@ -43,11 +39,9 @@
                   android:padding="8dp"
                   android:layout_toRightOf="@+id/item_pic"
                   android:textColor="@color/text_color"
-                  android:text="男人袜子 秋夏季男士棉袜短袜船袜 运动薄款 西汉上午礼盒包邮"
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_below="@+id/item_content"
-                  android:text="￥19.1"
                   android:textSize="12sp"
                   android:layout_marginLeft="8dp"
                   android:textColor="@color/text_color"
@@ -56,7 +50,6 @@
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
     <TextView android:layout_width="wrap_content"
-              android:text="下单时间：2015-07-12"
               android:layout_marginTop="12dp"
               android:layout_marginRight="20dp"
               android:textSize="12sp"

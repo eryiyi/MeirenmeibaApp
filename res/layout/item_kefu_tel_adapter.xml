@@ -9,11 +9,9 @@
                 android:layout_height="wrap_content">
     <ImageView android:layout_width="60dp"
                android:id="@+id/cover"
-               android:src="@drawable/ic_launcher"
                android:layout_height="60dp"/>
 
     <TextView android:layout_width="wrap_content"
-              android:text="张三是收货人"
               android:padding="5dp"
               android:textSize="18sp"
               android:id="@+id/name"

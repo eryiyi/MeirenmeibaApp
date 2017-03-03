@@ -112,7 +112,6 @@
         <activity android:name=".ui.MineAddressAddCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MineAddressAddProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.LocationCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".ui.ApplyDianpuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.ApplyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.SearchTuijianActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ui.MoreDianpuPaopaoGoodsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"></activity>
@@ -190,8 +189,6 @@
                 android:screenOrientation="behind">
         </activity>
 
-
-
         <!-- push应用定义消息receiver声明 -->
         <receiver android:name="com.lbins.myapp.receiver.MyPushMessageReceiver">
             <intent-filter>
@@ -251,12 +248,6 @@
 
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data android:name="api_key" android:value="Y2YvCibBy54Tathk9FkDCDVe" />
-
-
-
-
-
-
 
         <!-- ###################添加UmengAppkey###################### -->
         <meta-data
@@ -334,24 +325,7 @@
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
                 android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <!--<activity-->
-        <!--android:name="com.tencent.tauth.AuthActivity"-->
-        <!--android:launchMode="singleTask"-->
-        <!--android:noHistory="true" >-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.VIEW" />-->
 
-        <!--<category android:name="android.intent.category.DEFAULT" />-->
-        <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-        <!--<data android:scheme="tencent100424468" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--<activity-->
-        <!--android:name="com.tencent.connect.common.AssistActivity"-->
-        <!--android:screenOrientation="portrait"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-        <!--android:configChanges="orientation|keyboardHidden|screenSize"/>-->
         <uses-library
                 android:name="com.google.android.maps"
                 android:required="false" />
@@ -366,12 +340,7 @@
                 android:value="line.1471474450" />
 
         <!-- *************************     related to Share END **************************** -->
-
-        <service android:name="com.sina.weibo.sdk.net.DownloadService"
-                 android:exported="false"></service>
-
         <!-- alipay sdk begin -->
-
         <activity
                 android:name="com.alipay.sdk.app.H5PayActivity"
                 android:configChanges="orientation|keyboardHidden|navigation|screenSize"
@@ -386,9 +355,7 @@
                 android:screenOrientation="behind"
                 android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
-
         <!-- alipay sdk end -->
-
 
     </application>
 </manifest>

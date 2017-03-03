@@ -6,7 +6,6 @@
               android:layout_height="wrap_content">
 
     <TextView android:layout_width="wrap_content"
-             android:text="LbinsLbinsLbinsLbinsLbinsLbins"
              android:layout_gravity="center_vertical"
              android:layout_marginLeft="8dp"
              android:textColor="@color/text_color"
@@ -14,7 +13,6 @@
              android:id="@+id/content"
               android:layout_height="wrap_content"/>
     <TextView android:layout_width="wrap_content"
-              android:text="120"
               android:layout_gravity="center_vertical"
               android:layout_marginLeft="8dp"
               android:textColor="@color/red"
@@ -24,7 +22,6 @@
               android:id="@+id/count"
               android:layout_height="wrap_content"/>
     <TextView android:layout_width="wrap_content"
-              android:text="120"
               android:layout_alignParentRight="true"
               android:layout_gravity="center_vertical"
               android:layout_marginLeft="8dp"

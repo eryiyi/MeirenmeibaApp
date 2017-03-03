@@ -32,21 +32,11 @@ import java.util.Map;
  */
 public class DxkDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView title;
-
-//    private static final int PICTURE_COUNT = 4;
-//
-//    private static final int[] PICTURE_RESOURCES = {R.drawable.dxk_icon_001,
-//            R.drawable.dxk_icon_002, R.drawable.dxk_icon_003, R.drawable.dxk_icon_004};
-//
-//    private static final String[] PICTURE_TITLE = {"第一张图片", "第二张图片", "第三张图片", "第四张图片"};
     private JSONArray jsonArray;
     private ViewPager viewPager;
     private DxkViewPageAdapter adapter;
-//    private ImageView[] circles = new ImageView[PICTURE_RESOURCES.length];
     ArrayList<String> pics = new ArrayList<String>();
-
     private Button btn_one;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +150,6 @@ public class DxkDetailActivity extends BaseActivity implements View.OnClickListe
     public void ruzhuAction(View view){
         if (StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ||
                 "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) ) {
-            //未登录
             showMsg(DxkDetailActivity.this, "请先登录！");
         } else {
             Intent intent = new Intent(DxkDetailActivity.this, DxkOrderActivity.class);
