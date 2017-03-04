@@ -145,23 +145,29 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.button_two:
             {
-                if(!StringUtil.isNullOrEmpty(orderVo.getEmpMobile())){
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + orderVo.getEmpMobile()));
-                    this.startActivity(intent);
+                if(orderVo != null){
+                    if(!StringUtil.isNullOrEmpty(orderVo.getEmpMobile())){
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + orderVo.getEmpMobile()));
+                        this.startActivity(intent);
+                    }
                 }
+
             }
                 break;
             case R.id.btn_kuaidi:
             {
-                //快递单号查询
-                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
-                    String strurl = "https://m.kuaidi100.com/index_all.html?type="+orderVo.getKuaidi_company_code()+"&postid="+orderVo.getKuaidi_order();
-                    Intent intent = new Intent(DetailOrderActivity.this, WebViewActivity.class);
-                    intent.putExtra("strurl",strurl);
-                    startActivity(intent);
-                }else{
-                    showMsg(DetailOrderActivity.this, "暂无物流信息！");
+                if(orderVo != null){
+                    //快递单号查询
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                        String strurl = "https://m.kuaidi100.com/index_all.html?type="+orderVo.getKuaidi_company_code()+"&postid="+orderVo.getKuaidi_order();
+                        Intent intent = new Intent(DetailOrderActivity.this, WebViewActivity.class);
+                        intent.putExtra("strurl",strurl);
+                        startActivity(intent);
+                    }else{
+                        showMsg(DetailOrderActivity.this, "暂无物流信息！");
+                    }
                 }
+
             }
                 break;
         }
@@ -170,130 +176,133 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
     Bitmap bitmap ;
 
     void initData(){
-        StringBuilder datetime = new StringBuilder();
-        datetime.append("订单编号:" + orderVo.getOrder_no());
-        switch (Integer.parseInt(orderVo.getStatus())){
-            //1生成订单,2支付订单,3取消订单,4作废订单,5完成订单', 6物流运输中（卖家确认订单）
-            case 1:
-                order_status.setText("等待买家付款");
-                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
-                    datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
-                }
-                liner_wuliu.setVisibility(View.GONE);
-                break;
-            case 2:
-                order_status.setText("等待卖家发货");
-                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
-                    datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())) {
-                    datetime.append("\n" + "付款时间:"+orderVo.getPay_time());
-                }
+        if(orderVo != null){
+            StringBuilder datetime = new StringBuilder();
+            datetime.append("订单编号:" + orderVo.getOrder_no());
+            switch (Integer.parseInt(orderVo.getStatus())){
+                //1生成订单,2支付订单,3取消订单,4作废订单,5完成订单', 6物流运输中（卖家确认订单）
+                case 1:
+                    order_status.setText("等待买家付款");
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                        datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
+                    }
+                    liner_wuliu.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    order_status.setText("等待卖家发货");
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                        datetime.append("\n" + "创建时间:"+orderVo.getCreate_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())) {
+                        datetime.append("\n" + "付款时间:"+orderVo.getPay_time());
+                    }
 //                this.findViewById(R.id.liner_order_erweima).setVisibility(View.VISIBLE);//显示
-                //构造二维码 卖家扫一扫 订单完成
-                String urlErweima = InternetURL.APP_SURE_FAHUO_URL+"?order_no=" + orderVo.getOrder_no() +"&status=5";
-                bitmap = CreateQRImageTest.createQRImage(urlErweima);
-                if(bitmap != null){
-                    erweima_order.setImageBitmap(bitmap);
-                }
-                liner_wuliu.setVisibility(View.GONE);
-                break;
-            case 3:
-                order_status.setText("订单已取消");
-                liner_wuliu.setVisibility(View.GONE);
-                break;
-            case 4:
-                order_status.setText("订单已作废");
-                liner_wuliu.setVisibility(View.GONE);
-                break;
-            case 5:
-                order_status.setText("订单已完成");
-                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
-                    datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
-                }
-                if(StringUtil.isNullOrEmpty(orderVo.getPay_time())){
-                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
-                    datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getAccept_time())){
-                    datetime.append("\n" + "收货时间:" + orderVo.getAccept_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getCompletion_time())){
-                    datetime.append("\n" + "完成时间:" + orderVo.getCompletion_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
-                    liner_wuliu.setVisibility(View.VISIBLE);
-                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
-                        kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                    //构造二维码 卖家扫一扫 订单完成
+                    String urlErweima = InternetURL.APP_SURE_FAHUO_URL+"?order_no=" + orderVo.getOrder_no() +"&status=5";
+                    bitmap = CreateQRImageTest.createQRImage(urlErweima);
+                    if(bitmap != null){
+                        erweima_order.setImageBitmap(bitmap);
                     }
-                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
-                        kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                    liner_wuliu.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    order_status.setText("订单已取消");
+                    liner_wuliu.setVisibility(View.GONE);
+                    break;
+                case 4:
+                    order_status.setText("订单已作废");
+                    liner_wuliu.setVisibility(View.GONE);
+                    break;
+                case 5:
+                    order_status.setText("订单已完成");
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                        datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
                     }
-                }
+                    if(StringUtil.isNullOrEmpty(orderVo.getPay_time())){
+                        datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
+                        datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getAccept_time())){
+                        datetime.append("\n" + "收货时间:" + orderVo.getAccept_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCompletion_time())){
+                        datetime.append("\n" + "完成时间:" + orderVo.getCompletion_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                        liner_wuliu.setVisibility(View.VISIBLE);
+                        if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
+                            kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                        }
+                        if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
+                            kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                        }
+                    }
 
-                break;
-            case 6:
-                order_status.setText("卖家已发货");
-                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
-                    datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())){
-                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
-                    datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
-                    liner_wuliu.setVisibility(View.VISIBLE);
-                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
-                        kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                    break;
+                case 6:
+                    order_status.setText("卖家已发货");
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                        datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
                     }
-                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
-                        kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                    if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())){
+                        datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
                     }
-                }
-                break;
-            case 7:
-                if("0".equals(orderVo.getIs_return())){
-                    order_status.setText("退货处理中，等待卖家处理");
-                }else if("1".equals(orderVo.getIs_return())){
-                    order_status.setText("退货已完成");
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
-                    datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())){
-                    datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
-                }
-                if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
-                    datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
-                }
-                liner_wuliu.setVisibility(View.GONE);
-                break;
+                    if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
+                        datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_code())){
+                        liner_wuliu.setVisibility(View.VISIBLE);
+                        if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_company_name())){
+                            kuaid_company.setText("快递公司："+orderVo.getKuaidi_company_name());
+                        }
+                        if(!StringUtil.isNullOrEmpty(orderVo.getKuaidi_order())){
+                            kuaidi_order.setText("快递单号："+orderVo.getKuaidi_order());
+                        }
+                    }
+                    break;
+                case 7:
+                    if("0".equals(orderVo.getIs_return())){
+                        order_status.setText("退货处理中，等待卖家处理");
+                    }else if("1".equals(orderVo.getIs_return())){
+                        order_status.setText("退货已完成");
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getCreate_time())){
+                        datetime.append("\n" + "创建时间:" + orderVo.getCreate_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getPay_time())){
+                        datetime.append("\n" + "付款时间:" + orderVo.getPay_time());
+                    }
+                    if(!StringUtil.isNullOrEmpty(orderVo.getSend_time())){
+                        datetime.append("\n" + "发货时间:" + orderVo.getSend_time());
+                    }
+                    liner_wuliu.setVisibility(View.GONE);
+                    break;
+            }
+
+            imageLoader.displayImage((orderVo.getEmpCover()==null?"":orderVo.getEmpCover()), item_head, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            imageLoader.displayImage((orderVo.getGoodsCover()==null?"":orderVo.getGoodsCover()), item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
+            item_nickname.setText(orderVo.getEmpName()==null?"":orderVo.getEmpName());
+            item_content.setText(orderVo.getGoodsTitle()==null?"":orderVo.getGoodsTitle());
+            item_prices.setText(getResources().getString(R.string.money) + (orderVo.getGoodsPrice()==null?"":orderVo.getGoodsPrice()));
+            item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), (orderVo.getGoods_count()==null?"":orderVo.getGoods_count())));
+            item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount() == null ? "" : orderVo.getPayable_amount())));
+            order_dateline.setText(datetime);
+
+            if("1".equals(orderVo.getIs_dxk_order())){
+                relative_one.setVisibility(View.GONE);
+                liner_two.setVisibility(View.GONE);
+            }else {
+                relative_one.setVisibility(View.VISIBLE);
+                liner_two.setVisibility(View.VISIBLE);
+            }
+            if(StringUtil.isNullOrEmpty(orderVo.getGoods_id())){
+                relative_one.setVisibility(View.GONE);
+                liner_two.setVisibility(View.GONE);
+            }
         }
 
-        imageLoader.displayImage((orderVo.getEmpCover()==null?"":orderVo.getEmpCover()), item_head, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-        imageLoader.displayImage((orderVo.getGoodsCover()==null?"":orderVo.getGoodsCover()), item_pic, MeirenmeibaAppApplication.txOptions, animateFirstListener);
-        item_nickname.setText(orderVo.getEmpName()==null?"":orderVo.getEmpName());
-        item_content.setText(orderVo.getGoodsTitle()==null?"":orderVo.getGoodsTitle());
-        item_prices.setText(getResources().getString(R.string.money) + (orderVo.getGoodsPrice()==null?"":orderVo.getGoodsPrice()));
-        item_count.setText(String.format(getResources().getString(R.string.item_count_adapter), (orderVo.getGoods_count()==null?"":orderVo.getGoods_count())));
-        item_money.setText(String.format(getResources().getString(R.string.item_money_adapter), Double.valueOf(orderVo.getPayable_amount() == null ? "" : orderVo.getPayable_amount())));
-        order_dateline.setText(datetime);
-
-        if("1".equals(orderVo.getIs_dxk_order())){
-            relative_one.setVisibility(View.GONE);
-            liner_two.setVisibility(View.GONE);
-        }else {
-            relative_one.setVisibility(View.VISIBLE);
-            liner_two.setVisibility(View.VISIBLE);
-        }
-        if(StringUtil.isNullOrEmpty(orderVo.getGoods_id())){
-            relative_one.setVisibility(View.GONE);
-            liner_two.setVisibility(View.GONE);
-        }
     }
 
     void getAddressById(){
@@ -327,7 +336,11 @@ public class DetailOrderActivity extends BaseActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("address_id", orderVo.getAddress_id());
+                if(orderVo != null){
+                    if(!StringUtil.isNullOrEmpty(orderVo.getAddress_id())){
+                        params.put("address_id", orderVo.getAddress_id());
+                    }
+                }
                 return params;
             }
 

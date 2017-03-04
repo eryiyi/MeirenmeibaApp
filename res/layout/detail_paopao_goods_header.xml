@@ -160,9 +160,11 @@
                             android:layout_gravity="center_vertical"
                             android:background="@color/white"
                             android:layout_height="wrap_content">
+
                 <TextView android:layout_width="wrap_content"
                           android:text="好评度"
                           android:id="@+id/txt_one"
+                          android:layout_centerVertical="true"
                           android:layout_marginLeft="8dp"
                           android:textSize="14sp"
                           android:textColor="@color/text_color"
@@ -170,6 +172,7 @@
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="100%"
+                          android:layout_centerVertical="true"
                           android:id="@+id/rate_comment"
                           android:textColor="@color/red"
                           android:textSize="14sp"
@@ -180,6 +183,8 @@
                 <TextView android:layout_width="wrap_content"
                           android:textColor="@color/text_color_two"
                           android:textSize="14sp"
+                          android:gravity="center_vertical"
+                          android:layout_centerVertical="true"
                           android:id="@+id/comment_count"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/in"
@@ -269,15 +274,20 @@
                       android:layout_marginTop="8dp"
                       android:layout_below="@+id/relate_one"
                       android:layout_height="0.1dp"></View>
+
                 <LinearLayout android:layout_width="match_parent"
                               android:id="@+id/liner_address"
                               android:layout_marginTop="8dp"
+                              android:gravity="center"
+                              android:layout_centerVertical="true"
                               android:layout_below="@+id/liner_two"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="match_parent"
                               android:id="@+id/dp_address"
                               android:textColor="@color/text_color"
                               android:textSize="14sp"
+                              android:gravity="center_vertical"
+                              android:layout_gravity="center_vertical"
                               android:drawableRight="@drawable/in"
                               android:drawablePadding="8dp"
                               android:drawableLeft="@drawable/location_red_mine"

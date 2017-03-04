@@ -149,7 +149,9 @@ public class ProTypeFragment extends BaseFragment {
 	}
 
 	private void releaseImageViews() {
-		releaseImageView(icon);
+		if(icon != null){
+			releaseImageView(icon);
+		}
 	}
 
 	private void releaseImageView(ImageView imageView) {

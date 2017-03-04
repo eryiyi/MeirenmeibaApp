@@ -285,11 +285,17 @@ public class TuijianFragment extends BaseFragment implements View.OnClickListene
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     // 此处为得到焦点时的处理内容
-                    Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
-                    intent.putExtra("typeId", "");
+//                    Intent intent = new Intent(getActivity(), SearchGoodsByTypeActivity.class);
+//                    intent.putExtra("typeId", "");
+//                    intent.putExtra("typeName", "");
+//                    intent.putExtra("keyContent", keywords.getText().toString());
+//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), NearbyActivity.class);
+//                            intent.putExtra("lx_class_id", goodsType.getLx_class_id());
+                    intent.putExtra("lx_class_id", "");
                     intent.putExtra("typeName", "");
-                    intent.putExtra("keyContent", keywords.getText().toString());
                     startActivity(intent);
+
                     keywords.clearFocus();//失去焦点
                 } else {
                     // 此处为失去焦点时的处理内容

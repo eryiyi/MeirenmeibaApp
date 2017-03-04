@@ -188,11 +188,13 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.dp_tel:
             {
-                //电话点击事件
-                if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
-                    showMsgDialog();
-                }else{
-                    showMsg(DianpuDetailActivity.this, "暂无联系电话！");
+                if(managerInfo != null){
+                    //电话点击事件
+                    if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
+                        showMsgDialog();
+                    }else{
+                        showMsg(DianpuDetailActivity.this, "暂无联系电话！");
+                    }
                 }
             }
                 break;
@@ -226,17 +228,19 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.liner_address:
             {
-                //地址点击
-                if(StringUtil.isNullOrEmpty(managerInfo.getLat_company()) || StringUtil.isNullOrEmpty(managerInfo.getLng_company())){
-                    //如果有地址为空
-                    showMsg(DianpuDetailActivity.this, "该店铺尚未定位！");
-                }else{
-                    Intent intent = new Intent(DianpuDetailActivity.this, DianpuLocationMapActivity.class);
-                    intent.putExtra("lat", managerInfo.getLat_company());
-                    intent.putExtra("lng", managerInfo.getLng_company());
-                    intent.putExtra("name", managerInfo.getCompany_name());
-                    intent.putExtra("address", managerInfo.getCompany_address());
-                    startActivity(intent);
+                if(managerInfo != null){
+                    //地址点击
+                    if(StringUtil.isNullOrEmpty(managerInfo.getLat_company()) || StringUtil.isNullOrEmpty(managerInfo.getLng_company())){
+                        //如果有地址为空
+                        showMsg(DianpuDetailActivity.this, "该店铺尚未定位！");
+                    }else{
+                        Intent intent = new Intent(DianpuDetailActivity.this, DianpuLocationMapActivity.class);
+                        intent.putExtra("lat", managerInfo.getLat_company());
+                        intent.putExtra("lng", managerInfo.getLng_company());
+                        intent.putExtra("name", managerInfo.getCompany_name());
+                        intent.putExtra("address", managerInfo.getCompany_address());
+                        startActivity(intent);
+                    }
                 }
 
             }
@@ -324,9 +328,11 @@ public class DianpuDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
-                DianpuDetailActivity.this.startActivity(intent);
-                picAddDialog.dismiss();
+                if(managerInfo != null){
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
+                    DianpuDetailActivity.this.startActivity(intent);
+                    picAddDialog.dismiss();
+                }
             }
         });
 

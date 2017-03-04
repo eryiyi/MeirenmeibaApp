@@ -18,9 +18,9 @@ public class InternetURL {
 //    public static final String WEIXIN_SECRET = "611fcae2cb0a43381be9ee527de1c406";
 //    public static final  String WX_API_KEY="PnG4IEkvkqfIDT0UJisgwDDCoxP3kvGH";
 
-    //    public static final String INTERNAL = "http://157j1274e3.iask.in/";
+        public static final String INTERNAL = "http://157j1274e3.iask.in/";
 //    public static final String INTERNAL = "http://192.168.0.225:8080/";
-    public static final String INTERNAL = "http://114.215.41.142:8080/";
+//    public static final String INTERNAL = "http://114.215.41.142:8080/";
 
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
@@ -183,8 +183,6 @@ public class InternetURL {
     public static final String GET_GET_DXK_GOODS_URN = INTERNAL + "appPayWuchang.do";
 
     public static final String SAVE_DXK_ORDER_URN = INTERNAL + "appSaveDxkOrder.do";
-
-
 
     //获得商品详情页好评度和消费评价总数
     public static final String GET_COMMENT_ALL_URN = INTERNAL + "appGetCountComment.do";

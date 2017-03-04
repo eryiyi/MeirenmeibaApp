@@ -278,6 +278,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 btn_nearby.setTextColor(getResources().getColor(R.color.red));
                 btn_val.setTextColor(getResources().getColor(R.color.text_color));
                 tmpNearby = 1;
+                progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog.setCancelable(true);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 initData();
             }
             break;
@@ -289,6 +293,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.text_color));
                 tmpNearby = 2;
+                progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog.setCancelable(true);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 initData();
             }
             break;
@@ -300,6 +308,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 btn_nearby.setTextColor(getResources().getColor(R.color.text_color));
                 btn_val.setTextColor(getResources().getColor(R.color.red));
                 tmpNearby = 3;
+                progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog.setCancelable(true);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 initData();
             }
             break;
@@ -314,6 +326,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 pageIndex = 1;
                 IS_REFRESH = true;
                 btn_all.setText("全部");
+                progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
+                progressDialog.setCancelable(true);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 initData();
             }
                 break;
@@ -332,6 +348,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                     if(!StringUtil.isNullOrEmpty(cloud_caoping_guige_cont)){
                         btn_all.setText(cloud_caoping_guige_cont);
                     }
+                    progressDialog = new CustomProgressDialog(NearbyActivity.this, "",R.anim.custom_dialog_frame);
+                    progressDialog.setCancelable(true);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.show();
                     initData();
                 }
                 break;

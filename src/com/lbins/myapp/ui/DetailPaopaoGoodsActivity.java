@@ -254,12 +254,15 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                     showMsg(DetailPaopaoGoodsActivity.this, "店铺不存在，请检查店铺信息！");
                     return;
                 }
-                //电话点击事件
-                if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
-                    showMsgDialog();
-                }else{
-                    showMsg(DetailPaopaoGoodsActivity.this, "暂无联系电话！");
+                if(managerInfo != null){
+                    //电话点击事件
+                    if(!StringUtil.isNullOrEmpty(managerInfo.getCompany_tel())){
+                        showMsgDialog();
+                    }else{
+                        showMsg(DetailPaopaoGoodsActivity.this, "暂无联系电话！");
+                    }
                 }
+
             }
             break;
             case R.id.foot_cart:
@@ -396,19 +399,20 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 break;
             case R.id.liner_address:
             {
-                //地址点击
-                if(StringUtil.isNullOrEmpty(managerInfo.getLat_company()) || StringUtil.isNullOrEmpty(managerInfo.getLng_company())){
-                    //如果有地址为空
-                    showMsg(DetailPaopaoGoodsActivity.this, "该店铺尚未定位！");
-                }else{
-                    Intent intent = new Intent(DetailPaopaoGoodsActivity.this, DianpuLocationMapActivity.class);
-                    intent.putExtra("lat", managerInfo.getLat_company());
-                    intent.putExtra("lng", managerInfo.getLng_company());
-                    intent.putExtra("name", managerInfo.getCompany_name());
-                    intent.putExtra("address", managerInfo.getCompany_address());
-                    startActivity(intent);
+                if(managerInfo != null){
+                    //地址点击
+                    if(StringUtil.isNullOrEmpty(managerInfo.getLat_company()) || StringUtil.isNullOrEmpty(managerInfo.getLng_company())){
+                        //如果有地址为空
+                        showMsg(DetailPaopaoGoodsActivity.this, "该店铺尚未定位！");
+                    }else{
+                        Intent intent = new Intent(DetailPaopaoGoodsActivity.this, DianpuLocationMapActivity.class);
+                        intent.putExtra("lat", managerInfo.getLat_company());
+                        intent.putExtra("lng", managerInfo.getLng_company());
+                        intent.putExtra("name", managerInfo.getCompany_name());
+                        intent.putExtra("address", managerInfo.getCompany_address());
+                        startActivity(intent);
+                    }
                 }
-
             }
             break;
             case R.id.comment_liner:
@@ -457,8 +461,11 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
             telPopWindow.dismiss();
             switch (v.getId()) {
                 case R.id.btn_sure: {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
-                    DetailPaopaoGoodsActivity.this.startActivity(intent);
+                    if(managerInfo != null){
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerInfo.getCompany_tel()));
+                        DetailPaopaoGoodsActivity.this.startActivity(intent);
+                    }
+
                 }
                 break;
                 default:

@@ -416,7 +416,6 @@
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/NoticeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/OnClickContentItemListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/Publish_mood_GridView_Adapter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/RuzhuViewPageAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/ShangchengAdViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/adapter/TuijianAdViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/lbins/myapp/base/ActivityTack.java" charset="UTF-8" />
