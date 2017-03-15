@@ -209,6 +209,7 @@ public class TixianCountActivity extends BaseActivity implements View.OnClickLis
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         SMSSDK.submitVerificationCode("86", phString, card.getText().toString());
+//        save();
     }
 
     class MyTimer extends CountDownTimer {

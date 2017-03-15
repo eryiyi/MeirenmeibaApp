@@ -250,7 +250,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 case R.id.liner_profile_ruzhu:
                 {
                     //我的入驻
-                    Intent intent = new Intent(getActivity(), DxkDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), ApplyActivity.class);
                     startActivity(intent);
                 }
                 break;

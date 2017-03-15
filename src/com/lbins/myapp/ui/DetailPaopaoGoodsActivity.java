@@ -369,6 +369,8 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
                 shoppingCart.setIs_select("0");//默认选中
                 shoppingCart.setIs_zhiying(paopaoGoods.getIs_zhiying());
                 shoppingCart.setPv_prices(paopaoGoods.getPv_prices()==null?"0":paopaoGoods.getPv_prices());
+                shoppingCart.setIs_zhekou(paopaoGoods.getIs_zhekou());
+                shoppingCart.setZhekou_number(paopaoGoods.getZhekou_number());
                 if("0".equals(paopaoGoods.getIs_zhiying())){
                     //商家发布的商品
                     shoppingCart.setEmp_name(paopaoGoods.getNickName());

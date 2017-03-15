@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.0"
-            android:background="#000000"
+            android:background="@color/white"
             android:flipInterval="30"
             android:persistentDrawingCache="animation"/>
 </LinearLayout>

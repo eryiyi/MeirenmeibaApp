@@ -105,8 +105,13 @@ public class KefuTelActivity extends BaseActivity implements View.OnClickListene
                 if(lists.size() > i){
                     KefuTel kefuTel = lists.get(i);
                     if(kefuTel != null && !StringUtil.isNullOrEmpty(kefuTel.getMm_tel())){
-                        String url="mqqwpa://im/chat?chat_type=wpa&uin="+kefuTel.getMm_tel();
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        if(StringUtil.isQQClientAvailable(KefuTelActivity.this)){
+                            String url="mqqwpa://im/chat?chat_type=wpa&uin="+kefuTel.getMm_tel();
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        }else{
+                            showMsg(KefuTelActivity.this, "您的手机没有安装QQ，或者QQ不可用，请检查！");
+                        }
+
                     }
                 }
 
