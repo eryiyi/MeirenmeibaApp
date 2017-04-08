@@ -65,7 +65,7 @@ public class MineAddressActivity extends BaseActivity implements View.OnClickLis
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("我的收获地址");
+        title.setText("我的收货地址");
 
         button_add_address = (Button) this.findViewById(R.id.button_add_address);
         button_add_address.setOnClickListener(this);

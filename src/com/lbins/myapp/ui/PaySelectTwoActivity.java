@@ -257,7 +257,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
     private void showMsgDialog() {
         final Dialog picAddDialog = new Dialog(PaySelectTwoActivity.this, R.style.dialog);
         View picAddInflate = View.inflate(this, R.layout.msg_pay_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        Button btn_sure = (Button) picAddInflate.findViewById(R.id.btn_sure);
         final EditText cont = (EditText) picAddInflate.findViewById(R.id.cont);
         cont.setHint("请输入支付密码");
         btn_sure.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +279,7 @@ public class PaySelectTwoActivity extends BaseActivity implements View.OnClickLi
         });
 
         //取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        Button btn_cancel = (Button) picAddInflate.findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

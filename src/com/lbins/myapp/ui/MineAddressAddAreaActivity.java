@@ -56,7 +56,7 @@ public class MineAddressAddAreaActivity extends BaseActivity implements View.OnC
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("新增收获地址");
+        title.setText("新增收货地址");
 
         adapter = new ItemAreaAdapter(provinces, MineAddressAddAreaActivity.this);
         lstv = (ListView) this.findViewById(R.id.lstv);

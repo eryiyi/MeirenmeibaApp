@@ -718,7 +718,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
         if(managerInfo != null){
             dp_title.setText(managerInfo.getCompany_name()==null?"":managerInfo.getCompany_name());
 
-            int start_company = Integer.parseInt(managerInfo.getCompany_star()==null?"0":managerInfo.getCompany_star());
+            Double start_company = Double.valueOf(managerInfo.getCompany_star() == null ? "0" : managerInfo.getCompany_star());
             if(start_company >=0 && start_company<0.5){
                 dp_star.setImageDrawable(this.getResources().getDrawable(R.drawable.start_half));
             }

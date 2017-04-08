@@ -199,7 +199,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
                 //取消
                 TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-                btn_cancel.setVisibility(View.GONE);
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -215,7 +214,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 recordLogin.setDateline(DateUtil.getDate());
                 DBHelper.getInstance(MainActivity.this).addRecordLogin(recordLogin);
             }
-
         }
     }
 
@@ -522,8 +520,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                                     //是定向卡会员
                                     //无偿消费
                                     String emp_id = url.substring(url.indexOf("=")).replace("=", "");
-                                    //插入一个订单-定向卡订单
-                                    saveDxkOrder(emp_id);
+                                    showPayDialog(emp_id);
                                 }else {
                                     //不是定向卡会员
                                     showMsg(MainActivity.this, "您不是定向卡会员，不能扫描！");
@@ -536,6 +533,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
         }
+    }
+
+
+    private void showPayDialog(final String emp_id) {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.dialog_pay_wuchang, null);
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //插入一个订单-定向卡订单
+                saveDxkOrder(emp_id);
+                picAddDialog.dismiss();
+            }
+        });
+        //取消
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     //收藏店铺
@@ -706,6 +728,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         };
         getRequestQueue().add(request);
     }
+
     String getV(){
         try {
             PackageManager manager = this.getPackageManager();

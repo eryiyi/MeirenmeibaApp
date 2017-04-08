@@ -11,10 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -180,7 +177,7 @@ public class SetProfileActivity extends BaseActivity implements View.OnClickList
                 picAddDialog.dismiss();
             }
         });
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        Button btn_cancel = (Button) picAddInflate.findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

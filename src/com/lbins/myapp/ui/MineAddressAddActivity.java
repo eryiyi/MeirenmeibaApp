@@ -55,7 +55,7 @@ public class MineAddressAddActivity extends BaseActivity implements View.OnClick
         this.findViewById(R.id.back).setOnClickListener(this);
         this.findViewById(R.id.right_btn).setVisibility(View.GONE);
         title = (TextView) this.findViewById(R.id.title);
-        title.setText("新增收获地址");
+        title.setText("新增收货地址");
 
         add_nickname =  (EditText) this.findViewById(R.id.add_nickname);
         add_tel =  (EditText) this.findViewById(R.id.add_tel);

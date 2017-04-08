@@ -120,6 +120,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/button_red_delete.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_info_bubble.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_progress_bar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/em_seabar_input.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/et_bule_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/et_bule_radio_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/home_item_shadow.png" charset="UTF-8" />
@@ -289,6 +290,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/delete_pop_view.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/detail_order_activity.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/dialog_new_version.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/dialog_pay_wuchang.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/foot.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/gallery_url.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/grid_image_item.xml" charset="UTF-8" />
