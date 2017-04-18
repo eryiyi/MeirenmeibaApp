@@ -1,6 +1,7 @@
 package com.lbins.myapp.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Paint;
@@ -286,7 +287,7 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 //                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
 //                        return;
 //                    }
-                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接联系商家购买！");
+                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接点击购买！");
                     return;
                 }
                 //先查询是否已经存在该商品了
@@ -348,7 +349,16 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 //                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，无法购买该商品，请联系客服！");
 //                        return;
 //                    }
-                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接联系商家购买！");
+//                    showMsg(DetailPaopaoGoodsActivity.this, "定向卡商品请直接联系商家购买！");
+                    if("1".equals(getGson().fromJson(getSp().getString("is_card_emp", ""), String.class))){
+                        //是定向卡会员
+                        //无偿消费
+                        String emp_id = paopaoGoods.getEmpId();
+                        showPayDialog(emp_id);
+                    }else {
+                        //不是定向卡会员
+                        showMsg(DetailPaopaoGoodsActivity.this, "您不是定向卡会员，不能购买！");
+                    }
                     return;
                 }
                 //订单
@@ -448,6 +458,92 @@ public class DetailPaopaoGoodsActivity extends BaseActivity implements MenuPopMe
 
         }
     }
+
+    private void showPayDialog(final String emp_id) {
+        final Dialog picAddDialog = new Dialog(DetailPaopaoGoodsActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.dialog_pay_wuchang, null);
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //插入一个订单-定向卡订单
+                saveDxkOrder(emp_id);
+                picAddDialog.dismiss();
+            }
+        });
+        //取消
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
+    //保存订单 定向卡的
+    void saveDxkOrder(final String emp_id){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SAVE_DXK_ORDER_URN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    showMsg(DetailPaopaoGoodsActivity.this, "订单已生成，等待管理员审核！");
+                                }else if(Integer.parseInt(code1) == 2){
+                                    showMsg(DetailPaopaoGoodsActivity.this, "登录状态已过期，请重新登录！");
+                                } else if(Integer.parseInt(code1) == 3){
+                                    showMsg(DetailPaopaoGoodsActivity.this, "卖家店铺不存在，请确认后重试！");
+                                } else if(Integer.parseInt(code1) == 4){
+                                    showMsg(DetailPaopaoGoodsActivity.this, "今天已经下过订单了，换一家试试吧！");
+                                } else if(Integer.parseInt(code1) == 5){
+                                    showMsg(DetailPaopaoGoodsActivity.this, "今天已经下过订单了，换个店铺分类试试吧！");
+                                }else{
+                                    Toast.makeText(DetailPaopaoGoodsActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(DetailPaopaoGoodsActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DetailPaopaoGoodsActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emp_id", getGson().fromJson(getSp().getString("empId", ""), String.class));//这个是买家的
+                params.put("seller_emp_id", emp_id);//这个是卖家的
+                params.put("payable_amount","0");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 
     private TelPopWindow telPopWindow;
 

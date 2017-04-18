@@ -76,7 +76,9 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                     if (TextUtils.equals(resultStatus, "9000")) {
 //                        Toast.makeText(OrderMakeActivity.this, "支付成功",
 //                                Toast.LENGTH_SHORT).show();
-                        updateMineOrder();
+//                        updateMineOrder();
+                        Toast.makeText(DxkOrderActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -716,10 +718,6 @@ public class DxkOrderActivity extends BaseActivity implements View.OnClickListen
                             SuccessData data = getGson().fromJson(s, SuccessData.class);
                             if (data.getCode() == 200) {
                                 Toast.makeText(DxkOrderActivity.this, R.string.order_success, Toast.LENGTH_SHORT).show();
-                                //跳转到订单列表
-//                                Intent orderView =  new Intent(DxkOrderActivity.this, MineOrdersActivity.class);
-//                                orderView.putExtra("status", "");
-//                                startActivity(orderView);
                                 finish();
                             } else {
                                 Toast.makeText(DxkOrderActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();

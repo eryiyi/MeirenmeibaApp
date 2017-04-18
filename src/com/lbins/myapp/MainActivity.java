@@ -632,6 +632,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                                     showMsg(MainActivity.this, "卖家店铺不存在，请确认后重试！");
                                 } else if(Integer.parseInt(code1) == 4){
                                     showMsg(MainActivity.this, "今天已经下过订单了，换一家试试吧！");
+                                }else if(Integer.parseInt(code1) == 5){
+                                    showMsg(MainActivity.this, "今天已经下过订单了，换个店铺分类试试吧！");
                                 }else{
                                     Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
                                 }
