@@ -634,6 +634,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                                     showMsg(MainActivity.this, "今天已经下过订单了，换一家试试吧！");
                                 }else if(Integer.parseInt(code1) == 5){
                                     showMsg(MainActivity.this, "今天已经下过订单了，换个店铺分类试试吧！");
+                                }else if(Integer.parseInt(code1) == 6){
+                                    showMsg(MainActivity.this, "消费会员不是定向卡会员！");
+                                }else if(Integer.parseInt(code1) == 7){
+                                    showMsg(MainActivity.this, "超出店铺扫码总次数的限制，扫码失败！");
+                                }else if(Integer.parseInt(code1) == 8){
+                                    showMsg(MainActivity.this, "您在店铺的消费次数超出限制，扫码失败！");
                                 }else{
                                     Toast.makeText(MainActivity.this, "订单生成失败，请稍后重试！", Toast.LENGTH_SHORT).show();
                                 }
